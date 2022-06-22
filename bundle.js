@@ -1631,10 +1631,6 @@ function joinAdjacentLists(options, editor) {
         nextSiblingNodePath = _slate.Path.next(nodePath);
         var nextSiblingNode = _slate.Node.get(editor, nextSiblingNodePath);
 
-        console.log('nextSiblingNode', nextSiblingNode);
-        console.log('isList(options)(nextSiblingNode)', (0, _utils.isList)(options)(nextSiblingNode));
-        console.log('options.canMerge(node, nextSiblingNode)', options.canMerge(node, nextSiblingNode));
-
         if ((0, _utils.isList)(options)(nextSiblingNode) && options.canMerge && options.canMerge(node, nextSiblingNode)) {
           var _targetNodeLastChildIndex = nextSiblingNode.children.length - 1;
 
