@@ -29,164 +29,162 @@ var _value2 = _interopRequireDefault(_value);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Example = function Example() {
-    var _EditListPlugin = (0, _lib.EditListPlugin)(),
-        _EditListPlugin2 = _slicedToArray(_EditListPlugin, 3),
-        withEditList = _EditListPlugin2[0],
-        onKeyDown = _EditListPlugin2[1],
-        _EditListPlugin2$ = _EditListPlugin2[2],
-        Editor = _EditListPlugin2$.Editor,
-        Transforms = _EditListPlugin2$.Transforms;
+  var _EditListPlugin = (0, _lib.EditListPlugin)(),
+      _EditListPlugin2 = _slicedToArray(_EditListPlugin, 3),
+      withEditList = _EditListPlugin2[0],
+      onKeyDown = _EditListPlugin2[1],
+      _EditListPlugin2$ = _EditListPlugin2[2],
+      Editor = _EditListPlugin2$.Editor,
+      Transforms = _EditListPlugin2$.Transforms;
 
-    var editor = (0, _react.useMemo)(function () {
-        return withEditList((0, _slateHistory.withHistory)((0, _slateReact.withReact)((0, _slate.createEditor)())));
-    }, []);
-    var renderElement = (0, _react.useCallback)(function (_ref) {
-        var attributes = _ref.attributes,
-            children = _ref.children,
-            element = _ref.element;
+  var editor = (0, _react.useMemo)(function () {
+    return withEditList((0, _slateHistory.withHistory)((0, _slateReact.withReact)((0, _slate.createEditor)())));
+  }, []);
+  var renderElement = (0, _react.useCallback)(function (_ref) {
+    var attributes = _ref.attributes,
+        children = _ref.children,
+        element = _ref.element;
 
-        switch (element.type) {
-            case 'ul_list':
-                return _react2.default.createElement(
-                    'ul',
-                    attributes,
-                    children
-                );
-            case 'ol_list':
-                return _react2.default.createElement(
-                    'ol',
-                    attributes,
-                    children
-                );
-
-            case 'list_item':
-                return _react2.default.createElement(
-                    'li',
-                    attributes,
-                    children
-                );
-
-            case 'heading':
-                return _react2.default.createElement(
-                    'h1',
-                    attributes,
-                    children
-                );
-            case 'paragraph':
-            default:
-                return _react2.default.createElement(
-                    'p',
-                    attributes,
-                    children
-                );
-        }
-    });
-    // TODO: it needs to rerender when selection changes
-    var renderToolbar = (0, _react.useCallback)(function () {
-        var inList = Editor.isSelectionInList(editor);
-
+    switch (element.type) {
+      case 'ul_list':
         return _react2.default.createElement(
-            'div',
-            null,
-            _react2.default.createElement(
-                'button',
-                {
-                    className: inList ? 'active' : '',
-                    onClick: function onClick() {
-                        return inList ? Transforms.unwrapList(editor) : Transforms.wrapInList(editor);
-                    }
-                },
-                _react2.default.createElement('i', { className: 'fa fa-list-ul fa-lg' })
-            ),
-            _react2.default.createElement(
-                'button',
-                {
-                    className: inList ? '' : 'disabled',
-                    onClick: function onClick() {
-                        return Transforms.decreaseItemDepth(editor);
-                    }
-                },
-                _react2.default.createElement('i', { className: 'fa fa-outdent fa-lg' })
-            ),
-            _react2.default.createElement(
-                'button',
-                {
-                    className: inList ? '' : 'disabled',
-                    onClick: function onClick() {
-                        return Transforms.increaseItemDepth(editor);
-                    }
-                },
-                _react2.default.createElement('i', { className: 'fa fa-indent fa-lg' })
-            ),
-            _react2.default.createElement(
-                'span',
-                { className: 'sep' },
-                '\xB7'
-            ),
-            _react2.default.createElement(
-                'button',
-                { onClick: function onClick() {
-                        return Transforms.wrapInList(editor);
-                    } },
-                'Wrap in list'
-            ),
-            _react2.default.createElement(
-                'button',
-                { onClick: function onClick() {
-                        return Transforms.unwrapList(editor);
-                    } },
-                'Unwrap from list'
-            ),
-            _react2.default.createElement(
-                'button',
-                {
-                    onClick: function onClick() {
-                        return Transforms.toggleList(editor, 'ol_list');
-                    }
-                },
-                'Toggle ordered list'
-            ),
-            _react2.default.createElement(
-                'button',
-                { onClick: function onClick() {
-                        return Transforms.toggleList(editor);
-                    } },
-                'Toggle unordered list'
-            ),
-            _react2.default.createElement(
-                'button',
-                {
-                    onClick: function onClick() {
-                        console.log(JSON.stringify(editor.selection, null, 2));
-                        console.log(JSON.stringify(Editor.getItemsAtRange(editor), null, 2));
-                    }
-                },
-                'Dump selection'
-            )
+          'ul',
+          attributes,
+          children
         );
-    });
+      case 'ol_list':
+        return _react2.default.createElement(
+          'ol',
+          attributes,
+          children
+        );
 
-    var _useState = (0, _react.useState)(_value2.default),
-        _useState2 = _slicedToArray(_useState, 2),
-        value = _useState2[0],
-        setValue = _useState2[1];
+      case 'list_item':
+        return _react2.default.createElement(
+          'li',
+          attributes,
+          children
+        );
+
+      case 'heading':
+        return _react2.default.createElement(
+          'h1',
+          attributes,
+          children
+        );
+      case 'paragraph':
+      default:
+        return _react2.default.createElement(
+          'p',
+          attributes,
+          children
+        );
+    }
+  });
+  // TODO: it needs to rerender when selection changes
+  var renderToolbar = (0, _react.useCallback)(function () {
+    var inList = Editor.isSelectionInList(editor);
 
     return _react2.default.createElement(
-        _slateReact.Slate,
+      'div',
+      null,
+      _react2.default.createElement(
+        'button',
         {
-            editor: editor,
-            value: value,
-            onChange: function onChange(newValue) {
-                return setValue(newValue);
-            }
+          className: inList ? 'active' : '',
+          onClick: function onClick() {
+            return inList ? Transforms.unwrapList(editor) : Transforms.wrapInList(editor);
+          }
         },
-        renderToolbar(),
-        _react2.default.createElement(_slateReact.Editable, {
-            placeholder: 'Enter some text....',
-            onKeyDown: onKeyDown(editor),
-            renderElement: renderElement
-        })
+        _react2.default.createElement('i', { className: 'fa fa-list-ul fa-lg' })
+      ),
+      _react2.default.createElement(
+        'button',
+        {
+          className: inList ? '' : 'disabled',
+          onClick: function onClick() {
+            return Transforms.decreaseItemDepth(editor);
+          }
+        },
+        _react2.default.createElement('i', { className: 'fa fa-outdent fa-lg' })
+      ),
+      _react2.default.createElement(
+        'button',
+        {
+          className: inList ? '' : 'disabled',
+          onClick: function onClick() {
+            return Transforms.increaseItemDepth(editor);
+          }
+        },
+        _react2.default.createElement('i', { className: 'fa fa-indent fa-lg' })
+      ),
+      _react2.default.createElement(
+        'span',
+        { className: 'sep' },
+        '\xB7'
+      ),
+      _react2.default.createElement(
+        'button',
+        { onClick: function onClick() {
+            return Transforms.wrapInList(editor);
+          } },
+        'Wrap in list'
+      ),
+      _react2.default.createElement(
+        'button',
+        { onClick: function onClick() {
+            return Transforms.unwrapList(editor);
+          } },
+        'Unwrap from list'
+      ),
+      _react2.default.createElement(
+        'button',
+        { onClick: function onClick() {
+            return Transforms.toggleList(editor, 'ol_list');
+          } },
+        'Toggle ordered list'
+      ),
+      _react2.default.createElement(
+        'button',
+        { onClick: function onClick() {
+            return Transforms.toggleList(editor);
+          } },
+        'Toggle unordered list'
+      ),
+      _react2.default.createElement(
+        'button',
+        {
+          onClick: function onClick() {
+            console.log(JSON.stringify(editor.selection, null, 2));
+            console.log(JSON.stringify(Editor.getItemsAtRange(editor), null, 2));
+          }
+        },
+        'Dump selection'
+      )
     );
+  });
+
+  var _useState = (0, _react.useState)(_value2.default),
+      _useState2 = _slicedToArray(_useState, 2),
+      value = _useState2[0],
+      setValue = _useState2[1];
+
+  return _react2.default.createElement(
+    _slateReact.Slate,
+    {
+      editor: editor,
+      value: value,
+      onChange: function onChange(newValue) {
+        return setValue(newValue);
+      }
+    },
+    renderToolbar(),
+    _react2.default.createElement(_slateReact.Editable, {
+      placeholder: 'Enter some text....',
+      onKeyDown: onKeyDown(editor),
+      renderElement: renderElement
+    })
+  );
 };
 
 _reactDom2.default.render(_react2.default.createElement(Example, null), document.getElementById('example'));
@@ -195,174 +193,174 @@ _reactDom2.default.render(_react2.default.createElement(Example, null), document
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _slateHyperscript = require('slate-hyperscript');
 
 var h = (0, _slateHyperscript.createHyperscript)({
-    elements: {
-        heading: {
-            type: 'heading'
-        },
-        paragraph: {
-            type: 'paragraph'
-        },
-        ul_list: {
-            type: 'ul_list'
-        },
-        ol_list: {
-            type: 'ol_list'
-        },
-        list_item: {
-            type: 'list_item'
-        }
+  elements: {
+    heading: {
+      type: 'heading'
+    },
+    paragraph: {
+      type: 'paragraph'
+    },
+    ul_list: {
+      type: 'ul_list'
+    },
+    ol_list: {
+      type: 'ol_list'
+    },
+    list_item: {
+      type: 'list_item'
     }
+  }
 }); /** @jsx h */
 // eslint-disable-next-line import/no-extraneous-dependencies
 exports.default = h(
-    'fragment',
+  'fragment',
+  null,
+  h(
+    'ul_list',
     null,
     h(
+      'list_item',
+      null,
+      h(
+        'paragraph',
+        null,
+        '9 Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+      )
+    ),
+    h(
+      'list_item',
+      null,
+      h(
+        'paragraph',
+        null,
+        '10 Nulla a risus mauris.'
+      ),
+      h(
         'ul_list',
         null,
         h(
-            'list_item',
+          'list_item',
+          null,
+          h(
+            'paragraph',
             null,
-            h(
-                'paragraph',
-                null,
-                '9 Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-            )
+            '4 Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+          )
         ),
         h(
-            'list_item',
+          'list_item',
+          null,
+          h(
+            'paragraph',
+            null,
+            '5 Nulla a risus mauris.'
+          ),
+          h(
+            'ul_list',
             null,
             h(
+              'list_item',
+              null,
+              h(
                 'paragraph',
                 null,
-                '10 Nulla a risus mauris.'
+                '1 Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+              )
             ),
             h(
-                'ul_list',
-                null,
-                h(
-                    'list_item',
-                    null,
-                    h(
-                        'paragraph',
-                        null,
-                        '4 Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-                    )
-                ),
-                h(
-                    'list_item',
-                    null,
-                    h(
-                        'paragraph',
-                        null,
-                        '5 Nulla a risus mauris.'
-                    ),
-                    h(
-                        'ul_list',
-                        null,
-                        h(
-                            'list_item',
-                            null,
-                            h(
-                                'paragraph',
-                                null,
-                                '1 Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-                            )
-                        ),
-                        h(
-                            'list_item',
-                            null,
-                            h(
-                                'paragraph',
-                                null,
-                                '2 Nulla a risus mauris.'
-                            )
-                        ),
-                        h(
-                            'list_item',
-                            null,
-                            h(
-                                'paragraph',
-                                null,
-                                '3 Vestibulum ut felis ut augue maximus varius a sit amet ex.'
-                            )
-                        )
-                    )
-                ),
-                h(
-                    'list_item',
-                    null,
-                    h(
-                        'paragraph',
-                        null,
-                        '6 Vestibulum ut felis ut augue maximus varius a sit amet ex.'
-                    )
-                )
-            )
-        ),
-        h(
-            'list_item',
-            null,
-            h(
+              'list_item',
+              null,
+              h(
                 'paragraph',
                 null,
-                '11 Vestibulum ut felis ut augue maximus varius a sit amet ex.'
-            )
-        ),
-        h(
-            'list_item',
-            null,
-            h(
-                'paragraph',
-                null,
-                '12 Vestibulum elementum augue et ipsum aliquam, ut dignissim erat lacinia.Maecenas tempor blandit elit, vel mattis nulla.'
+                '2 Nulla a risus mauris.'
+              )
             ),
             h(
-                'ol_list',
-                null,
-                h(
-                    'list_item',
-                    null,
-                    h(
-                        'paragraph',
-                        null,
-                        '7 Phasellus lectus mauris, lacinia at eros quis, viverra vestibulum augue.'
-                    )
-                ),
-                h(
-                    'list_item',
-                    null,
-                    h(
-                        'paragraph',
-                        null,
-                        '8 Donec nec justo eu risus aliquet ullamcorper sit amet sodales tellus.'
-                    )
-                )
-            )
-        ),
-        h(
-            'list_item',
-            null,
-            h(
+              'list_item',
+              null,
+              h(
                 'paragraph',
                 null,
-                '13 Donec nec justo eu risus aliquet ullamcorper sit amet sodales tellus.'
+                '3 Vestibulum ut felis ut augue maximus varius a sit amet ex.'
+              )
             )
+          )
+        ),
+        h(
+          'list_item',
+          null,
+          h(
+            'paragraph',
+            null,
+            '6 Vestibulum ut felis ut augue maximus varius a sit amet ex.'
+          )
         )
+      )
+    ),
+    h(
+      'list_item',
+      null,
+      h(
+        'paragraph',
+        null,
+        '11 Vestibulum ut felis ut augue maximus varius a sit amet ex.'
+      )
+    ),
+    h(
+      'list_item',
+      null,
+      h(
+        'paragraph',
+        null,
+        '12 Vestibulum elementum augue et ipsum aliquam, ut dignissim erat lacinia.Maecenas tempor blandit elit, vel mattis nulla.'
+      ),
+      h(
+        'ol_list',
+        null,
+        h(
+          'list_item',
+          null,
+          h(
+            'paragraph',
+            null,
+            '7 Phasellus lectus mauris, lacinia at eros quis, viverra vestibulum augue.'
+          )
+        ),
+        h(
+          'list_item',
+          null,
+          h(
+            'paragraph',
+            null,
+            '8 Donec nec justo eu risus aliquet ullamcorper sit amet sodales tellus.'
+          )
+        )
+      )
+    ),
+    h(
+      'list_item',
+      null,
+      h(
+        'paragraph',
+        null,
+        '13 Donec nec justo eu risus aliquet ullamcorper sit amet sodales tellus.'
+      )
     )
+  )
 );
 
 },{"slate-hyperscript":59}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.decreaseItemDepth = undefined;
 
@@ -383,90 +381,90 @@ var _utils = require('../utils');
  * No-op for root items.
  */
 var decreaseItemDepth = exports.decreaseItemDepth = function decreaseItemDepth(options) {
-    return function (editor, path) {
-        if ((0, _utils.getItemDepth)(options)(editor, path) === 1) {
-            return;
-        }
+  return function (editor, path) {
+    if ((0, _utils.getItemDepth)(options)(editor, path) === 1) {
+      return;
+    }
 
-        var currentItemTuple = (0, _utils.getCurrentItem)(options)(editor, path);
+    var currentItemTuple = (0, _utils.getCurrentItem)(options)(editor, path);
 
-        if (!currentItemTuple) {
-            return;
-        }
+    if (!currentItemTuple) {
+      return;
+    }
 
-        var _currentItemTuple = _slicedToArray(currentItemTuple, 2),
-            currentItem = _currentItemTuple[0],
-            currentItemPath = _currentItemTuple[1];
+    var _currentItemTuple = _slicedToArray(currentItemTuple, 2),
+        currentItem = _currentItemTuple[0],
+        currentItemPath = _currentItemTuple[1];
 
-        var _Editor$parent = _slate.Editor.parent(editor, currentItemPath),
-            _Editor$parent2 = _slicedToArray(_Editor$parent, 2),
-            currentList = _Editor$parent2[0],
-            currentListPath = _Editor$parent2[1];
+    var _Editor$parent = _slate.Editor.parent(editor, currentItemPath),
+        _Editor$parent2 = _slicedToArray(_Editor$parent, 2),
+        currentList = _Editor$parent2[0],
+        currentListPath = _Editor$parent2[1];
 
-        var parentItemPath = _slate.Path.parent(currentListPath);
-        var parentListPath = _slate.Path.parent(parentItemPath);
-        var followingItems = currentList.children.slice(_slate.Path.relative(currentItemPath, currentListPath)[0] + 1);
+    var parentItemPath = _slate.Path.parent(currentListPath);
+    var parentListPath = _slate.Path.parent(parentItemPath);
+    var followingItems = currentList.children.slice(_slate.Path.relative(currentItemPath, currentListPath)[0] + 1);
 
-        var currentListPathRef = _slate.Editor.pathRef(editor, currentListPath);
+    var currentListPathRef = _slate.Editor.pathRef(editor, currentListPath);
 
-        _slate.Editor.withoutNormalizing(editor, function () {
-            if (followingItems.length > 0) {
-                var newList = _extends({
-                    type: currentList.type
-                }, currentList.data && { data: currentList.data }, {
-                    children: followingItems
-                });
-
-                _slate.Transforms.removeNodes(editor, {
-                    at: currentListPath,
-                    match: function match(n) {
-                        return followingItems.includes(n);
-                    }
-                });
-
-                _slate.Transforms.insertNodes(editor, newList, {
-                    at: currentItemPath.concat([currentItem.children.length])
-                });
-
-                _slate.Transforms.moveNodes(editor, {
-                    at: currentItemPath,
-                    to: parentListPath.concat([_slate.Path.relative(parentItemPath, parentListPath)[0] + 1])
-                });
-            } else {
-                _slate.Transforms.moveNodes(editor, {
-                    at: currentItemPath,
-                    to: parentListPath.concat([_slate.Path.relative(parentItemPath, parentListPath)[0] + 1])
-                });
-            }
-
-            var hasCurrentListChildren = _slate.Editor.node(editor, currentListPathRef.current)[0].children.length > 0;
-
-            if (!hasCurrentListChildren) {
-                _slate.Transforms.removeNodes(editor, {
-                    at: currentListPathRef.current
-                });
-            }
-
-            var hasParentItemBlocks = _slate.Editor.node(editor, parentItemPath)[0].children.some(function (node) {
-                return _slate.Editor.isBlock(editor, node);
-            });
-
-            if (!hasParentItemBlocks) {
-                _slate.Transforms.removeNodes(editor, {
-                    at: parentItemPath
-                });
-            }
+    _slate.Editor.withoutNormalizing(editor, function () {
+      if (followingItems.length > 0) {
+        var newList = _extends({
+          type: currentList.type
+        }, currentList.data && { data: currentList.data }, {
+          children: followingItems
         });
 
-        currentListPathRef.unref();
-    };
+        _slate.Transforms.removeNodes(editor, {
+          at: currentListPath,
+          match: function match(n) {
+            return followingItems.includes(n);
+          }
+        });
+
+        _slate.Transforms.insertNodes(editor, newList, {
+          at: currentItemPath.concat([currentItem.children.length])
+        });
+
+        _slate.Transforms.moveNodes(editor, {
+          at: currentItemPath,
+          to: parentListPath.concat([_slate.Path.relative(parentItemPath, parentListPath)[0] + 1])
+        });
+      } else {
+        _slate.Transforms.moveNodes(editor, {
+          at: currentItemPath,
+          to: parentListPath.concat([_slate.Path.relative(parentItemPath, parentListPath)[0] + 1])
+        });
+      }
+
+      var hasCurrentListChildren = _slate.Editor.node(editor, currentListPathRef.current)[0].children.length > 0;
+
+      if (!hasCurrentListChildren) {
+        _slate.Transforms.removeNodes(editor, {
+          at: currentListPathRef.current
+        });
+      }
+
+      var hasParentItemBlocks = _slate.Editor.node(editor, parentItemPath)[0].children.some(function (node) {
+        return _slate.Editor.isBlock(editor, node);
+      });
+
+      if (!hasParentItemBlocks) {
+        _slate.Transforms.removeNodes(editor, {
+          at: parentItemPath
+        });
+      }
+    });
+
+    currentListPathRef.unref();
+  };
 };
 
 },{"..":14,"../utils":29,"slate":61}],4:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.increaseItemDepth = undefined;
 
@@ -485,58 +483,58 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
  * creating a sublist if needed.
  */
 var moveAsSubItem = function moveAsSubItem(options) {
-    return function (editor, movedItemEntry, destinationEntry) {
-        var _movedItemEntry = _slicedToArray(movedItemEntry, 2),
-            movedItemElement = _movedItemEntry[0],
-            movedItemElementPath = _movedItemEntry[1];
+  return function (editor, movedItemEntry, destinationEntry) {
+    var _movedItemEntry = _slicedToArray(movedItemEntry, 2),
+        movedItemElement = _movedItemEntry[0],
+        movedItemElementPath = _movedItemEntry[1];
 
-        var _destinationEntry = _slicedToArray(destinationEntry, 2),
-            destinationElement = _destinationEntry[0],
-            destinationElementPath = _destinationEntry[1];
+    var _destinationEntry = _slicedToArray(destinationEntry, 2),
+        destinationElement = _destinationEntry[0],
+        destinationElementPath = _destinationEntry[1];
 
-        var lastIndex = destinationElement.children.length;
-        var lastChildIndex = destinationElement.children.length - 1;
-        var lastChild = destinationElement.children[lastIndex - 1];
+    var lastIndex = destinationElement.children.length;
+    var lastChildIndex = destinationElement.children.length - 1;
+    var lastChild = destinationElement.children[lastIndex - 1];
 
-        // The potential existing last child list
-        var existingList = (0, _utils.isList)(options)(lastChild) ? lastChild : null;
-        if (existingList) {
-            _slate.Transforms.moveNodes(editor, {
-                at: movedItemElementPath,
-                // At the destination, the last Element is a List
-                // we want to add the current Item
-                // as the new last Item of that List
-                to: [].concat(_toConsumableArray(destinationElementPath), [lastChildIndex, lastChild.children.length])
-            });
+    // The potential existing last child list
+    var existingList = (0, _utils.isList)(options)(lastChild) ? lastChild : null;
+    if (existingList) {
+      _slate.Transforms.moveNodes(editor, {
+        at: movedItemElementPath,
+        // At the destination, the last Element is a List
+        // we want to add the current Item
+        // as the new last Item of that List
+        to: [].concat(_toConsumableArray(destinationElementPath), [lastChildIndex, lastChild.children.length])
+      });
 
-            return;
-        }
+      return;
+    }
 
-        var _getListForItem = (0, _utils.getListForItem)(options)(editor, destinationElementPath),
-            _getListForItem2 = _slicedToArray(_getListForItem, 1),
-            currentList = _getListForItem2[0];
+    var _getListForItem = (0, _utils.getListForItem)(options)(editor, destinationElementPath),
+        _getListForItem2 = _slicedToArray(_getListForItem, 1),
+        currentList = _getListForItem2[0];
 
-        if (!currentList) {
-            throw new Error('Destination is not in a list');
-        }
+    if (!currentList) {
+      throw new Error('Destination is not in a list');
+    }
 
-        var newSublist = {
-            type: currentList.type,
-            children: [movedItemElement]
-        };
-
-        _slate.Editor.withoutNormalizing(editor, function () {
-            // Insert new sublist after the position
-            // of the last child of the destination node
-            _slate.Transforms.insertNodes(editor, newSublist, {
-                at: [].concat(_toConsumableArray(destinationElementPath), [lastChildIndex + 1])
-            });
-
-            _slate.Transforms.removeNodes(editor, {
-                at: movedItemElementPath
-            });
-        });
+    var newSublist = {
+      type: currentList.type,
+      children: [movedItemElement]
     };
+
+    _slate.Editor.withoutNormalizing(editor, function () {
+      // Insert new sublist after the position
+      // of the last child of the destination node
+      _slate.Transforms.insertNodes(editor, newSublist, {
+        at: [].concat(_toConsumableArray(destinationElementPath), [lastChildIndex + 1])
+      });
+
+      _slate.Transforms.removeNodes(editor, {
+        at: movedItemElementPath
+      });
+    });
+  };
 };
 
 /**
@@ -545,39 +543,39 @@ var moveAsSubItem = function moveAsSubItem(options) {
  * For first items in a list, does nothing.
  */
 var increaseItemDepth = exports.increaseItemDepth = function increaseItemDepth(options) {
-    return function (editor) {
-        var previousItem = (0, _utils.getPreviousItem)(options)(editor);
-        var currentItem = (0, _utils.getCurrentItem)(options)(editor);
-        var maxDepth = options.maxDepth * 2;
+  return function (editor) {
+    var previousItem = (0, _utils.getPreviousItem)(options)(editor);
+    var currentItem = (0, _utils.getCurrentItem)(options)(editor);
+    var maxDepth = options.maxDepth * 2;
 
-        if (!previousItem || !currentItem) {
-            return;
-        }
+    if (!previousItem || !currentItem) {
+      return;
+    }
 
-        var _currentItem = _slicedToArray(currentItem, 2),
-            currentItemPath = _currentItem[1];
+    var _currentItem = _slicedToArray(currentItem, 2),
+        currentItemPath = _currentItem[1];
 
-        // Get the depth of the focused list item.
+    // Get the depth of the focused list item.
 
 
-        var currentItemDepth = currentItemPath.length - 1;
+    var currentItemDepth = currentItemPath.length - 1;
 
-        // Make sure the level of the focused item is below the defined maximum.
-        if (currentItemDepth >= maxDepth) {
-            return;
-        }
+    // Make sure the level of the focused item is below the defined maximum.
+    if (currentItemDepth >= maxDepth) {
+      return;
+    }
 
-        // Get the depth of the deepest `li` descendant of the focused item.
-        var deepestItemDepth = (0, _utils.getDeepestItemDepth)(options)(editor, []);
+    // Get the depth of the deepest `li` descendant of the focused item.
+    var deepestItemDepth = (0, _utils.getDeepestItemDepth)(options)(editor, []);
 
-        // This prevents from indenting parents of too deeply nested list items.
-        if (deepestItemDepth >= maxDepth) {
-            return;
-        }
+    // This prevents from indenting parents of too deeply nested list items.
+    if (deepestItemDepth >= maxDepth) {
+      return;
+    }
 
-        // Move the item in the sublist of previous item
-        moveAsSubItem(options)(editor, currentItem, previousItem);
-    };
+    // Move the item in the sublist of previous item
+    moveAsSubItem(options)(editor, currentItem, previousItem);
+  };
 };
 
 },{"..":14,"../utils":29,"slate":61}],5:[function(require,module,exports){
@@ -663,7 +661,7 @@ Object.keys(_toggleList).forEach(function (key) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.splitListItem = undefined;
 
@@ -677,21 +675,21 @@ var _utils = require('../utils');
  * Split a list item at the start of the current range.
  */
 var splitListItem = exports.splitListItem = function splitListItem(options) {
-    return function (editor) {
-        return _slate.Transforms.splitNodes(editor, {
-            match: function match(n) {
-                return (0, _utils.isItem)(options)(n);
-            },
-            always: true
-        });
-    };
+  return function (editor) {
+    return _slate.Transforms.splitNodes(editor, {
+      match: function match(n) {
+        return (0, _utils.isItem)(options)(n);
+      },
+      always: true
+    });
+  };
 };
 
 },{"..":14,"../utils":29,"slate":61}],7:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.toggleList = undefined;
 
@@ -704,128 +702,128 @@ var _ = require('.');
 var _utils = require('../utils');
 
 var allItemsOnSameLevel = function allItemsOnSameLevel(nodeEntries) {
-    if (nodeEntries.length === 0) {
-        return true;
-    }
+  if (nodeEntries.length === 0) {
+    return true;
+  }
 
-    var referenceDepth = nodeEntries[0][1].length;
+  var referenceDepth = nodeEntries[0][1].length;
 
-    return !nodeEntries.some(function (_ref) {
-        var _ref2 = _slicedToArray(_ref, 2),
-            nodeEntryPath = _ref2[1];
+  return !nodeEntries.some(function (_ref) {
+    var _ref2 = _slicedToArray(_ref, 2),
+        nodeEntryPath = _ref2[1];
 
-        return nodeEntryPath.length !== referenceDepth;
-    });
+    return nodeEntryPath.length !== referenceDepth;
+  });
 };
 
 var isListItemAfterTheFirstItem = function isListItemAfterTheFirstItem(listItemPath, closestListItem) {
-    if (closestListItem) {
-        return !_slate.Path.isAncestor(listItemPath, closestListItem[1]);
-    }
+  if (closestListItem) {
+    return !_slate.Path.isAncestor(listItemPath, closestListItem[1]);
+  }
 
-    return true;
+  return true;
 };
 
 var unwrapAllItemsInSelection = function unwrapAllItemsInSelection(options) {
-    return function (editor, listItemsInSelection) {
-        var listItemPathRefs = listItemsInSelection.map(function (_ref3) {
-            var _ref4 = _slicedToArray(_ref3, 2),
-                listItemPath = _ref4[1];
+  return function (editor, listItemsInSelection) {
+    var listItemPathRefs = listItemsInSelection.map(function (_ref3) {
+      var _ref4 = _slicedToArray(_ref3, 2),
+          listItemPath = _ref4[1];
 
-            return _slate.Editor.pathRef(editor, listItemPath);
-        });
+      return _slate.Editor.pathRef(editor, listItemPath);
+    });
 
-        // move items leftmost, start from the end so only one item is affected
-        _slate.Editor.withoutNormalizing(editor, function () {
-            listItemPathRefs.reverse().forEach(function (listItemPathRef) {
-                while ((0, _utils.getItemDepth)(options)(editor, listItemPathRef.current) > 1) {
-                    (0, _.decreaseItemDepth)(options)(editor, listItemPathRef.current);
-                }
-            });
-        });
+    // move items leftmost, start from the end so only one item is affected
+    _slate.Editor.withoutNormalizing(editor, function () {
+      listItemPathRefs.reverse().forEach(function (listItemPathRef) {
+        while ((0, _utils.getItemDepth)(options)(editor, listItemPathRef.current) > 1) {
+          (0, _.decreaseItemDepth)(options)(editor, listItemPathRef.current);
+        }
+      });
+    });
 
-        var listItemsRange = _slate.Editor.range(editor, listItemPathRefs[0].current, listItemPathRefs[listItemPathRefs.length - 1].current);
+    var listItemsRange = _slate.Editor.range(editor, listItemPathRefs[0].current, listItemPathRefs[listItemPathRefs.length - 1].current);
 
-        _slate.Transforms.select(editor, listItemsRange);
-        (0, _.unwrapList)(options)(editor);
+    _slate.Transforms.select(editor, listItemsRange);
+    (0, _.unwrapList)(options)(editor);
 
-        listItemPathRefs.forEach(function (listItemPathRef) {
-            return listItemPathRef.unref();
-        });
-    };
+    listItemPathRefs.forEach(function (listItemPathRef) {
+      return listItemPathRef.unref();
+    });
+  };
 };
 
 /**
  * Toggle list on the selected range.
  */
 var toggleList = exports.toggleList = function toggleList(options) {
-    return function (editor) {
-        for (var _len = arguments.length, newListOptions = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-            newListOptions[_key - 1] = arguments[_key];
-        }
+  return function (editor) {
+    for (var _len = arguments.length, newListOptions = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      newListOptions[_key - 1] = arguments[_key];
+    }
 
-        var range = editor.selection;
+    var range = editor.selection;
 
-        var _Editor$parent = _slate.Editor.parent(editor, _slate.Range.start(range)),
-            _Editor$parent2 = _slicedToArray(_Editor$parent, 2),
-            startElement = _Editor$parent2[0],
-            startElementPath = _Editor$parent2[1];
+    var _Editor$parent = _slate.Editor.parent(editor, _slate.Range.start(range)),
+        _Editor$parent2 = _slicedToArray(_Editor$parent, 2),
+        startElement = _Editor$parent2[0],
+        startElementPath = _Editor$parent2[1];
 
-        var _Editor$parent3 = _slate.Editor.parent(editor, _slate.Range.end(range)),
-            _Editor$parent4 = _slicedToArray(_Editor$parent3, 2),
-            endElement = _Editor$parent4[0],
-            endElementPath = _Editor$parent4[1];
+    var _Editor$parent3 = _slate.Editor.parent(editor, _slate.Range.end(range)),
+        _Editor$parent4 = _slicedToArray(_Editor$parent3, 2),
+        endElement = _Editor$parent4[0],
+        endElementPath = _Editor$parent4[1];
 
-        var singleElementInSelection = startElement === endElement;
-        if (singleElementInSelection) {
-            if ((0, _utils.getTopmostItemsAtRange)(options)(editor).length > 0) {
-                (0, _.unwrapList)(options)(editor);
-            } else {
-                (0, _.wrapInList)(options).apply(undefined, [editor].concat(newListOptions));
-            }
-            return;
-        }
+    var singleElementInSelection = startElement === endElement;
+    if (singleElementInSelection) {
+      if ((0, _utils.getTopmostItemsAtRange)(options)(editor).length > 0) {
+        (0, _.unwrapList)(options)(editor);
+      } else {
+        (0, _.wrapInList)(options).apply(undefined, [editor].concat(newListOptions));
+      }
+      return;
+    }
 
-        var firstImmediateListItemInSelection = _slate.Editor.above(editor, {
-            at: _slate.Range.start(range),
-            match: (0, _utils.isItem)(options)
-        });
-        // filter is necessary since getting all items at range
-        // includes the leftmost item in deeply nested lists
-        // which doesn't actually feel or seem (UX) like it's part of the selection
-        var listItemsInSelection = (0, _utils.getItemsAtRange)(options)(editor).filter(function (_ref5) {
-            var _ref6 = _slicedToArray(_ref5, 2),
-                listItemPath = _ref6[1];
+    var firstImmediateListItemInSelection = _slate.Editor.above(editor, {
+      at: _slate.Range.start(range),
+      match: (0, _utils.isItem)(options)
+    });
+    // filter is necessary since getting all items at range
+    // includes the leftmost item in deeply nested lists
+    // which doesn't actually feel or seem (UX) like it's part of the selection
+    var listItemsInSelection = (0, _utils.getItemsAtRange)(options)(editor).filter(function (_ref5) {
+      var _ref6 = _slicedToArray(_ref5, 2),
+          listItemPath = _ref6[1];
 
-            return isListItemAfterTheFirstItem(listItemPath, firstImmediateListItemInSelection);
-        });
+      return isListItemAfterTheFirstItem(listItemPath, firstImmediateListItemInSelection);
+    });
 
-        var noItemsInSelection = listItemsInSelection.length === 0;
-        if (noItemsInSelection) {
-            (0, _.wrapInList)(options).apply(undefined, [editor].concat(newListOptions));
-            return;
-        }
+    var noItemsInSelection = listItemsInSelection.length === 0;
+    if (noItemsInSelection) {
+      (0, _.wrapInList)(options).apply(undefined, [editor].concat(newListOptions));
+      return;
+    }
 
-        if (allItemsOnSameLevel(listItemsInSelection)) {
-            (0, _.unwrapList)(options)(editor);
-            return;
-        }
+    if (allItemsOnSameLevel(listItemsInSelection)) {
+      (0, _.unwrapList)(options)(editor);
+      return;
+    }
 
-        var ancestorPath = _slate.Path.common(startElementPath, endElementPath);
-        var ancestor = _slate.Node.get(editor, ancestorPath);
-        if (!(0, _utils.isListOrItem)(options)(ancestor)) {
-            (0, _.unwrapList)(options)(editor);
-        }
+    var ancestorPath = _slate.Path.common(startElementPath, endElementPath);
+    var ancestor = _slate.Node.get(editor, ancestorPath);
+    if (!(0, _utils.isListOrItem)(options)(ancestor)) {
+      (0, _.unwrapList)(options)(editor);
+    }
 
-        unwrapAllItemsInSelection(options)(editor, listItemsInSelection);
-    };
+    unwrapAllItemsInSelection(options)(editor, listItemsInSelection);
+  };
 };
 
 },{".":5,"../utils":29,"slate":61}],8:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.unwrapList = undefined;
 
@@ -841,39 +839,39 @@ var _utils = require('../utils');
  * Unwrap items at range from their list.
  */
 var unwrapList = exports.unwrapList = function unwrapList(options) {
-    return function (editor) {
-        var items = (0, _utils.getTopmostItemsAtRange)(options)(editor);
+  return function (editor) {
+    var items = (0, _utils.getTopmostItemsAtRange)(options)(editor);
 
-        if (items.length === 0) {
-            return;
-        }
+    if (items.length === 0) {
+      return;
+    }
 
-        _slate.Editor.withoutNormalizing(editor, function () {
-            var itemPaths = items.map(function (_ref) {
-                var _ref2 = _slicedToArray(_ref, 2),
-                    itemPath = _ref2[1];
+    _slate.Editor.withoutNormalizing(editor, function () {
+      var itemPaths = items.map(function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 2),
+            itemPath = _ref2[1];
 
-                return _slate.Editor.pathRef(editor, itemPath);
-            });
+        return _slate.Editor.pathRef(editor, itemPath);
+      });
 
-            itemPaths.forEach(function (itemPath) {
-                _slate.Transforms.liftNodes(editor, {
-                    at: itemPath.current
-                });
-                _slate.Transforms.unwrapNodes(editor, {
-                    at: itemPath.current
-                });
-                itemPath.unref();
-            });
+      itemPaths.forEach(function (itemPath) {
+        _slate.Transforms.liftNodes(editor, {
+          at: itemPath.current
         });
-    };
+        _slate.Transforms.unwrapNodes(editor, {
+          at: itemPath.current
+        });
+        itemPath.unref();
+      });
+    });
+  };
 };
 
 },{"..":14,"../utils":29,"slate":61}],9:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.wrapInList = undefined;
 
@@ -894,48 +892,48 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
  * TODO: might be redundant with getTopmostItemsAtRange.js
  */
 var getHighestSelectedElements = function getHighestSelectedElements(editor) {
-    var selection = editor.selection;
+  var selection = editor.selection;
 
-    if (!selection) {
-        return [];
-    }
+  if (!selection) {
+    return [];
+  }
 
-    if (_slate.Path.equals(selection.anchor.path, selection.focus.path)) {
-        var ancestor = _slate.Editor.above(editor, {
-            match: function match(n) {
-                return _slate.Editor.isBlock(editor, n);
-            }
-        });
+  if (_slate.Path.equals(selection.anchor.path, selection.focus.path)) {
+    var ancestor = _slate.Editor.above(editor, {
+      match: function match(n) {
+        return _slate.Editor.isBlock(editor, n);
+      }
+    });
 
-        return [ancestor];
-    }
+    return [ancestor];
+  }
 
-    var ancestorPath = _slate.Path.common(selection.anchor.path, selection.focus.path);
+  var ancestorPath = _slate.Path.common(selection.anchor.path, selection.focus.path);
 
-    var startIndex = _slate.Path.relative(selection.anchor.path, ancestorPath)[0];
-    var endIndex = _slate.Path.relative(selection.focus.path, ancestorPath)[0];
+  var startIndex = _slate.Path.relative(selection.anchor.path, ancestorPath)[0];
+  var endIndex = _slate.Path.relative(selection.focus.path, ancestorPath)[0];
 
-    return [].concat(_toConsumableArray(_slate.Node.children(editor, ancestorPath))).slice(startIndex, endIndex + 1);
+  return [].concat(_toConsumableArray(_slate.Node.children(editor, ancestorPath))).slice(startIndex, endIndex + 1);
 };
 
 var convertPathsToRefs = function convertPathsToRefs(editor, nodeEntries) {
-    return nodeEntries.map(function (_ref) {
-        var _ref2 = _slicedToArray(_ref, 2),
-            node = _ref2[0],
-            path = _ref2[1];
+  return nodeEntries.map(function (_ref) {
+    var _ref2 = _slicedToArray(_ref, 2),
+        node = _ref2[0],
+        path = _ref2[1];
 
-        return [node, _slate.Editor.pathRef(editor, path)];
-    });
+    return [node, _slate.Editor.pathRef(editor, path)];
+  });
 };
 
 var cleanupRefs = function cleanupRefs(nodeRefEntries) {
-    return nodeRefEntries.map(function (_ref3) {
-        var _ref4 = _slicedToArray(_ref3, 2),
-            node = _ref4[0],
-            pathRef = _ref4[1];
+  return nodeRefEntries.map(function (_ref3) {
+    var _ref4 = _slicedToArray(_ref3, 2),
+        node = _ref4[0],
+        pathRef = _ref4[1];
 
-        return [node, pathRef.unref()];
-    });
+    return [node, pathRef.unref()];
+  });
 };
 
 /**
@@ -943,44 +941,44 @@ var cleanupRefs = function cleanupRefs(nodeRefEntries) {
  * lists are merged together.
  */
 var wrapInList = exports.wrapInList = function wrapInList(options) {
-    return function (editor, type, data) {
-        type = type || options.types[0];
+  return function (editor, type, data) {
+    type = type || options.types[0];
 
-        _slate.Editor.withoutNormalizing(editor, function () {
-            var selectedElements = convertPathsToRefs(editor, getHighestSelectedElements(editor));
-            var newList = _extends({
-                type: type
-            }, data && { data: data });
+    _slate.Editor.withoutNormalizing(editor, function () {
+      var selectedElements = convertPathsToRefs(editor, getHighestSelectedElements(editor));
+      var newList = _extends({
+        type: type
+      }, data && { data: data });
 
-            _slate.Transforms.wrapNodes(editor, newList, {
-                match: function match(n) {
-                    return _slate.Editor.isBlock(editor, n);
-                }
-            });
+      _slate.Transforms.wrapNodes(editor, newList, {
+        match: function match(n) {
+          return _slate.Editor.isBlock(editor, n);
+        }
+      });
 
-            // Wrap in list items
-            selectedElements.forEach(function (_ref5) {
-                var _ref6 = _slicedToArray(_ref5, 2),
-                    node = _ref6[0],
-                    pathRef = _ref6[1];
+      // Wrap in list items
+      selectedElements.forEach(function (_ref5) {
+        var _ref6 = _slicedToArray(_ref5, 2),
+            node = _ref6[0],
+            pathRef = _ref6[1];
 
-                if ((0, _utils.isList)(options)(node)) {
-                    // Merge its items with the created list
-                    _slate.Transforms.unwrapNodes(editor, {
-                        at: pathRef.current
-                    });
-                } else {
-                    _slate.Transforms.wrapNodes(editor, { type: options.typeItem }, {
-                        at: pathRef.current
-                    });
-                }
+        if ((0, _utils.isList)(options)(node)) {
+          // Merge its items with the created list
+          _slate.Transforms.unwrapNodes(editor, {
+            at: pathRef.current
+          });
+        } else {
+          _slate.Transforms.wrapNodes(editor, { type: options.typeItem }, {
+            at: pathRef.current
+          });
+        }
 
-                pathRef.unref();
-            });
+        pathRef.unref();
+      });
 
-            cleanupRefs(selectedElements);
-        });
-    };
+      cleanupRefs(selectedElements);
+    });
+  };
 };
 
 },{"..":14,"../utils":29,"slate":61}],10:[function(require,module,exports){
@@ -1030,7 +1028,7 @@ Object.keys(_onBackspace).forEach(function (key) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.onBackspace = undefined;
 
@@ -1046,30 +1044,30 @@ var _utils = require('../utils');
  * User pressed Delete in an editor
  */
 var onBackspace = exports.onBackspace = function onBackspace(options, event, editor) {
-    var selection = editor.selection;
+  var selection = editor.selection;
 
-    // skip if selection is not collapsed
+  // skip if selection is not collapsed
 
-    if (!_slate.Range.isCollapsed(selection)) {
-        return;
-    }
+  if (!_slate.Range.isCollapsed(selection)) {
+    return;
+  }
 
-    var currentItem = (0, _utils.getCurrentItem)(options)(editor);
-    // skip if not a list item
-    // or the selection not at the absolute start of the item
-    if (!currentItem || !_slate.Editor.isStart(editor, _slate.Range.start(selection), currentItem[1])) {
-        return;
-    }
+  var currentItem = (0, _utils.getCurrentItem)(options)(editor);
+  // skip if not a list item
+  // or the selection not at the absolute start of the item
+  if (!currentItem || !_slate.Editor.isStart(editor, _slate.Range.start(selection), currentItem[1])) {
+    return;
+  }
 
-    event.preventDefault();
-    (0, _commands.unwrapList)(options)(editor);
+  event.preventDefault();
+  (0, _commands.unwrapList)(options)(editor);
 };
 
 },{"..":14,"../commands":5,"../utils":29,"slate":61}],12:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.onEnter = undefined;
 
@@ -1091,39 +1089,39 @@ var _utils = require('../utils');
  * Shift+Enter in a list item should make a new line
  */
 var onEnter = exports.onEnter = function onEnter(options, event, editor) {
-    var isShiftPressed = event.shiftKey;
-    var currentItem = (0, _utils.getCurrentItem)(options)(editor);
+  var isShiftPressed = event.shiftKey;
+  var currentItem = (0, _utils.getCurrentItem)(options)(editor);
 
-    if (isShiftPressed || !currentItem) {
-        return;
-    }
+  if (isShiftPressed || !currentItem) {
+    return;
+  }
 
-    var _currentItem = _slicedToArray(currentItem, 1),
-        currentItemNode = _currentItem[0];
+  var _currentItem = _slicedToArray(currentItem, 1),
+      currentItemNode = _currentItem[0];
 
-    event.preventDefault();
+  event.preventDefault();
 
-    editor.deleteFragment();
+  editor.deleteFragment();
 
-    if (!_slate.Editor.isVoid(currentItemNode) && _slate.Node.string(currentItemNode) === '') {
-        // Block is empty, we exit the list
-        if ((0, _utils.getItemDepth)(options)(editor) > 1) {
-            (0, _commands.decreaseItemDepth)(options)(editor);
-        } else {
-            // Exit list
-            (0, _commands.unwrapList)(options)(editor);
-        }
+  if (!_slate.Editor.isVoid(currentItemNode) && _slate.Node.string(currentItemNode) === '') {
+    // Block is empty, we exit the list
+    if ((0, _utils.getItemDepth)(options)(editor) > 1) {
+      (0, _commands.decreaseItemDepth)(options)(editor);
     } else {
-        // Split list item
-        (0, _commands.splitListItem)(options)(editor);
+      // Exit list
+      (0, _commands.unwrapList)(options)(editor);
     }
+  } else {
+    // Split list item
+    (0, _commands.splitListItem)(options)(editor);
+  }
 };
 
 },{"..":14,"../commands":5,"../utils":29,"slate":61}],13:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.onTab = undefined;
 
@@ -1141,26 +1139,26 @@ var _utils = require('../utils');
  * Shift+Tab -> Decrease item depth if inside a list item
  */
 var onTab = exports.onTab = function onTab(options, event, editor) {
-    if (_slate.Range.isExpanded(editor.selection) || !(0, _utils.getCurrentItem)(options)(editor)) {
-        return;
-    }
+  if (_slate.Range.isExpanded(editor.selection) || !(0, _utils.getCurrentItem)(options)(editor)) {
+    return;
+  }
 
-    event.preventDefault();
+  event.preventDefault();
 
-    // Shift+tab reduce depth
-    if (event.shiftKey) {
-        (0, _commands.decreaseItemDepth)(options)(editor);
-    } else {
-        // Tab increases depth
-        (0, _commands.increaseItemDepth)(options)(editor);
-    }
+  // Shift+tab reduce depth
+  if (event.shiftKey) {
+    (0, _commands.decreaseItemDepth)(options)(editor);
+  } else {
+    // Tab increases depth
+    (0, _commands.increaseItemDepth)(options)(editor);
+  }
 };
 
 },{"..":14,"../commands":5,"../utils":29,"slate":61}],14:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.EditListPlugin = undefined;
 
@@ -1181,113 +1179,113 @@ var KEY_TAB = 'Tab';
 var KEY_BACKSPACE = 'Backspace';
 
 var applyNormalization = function applyNormalization(options, editor) {
-    var normalizers = [_normalizers.childOfListIsAlwaysItem, _normalizers.itemChildrenAreAlwaysElements, _normalizers.itemsWithoutParentListAreUnwrapped, _normalizers.joinAdjacentLists, _normalizers.unwrapListsOverDepthLimit];
+  var normalizers = [_normalizers.childOfListIsAlwaysItem, _normalizers.itemChildrenAreAlwaysElements, _normalizers.itemsWithoutParentListAreUnwrapped, _normalizers.joinAdjacentLists, _normalizers.unwrapListsOverDepthLimit];
 
-    normalizers.forEach(function (addNormalizer) {
-        addNormalizer(options, editor);
-    });
+  normalizers.forEach(function (addNormalizer) {
+    addNormalizer(options, editor);
+  });
 };
 
 /**
  * User is pressing a key in the editor
  */
 var onKeyDown = function onKeyDown(options, event, editor) {
-    var args = [options, event, editor];
+  var args = [options, event, editor];
 
-    switch (event.key) {
-        case KEY_ENTER:
-            _handlers.onEnter.apply(undefined, args);
-            break;
-        case KEY_TAB:
-            _handlers.onTab.apply(undefined, args);
-            break;
-        case KEY_BACKSPACE:
-            _handlers.onBackspace.apply(undefined, args);
-            break;
-        default:
-            break;
-    }
+  switch (event.key) {
+    case KEY_ENTER:
+      _handlers.onEnter.apply(undefined, args);
+      break;
+    case KEY_TAB:
+      _handlers.onTab.apply(undefined, args);
+      break;
+    case KEY_BACKSPACE:
+      _handlers.onBackspace.apply(undefined, args);
+      break;
+    default:
+      break;
+  }
 };
 
 var getOnKeyDown = function getOnKeyDown(options) {
-    return function (editor) {
-        return function (event) {
-            onKeyDown(options, event, editor);
-        };
+  return function (editor) {
+    return function (event) {
+      onKeyDown(options, event, editor);
     };
+  };
 };
 
 var getTransforms = function getTransforms(options) {
-    return {
-        decreaseItemDepth: (0, _commands.decreaseItemDepth)(options),
-        increaseItemDepth: (0, _commands.increaseItemDepth)(options),
-        splitListItem: (0, _commands.splitListItem)(options),
-        toggleList: (0, _commands.toggleList)(options),
-        unwrapList: (0, _commands.unwrapList)(options),
-        wrapInList: (0, _commands.wrapInList)(options)
-    };
+  return {
+    decreaseItemDepth: (0, _commands.decreaseItemDepth)(options),
+    increaseItemDepth: (0, _commands.increaseItemDepth)(options),
+    splitListItem: (0, _commands.splitListItem)(options),
+    toggleList: (0, _commands.toggleList)(options),
+    unwrapList: (0, _commands.unwrapList)(options),
+    wrapInList: (0, _commands.wrapInList)(options)
+  };
 };
 
 var getEditorUtils = function getEditorUtils(options) {
-    return {
-        getCurrentItem: (0, _utils.getCurrentItem)(options),
-        getCurrentList: (0, _utils.getCurrentList)(options),
-        getDeepestItemDepth: (0, _utils.getDeepestItemDepth)(options),
-        getItemDepth: (0, _utils.getItemDepth)(options),
-        getTopmostItemsAtRange: (0, _utils.getTopmostItemsAtRange)(options),
-        getItemsAtRange: (0, _utils.getItemsAtRange)(options),
-        getListForItem: (0, _utils.getListForItem)(options),
-        getPreviousItem: (0, _utils.getPreviousItem)(options),
-        isSelectionInList: (0, _utils.isSelectionInList)(options)
-    };
+  return {
+    getCurrentItem: (0, _utils.getCurrentItem)(options),
+    getCurrentList: (0, _utils.getCurrentList)(options),
+    getDeepestItemDepth: (0, _utils.getDeepestItemDepth)(options),
+    getItemDepth: (0, _utils.getItemDepth)(options),
+    getTopmostItemsAtRange: (0, _utils.getTopmostItemsAtRange)(options),
+    getItemsAtRange: (0, _utils.getItemsAtRange)(options),
+    getListForItem: (0, _utils.getListForItem)(options),
+    getPreviousItem: (0, _utils.getPreviousItem)(options),
+    isSelectionInList: (0, _utils.isSelectionInList)(options)
+  };
 };
 
 var getElementUtils = function getElementUtils(options) {
-    return {
-        isItem: (0, _utils.isItem)(options),
-        isList: (0, _utils.isList)(options)
-    };
+  return {
+    isItem: (0, _utils.isItem)(options),
+    isList: (0, _utils.isList)(options)
+  };
 };
 
 var withEditList = function withEditList() {
-    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    return function (editor) {
-        applyNormalization(options, editor);
+  var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  return function (editor) {
+    applyNormalization(options, editor);
 
-        return editor;
-    };
+    return editor;
+  };
 };
 
 /**
  * A Slate plugin to handle keyboard events in lists.
  */
 var EditListPlugin = exports.EditListPlugin = function EditListPlugin(customOptions) {
-    var options = _extends({
-        maxDepth: 6,
-        types: ['ul_list', 'ol_list'],
-        typeItem: 'list_item',
-        typeDefault: 'paragraph',
-        canMerge: function canMerge(a, b) {
-            return a.type === b.type;
-        }
-    }, customOptions);
+  var options = _extends({
+    maxDepth: 6,
+    types: ['ul_list', 'ol_list'],
+    typeItem: 'list_item',
+    typeDefault: 'paragraph',
+    canMerge: function canMerge(a, b) {
+      return a.type === b.type;
+    }
+  }, customOptions);
 
-    var EnhancedEditor = _extends({}, _slate.Editor, getEditorUtils(options));
-    var EnhancedElement = _extends({}, _slate.Element, getElementUtils(options));
-    var EnhancedTransforms = _extends({}, _slate.Transforms, getTransforms(options));
+  var EnhancedEditor = _extends({}, _slate.Editor, getEditorUtils(options));
+  var EnhancedElement = _extends({}, _slate.Element, getElementUtils(options));
+  var EnhancedTransforms = _extends({}, _slate.Transforms, getTransforms(options));
 
-    return [withEditList(options), getOnKeyDown(options), {
-        Editor: EnhancedEditor,
-        Element: EnhancedElement,
-        Transforms: EnhancedTransforms
-    }];
+  return [withEditList(options), getOnKeyDown(options), {
+    Editor: EnhancedEditor,
+    Element: EnhancedElement,
+    Transforms: EnhancedTransforms
+  }];
 };
 
 },{"./commands":5,"./handlers":10,"./normalizers":16,"./utils":29,"slate":61}],15:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
@@ -1304,49 +1302,49 @@ require('..');
  * A rule that wraps children of lists with list item
  */
 function childOfListIsAlwaysItem(options, editor) {
-    var normalizeNode = editor.normalizeNode;
+  var normalizeNode = editor.normalizeNode;
 
 
-    editor.normalizeNode = function (entry) {
-        var _entry = _slicedToArray(entry, 2),
-            node = _entry[0],
-            nodePath = _entry[1];
+  editor.normalizeNode = function (entry) {
+    var _entry = _slicedToArray(entry, 2),
+        node = _entry[0],
+        nodePath = _entry[1];
 
-        var parentNodePath = void 0;
+    var parentNodePath = void 0;
 
-        if ((0, _utils.isItem)(options)(node)) {
-            // we don't care for those that are items already
-            normalizeNode(entry);
+    if ((0, _utils.isItem)(options)(node)) {
+      // we don't care for those that are items already
+      normalizeNode(entry);
 
-            return;
-        }
+      return;
+    }
 
-        try {
-            parentNodePath = _slate.Path.parent(nodePath);
-        } catch (e) {
-            // has no parent (ie. [0] node)
-            normalizeNode(entry);
+    try {
+      parentNodePath = _slate.Path.parent(nodePath);
+    } catch (e) {
+      // has no parent (ie. [0] node)
+      normalizeNode(entry);
 
-            return;
-        }
+      return;
+    }
 
-        var parentNode = _slate.Node.get(editor, parentNodePath);
+    var parentNode = _slate.Node.get(editor, parentNodePath);
 
-        if ((0, _utils.isList)(options)(parentNode)) {
-            var wrapperItem = {
-                type: options.typeItem,
-                children: []
-            };
+    if ((0, _utils.isList)(options)(parentNode)) {
+      var wrapperItem = {
+        type: options.typeItem,
+        children: []
+      };
 
-            _slate.Transforms.wrapNodes(editor, wrapperItem, {
-                at: nodePath
-            });
+      _slate.Transforms.wrapNodes(editor, wrapperItem, {
+        at: nodePath
+      });
 
-            return;
-        }
+      return;
+    }
 
-        normalizeNode(entry);
-    };
+    normalizeNode(entry);
+  };
 }
 
 },{"..":14,"../utils":29,"slate":61}],16:[function(require,module,exports){
@@ -1420,7 +1418,7 @@ Object.keys(_unwrapListsOverDepthLimit).forEach(function (key) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -1434,10 +1432,10 @@ var _slate = require('slate');
 var _utils = require('../utils');
 
 var createWrapperNode = function createWrapperNode(wrapperType) {
-    return {
-        type: wrapperType,
-        children: []
-    };
+  return {
+    type: wrapperType,
+    children: []
+  };
 };
 
 /**
@@ -1445,76 +1443,76 @@ var createWrapperNode = function createWrapperNode(wrapperType) {
  * non element nodes under a new wrapper node
  */
 var getNewChildren = function getNewChildren(editor, children, wrapperType) {
-    var newChildren = [];
-    var needsNewWrapper = true;
+  var newChildren = [];
+  var needsNewWrapper = true;
 
-    children.forEach(function (child) {
-        if (_slate.Element.isElement(child) && !editor.isInline(child)) {
-            newChildren.push(child);
-            needsNewWrapper = true;
+  children.forEach(function (child) {
+    if (_slate.Element.isElement(child) && !editor.isInline(child)) {
+      newChildren.push(child);
+      needsNewWrapper = true;
 
-            return;
-        }
+      return;
+    }
 
-        var currentGroup = newChildren[newChildren.length - 1];
-        var shouldCreateNewGroup = !currentGroup || needsNewWrapper;
+    var currentGroup = newChildren[newChildren.length - 1];
+    var shouldCreateNewGroup = !currentGroup || needsNewWrapper;
 
-        if (shouldCreateNewGroup) {
-            currentGroup = createWrapperNode(wrapperType);
-            newChildren.push(currentGroup);
-            needsNewWrapper = false;
-        }
+    if (shouldCreateNewGroup) {
+      currentGroup = createWrapperNode(wrapperType);
+      newChildren.push(currentGroup);
+      needsNewWrapper = false;
+    }
 
-        currentGroup.children.push(child);
-    });
+    currentGroup.children.push(child);
+  });
 
-    return newChildren;
+  return newChildren;
 };
 
 /**
  * A rule that wraps children of lists with list item
  */
 function itemChildrenAreAlwaysElements(options, editor) {
-    var normalizeNode = editor.normalizeNode;
+  var normalizeNode = editor.normalizeNode;
 
 
-    editor.normalizeNode = function (entry) {
-        var _entry = _slicedToArray(entry, 2),
-            node = _entry[0],
-            nodePath = _entry[1];
+  editor.normalizeNode = function (entry) {
+    var _entry = _slicedToArray(entry, 2),
+        node = _entry[0],
+        nodePath = _entry[1];
 
-        if (!(0, _utils.isItem)(options)(node) || node.children.length === 0) {
-            normalizeNode(entry);
+    if (!(0, _utils.isItem)(options)(node) || node.children.length === 0) {
+      normalizeNode(entry);
 
-            return;
-        }
+      return;
+    }
 
-        var hasTexts = node.children.some(function (child) {
-            return !_slate.Element.isElement(child);
+    var hasTexts = node.children.some(function (child) {
+      return !_slate.Element.isElement(child);
+    });
+    if (hasTexts) {
+      var newChildren = getNewChildren(editor, node.children, options.typeDefault);
+
+      _slate.Editor.withoutNormalizing(editor, function () {
+        _slate.Transforms.removeNodes(editor, { at: nodePath });
+        var newNode = _extends({}, node, {
+          children: newChildren
         });
-        if (hasTexts) {
-            var newChildren = getNewChildren(editor, node.children, options.typeDefault);
+        _slate.Transforms.insertNodes(editor, newNode, { at: nodePath });
+      });
 
-            _slate.Editor.withoutNormalizing(editor, function () {
-                _slate.Transforms.removeNodes(editor, { at: nodePath });
-                var newNode = _extends({}, node, {
-                    children: newChildren
-                });
-                _slate.Transforms.insertNodes(editor, newNode, { at: nodePath });
-            });
+      return;
+    }
 
-            return;
-        }
-
-        normalizeNode(entry);
-    };
+    normalizeNode(entry);
+  };
 }
 
 },{"../utils":29,"slate":61}],18:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
@@ -1529,52 +1527,52 @@ var _utils = require('../utils');
  * A rule that unwraps list items if they are not in list
  */
 function itemsWithoutParentListAreUnwrapped(options, editor) {
-    var normalizeNode = editor.normalizeNode;
+  var normalizeNode = editor.normalizeNode;
 
 
-    editor.normalizeNode = function (entry) {
-        var _entry = _slicedToArray(entry, 2),
-            node = _entry[0],
-            nodePath = _entry[1];
+  editor.normalizeNode = function (entry) {
+    var _entry = _slicedToArray(entry, 2),
+        node = _entry[0],
+        nodePath = _entry[1];
 
-        var parentNodePath = void 0;
+    var parentNodePath = void 0;
 
-        if (!(0, _utils.isItem)(options)(node)) {
-            normalizeNode(entry);
+    if (!(0, _utils.isItem)(options)(node)) {
+      normalizeNode(entry);
 
-            return;
-        }
+      return;
+    }
 
-        try {
-            parentNodePath = _slate.Path.parent(nodePath);
-        } catch (e) {
-            // has no parent (ie. [0] node)
-            normalizeNode(entry);
+    try {
+      parentNodePath = _slate.Path.parent(nodePath);
+    } catch (e) {
+      // has no parent (ie. [0] node)
+      normalizeNode(entry);
 
-            return;
-        }
+      return;
+    }
 
-        var parentNode = parentNodePath && _slate.Node.get(editor, parentNodePath);
+    var parentNode = parentNodePath && _slate.Node.get(editor, parentNodePath);
 
-        // either no parent or not a list parent
-        // in both cases, we unwrap list item
-        if (!parentNode || !(0, _utils.isList)(options)(parentNode)) {
-            _slate.Transforms.unwrapNodes(editor, {
-                at: nodePath
-            });
+    // either no parent or not a list parent
+    // in both cases, we unwrap list item
+    if (!parentNode || !(0, _utils.isList)(options)(parentNode)) {
+      _slate.Transforms.unwrapNodes(editor, {
+        at: nodePath
+      });
 
-            return;
-        }
+      return;
+    }
 
-        normalizeNode(entry);
-    };
+    normalizeNode(entry);
+  };
 }
 
 },{"../utils":29,"slate":61}],19:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
@@ -1591,56 +1589,61 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
  * A rule that joins adjacent lists of the same type
  */
 function joinAdjacentLists(options, editor) {
-    var normalizeNode = editor.normalizeNode;
+  var normalizeNode = editor.normalizeNode;
 
 
-    editor.normalizeNode = function (entry) {
-        var _entry = _slicedToArray(entry, 2),
-            node = _entry[0],
-            nodePath = _entry[1];
+  editor.normalizeNode = function (entry) {
+    var _entry = _slicedToArray(entry, 2),
+        node = _entry[0],
+        nodePath = _entry[1];
 
-        if ((0, _utils.isList)(options)(node)) {
-            var previousSiblingNodePath = void 0;
-            try {
-                previousSiblingNodePath = _slate.Path.previous(nodePath);
-            } catch (e) {
-                // the node doesn't have a previous sibling (ie. first)
-                normalizeNode(entry);
+    if ((0, _utils.isList)(options)(node)) {
+      var previousSiblingNodePath = void 0;
+      var nextSiblingNodePath = void 0;
+      try {
+        previousSiblingNodePath = _slate.Path.previous(nodePath);
+      } catch (e) {
+        // skip for now
+      }
 
-                return;
-            }
+      try {
+        nextSiblingNodePath = _slate.Path.next(nodePath);
+      } catch (e) {
+        // skip for now
+      }
 
-            var previousSiblingNode = _slate.Node.get(editor, previousSiblingNodePath);
+      [previousSiblingNodePath, nextSiblingNodePath].filter(Boolean).forEach(function (siblingNodePath) {
+        var siblingNode = _slate.Node.get(editor, siblingNodePath);
 
-            if ((0, _utils.isList)(options)(previousSiblingNode) && options.canMerge(node, previousSiblingNode)) {
-                var targetNodeLastChildIndex = previousSiblingNode.children.length - 1;
+        if ((0, _utils.isList)(options)(siblingNode) && options.canMerge && options.canMerge(node, siblingNode)) {
+          var targetNodeLastChildIndex = siblingNode.children.length - 1;
 
-                _slate.Editor.withoutNormalizing(editor, function () {
-                    var targetNodePath = [].concat(_toConsumableArray(previousSiblingNodePath), [
-                    // as the new last child of previous sibling list
-                    targetNodeLastChildIndex + 1]);
+          _slate.Editor.withoutNormalizing(editor, function () {
+            var targetNodePath = [].concat(_toConsumableArray(siblingNodePath), [
+            // as the new last child of previous sibling list
+            targetNodeLastChildIndex + 1]);
 
-                    _slate.Transforms.insertNodes(editor, node.children, {
-                        at: targetNodePath
-                    });
+            _slate.Transforms.insertNodes(editor, node.children, {
+              at: targetNodePath
+            });
 
-                    _slate.Transforms.removeNodes(editor, {
-                        at: nodePath
-                    });
-                });
-                return;
-            }
+            _slate.Transforms.removeNodes(editor, {
+              at: nodePath
+            });
+          });
         }
+      });
+    }
 
-        normalizeNode(entry);
-    };
+    normalizeNode(entry);
+  };
 }
 
 },{"../utils":29,"slate":61}],20:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
@@ -1657,63 +1660,63 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
  * A rule that unwraps lists if they are over the depth limit
  */
 function unwrapListsOverDepthLimit(options, editor) {
-    var normalizeNode = editor.normalizeNode;
+  var normalizeNode = editor.normalizeNode;
 
 
-    editor.normalizeNode = function (nodeEntry) {
-        var _nodeEntry = _slicedToArray(nodeEntry, 2),
-            node = _nodeEntry[0],
-            nodePath = _nodeEntry[1];
+  editor.normalizeNode = function (nodeEntry) {
+    var _nodeEntry = _slicedToArray(nodeEntry, 2),
+        node = _nodeEntry[0],
+        nodePath = _nodeEntry[1];
 
-        if ((0, _utils.isList)(options)(node) && _slate.Node.has(editor, nodePath)) {
-            var items = [].concat(_toConsumableArray(_slate.Node.children(editor, nodePath)));
+    if ((0, _utils.isList)(options)(node) && _slate.Node.has(editor, nodePath)) {
+      var items = [].concat(_toConsumableArray(_slate.Node.children(editor, nodePath)));
 
-            if (items.length === 0) {
-                normalizeNode(nodeEntry);
-
-                return;
-            }
-
-            var allChildrenAreItems = items.every(function (_ref) {
-                var _ref2 = _slicedToArray(_ref, 1),
-                    itemNode = _ref2[0];
-
-                return (0, _utils.isItem)(options)(itemNode);
-            });
-            if (!allChildrenAreItems) {
-                normalizeNode(nodeEntry);
-
-                return;
-            }
-
-            var _items = _slicedToArray(items, 1),
-                _items$ = _slicedToArray(_items[0], 2),
-                firstItemPath = _items$[1];
-
-            var itemDepth = (0, _utils.getItemDepth)(options)(editor, firstItemPath);
-            if (itemDepth > options.maxDepth) {
-                _slate.Transforms.unwrapNodes(editor, {
-                    at: nodePath,
-                    mode: 'lowest',
-                    match: (0, _utils.isListOrItem)(options)
-                });
-                _slate.Transforms.unwrapNodes(editor, {
-                    at: nodePath
-                });
-
-                return;
-            }
-        }
-
+      if (items.length === 0) {
         normalizeNode(nodeEntry);
-    };
+
+        return;
+      }
+
+      var allChildrenAreItems = items.every(function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 1),
+            itemNode = _ref2[0];
+
+        return (0, _utils.isItem)(options)(itemNode);
+      });
+      if (!allChildrenAreItems) {
+        normalizeNode(nodeEntry);
+
+        return;
+      }
+
+      var _items = _slicedToArray(items, 1),
+          _items$ = _slicedToArray(_items[0], 2),
+          firstItemPath = _items$[1];
+
+      var itemDepth = (0, _utils.getItemDepth)(options)(editor, firstItemPath);
+      if (itemDepth > options.maxDepth) {
+        _slate.Transforms.unwrapNodes(editor, {
+          at: nodePath,
+          mode: 'lowest',
+          match: (0, _utils.isListOrItem)(options)
+        });
+        _slate.Transforms.unwrapNodes(editor, {
+          at: nodePath
+        });
+
+        return;
+      }
+    }
+
+    normalizeNode(nodeEntry);
+  };
 }
 
 },{"../utils":29,"slate":61}],21:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.getCurrentItem = undefined;
 
@@ -1729,37 +1732,37 @@ var _ = require('.');
  * Return the current list item, from current selection or from a node.
  */
 var getCurrentItem = exports.getCurrentItem = function getCurrentItem(options) {
-    return function (editor, path) {
-        if (!path) {
-            if (!editor.selection) return null;
+  return function (editor, path) {
+    if (!path) {
+      if (!editor.selection) return null;
 
-            var _Editor$first = _slate.Editor.first(editor, editor.selection);
+      var _Editor$first = _slate.Editor.first(editor, editor.selection);
 
-            var _Editor$first2 = _slicedToArray(_Editor$first, 2);
+      var _Editor$first2 = _slicedToArray(_Editor$first, 2);
 
-            path = _Editor$first2[1];
-        }
+      path = _Editor$first2[1];
+    }
 
-        var nodeOnPath = _slate.Node.get(editor, path);
-        if (nodeOnPath && (0, _.isItem)(options)(nodeOnPath)) {
-            return [nodeOnPath, path];
-        }
+    var nodeOnPath = _slate.Node.get(editor, path);
+    if (nodeOnPath && (0, _.isItem)(options)(nodeOnPath)) {
+      return [nodeOnPath, path];
+    }
 
-        return _slate.Editor.above(editor, {
-            at: path,
-            match: function match(node) {
-                return (0, _.isItem)(options)(node);
-            },
-            mode: 'lowest'
-        }) || null;
-    };
+    return _slate.Editor.above(editor, {
+      at: path,
+      match: function match(node) {
+        return (0, _.isItem)(options)(node);
+      },
+      mode: 'lowest'
+    }) || null;
+  };
 };
 
 },{".":29,"..":14,"slate":61}],22:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.getCurrentList = undefined;
 
@@ -1775,25 +1778,25 @@ var _ = require('.');
  * Return the parent list block, from current selection or from a node (paragraph in a list item).
  */
 var getCurrentList = exports.getCurrentList = function getCurrentList(options) {
-    return function (editor, path) {
-        var itemEntry = (0, _.getCurrentItem)(options)(editor, path);
+  return function (editor, path) {
+    var itemEntry = (0, _.getCurrentItem)(options)(editor, path);
 
-        if (!itemEntry) {
-            return null;
-        }
+    if (!itemEntry) {
+      return null;
+    }
 
-        var _itemEntry = _slicedToArray(itemEntry, 2),
-            itemPath = _itemEntry[1];
+    var _itemEntry = _slicedToArray(itemEntry, 2),
+        itemPath = _itemEntry[1];
 
-        return (0, _.getListForItem)(options)(editor, itemPath);
-    };
+    return (0, _.getListForItem)(options)(editor, itemPath);
+  };
 };
 
 },{".":29,"..":14,"slate":61}],23:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.getDeepestItemDepth = undefined;
 
@@ -1812,24 +1815,24 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
  */
 
 var getDeepestItemDepth = exports.getDeepestItemDepth = function getDeepestItemDepth(options) {
-    return function (editor, path) {
-        return [].concat(_toConsumableArray(_slate.Editor.nodes(editor, {
-            at: path,
-            match: (0, _.isItem)(options)
-        }))).reduce(function (maxLevel, _ref) {
-            var _ref2 = _slicedToArray(_ref, 2),
-                itemPath = _ref2[1];
+  return function (editor, path) {
+    return [].concat(_toConsumableArray(_slate.Editor.nodes(editor, {
+      at: path,
+      match: (0, _.isItem)(options)
+    }))).reduce(function (maxLevel, _ref) {
+      var _ref2 = _slicedToArray(_ref, 2),
+          itemPath = _ref2[1];
 
-            return Math.max(maxLevel, itemPath.length - path.length);
-        }, 0);
-    };
+      return Math.max(maxLevel, itemPath.length - path.length);
+    }, 0);
+  };
 };
 
 },{".":29,"..":14,"slate":61}],24:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.getItemDepth = undefined;
 
@@ -1845,28 +1848,28 @@ var _ = require('.');
  * Get depth of current block in a document list
  */
 var getItemDepth = exports.getItemDepth = function getItemDepth(options) {
-    return function (editor, path) {
-        var item = (0, _.getCurrentItem)(options)(editor, path);
+  return function (editor, path) {
+    var item = (0, _.getCurrentItem)(options)(editor, path);
 
-        if (item) {
-            path = item[1];
-        } else {
-            return 0;
-        }
+    if (item) {
+      path = item[1];
+    } else {
+      return 0;
+    }
 
-        var _Editor$parent = _slate.Editor.parent(editor, path),
-            _Editor$parent2 = _slicedToArray(_Editor$parent, 2),
-            parentPath = _Editor$parent2[1];
+    var _Editor$parent = _slate.Editor.parent(editor, path),
+        _Editor$parent2 = _slicedToArray(_Editor$parent, 2),
+        parentPath = _Editor$parent2[1];
 
-        return 1 + getItemDepth(options)(editor, parentPath);
-    };
+    return 1 + getItemDepth(options)(editor, parentPath);
+  };
 };
 
 },{".":29,"..":14,"slate":61}],25:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.getItemsAtRange = undefined;
 
@@ -1884,29 +1887,29 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
  * Returns an empty array if no list of items can cover the range
  */
 var getItemsAtRange = exports.getItemsAtRange = function getItemsAtRange(options) {
-    return function (editor, range) {
-        range = range || editor.selection;
+  return function (editor, range) {
+    range = range || editor.selection;
 
-        if (!range) {
-            return [];
-        }
+    if (!range) {
+      return [];
+    }
 
-        var allItems = _slate.Editor.nodes(editor, {
-            at: range,
-            match: function match(node) {
-                return (0, _.isItem)(options)(node);
-            }
-        });
+    var allItems = _slate.Editor.nodes(editor, {
+      at: range,
+      match: function match(node) {
+        return (0, _.isItem)(options)(node);
+      }
+    });
 
-        return [].concat(_toConsumableArray(allItems));
-    };
+    return [].concat(_toConsumableArray(allItems));
+  };
 };
 
 },{".":29,"..":14,"slate":61}],26:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.getListForItem = undefined;
 
@@ -1920,21 +1923,21 @@ var _ = require('.');
  * Return the parent list block for an item block.
  */
 var getListForItem = exports.getListForItem = function getListForItem(options) {
-    return function (editor, path) {
-        return _slate.Editor.above(editor, {
-            at: path,
-            match: function match(node) {
-                return (0, _.isList)(options)(node);
-            }
-        }) || null;
-    };
+  return function (editor, path) {
+    return _slate.Editor.above(editor, {
+      at: path,
+      match: function match(node) {
+        return (0, _.isList)(options)(node);
+      }
+    }) || null;
+  };
 };
 
 },{".":29,"..":14,"slate":61}],27:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.getPreviousItem = undefined;
 
@@ -1950,43 +1953,43 @@ var _ = require('.');
  * Return the previous item, from current selection or from a node.
  */
 var getPreviousItem = exports.getPreviousItem = function getPreviousItem(options) {
-    return function (editor, path) {
-        var _getCurrentItem = (0, _.getCurrentItem)(options)(editor, path),
-            _getCurrentItem2 = _slicedToArray(_getCurrentItem, 2),
-            currentItem = _getCurrentItem2[0],
-            currentItemPath = _getCurrentItem2[1];
+  return function (editor, path) {
+    var _getCurrentItem = (0, _.getCurrentItem)(options)(editor, path),
+        _getCurrentItem2 = _slicedToArray(_getCurrentItem, 2),
+        currentItem = _getCurrentItem2[0],
+        currentItemPath = _getCurrentItem2[1];
 
-        if (!currentItem) {
-            return null;
-        }
+    if (!currentItem) {
+      return null;
+    }
 
-        var previousSiblingPath = null;
+    var previousSiblingPath = null;
 
-        try {
-            previousSiblingPath = _slate.Path.previous(currentItemPath);
-        } catch (e) {
-            // Slate throws when trying to find
-            // previous of a first element
-            // we interpret it as there not being a previous item
-            return null;
-        }
+    try {
+      previousSiblingPath = _slate.Path.previous(currentItemPath);
+    } catch (e) {
+      // Slate throws when trying to find
+      // previous of a first element
+      // we interpret it as there not being a previous item
+      return null;
+    }
 
-        var previousSibling = _slate.Node.get(editor, previousSiblingPath);
+    var previousSibling = _slate.Node.get(editor, previousSiblingPath);
 
-        if (!previousSibling) {
-            return null;
-        } else if (previousSibling.type === options.typeItem) {
-            return [previousSibling, previousSiblingPath];
-        }
-        return null;
-    };
+    if (!previousSibling) {
+      return null;
+    } else if (previousSibling.type === options.typeItem) {
+      return [previousSibling, previousSiblingPath];
+    }
+    return null;
+  };
 };
 
 },{".":29,"..":14,"slate":61}],28:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.getTopmostItemsAtRange = undefined;
 
@@ -2001,12 +2004,12 @@ var _ = require('.');
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 var takeOnlyDirectChildren = function takeOnlyDirectChildren(ancestorPath) {
-    return function (_ref) {
-        var _ref2 = _slicedToArray(_ref, 2),
-            listItemPath = _ref2[1];
+  return function (_ref) {
+    var _ref2 = _slicedToArray(_ref, 2),
+        listItemPath = _ref2[1];
 
-        return listItemPath.length === ancestorPath.length + 1;
-    };
+    return listItemPath.length === ancestorPath.length + 1;
+  };
 };
 
 /**
@@ -2016,70 +2019,70 @@ var takeOnlyDirectChildren = function takeOnlyDirectChildren(ancestorPath) {
  * Returns an empty array if no list of items can cover the range
  */
 var getTopmostItemsAtRange = exports.getTopmostItemsAtRange = function getTopmostItemsAtRange(options) {
-    return function (editor, range) {
-        range = range || editor.selection;
+  return function (editor, range) {
+    range = range || editor.selection;
 
-        if (!range) {
-            return [];
-        }
+    if (!range) {
+      return [];
+    }
 
-        var _Editor$parent = _slate.Editor.parent(editor, _slate.Range.start(range)),
-            _Editor$parent2 = _slicedToArray(_Editor$parent, 2),
-            startElement = _Editor$parent2[0],
-            startElementPath = _Editor$parent2[1];
+    var _Editor$parent = _slate.Editor.parent(editor, _slate.Range.start(range)),
+        _Editor$parent2 = _slicedToArray(_Editor$parent, 2),
+        startElement = _Editor$parent2[0],
+        startElementPath = _Editor$parent2[1];
 
-        var _Editor$parent3 = _slate.Editor.parent(editor, _slate.Range.end(range)),
-            _Editor$parent4 = _slicedToArray(_Editor$parent3, 2),
-            endElement = _Editor$parent4[0],
-            endElementPath = _Editor$parent4[1];
+    var _Editor$parent3 = _slate.Editor.parent(editor, _slate.Range.end(range)),
+        _Editor$parent4 = _slicedToArray(_Editor$parent3, 2),
+        endElement = _Editor$parent4[0],
+        endElementPath = _Editor$parent4[1];
 
-        if (startElement === endElement) {
-            var item = (0, _.getCurrentItem)(options)(editor, startElementPath);
-            return item ? [item] : [];
-        }
+    if (startElement === endElement) {
+      var item = (0, _.getCurrentItem)(options)(editor, startElementPath);
+      return item ? [item] : [];
+    }
 
-        var ancestorPath = _slate.Path.common(startElementPath, endElementPath);
-        var ancestor = _slate.Node.get(editor, ancestorPath);
+    var ancestorPath = _slate.Path.common(startElementPath, endElementPath);
+    var ancestor = _slate.Node.get(editor, ancestorPath);
 
-        if (_slate.Editor.isEditor(ancestor)) {
-            var topMostLists = [].concat(_toConsumableArray(_slate.Editor.nodes(editor, {
-                at: range,
-                match: (0, _.isList)(options),
-                mode: 'highest'
-            })));
+    if (_slate.Editor.isEditor(ancestor)) {
+      var topMostLists = [].concat(_toConsumableArray(_slate.Editor.nodes(editor, {
+        at: range,
+        match: (0, _.isList)(options),
+        mode: 'highest'
+      })));
 
-            return topMostLists.reduce(function (items, _ref3) {
-                var _ref4 = _slicedToArray(_ref3, 2),
-                    listPath = _ref4[1];
+      return topMostLists.reduce(function (items, _ref3) {
+        var _ref4 = _slicedToArray(_ref3, 2),
+            listPath = _ref4[1];
 
-                var topMostListItems = [].concat(_toConsumableArray(_slate.Editor.nodes(editor, {
-                    at: listPath,
-                    match: (0, _.isItem)(options),
-                    mode: 'highest'
-                })));
+        var topMostListItems = [].concat(_toConsumableArray(_slate.Editor.nodes(editor, {
+          at: listPath,
+          match: (0, _.isItem)(options),
+          mode: 'highest'
+        })));
 
-                return items.concat(topMostListItems);
-            }, []);
-        }
+        return items.concat(topMostListItems);
+      }, []);
+    }
 
-        while (ancestorPath.length !== 0) {
-            if ((0, _.isList)(options)(ancestor)) {
-                return [].concat(_toConsumableArray(_slate.Editor.nodes(editor, {
-                    at: range,
-                    match: (0, _.isItem)(options)
-                }))).filter(takeOnlyDirectChildren(ancestorPath));
-            } else if ((0, _.isItem)(options)(ancestor)) {
-                // The ancestor is the highest list item that covers the range
-                return [[ancestor, ancestorPath]];
-            }
+    while (ancestorPath.length !== 0) {
+      if ((0, _.isList)(options)(ancestor)) {
+        return [].concat(_toConsumableArray(_slate.Editor.nodes(editor, {
+          at: range,
+          match: (0, _.isItem)(options)
+        }))).filter(takeOnlyDirectChildren(ancestorPath));
+      } else if ((0, _.isItem)(options)(ancestor)) {
+        // The ancestor is the highest list item that covers the range
+        return [[ancestor, ancestorPath]];
+      }
 
-            ancestorPath = ancestorPath.slice(0, -1);
-            ancestor = _slate.Node.get(editor, ancestorPath);
-        }
+      ancestorPath = ancestorPath.slice(0, -1);
+      ancestor = _slate.Node.get(editor, ancestorPath);
+    }
 
-        // No list of items can cover the range
-        return [];
-    };
+    // No list of items can cover the range
+    return [];
+  };
 };
 
 },{".":29,"..":14,"slate":61}],29:[function(require,module,exports){
@@ -2281,7 +2284,7 @@ var isList = exports.isList = function isList(_ref) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.isListOrItem = undefined;
 
@@ -2294,9 +2297,9 @@ var _isList = require('./isList');
 var _isItem = require('./isItem');
 
 var isListOrItem = exports.isListOrItem = function isListOrItem(options) {
-    return function (node) {
-        return (0, _isList.isList)(options)(node) || (0, _isItem.isItem)(options)(node);
-    };
+  return function (node) {
+    return (0, _isList.isList)(options)(node) || (0, _isItem.isItem)(options)(node);
+  };
 };
 
 },{"..":14,"./isItem":30,"./isList":31,"slate":61}],33:[function(require,module,exports){
