@@ -1619,7 +1619,11 @@ function joinAdjacentLists(options, editor) {
               at: nodePath
             });
 
-            _slate.Transforms.select(editor, previousSiblingNodePath);
+            _slate.Transforms.select(editor, {
+              path: targetNodePath,
+              focus: 0,
+              offset: 0
+            });
           });
         }
       } catch (e) {
@@ -1647,7 +1651,7 @@ function joinAdjacentLists(options, editor) {
               at: nodePath
             });
 
-            _slate.Transforms.select(editor, nextSiblingNodePath);
+            _slate.Transforms.select(editor, { path: nodePath, focus: 0, offset: 0 });
           });
         }
       } catch (e) {
