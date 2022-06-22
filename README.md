@@ -1,6 +1,6 @@
 # slate-edit-list
 
-[![npm version](https://badge.fury.io/js/%40productboard%2Fslate-edit-list.svg)](https://badge.fury.io/js/%40productboard%2Fslate-edit-list)
+[![npm version](https://badge.fury.io/js/%40dock-hq%2Fslate-edit-list.svg)](https://badge.fury.io/js/%40dock-hq%2Fslate-edit-list)
 
 A Slate plugin to handle keyboard events in lists. List items can contain blocks.
 
@@ -11,7 +11,7 @@ Demo: [gitbookio.github.io/slate-edit-list/](https://gitbookio.github.io/slate-e
 ### Install
 
 ```
-npm install @productboard/slate-edit-list
+npm install @dock-hq/slate-edit-list
 ```
 
 ### Features
@@ -35,7 +35,7 @@ Useful transforms: see [Utilities and Transforms](#utilities-and-transforms).
 ### Simple Usage
 
 ```js
-import { EditListPlugin } from '@productboard/slate-edit-list';
+import { EditListPlugin } from '@dock-hq/slate-edit-list';
 
 const options = {}; // additional options
 
@@ -53,7 +53,7 @@ return (
   <Slate
     editor={editor}
     value={value}
-    onChange={(newValue) => setValue(newValue)}
+    onChange={newValue => setValue(newValue)}
   >
     <Editable onKeyDown={onKeyDown(editor)} />
   </Slate>
