@@ -1612,17 +1612,12 @@ function joinAdjacentLists(options, editor) {
             targetNodeLastChildIndex + 1]);
 
             _slate.Transforms.insertNodes(editor, node.children, {
-              at: targetNodePath
+              at: targetNodePath,
+              select: true
             });
 
             _slate.Transforms.removeNodes(editor, {
               at: nodePath
-            });
-
-            _slate.Transforms.select(editor, {
-              path: targetNodePath,
-              focus: 0,
-              offset: 0
             });
           });
         }
@@ -1635,6 +1630,10 @@ function joinAdjacentLists(options, editor) {
         nextSiblingNodePath = _slate.Path.next(nodePath);
         var nextSiblingNode = _slate.Node.get(editor, nextSiblingNodePath);
 
+        console.log('nextSiblingNode', nextSiblingNode);
+        console.log('isList(options)(nextSiblingNode)', (0, _utils.isList)(options)(nextSiblingNode));
+        console.log('options.canMerge(node, nextSiblingNode)', options.canMerge(node, nextSiblingNode));
+
         if ((0, _utils.isList)(options)(nextSiblingNode) && options.canMerge && options.canMerge(node, nextSiblingNode)) {
           var _targetNodeLastChildIndex = nextSiblingNode.children.length - 1;
 
@@ -1644,14 +1643,13 @@ function joinAdjacentLists(options, editor) {
             0]);
 
             _slate.Transforms.insertNodes(editor, node.children, {
-              at: targetNodePath
+              at: targetNodePath,
+              select: true
             });
 
             _slate.Transforms.removeNodes(editor, {
               at: nodePath
             });
-
-            _slate.Transforms.select(editor, { path: nodePath, focus: 0, offset: 0 });
           });
         }
       } catch (e) {
