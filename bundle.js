@@ -527,7 +527,8 @@ var moveAsSubItem = function moveAsSubItem(options) {
       // Insert new sublist after the position
       // of the last child of the destination node
       _slate.Transforms.insertNodes(editor, newSublist, {
-        at: [].concat(_toConsumableArray(destinationElementPath), [lastChildIndex + 1])
+        at: [].concat(_toConsumableArray(destinationElementPath), [lastChildIndex + 1]),
+        select: true
       });
 
       _slate.Transforms.removeNodes(editor, {
