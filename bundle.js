@@ -1618,6 +1618,8 @@ function joinAdjacentLists(options, editor) {
             _slate.Transforms.removeNodes(editor, {
               at: nodePath
             });
+
+            _slate.Transforms.select(editor, targetNodePath);
           });
         }
       } catch (e) {
@@ -1644,6 +1646,8 @@ function joinAdjacentLists(options, editor) {
             _slate.Transforms.removeNodes(editor, {
               at: nodePath
             });
+
+            _slate.Transforms.select(editor, targetNodePath);
           });
         }
       } catch (e) {
