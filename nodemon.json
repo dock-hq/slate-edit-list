@@ -1,10 +1,5 @@
 {
   "exec": "npm run build-example",
-  "ignore": [
-    "example/bundle.js"
-  ],
-  "watch": [
-    "example/**/*",
-    "lib/**/*"
-  ]
+  "ignore": ["example/bundle.js"],
+  "watch": ["example/**/*", "lib/**/*"]
 }

@@ -1,12 +1,12 @@
 # Change Log
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
-
 ## [Unreleased]
 
-[Unreleased]: https://github.com/GitbookIO/slate-edit-list/compare/0.12.0...HEAD
+[unreleased]: https://github.com/GitbookIO/slate-edit-list/compare/0.12.0...HEAD
 
 ## 0.12.1 - 2018-08-20
 

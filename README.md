@@ -35,14 +35,14 @@ Useful transforms: see [Utilities and Transforms](#utilities-and-transforms).
 ### Simple Usage
 
 ```js
-import { EditListPlugin } from '@productboard/slate-edit-list'
+import { EditListPlugin } from '@productboard/slate-edit-list';
 
-const options = {} // additional options
+const options = {}; // additional options
 
-const [ 
-    withEditList, // applies normalization to editor 
-    onKeyDown, // keyDown handler for keyboard shortcuts
-    { Editor, Element, Transforms } // Slate classes with added utility functions and transforms this package provides
+const [
+  withEditList, // applies normalization to editor
+  onKeyDown, // keyDown handler for keyboard shortcuts
+  { Editor, Element, Transforms }, // Slate classes with added utility functions and transforms this package provides
 ] = EditListPlugin(options);
 
 const editor = useMemo(() => withEditList(withReact(createEditor())), []);
@@ -50,9 +50,13 @@ const editor = useMemo(() => withEditList(withReact(createEditor())), []);
 const [value, setValue] = useState([]);
 
 return (
-    <Slate editor={editor} value={value} onChange={newValue => setValue(newValue)}>
-        <Editable onKeyDown={onKeyDown(editor)} />
-    </Slate>
+  <Slate
+    editor={editor}
+    value={value}
+    onChange={(newValue) => setValue(newValue)}
+  >
+    <Editable onKeyDown={onKeyDown(editor)} />
+  </Slate>
 );
 ```
 
@@ -65,28 +69,26 @@ This plugin accepts options to redefine the following block types:
 - `typeDefault: string = "paragraph"` — type for default block in list items.
 - `canMerge: (Node, Node) => boolean` — controls which list can be merged automatically (for example when they are adjacent). Defaults to merging list with identical types
 
-
 #### Assumption about the schema
 
 You can use this plugin with custom list block types (using plugin [arguments](#arguments)). But your list structure should still conform to a few rules. These rules are implemented as normalizations.
 
 Here is what a minimal list would look like:
 
-
 ```yaml
 nodes:
-    - kind: block
-      type: ul_list # Default type for bulleted lists container
-      nodes:
+  - kind: block
+    type: ul_list # Default type for bulleted lists container
+    nodes:
+      - kind: block
+        type: list_item # List containers can only contain list items
+        nodes:
+          # List items contain blocks. They cannot be the direct container of text.
           - kind: block
-            type: list_item # List containers can only contain list items
+            type: paragraph # Default type of blocks in a list item
             nodes:
-              # List items contain blocks. They cannot be the direct container of text.
-              - kind: block
-                type: paragraph # Default type of blocks in a list item
-                nodes:
-                  - kind: text
-                    text: Hello World
+              - kind: text
+                text: Hello World
 ```
 
 And here is an example of a multi-level list:
@@ -163,11 +165,11 @@ Returns the current list at selection (or at the given path).
 
 ##### `Editor.getPreviousItem(editor: Editor, path?: Path) => NodeEntry<Element> || null`
 
-Returns the list item preceding the item at selection (or at the given path).  
+Returns the list item preceding the item at selection (or at the given path).
 
 ##### `Editor.getListForItem(editor: Editor, path: Path) => NodeEntry<Element> || null`
 
-Returns the list element the item at the specified path belongs to. 
+Returns the list element the item at the specified path belongs to.
 
 ##### `Editor.getItemsAtRange(editor: Editor, range?: Range) => Array<NodeEntry<Element>>`
 
