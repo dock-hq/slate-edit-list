@@ -1599,42 +1599,56 @@ function joinAdjacentLists(options, editor) {
 
     if ((0, _utils.isList)(options)(node)) {
       var previousSiblingNodePath = void 0;
-      var nextSiblingNodePath = void 0;
       try {
         previousSiblingNodePath = _slate.Path.previous(nodePath);
+        var siblingNode = _slate.Node.get(editor, previousSiblingNodePath);
+
+        if ((0, _utils.isList)(options)(siblingNode) && options.canMerge && options.canMerge(node, siblingNode)) {
+          var targetNodeLastChildIndex = siblingNode.children.length - 1;
+
+          _slate.Editor.withoutNormalizing(editor, function () {
+            var targetNodePath = [].concat(_toConsumableArray(previousSiblingNodePath), [
+            // as the new last child of previous sibling list
+            targetNodeLastChildIndex + 1]);
+
+            _slate.Transforms.insertNodes(editor, node.children, {
+              at: targetNodePath
+            });
+
+            _slate.Transforms.removeNodes(editor, {
+              at: nodePath
+            });
+          });
+        }
       } catch (e) {
         // skip for now
       }
 
+      var nextSiblingNodePath = void 0;
       try {
         nextSiblingNodePath = _slate.Path.next(nodePath);
+        var nextSiblingNode = _slate.Node.get(editor, nextSiblingNodePath);
+
+        if ((0, _utils.isList)(options)(nextSiblingNode) && options.canMerge && options.canMerge(node, nextSiblingNode)) {
+          var _targetNodeLastChildIndex = nextSiblingNode.children.length - 1;
+
+          _slate.Editor.withoutNormalizing(editor, function () {
+            var targetNodePath = [].concat(_toConsumableArray(nextSiblingNodePath), [
+            // as the new first child of previous sibling list
+            0]);
+
+            _slate.Transforms.insertNodes(editor, node.children, {
+              at: targetNodePath
+            });
+
+            _slate.Transforms.removeNodes(editor, {
+              at: nodePath
+            });
+          });
+        }
       } catch (e) {
         // skip for now
       }
-
-      [previousSiblingNodePath, nextSiblingNodePath].filter(Boolean).forEach(function (siblingNodePath) {
-        try {
-          var siblingNode = _slate.Node.get(editor, siblingNodePath);
-
-          if ((0, _utils.isList)(options)(siblingNode) && options.canMerge && options.canMerge(node, siblingNode)) {
-            var targetNodeLastChildIndex = siblingNode.children.length - 1;
-
-            _slate.Editor.withoutNormalizing(editor, function () {
-              var targetNodePath = [].concat(_toConsumableArray(siblingNodePath), [
-              // as the new last child of previous sibling list
-              targetNodeLastChildIndex + 1]);
-
-              _slate.Transforms.insertNodes(editor, node.children, {
-                at: targetNodePath
-              });
-
-              _slate.Transforms.removeNodes(editor, {
-                at: nodePath
-              });
-            });
-          }
-        } catch (e) {}
-      });
     }
 
     normalizeNode(entry);
