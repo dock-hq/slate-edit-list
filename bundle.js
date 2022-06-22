@@ -1613,25 +1613,27 @@ function joinAdjacentLists(options, editor) {
       }
 
       [previousSiblingNodePath, nextSiblingNodePath].filter(Boolean).forEach(function (siblingNodePath) {
-        var siblingNode = _slate.Node.get(editor, siblingNodePath);
+        try {
+          var siblingNode = _slate.Node.get(editor, siblingNodePath);
 
-        if ((0, _utils.isList)(options)(siblingNode) && options.canMerge && options.canMerge(node, siblingNode)) {
-          var targetNodeLastChildIndex = siblingNode.children.length - 1;
+          if ((0, _utils.isList)(options)(siblingNode) && options.canMerge && options.canMerge(node, siblingNode)) {
+            var targetNodeLastChildIndex = siblingNode.children.length - 1;
 
-          _slate.Editor.withoutNormalizing(editor, function () {
-            var targetNodePath = [].concat(_toConsumableArray(siblingNodePath), [
-            // as the new last child of previous sibling list
-            targetNodeLastChildIndex + 1]);
+            _slate.Editor.withoutNormalizing(editor, function () {
+              var targetNodePath = [].concat(_toConsumableArray(siblingNodePath), [
+              // as the new last child of previous sibling list
+              targetNodeLastChildIndex + 1]);
 
-            _slate.Transforms.insertNodes(editor, node.children, {
-              at: targetNodePath
+              _slate.Transforms.insertNodes(editor, node.children, {
+                at: targetNodePath
+              });
+
+              _slate.Transforms.removeNodes(editor, {
+                at: nodePath
+              });
             });
-
-            _slate.Transforms.removeNodes(editor, {
-              at: nodePath
-            });
-          });
-        }
+          }
+        } catch (e) {}
       });
     }
 
