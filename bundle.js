@@ -189,7 +189,7 @@ var Example = function Example() {
 
 _reactDom2.default.render(_react2.default.createElement(Example, null), document.getElementById('example'));
 
-},{"../lib":14,"./value":2,"react":50,"react-dom":47,"slate":61,"slate-history":58,"slate-react":60}],2:[function(require,module,exports){
+},{"../lib":14,"./value":2,"react":64,"react-dom":61,"slate":75,"slate-history":72,"slate-react":74}],2:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -356,7 +356,7 @@ exports.default = h(
   )
 );
 
-},{"slate-hyperscript":59}],3:[function(require,module,exports){
+},{"slate-hyperscript":73}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -446,7 +446,7 @@ var decreaseItemDepth = exports.decreaseItemDepth = function decreaseItemDepth(o
       }
 
       var hasParentItemBlocks = _slate.Editor.node(editor, parentItemPath)[0].children.some(function (node) {
-        return _slate.Editor.isBlock(editor, node);
+        return !_slate.Editor.isEditor(n) && _slate.Editor.isBlock(editor, n) && !Text.isText(n);
       });
 
       if (!hasParentItemBlocks) {
@@ -460,7 +460,7 @@ var decreaseItemDepth = exports.decreaseItemDepth = function decreaseItemDepth(o
   };
 };
 
-},{"..":14,"../utils":29,"slate":61}],4:[function(require,module,exports){
+},{"..":14,"../utils":29,"slate":75}],4:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -579,7 +579,7 @@ var increaseItemDepth = exports.increaseItemDepth = function increaseItemDepth(o
   };
 };
 
-},{"..":14,"../utils":29,"slate":61}],5:[function(require,module,exports){
+},{"..":14,"../utils":29,"slate":75}],5:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -686,7 +686,7 @@ var splitListItem = exports.splitListItem = function splitListItem(options) {
   };
 };
 
-},{"..":14,"../utils":29,"slate":61}],7:[function(require,module,exports){
+},{"..":14,"../utils":29,"slate":75}],7:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -776,6 +776,7 @@ var toggleList = exports.toggleList = function toggleList(options) {
         endElementPath = _Editor$parent4[1];
 
     var singleElementInSelection = startElement === endElement;
+
     if (singleElementInSelection) {
       if ((0, _utils.getTopmostItemsAtRange)(options)(editor).length > 0) {
         (0, _.unwrapList)(options)(editor);
@@ -820,7 +821,7 @@ var toggleList = exports.toggleList = function toggleList(options) {
   };
 };
 
-},{".":5,"../utils":29,"slate":61}],8:[function(require,module,exports){
+},{".":5,"../utils":29,"slate":75}],8:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -868,7 +869,7 @@ var unwrapList = exports.unwrapList = function unwrapList(options) {
   };
 };
 
-},{"..":14,"../utils":29,"slate":61}],9:[function(require,module,exports){
+},{"..":14,"../utils":29,"slate":75}],9:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -902,7 +903,7 @@ var getHighestSelectedElements = function getHighestSelectedElements(editor) {
   if (_slate.Path.equals(selection.anchor.path, selection.focus.path)) {
     var ancestor = _slate.Editor.above(editor, {
       match: function match(n) {
-        return _slate.Editor.isBlock(editor, n);
+        return !_slate.Editor.isEditor(n) && _slate.Editor.isBlock(editor, n) && !_slate.Text.isText(n);
       }
     });
 
@@ -947,13 +948,14 @@ var wrapInList = exports.wrapInList = function wrapInList(options) {
 
     _slate.Editor.withoutNormalizing(editor, function () {
       var selectedElements = convertPathsToRefs(editor, getHighestSelectedElements(editor));
+
       var newList = _extends({
         type: type
       }, data && { data: data });
 
       _slate.Transforms.wrapNodes(editor, newList, {
         match: function match(n) {
-          return _slate.Editor.isBlock(editor, n);
+          return !_slate.Editor.isEditor(n) && _slate.Editor.isBlock(editor, n) && !_slate.Text.isText(n);
         }
       });
 
@@ -982,7 +984,7 @@ var wrapInList = exports.wrapInList = function wrapInList(options) {
   };
 };
 
-},{"..":14,"../utils":29,"slate":61}],10:[function(require,module,exports){
+},{"..":14,"../utils":29,"slate":75}],10:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1064,7 +1066,7 @@ var onBackspace = exports.onBackspace = function onBackspace(options, event, edi
   (0, _commands.unwrapList)(options)(editor);
 };
 
-},{"..":14,"../commands":5,"../utils":29,"slate":61}],12:[function(require,module,exports){
+},{"..":14,"../commands":5,"../utils":29,"slate":75}],12:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1118,7 +1120,7 @@ var onEnter = exports.onEnter = function onEnter(options, event, editor) {
   }
 };
 
-},{"..":14,"../commands":5,"../utils":29,"slate":61}],13:[function(require,module,exports){
+},{"..":14,"../commands":5,"../utils":29,"slate":75}],13:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1155,7 +1157,7 @@ var onTab = exports.onTab = function onTab(options, event, editor) {
   }
 };
 
-},{"..":14,"../commands":5,"../utils":29,"slate":61}],14:[function(require,module,exports){
+},{"..":14,"../commands":5,"../utils":29,"slate":75}],14:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1282,7 +1284,7 @@ var EditListPlugin = exports.EditListPlugin = function EditListPlugin(customOpti
   }];
 };
 
-},{"./commands":5,"./handlers":10,"./normalizers":16,"./utils":29,"slate":61}],15:[function(require,module,exports){
+},{"./commands":5,"./handlers":10,"./normalizers":16,"./utils":29,"slate":75}],15:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1348,7 +1350,7 @@ function childOfListIsAlwaysItem(options, editor) {
   };
 }
 
-},{"..":14,"../utils":29,"slate":61}],16:[function(require,module,exports){
+},{"..":14,"../utils":29,"slate":75}],16:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1484,7 +1486,6 @@ function itemChildrenAreAlwaysElements(options, editor) {
 
     if (!(0, _utils.isItem)(options)(node) || node.children.length === 0) {
       normalizeNode(entry);
-
       return;
     }
 
@@ -1501,7 +1502,6 @@ function itemChildrenAreAlwaysElements(options, editor) {
         });
         _slate.Transforms.insertNodes(editor, newNode, { at: nodePath });
       });
-
       return;
     }
 
@@ -1509,7 +1509,7 @@ function itemChildrenAreAlwaysElements(options, editor) {
   };
 }
 
-},{"../utils":29,"slate":61}],18:[function(require,module,exports){
+},{"../utils":29,"slate":75}],18:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1569,7 +1569,7 @@ function itemsWithoutParentListAreUnwrapped(options, editor) {
   };
 }
 
-},{"../utils":29,"slate":61}],19:[function(require,module,exports){
+},{"../utils":29,"slate":75}],19:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1599,9 +1599,8 @@ function joinAdjacentLists(options, editor) {
         nodePath = _entry[1];
 
     if ((0, _utils.isList)(options)(node)) {
-      var previousSiblingNodePath = void 0;
       try {
-        previousSiblingNodePath = _slate.Path.previous(nodePath);
+        var previousSiblingNodePath = _slate.Path.previous(nodePath);
         var siblingNode = _slate.Node.get(editor, previousSiblingNodePath);
 
         if ((0, _utils.isList)(options)(siblingNode) && options.canMerge && options.canMerge(node, siblingNode)) {
@@ -1629,6 +1628,7 @@ function joinAdjacentLists(options, editor) {
       var nextSiblingNodePath = void 0;
       try {
         nextSiblingNodePath = _slate.Path.next(nodePath);
+
         var nextSiblingNode = _slate.Node.get(editor, nextSiblingNodePath);
 
         if ((0, _utils.isList)(options)(nextSiblingNode) && options.canMerge && options.canMerge(node, nextSiblingNode)) {
@@ -1658,7 +1658,7 @@ function joinAdjacentLists(options, editor) {
   };
 }
 
-},{"../utils":29,"slate":61}],20:[function(require,module,exports){
+},{"../utils":29,"slate":75}],20:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1731,7 +1731,7 @@ function unwrapListsOverDepthLimit(options, editor) {
   };
 }
 
-},{"../utils":29,"slate":61}],21:[function(require,module,exports){
+},{"../utils":29,"slate":75}],21:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1777,7 +1777,7 @@ var getCurrentItem = exports.getCurrentItem = function getCurrentItem(options) {
   };
 };
 
-},{".":29,"..":14,"slate":61}],22:[function(require,module,exports){
+},{".":29,"..":14,"slate":75}],22:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1811,7 +1811,7 @@ var getCurrentList = exports.getCurrentList = function getCurrentList(options) {
   };
 };
 
-},{".":29,"..":14,"slate":61}],23:[function(require,module,exports){
+},{".":29,"..":14,"slate":75}],23:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1847,7 +1847,7 @@ var getDeepestItemDepth = exports.getDeepestItemDepth = function getDeepestItemD
   };
 };
 
-},{".":29,"..":14,"slate":61}],24:[function(require,module,exports){
+},{".":29,"..":14,"slate":75}],24:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1884,7 +1884,7 @@ var getItemDepth = exports.getItemDepth = function getItemDepth(options) {
   };
 };
 
-},{".":29,"..":14,"slate":61}],25:[function(require,module,exports){
+},{".":29,"..":14,"slate":75}],25:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1924,7 +1924,7 @@ var getItemsAtRange = exports.getItemsAtRange = function getItemsAtRange(options
   };
 };
 
-},{".":29,"..":14,"slate":61}],26:[function(require,module,exports){
+},{".":29,"..":14,"slate":75}],26:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1952,7 +1952,7 @@ var getListForItem = exports.getListForItem = function getListForItem(options) {
   };
 };
 
-},{".":29,"..":14,"slate":61}],27:[function(require,module,exports){
+},{".":29,"..":14,"slate":75}],27:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2004,7 +2004,7 @@ var getPreviousItem = exports.getPreviousItem = function getPreviousItem(options
   };
 };
 
-},{".":29,"..":14,"slate":61}],28:[function(require,module,exports){
+},{".":29,"..":14,"slate":75}],28:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2104,7 +2104,7 @@ var getTopmostItemsAtRange = exports.getTopmostItemsAtRange = function getTopmos
   };
 };
 
-},{".":29,"..":14,"slate":61}],29:[function(require,module,exports){
+},{".":29,"..":14,"slate":75}],29:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2277,7 +2277,7 @@ var isItem = exports.isItem = function isItem(_ref) {
   };
 };
 
-},{"..":14,"slate":61}],31:[function(require,module,exports){
+},{"..":14,"slate":75}],31:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2299,7 +2299,7 @@ var isList = exports.isList = function isList(_ref) {
   };
 };
 
-},{"..":14,"slate":61}],32:[function(require,module,exports){
+},{"..":14,"slate":75}],32:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2321,7 +2321,7 @@ var isListOrItem = exports.isListOrItem = function isListOrItem(options) {
   };
 };
 
-},{"..":14,"./isItem":30,"./isList":31,"slate":61}],33:[function(require,module,exports){
+},{"..":14,"./isItem":30,"./isList":31,"slate":75}],33:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2344,7 +2344,521 @@ var isSelectionInList = exports.isSelectionInList = function isSelectionInList(o
   };
 };
 
-},{".":29,"..":14,"slate":61}],34:[function(require,module,exports){
+},{".":29,"..":14,"slate":75}],34:[function(require,module,exports){
+(function (global, factory) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+    typeof define === 'function' && define.amd ? define(['exports'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.ResizeObserver = {}));
+})(this, (function (exports) { 'use strict';
+
+    var resizeObservers = [];
+
+    var hasActiveObservations = function () {
+        return resizeObservers.some(function (ro) { return ro.activeTargets.length > 0; });
+    };
+
+    var hasSkippedObservations = function () {
+        return resizeObservers.some(function (ro) { return ro.skippedTargets.length > 0; });
+    };
+
+    var msg = 'ResizeObserver loop completed with undelivered notifications.';
+    var deliverResizeLoopError = function () {
+        var event;
+        if (typeof ErrorEvent === 'function') {
+            event = new ErrorEvent('error', {
+                message: msg
+            });
+        }
+        else {
+            event = document.createEvent('Event');
+            event.initEvent('error', false, false);
+            event.message = msg;
+        }
+        window.dispatchEvent(event);
+    };
+
+    var ResizeObserverBoxOptions;
+    (function (ResizeObserverBoxOptions) {
+        ResizeObserverBoxOptions["BORDER_BOX"] = "border-box";
+        ResizeObserverBoxOptions["CONTENT_BOX"] = "content-box";
+        ResizeObserverBoxOptions["DEVICE_PIXEL_CONTENT_BOX"] = "device-pixel-content-box";
+    })(ResizeObserverBoxOptions || (ResizeObserverBoxOptions = {}));
+
+    var freeze = function (obj) { return Object.freeze(obj); };
+
+    var ResizeObserverSize = (function () {
+        function ResizeObserverSize(inlineSize, blockSize) {
+            this.inlineSize = inlineSize;
+            this.blockSize = blockSize;
+            freeze(this);
+        }
+        return ResizeObserverSize;
+    }());
+
+    var DOMRectReadOnly = (function () {
+        function DOMRectReadOnly(x, y, width, height) {
+            this.x = x;
+            this.y = y;
+            this.width = width;
+            this.height = height;
+            this.top = this.y;
+            this.left = this.x;
+            this.bottom = this.top + this.height;
+            this.right = this.left + this.width;
+            return freeze(this);
+        }
+        DOMRectReadOnly.prototype.toJSON = function () {
+            var _a = this, x = _a.x, y = _a.y, top = _a.top, right = _a.right, bottom = _a.bottom, left = _a.left, width = _a.width, height = _a.height;
+            return { x: x, y: y, top: top, right: right, bottom: bottom, left: left, width: width, height: height };
+        };
+        DOMRectReadOnly.fromRect = function (rectangle) {
+            return new DOMRectReadOnly(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+        };
+        return DOMRectReadOnly;
+    }());
+
+    var isSVG = function (target) { return target instanceof SVGElement && 'getBBox' in target; };
+    var isHidden = function (target) {
+        if (isSVG(target)) {
+            var _a = target.getBBox(), width = _a.width, height = _a.height;
+            return !width && !height;
+        }
+        var _b = target, offsetWidth = _b.offsetWidth, offsetHeight = _b.offsetHeight;
+        return !(offsetWidth || offsetHeight || target.getClientRects().length);
+    };
+    var isElement = function (obj) {
+        var _a;
+        if (obj instanceof Element) {
+            return true;
+        }
+        var scope = (_a = obj === null || obj === void 0 ? void 0 : obj.ownerDocument) === null || _a === void 0 ? void 0 : _a.defaultView;
+        return !!(scope && obj instanceof scope.Element);
+    };
+    var isReplacedElement = function (target) {
+        switch (target.tagName) {
+            case 'INPUT':
+                if (target.type !== 'image') {
+                    break;
+                }
+            case 'VIDEO':
+            case 'AUDIO':
+            case 'EMBED':
+            case 'OBJECT':
+            case 'CANVAS':
+            case 'IFRAME':
+            case 'IMG':
+                return true;
+        }
+        return false;
+    };
+
+    var global = typeof window !== 'undefined' ? window : {};
+
+    var cache = new WeakMap();
+    var scrollRegexp = /auto|scroll/;
+    var verticalRegexp = /^tb|vertical/;
+    var IE = (/msie|trident/i).test(global.navigator && global.navigator.userAgent);
+    var parseDimension = function (pixel) { return parseFloat(pixel || '0'); };
+    var size = function (inlineSize, blockSize, switchSizes) {
+        if (inlineSize === void 0) { inlineSize = 0; }
+        if (blockSize === void 0) { blockSize = 0; }
+        if (switchSizes === void 0) { switchSizes = false; }
+        return new ResizeObserverSize((switchSizes ? blockSize : inlineSize) || 0, (switchSizes ? inlineSize : blockSize) || 0);
+    };
+    var zeroBoxes = freeze({
+        devicePixelContentBoxSize: size(),
+        borderBoxSize: size(),
+        contentBoxSize: size(),
+        contentRect: new DOMRectReadOnly(0, 0, 0, 0)
+    });
+    var calculateBoxSizes = function (target, forceRecalculation) {
+        if (forceRecalculation === void 0) { forceRecalculation = false; }
+        if (cache.has(target) && !forceRecalculation) {
+            return cache.get(target);
+        }
+        if (isHidden(target)) {
+            cache.set(target, zeroBoxes);
+            return zeroBoxes;
+        }
+        var cs = getComputedStyle(target);
+        var svg = isSVG(target) && target.ownerSVGElement && target.getBBox();
+        var removePadding = !IE && cs.boxSizing === 'border-box';
+        var switchSizes = verticalRegexp.test(cs.writingMode || '');
+        var canScrollVertically = !svg && scrollRegexp.test(cs.overflowY || '');
+        var canScrollHorizontally = !svg && scrollRegexp.test(cs.overflowX || '');
+        var paddingTop = svg ? 0 : parseDimension(cs.paddingTop);
+        var paddingRight = svg ? 0 : parseDimension(cs.paddingRight);
+        var paddingBottom = svg ? 0 : parseDimension(cs.paddingBottom);
+        var paddingLeft = svg ? 0 : parseDimension(cs.paddingLeft);
+        var borderTop = svg ? 0 : parseDimension(cs.borderTopWidth);
+        var borderRight = svg ? 0 : parseDimension(cs.borderRightWidth);
+        var borderBottom = svg ? 0 : parseDimension(cs.borderBottomWidth);
+        var borderLeft = svg ? 0 : parseDimension(cs.borderLeftWidth);
+        var horizontalPadding = paddingLeft + paddingRight;
+        var verticalPadding = paddingTop + paddingBottom;
+        var horizontalBorderArea = borderLeft + borderRight;
+        var verticalBorderArea = borderTop + borderBottom;
+        var horizontalScrollbarThickness = !canScrollHorizontally ? 0 : target.offsetHeight - verticalBorderArea - target.clientHeight;
+        var verticalScrollbarThickness = !canScrollVertically ? 0 : target.offsetWidth - horizontalBorderArea - target.clientWidth;
+        var widthReduction = removePadding ? horizontalPadding + horizontalBorderArea : 0;
+        var heightReduction = removePadding ? verticalPadding + verticalBorderArea : 0;
+        var contentWidth = svg ? svg.width : parseDimension(cs.width) - widthReduction - verticalScrollbarThickness;
+        var contentHeight = svg ? svg.height : parseDimension(cs.height) - heightReduction - horizontalScrollbarThickness;
+        var borderBoxWidth = contentWidth + horizontalPadding + verticalScrollbarThickness + horizontalBorderArea;
+        var borderBoxHeight = contentHeight + verticalPadding + horizontalScrollbarThickness + verticalBorderArea;
+        var boxes = freeze({
+            devicePixelContentBoxSize: size(Math.round(contentWidth * devicePixelRatio), Math.round(contentHeight * devicePixelRatio), switchSizes),
+            borderBoxSize: size(borderBoxWidth, borderBoxHeight, switchSizes),
+            contentBoxSize: size(contentWidth, contentHeight, switchSizes),
+            contentRect: new DOMRectReadOnly(paddingLeft, paddingTop, contentWidth, contentHeight)
+        });
+        cache.set(target, boxes);
+        return boxes;
+    };
+    var calculateBoxSize = function (target, observedBox, forceRecalculation) {
+        var _a = calculateBoxSizes(target, forceRecalculation), borderBoxSize = _a.borderBoxSize, contentBoxSize = _a.contentBoxSize, devicePixelContentBoxSize = _a.devicePixelContentBoxSize;
+        switch (observedBox) {
+            case ResizeObserverBoxOptions.DEVICE_PIXEL_CONTENT_BOX:
+                return devicePixelContentBoxSize;
+            case ResizeObserverBoxOptions.BORDER_BOX:
+                return borderBoxSize;
+            default:
+                return contentBoxSize;
+        }
+    };
+
+    var ResizeObserverEntry = (function () {
+        function ResizeObserverEntry(target) {
+            var boxes = calculateBoxSizes(target);
+            this.target = target;
+            this.contentRect = boxes.contentRect;
+            this.borderBoxSize = freeze([boxes.borderBoxSize]);
+            this.contentBoxSize = freeze([boxes.contentBoxSize]);
+            this.devicePixelContentBoxSize = freeze([boxes.devicePixelContentBoxSize]);
+        }
+        return ResizeObserverEntry;
+    }());
+
+    var calculateDepthForNode = function (node) {
+        if (isHidden(node)) {
+            return Infinity;
+        }
+        var depth = 0;
+        var parent = node.parentNode;
+        while (parent) {
+            depth += 1;
+            parent = parent.parentNode;
+        }
+        return depth;
+    };
+
+    var broadcastActiveObservations = function () {
+        var shallowestDepth = Infinity;
+        var callbacks = [];
+        resizeObservers.forEach(function processObserver(ro) {
+            if (ro.activeTargets.length === 0) {
+                return;
+            }
+            var entries = [];
+            ro.activeTargets.forEach(function processTarget(ot) {
+                var entry = new ResizeObserverEntry(ot.target);
+                var targetDepth = calculateDepthForNode(ot.target);
+                entries.push(entry);
+                ot.lastReportedSize = calculateBoxSize(ot.target, ot.observedBox);
+                if (targetDepth < shallowestDepth) {
+                    shallowestDepth = targetDepth;
+                }
+            });
+            callbacks.push(function resizeObserverCallback() {
+                ro.callback.call(ro.observer, entries, ro.observer);
+            });
+            ro.activeTargets.splice(0, ro.activeTargets.length);
+        });
+        for (var _i = 0, callbacks_1 = callbacks; _i < callbacks_1.length; _i++) {
+            var callback = callbacks_1[_i];
+            callback();
+        }
+        return shallowestDepth;
+    };
+
+    var gatherActiveObservationsAtDepth = function (depth) {
+        resizeObservers.forEach(function processObserver(ro) {
+            ro.activeTargets.splice(0, ro.activeTargets.length);
+            ro.skippedTargets.splice(0, ro.skippedTargets.length);
+            ro.observationTargets.forEach(function processTarget(ot) {
+                if (ot.isActive()) {
+                    if (calculateDepthForNode(ot.target) > depth) {
+                        ro.activeTargets.push(ot);
+                    }
+                    else {
+                        ro.skippedTargets.push(ot);
+                    }
+                }
+            });
+        });
+    };
+
+    var process = function () {
+        var depth = 0;
+        gatherActiveObservationsAtDepth(depth);
+        while (hasActiveObservations()) {
+            depth = broadcastActiveObservations();
+            gatherActiveObservationsAtDepth(depth);
+        }
+        if (hasSkippedObservations()) {
+            deliverResizeLoopError();
+        }
+        return depth > 0;
+    };
+
+    var trigger;
+    var callbacks = [];
+    var notify = function () { return callbacks.splice(0).forEach(function (cb) { return cb(); }); };
+    var queueMicroTask = function (callback) {
+        if (!trigger) {
+            var toggle_1 = 0;
+            var el_1 = document.createTextNode('');
+            var config = { characterData: true };
+            new MutationObserver(function () { return notify(); }).observe(el_1, config);
+            trigger = function () { el_1.textContent = "".concat(toggle_1 ? toggle_1-- : toggle_1++); };
+        }
+        callbacks.push(callback);
+        trigger();
+    };
+
+    var queueResizeObserver = function (cb) {
+        queueMicroTask(function ResizeObserver() {
+            requestAnimationFrame(cb);
+        });
+    };
+
+    var watching = 0;
+    var isWatching = function () { return !!watching; };
+    var CATCH_PERIOD = 250;
+    var observerConfig = { attributes: true, characterData: true, childList: true, subtree: true };
+    var events = [
+        'resize',
+        'load',
+        'transitionend',
+        'animationend',
+        'animationstart',
+        'animationiteration',
+        'keyup',
+        'keydown',
+        'mouseup',
+        'mousedown',
+        'mouseover',
+        'mouseout',
+        'blur',
+        'focus'
+    ];
+    var time = function (timeout) {
+        if (timeout === void 0) { timeout = 0; }
+        return Date.now() + timeout;
+    };
+    var scheduled = false;
+    var Scheduler = (function () {
+        function Scheduler() {
+            var _this = this;
+            this.stopped = true;
+            this.listener = function () { return _this.schedule(); };
+        }
+        Scheduler.prototype.run = function (timeout) {
+            var _this = this;
+            if (timeout === void 0) { timeout = CATCH_PERIOD; }
+            if (scheduled) {
+                return;
+            }
+            scheduled = true;
+            var until = time(timeout);
+            queueResizeObserver(function () {
+                var elementsHaveResized = false;
+                try {
+                    elementsHaveResized = process();
+                }
+                finally {
+                    scheduled = false;
+                    timeout = until - time();
+                    if (!isWatching()) {
+                        return;
+                    }
+                    if (elementsHaveResized) {
+                        _this.run(1000);
+                    }
+                    else if (timeout > 0) {
+                        _this.run(timeout);
+                    }
+                    else {
+                        _this.start();
+                    }
+                }
+            });
+        };
+        Scheduler.prototype.schedule = function () {
+            this.stop();
+            this.run();
+        };
+        Scheduler.prototype.observe = function () {
+            var _this = this;
+            var cb = function () { return _this.observer && _this.observer.observe(document.body, observerConfig); };
+            document.body ? cb() : global.addEventListener('DOMContentLoaded', cb);
+        };
+        Scheduler.prototype.start = function () {
+            var _this = this;
+            if (this.stopped) {
+                this.stopped = false;
+                this.observer = new MutationObserver(this.listener);
+                this.observe();
+                events.forEach(function (name) { return global.addEventListener(name, _this.listener, true); });
+            }
+        };
+        Scheduler.prototype.stop = function () {
+            var _this = this;
+            if (!this.stopped) {
+                this.observer && this.observer.disconnect();
+                events.forEach(function (name) { return global.removeEventListener(name, _this.listener, true); });
+                this.stopped = true;
+            }
+        };
+        return Scheduler;
+    }());
+    var scheduler = new Scheduler();
+    var updateCount = function (n) {
+        !watching && n > 0 && scheduler.start();
+        watching += n;
+        !watching && scheduler.stop();
+    };
+
+    var skipNotifyOnElement = function (target) {
+        return !isSVG(target)
+            && !isReplacedElement(target)
+            && getComputedStyle(target).display === 'inline';
+    };
+    var ResizeObservation = (function () {
+        function ResizeObservation(target, observedBox) {
+            this.target = target;
+            this.observedBox = observedBox || ResizeObserverBoxOptions.CONTENT_BOX;
+            this.lastReportedSize = {
+                inlineSize: 0,
+                blockSize: 0
+            };
+        }
+        ResizeObservation.prototype.isActive = function () {
+            var size = calculateBoxSize(this.target, this.observedBox, true);
+            if (skipNotifyOnElement(this.target)) {
+                this.lastReportedSize = size;
+            }
+            if (this.lastReportedSize.inlineSize !== size.inlineSize
+                || this.lastReportedSize.blockSize !== size.blockSize) {
+                return true;
+            }
+            return false;
+        };
+        return ResizeObservation;
+    }());
+
+    var ResizeObserverDetail = (function () {
+        function ResizeObserverDetail(resizeObserver, callback) {
+            this.activeTargets = [];
+            this.skippedTargets = [];
+            this.observationTargets = [];
+            this.observer = resizeObserver;
+            this.callback = callback;
+        }
+        return ResizeObserverDetail;
+    }());
+
+    var observerMap = new WeakMap();
+    var getObservationIndex = function (observationTargets, target) {
+        for (var i = 0; i < observationTargets.length; i += 1) {
+            if (observationTargets[i].target === target) {
+                return i;
+            }
+        }
+        return -1;
+    };
+    var ResizeObserverController = (function () {
+        function ResizeObserverController() {
+        }
+        ResizeObserverController.connect = function (resizeObserver, callback) {
+            var detail = new ResizeObserverDetail(resizeObserver, callback);
+            observerMap.set(resizeObserver, detail);
+        };
+        ResizeObserverController.observe = function (resizeObserver, target, options) {
+            var detail = observerMap.get(resizeObserver);
+            var firstObservation = detail.observationTargets.length === 0;
+            if (getObservationIndex(detail.observationTargets, target) < 0) {
+                firstObservation && resizeObservers.push(detail);
+                detail.observationTargets.push(new ResizeObservation(target, options && options.box));
+                updateCount(1);
+                scheduler.schedule();
+            }
+        };
+        ResizeObserverController.unobserve = function (resizeObserver, target) {
+            var detail = observerMap.get(resizeObserver);
+            var index = getObservationIndex(detail.observationTargets, target);
+            var lastObservation = detail.observationTargets.length === 1;
+            if (index >= 0) {
+                lastObservation && resizeObservers.splice(resizeObservers.indexOf(detail), 1);
+                detail.observationTargets.splice(index, 1);
+                updateCount(-1);
+            }
+        };
+        ResizeObserverController.disconnect = function (resizeObserver) {
+            var _this = this;
+            var detail = observerMap.get(resizeObserver);
+            detail.observationTargets.slice().forEach(function (ot) { return _this.unobserve(resizeObserver, ot.target); });
+            detail.activeTargets.splice(0, detail.activeTargets.length);
+        };
+        return ResizeObserverController;
+    }());
+
+    var ResizeObserver = (function () {
+        function ResizeObserver(callback) {
+            if (arguments.length === 0) {
+                throw new TypeError("Failed to construct 'ResizeObserver': 1 argument required, but only 0 present.");
+            }
+            if (typeof callback !== 'function') {
+                throw new TypeError("Failed to construct 'ResizeObserver': The callback provided as parameter 1 is not a function.");
+            }
+            ResizeObserverController.connect(this, callback);
+        }
+        ResizeObserver.prototype.observe = function (target, options) {
+            if (arguments.length === 0) {
+                throw new TypeError("Failed to execute 'observe' on 'ResizeObserver': 1 argument required, but only 0 present.");
+            }
+            if (!isElement(target)) {
+                throw new TypeError("Failed to execute 'observe' on 'ResizeObserver': parameter 1 is not of type 'Element");
+            }
+            ResizeObserverController.observe(this, target, options);
+        };
+        ResizeObserver.prototype.unobserve = function (target) {
+            if (arguments.length === 0) {
+                throw new TypeError("Failed to execute 'unobserve' on 'ResizeObserver': 1 argument required, but only 0 present.");
+            }
+            if (!isElement(target)) {
+                throw new TypeError("Failed to execute 'unobserve' on 'ResizeObserver': parameter 1 is not of type 'Element");
+            }
+            ResizeObserverController.unobserve(this, target);
+        };
+        ResizeObserver.prototype.disconnect = function () {
+            ResizeObserverController.disconnect(this);
+        };
+        ResizeObserver.toString = function () {
+            return 'function ResizeObserver () { [polyfill code] }';
+        };
+        return ResizeObserver;
+    }());
+
+    exports.ResizeObserver = ResizeObserver;
+    exports.ResizeObserverEntry = ResizeObserverEntry;
+    exports.ResizeObserverSize = ResizeObserverSize;
+
+    Object.defineProperty(exports, '__esModule', { value: true });
+
+}));
+
+},{}],35:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -2546,78 +3060,6 @@ var _default = function _default(target, options) {
 
 exports["default"] = _default;
 module.exports = exports.default;
-},{}],35:[function(require,module,exports){
-/**
- * Returns a function, that, as long as it continues to be invoked, will not
- * be triggered. The function will be called after it stops being called for
- * N milliseconds. If `immediate` is passed, trigger the function on the
- * leading edge, instead of the trailing. The function also has a property 'clear' 
- * that is a function which will clear the timer to prevent previously scheduled executions. 
- *
- * @source underscore.js
- * @see http://unscriptable.com/2009/03/20/debouncing-javascript-methods/
- * @param {Function} function to wrap
- * @param {Number} timeout in ms (`100`)
- * @param {Boolean} whether to execute at the beginning (`false`)
- * @api public
- */
-function debounce(func, wait, immediate){
-  var timeout, args, context, timestamp, result;
-  if (null == wait) wait = 100;
-
-  function later() {
-    var last = Date.now() - timestamp;
-
-    if (last < wait && last >= 0) {
-      timeout = setTimeout(later, wait - last);
-    } else {
-      timeout = null;
-      if (!immediate) {
-        result = func.apply(context, args);
-        context = args = null;
-      }
-    }
-  };
-
-  var debounced = function(){
-    context = this;
-    args = arguments;
-    timestamp = Date.now();
-    var callNow = immediate && !timeout;
-    if (!timeout) timeout = setTimeout(later, wait);
-    if (callNow) {
-      result = func.apply(context, args);
-      context = args = null;
-    }
-
-    return result;
-  };
-
-  debounced.clear = function() {
-    if (timeout) {
-      clearTimeout(timeout);
-      timeout = null;
-    }
-  };
-  
-  debounced.flush = function() {
-    if (timeout) {
-      result = func.apply(context, args);
-      context = args = null;
-      
-      clearTimeout(timeout);
-      timeout = null;
-    }
-  };
-
-  return debounced;
-};
-
-// Adds compatibility for ES modules
-debounce.debounce = debounce;
-
-module.exports = debounce;
-
 },{}],36:[function(require,module,exports){
 'use strict'
 
@@ -2647,99 +3089,28 @@ function direction(value) {
 }
 
 },{}],37:[function(require,module,exports){
-(function (global){
-/*! https://mths.be/esrever v0.2.0 by @mathias */
-;(function(root) {
-
-	// Detect free variables `exports`
-	var freeExports = typeof exports == 'object' && exports;
-
-	// Detect free variable `module`
-	var freeModule = typeof module == 'object' && module &&
-		module.exports == freeExports && module;
-
-	// Detect free variable `global`, from Node.js or Browserified code,
-	// and use it as `root`
-	var freeGlobal = typeof global == 'object' && global;
-	if (freeGlobal.global === freeGlobal || freeGlobal.window === freeGlobal) {
-		root = freeGlobal;
-	}
-
-	/*--------------------------------------------------------------------------*/
-
-	var regexSymbolWithCombiningMarks = /([\0-\u02FF\u0370-\u1AAF\u1B00-\u1DBF\u1E00-\u20CF\u2100-\uD7FF\uE000-\uFE1F\uFE30-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF])([\u0300-\u036F\u1AB0-\u1AFF\u1DC0-\u1DFF\u20D0-\u20FF\uFE20-\uFE2F]+)/g;
-	var regexSurrogatePair = /([\uD800-\uDBFF])([\uDC00-\uDFFF])/g;
-
-	var reverse = function(string) {
-		// Step 1: deal with combining marks and astral symbols (surrogate pairs)
-		string = string
-			// Swap symbols with their combining marks so the combining marks go first
-			.replace(regexSymbolWithCombiningMarks, function($0, $1, $2) {
-				// Reverse the combining marks so they will end up in the same order
-				// later on (after another round of reversing)
-				return reverse($2) + $1;
-			})
-			// Swap high and low surrogates so the low surrogates go first
-			.replace(regexSurrogatePair, '$2$1');
-		// Step 2: reverse the code units in the string
-		var result = '';
-		var index = string.length;
-		while (index--) {
-			result += string.charAt(index);
-		}
-		return result;
-	};
-
-	/*--------------------------------------------------------------------------*/
-
-	var esrever = {
-		'version': '0.2.0',
-		'reverse': reverse
-	};
-
-	// Some AMD build optimizers, like r.js, check for specific condition patterns
-	// like the following:
-	if (
-		typeof define == 'function' &&
-		typeof define.amd == 'object' &&
-		define.amd
-	) {
-		define(function() {
-			return esrever;
-		});
-	}	else if (freeExports && !freeExports.nodeType) {
-		if (freeModule) { // in Node.js, io.js, or RingoJS v0.8.0+
-			freeModule.exports = esrever;
-		} else { // in Narwhal or RingoJS v0.7.0-
-			for (var key in esrever) {
-				esrever.hasOwnProperty(key) && (freeExports[key] = esrever[key]);
-			}
-		}
-	} else { // in Rhino or a web browser
-		root.esrever = esrever;
-	}
-
-}(this));
-
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],38:[function(require,module,exports){
-(function (process){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
+var _ref;
+
 // Should be no imports here!
-var _a; // SOme things that should be evaluated before all else...
-
-
-var hasSymbol = typeof Symbol !== "undefined";
+// Some things that should be evaluated before all else...
+// We only want to know if non-polyfilled symbols are available
+var hasSymbol = typeof Symbol !== "undefined" && typeof
+/*#__PURE__*/
+Symbol("x") === "symbol";
 var hasMap = typeof Map !== "undefined";
 var hasSet = typeof Set !== "undefined";
+var hasProxies = typeof Proxy !== "undefined" && typeof Proxy.revocable !== "undefined" && typeof Reflect !== "undefined";
 /**
  * The sentinel value returned by producers to replace the draft with undefined.
  */
 
-var NOTHING = hasSymbol ? Symbol("immer-nothing") : (_a = {}, _a["immer-nothing"] = true, _a);
+var NOTHING = hasSymbol ?
+/*#__PURE__*/
+Symbol.for("immer-nothing") : (_ref = {}, _ref["immer-nothing"] = true, _ref);
 /**
  * To let Immer treat your class instances as plain immutable objects
  * (albeit with a custom prototype), you must define either an instance property
@@ -2749,143 +3120,183 @@ var NOTHING = hasSymbol ? Symbol("immer-nothing") : (_a = {}, _a["immer-nothing"
  * safe to mutate in a produce callback.
  */
 
-var DRAFTABLE = hasSymbol ? Symbol("immer-draftable") : "__$immer_draftable";
-var DRAFT_STATE = hasSymbol ? Symbol("immer-state") : "__$immer_state";
-var iteratorSymbol = hasSymbol ? Symbol.iterator : "@@iterator";
+var DRAFTABLE = hasSymbol ?
+/*#__PURE__*/
+Symbol.for("immer-draftable") : "__$immer_draftable";
+var DRAFT_STATE = hasSymbol ?
+/*#__PURE__*/
+Symbol.for("immer-state") : "__$immer_state"; // Even a polyfilled Symbol might provide Symbol.iterator
 
-/* istanbul ignore next */
-var extendStatics = function (d, b) {
-  extendStatics = Object.setPrototypeOf || {
-    __proto__: []
-  } instanceof Array && function (d, b) {
-    d.__proto__ = b;
-  } || function (d, b) {
-    for (var p in b) { if (b.hasOwnProperty(p)) { d[p] = b[p]; } }
-  };
+var iteratorSymbol = typeof Symbol != "undefined" && Symbol.iterator || "@@iterator";
 
-  return extendStatics(d, b);
-}; // Ugly hack to resolve #502 and inherit built in Map / Set
-
-
-function __extends(d, b) {
-  extendStatics(d, b);
-
-  function __() {
-    this.constructor = d;
+var errors = {
+  0: "Illegal state",
+  1: "Immer drafts cannot have computed properties",
+  2: "This object has been frozen and should not be mutated",
+  3: function _(data) {
+    return "Cannot use a proxy that has been revoked. Did you pass an object from inside an immer function to an async process? " + data;
+  },
+  4: "An immer producer returned a new value *and* modified its draft. Either return a new value *or* modify the draft.",
+  5: "Immer forbids circular references",
+  6: "The first or second argument to `produce` must be a function",
+  7: "The third argument to `produce` must be a function or undefined",
+  8: "First argument to `createDraft` must be a plain object, an array, or an immerable object",
+  9: "First argument to `finishDraft` must be a draft returned by `createDraft`",
+  10: "The given draft is already finalized",
+  11: "Object.defineProperty() cannot be used on an Immer draft",
+  12: "Object.setPrototypeOf() cannot be used on an Immer draft",
+  13: "Immer only supports deleting array indices",
+  14: "Immer only supports setting array indices and the 'length' property",
+  15: function _(path) {
+    return "Cannot apply patch, path doesn't resolve: " + path;
+  },
+  16: 'Sets cannot have "replace" patches.',
+  17: function _(op) {
+    return "Unsupported patch operation: " + op;
+  },
+  18: function _(plugin) {
+    return "The plugin for '" + plugin + "' has not been loaded into Immer. To enable the plugin, import and call `enable" + plugin + "()` when initializing your application.";
+  },
+  20: "Cannot use proxies if Proxy, Proxy.revocable or Reflect are not available",
+  21: function _(thing) {
+    return "produce can only be called on things that are draftable: plain objects, arrays, Map, Set or classes that are marked with '[immerable]: true'. Got '" + thing + "'";
+  },
+  22: function _(thing) {
+    return "'current' expects a draft, got: " + thing;
+  },
+  23: function _(thing) {
+    return "'original' expects a draft, got: " + thing;
+  },
+  24: "Patching reserved attributes like __proto__, prototype and constructor is not allowed"
+};
+function die(error) {
+  for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    args[_key - 1] = arguments[_key];
   }
 
-  d.prototype = ( // @ts-ignore
-  __.prototype = b.prototype, new __());
+  {
+    var e = errors[error];
+    var msg = !e ? "unknown error nr: " + error : typeof e === "function" ? e.apply(null, args) : e;
+    throw new Error("[Immer] " + msg);
+  }
 }
 
-var Archtype;
-
-(function (Archtype) {
-  Archtype[Archtype["Object"] = 0] = "Object";
-  Archtype[Archtype["Array"] = 1] = "Array";
-  Archtype[Archtype["Map"] = 2] = "Map";
-  Archtype[Archtype["Set"] = 3] = "Set";
-})(Archtype || (Archtype = {}));
-
-var ProxyType;
-
-(function (ProxyType) {
-  ProxyType[ProxyType["ProxyObject"] = 0] = "ProxyObject";
-  ProxyType[ProxyType["ProxyArray"] = 1] = "ProxyArray";
-  ProxyType[ProxyType["ES5Object"] = 2] = "ES5Object";
-  ProxyType[ProxyType["ES5Array"] = 3] = "ES5Array";
-  ProxyType[ProxyType["Map"] = 4] = "Map";
-  ProxyType[ProxyType["Set"] = 5] = "Set";
-})(ProxyType || (ProxyType = {}));
-
 /** Returns true if the given value is an Immer draft */
+
+/*#__PURE__*/
 
 function isDraft(value) {
   return !!value && !!value[DRAFT_STATE];
 }
 /** Returns true if the given value can be drafted by Immer */
 
+/*#__PURE__*/
+
 function isDraftable(value) {
-  if (!value) { return false; }
-  return isPlainObject(value) || Array.isArray(value) || !!value[DRAFTABLE] || !!value.constructor[DRAFTABLE] || isMap(value) || isSet(value);
+  var _value$constructor;
+
+  if (!value) return false;
+  return isPlainObject(value) || Array.isArray(value) || !!value[DRAFTABLE] || !!((_value$constructor = value.constructor) === null || _value$constructor === void 0 ? void 0 : _value$constructor[DRAFTABLE]) || isMap(value) || isSet(value);
 }
+var objectCtorString =
+/*#__PURE__*/
+Object.prototype.constructor.toString();
+/*#__PURE__*/
+
 function isPlainObject(value) {
-  if (!value || typeof value !== "object") { return false; }
+  if (!value || typeof value !== "object") return false;
   var proto = Object.getPrototypeOf(value);
-  return !proto || proto === Object.prototype;
+
+  if (proto === null) {
+    return true;
+  }
+
+  var Ctor = Object.hasOwnProperty.call(proto, "constructor") && proto.constructor;
+  if (Ctor === Object) return true;
+  return typeof Ctor == "function" && Function.toString.call(Ctor) === objectCtorString;
 }
 function original(value) {
-  if (value && value[DRAFT_STATE]) {
-    return value[DRAFT_STATE].base;
-  } // otherwise return undefined
-
+  if (!isDraft(value)) die(23, value);
+  return value[DRAFT_STATE].base_;
 }
+/*#__PURE__*/
+
 var ownKeys = typeof Reflect !== "undefined" && Reflect.ownKeys ? Reflect.ownKeys : typeof Object.getOwnPropertySymbols !== "undefined" ? function (obj) {
   return Object.getOwnPropertyNames(obj).concat(Object.getOwnPropertySymbols(obj));
 } :
 /* istanbul ignore next */
 Object.getOwnPropertyNames;
-function each(obj, iter) {
-  if (getArchtype(obj) === Archtype.Object) {
-    ownKeys(obj).forEach(function (key) {
-      return iter(key, obj[key], obj);
-    });
-  } else {
+var getOwnPropertyDescriptors = Object.getOwnPropertyDescriptors || function getOwnPropertyDescriptors(target) {
+  // Polyfill needed for Hermes and IE, see https://github.com/facebook/hermes/issues/274
+  var res = {};
+  ownKeys(target).forEach(function (key) {
+    res[key] = Object.getOwnPropertyDescriptor(target, key);
+  });
+  return res;
+};
+function each(obj, iter, enumerableOnly) {
+  if (enumerableOnly === void 0) {
+    enumerableOnly = false;
+  }
+
+  if (getArchtype(obj) === 0
+  /* Object */
+  ) {
+      (enumerableOnly ? Object.keys : ownKeys)(obj).forEach(function (key) {
+        if (!enumerableOnly || typeof key !== "symbol") iter(key, obj[key], obj);
+      });
+    } else {
     obj.forEach(function (entry, index) {
       return iter(index, entry, obj);
     });
   }
 }
-function isEnumerable(base, prop) {
-  var desc = Object.getOwnPropertyDescriptor(base, prop);
-  return desc && desc.enumerable ? true : false;
-}
+/*#__PURE__*/
+
 function getArchtype(thing) {
   /* istanbul ignore next */
-  if (!thing) { die(); }
-
-  if (thing[DRAFT_STATE]) {
-    switch (thing[DRAFT_STATE].type) {
-      case ProxyType.ES5Object:
-      case ProxyType.ProxyObject:
-        return Archtype.Object;
-
-      case ProxyType.ES5Array:
-      case ProxyType.ProxyArray:
-        return Archtype.Array;
-
-      case ProxyType.Map:
-        return Archtype.Map;
-
-      case ProxyType.Set:
-        return Archtype.Set;
-    }
-  }
-
-  return Array.isArray(thing) ? Archtype.Array : isMap(thing) ? Archtype.Map : isSet(thing) ? Archtype.Set : Archtype.Object;
+  var state = thing[DRAFT_STATE];
+  return state ? state.type_ > 3 ? state.type_ - 4 // cause Object and Array map back from 4 and 5
+  : state.type_ // others are the same
+  : Array.isArray(thing) ? 1
+  /* Array */
+  : isMap(thing) ? 2
+  /* Map */
+  : isSet(thing) ? 3
+  /* Set */
+  : 0
+  /* Object */
+  ;
 }
+/*#__PURE__*/
+
 function has(thing, prop) {
-  return getArchtype(thing) === Archtype.Map ? thing.has(prop) : Object.prototype.hasOwnProperty.call(thing, prop);
+  return getArchtype(thing) === 2
+  /* Map */
+  ? thing.has(prop) : Object.prototype.hasOwnProperty.call(thing, prop);
 }
+/*#__PURE__*/
+
 function get(thing, prop) {
   // @ts-ignore
-  return getArchtype(thing) === Archtype.Map ? thing.get(prop) : thing[prop];
+  return getArchtype(thing) === 2
+  /* Map */
+  ? thing.get(prop) : thing[prop];
 }
+/*#__PURE__*/
+
 function set(thing, propOrOldValue, value) {
-  switch (getArchtype(thing)) {
-    case Archtype.Map:
-      thing.set(propOrOldValue, value);
-      break;
-
-    case Archtype.Set:
-      thing.delete(propOrOldValue);
+  var t = getArchtype(thing);
+  if (t === 2
+  /* Map */
+  ) thing.set(propOrOldValue, value);else if (t === 3
+  /* Set */
+  ) {
       thing.add(value);
-      break;
-
-    default:
-      thing[propOrOldValue] = value;
-  }
+    } else thing[propOrOldValue] = value;
 }
+/*#__PURE__*/
+
 function is(x, y) {
   // From: https://github.com/facebook/fbjs/blob/c69904a511b900266935168223063dd8772dfc40/packages/fbjs/src/core/shallowEqual.js
   if (x === y) {
@@ -2894,293 +3305,289 @@ function is(x, y) {
     return x !== x && y !== y;
   }
 }
+/*#__PURE__*/
+
 function isMap(target) {
   return hasMap && target instanceof Map;
 }
+/*#__PURE__*/
+
 function isSet(target) {
   return hasSet && target instanceof Set;
 }
+/*#__PURE__*/
+
 function latest(state) {
-  return state.copy || state.base;
+  return state.copy_ || state.base_;
 }
-function shallowCopy(base, invokeGetters) {
-  if (invokeGetters === void 0) {
-    invokeGetters = false;
+/*#__PURE__*/
+
+function shallowCopy(base) {
+  if (Array.isArray(base)) return Array.prototype.slice.call(base);
+  var descriptors = getOwnPropertyDescriptors(base);
+  delete descriptors[DRAFT_STATE];
+  var keys = ownKeys(descriptors);
+
+  for (var i = 0; i < keys.length; i++) {
+    var key = keys[i];
+    var desc = descriptors[key];
+
+    if (desc.writable === false) {
+      desc.writable = true;
+      desc.configurable = true;
+    } // like object.assign, we will read any _own_, get/set accessors. This helps in dealing
+    // with libraries that trap values, like mobx or vue
+    // unlike object.assign, non-enumerables will be copied as well
+
+
+    if (desc.get || desc.set) descriptors[key] = {
+      configurable: true,
+      writable: true,
+      enumerable: desc.enumerable,
+      value: base[key]
+    };
   }
 
-  if (Array.isArray(base)) { return base.slice(); }
-  var clone = Object.create(Object.getPrototypeOf(base));
-  ownKeys(base).forEach(function (key) {
-    if (key === DRAFT_STATE) {
-      return; // Never copy over draft state.
-    }
-
-    var desc = Object.getOwnPropertyDescriptor(base, key);
-    var value = desc.value;
-
-    if (desc.get) {
-      if (!invokeGetters) {
-        throw new Error("Immer drafts cannot have computed properties");
-      }
-
-      value = desc.get.call(base);
-    }
-
-    if (desc.enumerable) {
-      clone[key] = value;
-    } else {
-      Object.defineProperty(clone, key, {
-        value: value,
-        writable: true,
-        configurable: true
-      });
-    }
-  });
-  return clone;
+  return Object.create(Object.getPrototypeOf(base), descriptors);
 }
 function freeze(obj, deep) {
-  if (!isDraftable(obj) || isDraft(obj) || Object.isFrozen(obj)) { return; }
-  var type = getArchtype(obj);
-
-  if (type === Archtype.Set) {
-    obj.add = obj.clear = obj.delete = dontMutateFrozenCollections;
-  } else if (type === Archtype.Map) {
-    obj.set = obj.clear = obj.delete = dontMutateFrozenCollections;
+  if (deep === void 0) {
+    deep = false;
   }
 
+  if (isFrozen(obj) || isDraft(obj) || !isDraftable(obj)) return obj;
+
+  if (getArchtype(obj) > 1
+  /* Map or Set */
+  ) {
+      obj.set = obj.add = obj.clear = obj.delete = dontMutateFrozenCollections;
+    }
+
   Object.freeze(obj);
-  if (deep) { each(obj, function (_, value) {
+  if (deep) each(obj, function (key, value) {
     return freeze(value, true);
-  }); }
+  }, true);
+  return obj;
 }
 
 function dontMutateFrozenCollections() {
-  throw new Error("This object has been frozen and should not be mutated");
+  die(2);
 }
 
-function createHiddenProperty(target, prop, value) {
-  Object.defineProperty(target, prop, {
-    value: value,
-    enumerable: false,
-    writable: true
-  });
-}
-/* istanbul ignore next */
+function isFrozen(obj) {
+  if (obj == null || typeof obj !== "object") return true; // See #600, IE dies on non-objects in Object.isFrozen
 
-function die() {
-  throw new Error("Illegal state, please file a bug");
+  return Object.isFrozen(obj);
 }
 
-/** Each scope represents a `produce` call. */
+/** Plugin utilities */
 
-var ImmerScope =
-/** @class */
-function () {
-  function ImmerScope(parent, immer) {
-    this.drafts = [];
-    this.parent = parent;
-    this.immer = immer; // Whenever the modified draft contains a draft from another scope, we
+var plugins = {};
+function getPlugin(pluginKey) {
+  var plugin = plugins[pluginKey];
+
+  if (!plugin) {
+    die(18, pluginKey);
+  } // @ts-ignore
+
+
+  return plugin;
+}
+function loadPlugin(pluginKey, implementation) {
+  if (!plugins[pluginKey]) plugins[pluginKey] = implementation;
+}
+
+var currentScope;
+function getCurrentScope() {
+  if ( !currentScope) die(0);
+  return currentScope;
+}
+
+function createScope(parent_, immer_) {
+  return {
+    drafts_: [],
+    parent_: parent_,
+    immer_: immer_,
+    // Whenever the modified draft contains a draft from another scope, we
     // need to prevent auto-freezing so the unowned draft can be finalized.
-
-    this.canAutoFreeze = true;
-  }
-
-  ImmerScope.prototype.usePatches = function (patchListener) {
-    if (patchListener) {
-      this.patches = [];
-      this.inversePatches = [];
-      this.patchListener = patchListener;
-    }
+    canAutoFreeze_: true,
+    unfinalizedDrafts_: 0
   };
-
-  ImmerScope.prototype.revoke = function () {
-    this.leave();
-    this.drafts.forEach(revoke); // @ts-ignore
-
-    this.drafts = null;
-  };
-
-  ImmerScope.prototype.leave = function () {
-    if (this === ImmerScope.current) {
-      ImmerScope.current = this.parent;
-    }
-  };
-
-  ImmerScope.enter = function (immer) {
-    var scope = new ImmerScope(ImmerScope.current, immer);
-    ImmerScope.current = scope;
-    return scope;
-  };
-
-  return ImmerScope;
-}();
-
-function revoke(draft) {
-  var state = draft[DRAFT_STATE];
-  if (state.type === ProxyType.ProxyObject || state.type === ProxyType.ProxyArray) { state.revoke(); }else { state.revoked = true; }
 }
 
-function processResult(immer, result, scope) {
-  var baseDraft = scope.drafts[0];
+function usePatchesInScope(scope, patchListener) {
+  if (patchListener) {
+    getPlugin("Patches"); // assert we have the plugin
+
+    scope.patches_ = [];
+    scope.inversePatches_ = [];
+    scope.patchListener_ = patchListener;
+  }
+}
+function revokeScope(scope) {
+  leaveScope(scope);
+  scope.drafts_.forEach(revokeDraft); // @ts-ignore
+
+  scope.drafts_ = null;
+}
+function leaveScope(scope) {
+  if (scope === currentScope) {
+    currentScope = scope.parent_;
+  }
+}
+function enterScope(immer) {
+  return currentScope = createScope(currentScope, immer);
+}
+
+function revokeDraft(draft) {
+  var state = draft[DRAFT_STATE];
+  if (state.type_ === 0
+  /* ProxyObject */
+  || state.type_ === 1
+  /* ProxyArray */
+  ) state.revoke_();else state.revoked_ = true;
+}
+
+function processResult(result, scope) {
+  scope.unfinalizedDrafts_ = scope.drafts_.length;
+  var baseDraft = scope.drafts_[0];
   var isReplaced = result !== undefined && result !== baseDraft;
-  immer.willFinalize(scope, result, isReplaced);
+  if (!scope.immer_.useProxies_) getPlugin("ES5").willFinalizeES5_(scope, result, isReplaced);
 
   if (isReplaced) {
-    if (baseDraft[DRAFT_STATE].modified) {
-      scope.revoke();
-      throw new Error("An immer producer returned a new value *and* modified its draft. Either return a new value *or* modify the draft."); // prettier-ignore
+    if (baseDraft[DRAFT_STATE].modified_) {
+      revokeScope(scope);
+      die(4);
     }
 
     if (isDraftable(result)) {
       // Finalize the result in case it contains (or is) a subset of the draft.
-      result = finalize(immer, result, scope);
-      if (!scope.parent) { maybeFreeze(immer, result); }
+      result = finalize(scope, result);
+      if (!scope.parent_) maybeFreeze(scope, result);
     }
 
-    if (scope.patches) {
-      scope.patches.push({
-        op: "replace",
-        path: [],
-        value: result
-      });
-      scope.inversePatches.push({
-        op: "replace",
-        path: [],
-        value: baseDraft[DRAFT_STATE].base
-      });
+    if (scope.patches_) {
+      getPlugin("Patches").generateReplacementPatches_(baseDraft[DRAFT_STATE].base_, result, scope.patches_, scope.inversePatches_);
     }
   } else {
     // Finalize the base draft.
-    result = finalize(immer, baseDraft, scope, []);
+    result = finalize(scope, baseDraft, []);
   }
 
-  scope.revoke();
+  revokeScope(scope);
 
-  if (scope.patches) {
-    scope.patchListener(scope.patches, scope.inversePatches);
+  if (scope.patches_) {
+    scope.patchListener_(scope.patches_, scope.inversePatches_);
   }
 
   return result !== NOTHING ? result : undefined;
 }
 
-function finalize(immer, draft, scope, path) {
-  var state = draft[DRAFT_STATE];
+function finalize(rootScope, value, path) {
+  // Don't recurse in tho recursive data structures
+  if (isFrozen(value)) return value;
+  var state = value[DRAFT_STATE]; // A plain object, might need freezing, might contain drafts
 
   if (!state) {
-    if (Object.isFrozen(draft)) { return draft; }
-    return finalizeTree(immer, draft, scope);
+    each(value, function (key, childValue) {
+      return finalizeProperty(rootScope, state, value, key, childValue, path);
+    }, true // See #590, don't recurse into non-enumerable of non drafted objects
+    );
+    return value;
   } // Never finalize drafts owned by another scope.
 
 
-  if (state.scope !== scope) {
-    return draft;
-  }
+  if (state.scope_ !== rootScope) return value; // Unmodified draft, return the (frozen) original
 
-  if (!state.modified) {
-    maybeFreeze(immer, state.base, true);
-    return state.base;
-  }
+  if (!state.modified_) {
+    maybeFreeze(rootScope, state.base_, true);
+    return state.base_;
+  } // Not finalized yet, let's do that now
 
-  if (!state.finalized) {
-    state.finalized = true;
-    finalizeTree(immer, state.draft, scope, path); // We cannot really delete anything inside of a Set. We can only replace the whole Set.
 
-    if (immer.onDelete && state.type !== ProxyType.Set) {
-      // The `assigned` object is unreliable with ES5 drafts.
-      if (immer.useProxies) {
-        var assigned = state.assigned;
-        each(assigned, function (prop, exists) {
-          if (!exists) { immer.onDelete(state, prop); }
-        });
-      } else {
-        var base = state.base,
-            copy_1 = state.copy;
-        each(base, function (prop) {
-          if (!has(copy_1, prop)) { immer.onDelete(state, prop); }
-        });
+  if (!state.finalized_) {
+    state.finalized_ = true;
+    state.scope_.unfinalizedDrafts_--;
+    var result = // For ES5, create a good copy from the draft first, with added keys and without deleted keys.
+    state.type_ === 4
+    /* ES5Object */
+    || state.type_ === 5
+    /* ES5Array */
+    ? state.copy_ = shallowCopy(state.draft_) : state.copy_; // Finalize all children of the copy
+    // For sets we clone before iterating, otherwise we can get in endless loop due to modifying during iteration, see #628
+    // To preserve insertion order in all cases we then clear the set
+    // And we let finalizeProperty know it needs to re-add non-draft children back to the target
+
+    var resultEach = result;
+    var isSet = false;
+
+    if (state.type_ === 3
+    /* Set */
+    ) {
+        resultEach = new Set(result);
+        result.clear();
+        isSet = true;
       }
-    }
 
-    if (immer.onCopy) {
-      immer.onCopy(state);
-    } // At this point, all descendants of `state.copy` have been finalized,
-    // so we can be sure that `scope.canAutoFreeze` is accurate.
+    each(resultEach, function (key, childValue) {
+      return finalizeProperty(rootScope, state, result, key, childValue, path, isSet);
+    }); // everything inside is frozen, we can freeze here
 
+    maybeFreeze(rootScope, result, false); // first time finalizing, let's create those patches
 
-    if (immer.autoFreeze && scope.canAutoFreeze) {
-      freeze(state.copy, false);
-    }
-
-    if (path && scope.patches) {
-      generatePatches(state, path, scope.patches, scope.inversePatches);
+    if (path && rootScope.patches_) {
+      getPlugin("Patches").generatePatches_(state, path, rootScope.patches_, rootScope.inversePatches_);
     }
   }
 
-  return state.copy;
+  return state.copy_;
 }
 
-function finalizeTree(immer, root, scope, rootPath) {
-  var state = root[DRAFT_STATE];
-
-  if (state) {
-    if (state.type === ProxyType.ES5Object || state.type === ProxyType.ES5Array) {
-      // Create the final copy, with added keys and without deleted keys.
-      state.copy = shallowCopy(state.draft, true);
-    }
-
-    root = state.copy;
-  }
-
-  each(root, function (key, value) {
-    return finalizeProperty(immer, scope, root, state, root, key, value, rootPath);
-  });
-  return root;
-}
-
-function finalizeProperty(immer, scope, root, rootState, parentValue, prop, childValue, rootPath) {
-  if (childValue === parentValue) {
-    throw Error("Immer forbids circular references");
-  } // In the `finalizeTree` method, only the `root` object may be a draft.
-
-
-  var isDraftProp = !!rootState && parentValue === root;
-  var isSetMember = isSet(parentValue);
+function finalizeProperty(rootScope, parentState, targetObject, prop, childValue, rootPath, targetIsSet) {
+  if ( childValue === targetObject) die(5);
 
   if (isDraft(childValue)) {
-    var path = rootPath && isDraftProp && !isSetMember && // Set objects are atomic since they have no keys.
-    !has(rootState.assigned, prop) // Skip deep patches for assigned keys.
+    var path = rootPath && parentState && parentState.type_ !== 3
+    /* Set */
+    && // Set objects are atomic since they have no keys.
+    !has(parentState.assigned_, prop) // Skip deep patches for assigned keys.
     ? rootPath.concat(prop) : undefined; // Drafts owned by `scope` are finalized here.
 
-    childValue = finalize(immer, childValue, scope, path);
-    set(parentValue, prop, childValue); // Drafts from another scope must prevent auto-freezing.
+    var res = finalize(rootScope, childValue, path);
+    set(targetObject, prop, res); // Drafts from another scope must prevented to be frozen
+    // if we got a draft back from finalize, we're in a nested produce and shouldn't freeze
 
-    if (isDraft(childValue)) {
-      scope.canAutoFreeze = false;
-    }
-  } // Unchanged draft properties are ignored.
-  else if (isDraftProp && is(childValue, get(rootState.base, prop))) {
+    if (isDraft(res)) {
+      rootScope.canAutoFreeze_ = false;
+    } else return;
+  } else if (targetIsSet) {
+    targetObject.add(childValue);
+  } // Search new objects for unfinalized drafts. Frozen objects should never contain drafts.
+
+
+  if (isDraftable(childValue) && !isFrozen(childValue)) {
+    if (!rootScope.immer_.autoFreeze_ && rootScope.unfinalizedDrafts_ < 1) {
+      // optimization: if an object is not a draft, and we don't have to
+      // deepfreeze everything, and we are sure that no drafts are left in the remaining object
+      // cause we saw and finalized all drafts already; we can stop visiting the rest of the tree.
+      // This benefits especially adding large data tree's without further processing.
+      // See add-data.js perf test
       return;
-    } // Search new objects for unfinalized drafts. Frozen objects should never contain drafts.
-    // TODO: the recursion over here looks weird, shouldn't non-draft stuff have it's own recursion?
-    // especially the passing on of root and rootState doesn't make sense...
-    else if (isDraftable(childValue)) {
-        each(childValue, function (key, grandChild) {
-          return finalizeProperty(immer, scope, root, rootState, childValue, key, grandChild, rootPath);
-        });
-        if (!scope.parent) { maybeFreeze(immer, childValue); }
-      }
+    }
 
-  if (isDraftProp && immer.onAssign && !isSetMember) {
-    immer.onAssign(rootState, prop, childValue);
+    finalize(rootScope, childValue); // immer deep freezes plain objects, so if there is no parent state, we freeze as well
+
+    if (!parentState || !parentState.scope_.parent_) maybeFreeze(rootScope, childValue);
   }
 }
 
-function maybeFreeze(immer, value, deep) {
+function maybeFreeze(scope, value, deep) {
   if (deep === void 0) {
     deep = false;
   }
 
-  if (immer.autoFreeze && !isDraft(value)) {
+  // we never freeze for a non-root scope; as it would prevent pruning for drafts inside wrapping objects
+  if (!scope.parent_ && scope.immer_.autoFreeze_ && scope.canAutoFreeze_) {
     freeze(value, deep);
   }
 }
@@ -3191,31 +3598,33 @@ function maybeFreeze(immer, value, deep) {
  * The second argument is the parent draft-state (used internally).
  */
 
-function createProxy(base, parent) {
+function createProxyProxy(base, parent) {
   var isArray = Array.isArray(base);
   var state = {
-    type: isArray ? ProxyType.ProxyArray : ProxyType.ProxyObject,
+    type_: isArray ? 1
+    /* ProxyArray */
+    : 0
+    /* ProxyObject */
+    ,
     // Track which produce call this is associated with.
-    scope: parent ? parent.scope : ImmerScope.current,
+    scope_: parent ? parent.scope_ : getCurrentScope(),
     // True for both shallow and deep changes.
-    modified: false,
+    modified_: false,
     // Used during finalization.
-    finalized: false,
+    finalized_: false,
     // Track which properties have been assigned (true) or deleted (false).
-    assigned: {},
+    assigned_: {},
     // The parent draft state.
-    parent: parent,
+    parent_: parent,
     // The base state.
-    base: base,
+    base_: base,
     // The base proxy.
-    draft: null,
-    // Any property proxies.
-    drafts: {},
+    draft_: null,
     // The base copy with any updated values.
-    copy: null,
+    copy_: null,
     // Called by the `produce` function.
-    revoke: null,
-    isManual: false
+    revoke_: null,
+    isManual_: false
   }; // the traps must target something, a bit like the 'real' base.
   // but also, we need to be able to determine from the target what the relevant state is
   // (to avoid creating traps per instance to capture the state in closure,
@@ -3229,16 +3638,14 @@ function createProxy(base, parent) {
   if (isArray) {
     target = [state];
     traps = arrayTraps;
-  } // TODO: optimization: might be faster, cheaper if we created a non-revocable proxy
-  // and administrate revoking ourselves
+  }
 
+  var _Proxy$revocable = Proxy.revocable(target, traps),
+      revoke = _Proxy$revocable.revoke,
+      proxy = _Proxy$revocable.proxy;
 
-  var _a = Proxy.revocable(target, traps),
-      revoke = _a.revoke,
-      proxy = _a.proxy;
-
-  state.draft = proxy;
-  state.revoke = revoke;
+  state.draft_ = proxy;
+  state.revoke_ = revoke;
   return proxy;
 }
 /**
@@ -3246,92 +3653,112 @@ function createProxy(base, parent) {
  */
 
 var objectTraps = {
-  get: function (state, prop) {
-    if (prop === DRAFT_STATE) { return state; }
-    var drafts = state.drafts; // Check for existing draft in unmodified state.
+  get: function get(state, prop) {
+    if (prop === DRAFT_STATE) return state;
+    var source = latest(state);
 
-    if (!state.modified && has(drafts, prop)) {
-      return drafts[prop];
+    if (!has(source, prop)) {
+      // non-existing or non-own property...
+      return readPropFromProto(state, source, prop);
     }
 
-    var value = latest(state)[prop];
+    var value = source[prop];
 
-    if (state.finalized || !isDraftable(value)) {
+    if (state.finalized_ || !isDraftable(value)) {
       return value;
     } // Check for existing draft in modified state.
+    // Assigned values are never drafted. This catches any drafts we created, too.
 
 
-    if (state.modified) {
-      // Assigned values are never drafted. This catches any drafts we created, too.
-      if (value !== peek(state.base, prop)) { return value; } // Store drafts on the copy (when one exists).
-      // @ts-ignore
-
-      drafts = state.copy;
+    if (value === peek(state.base_, prop)) {
+      prepareCopy(state);
+      return state.copy_[prop] = createProxy(state.scope_.immer_, value, state);
     }
 
-    return drafts[prop] = state.scope.immer.createProxy(value, state);
+    return value;
   },
-  has: function (state, prop) {
+  has: function has(state, prop) {
     return prop in latest(state);
   },
-  ownKeys: function (state) {
+  ownKeys: function ownKeys(state) {
     return Reflect.ownKeys(latest(state));
   },
-  set: function (state, prop
+  set: function set(state, prop
   /* strictly not, but helps TS */
   , value) {
-    if (!state.modified) {
-      var baseValue = peek(state.base, prop); // Optimize based on value's truthiness. Truthy values are guaranteed to
-      // never be undefined, so we can avoid the `in` operator. Lastly, truthy
-      // values may be drafts, but falsy values are never drafts.
+    var desc = getDescriptorFromProto(latest(state), prop);
 
-      var isUnchanged = value ? is(baseValue, value) || value === state.drafts[prop] : is(baseValue, value) && prop in state.base;
-      if (isUnchanged) { return true; }
+    if (desc === null || desc === void 0 ? void 0 : desc.set) {
+      // special case: if this write is captured by a setter, we have
+      // to trigger it with the correct context
+      desc.set.call(state.draft_, value);
+      return true;
+    }
+
+    if (!state.modified_) {
+      // the last check is because we need to be able to distinguish setting a non-existing to undefined (which is a change)
+      // from setting an existing property with value undefined to undefined (which is not a change)
+      var current = peek(latest(state), prop); // special case, if we assigning the original value to a draft, we can ignore the assignment
+
+      var currentState = current === null || current === void 0 ? void 0 : current[DRAFT_STATE];
+
+      if (currentState && currentState.base_ === value) {
+        state.copy_[prop] = value;
+        state.assigned_[prop] = false;
+        return true;
+      }
+
+      if (is(value, current) && (value !== undefined || has(state.base_, prop))) return true;
       prepareCopy(state);
       markChanged(state);
     }
 
-    state.assigned[prop] = true; // @ts-ignore
+    if (state.copy_[prop] === value && ( // special case: handle new props with value 'undefined'
+    value !== undefined || prop in state.copy_) || // special case: NaN
+    Number.isNaN(value) && Number.isNaN(state.copy_[prop])) return true; // @ts-ignore
 
-    state.copy[prop] = value;
+    state.copy_[prop] = value;
+    state.assigned_[prop] = true;
     return true;
   },
-  deleteProperty: function (state, prop) {
+  deleteProperty: function deleteProperty(state, prop) {
     // The `undefined` check is a fast path for pre-existing keys.
-    if (peek(state.base, prop) !== undefined || prop in state.base) {
-      state.assigned[prop] = false;
+    if (peek(state.base_, prop) !== undefined || prop in state.base_) {
+      state.assigned_[prop] = false;
       prepareCopy(state);
       markChanged(state);
-    } else if (state.assigned[prop]) {
+    } else {
       // if an originally not assigned property was deleted
-      delete state.assigned[prop];
+      delete state.assigned_[prop];
     } // @ts-ignore
 
 
-    if (state.copy) { delete state.copy[prop]; }
+    if (state.copy_) delete state.copy_[prop];
     return true;
   },
   // Note: We never coerce `desc.value` into an Immer draft, because we can't make
   // the same guarantee in ES5 mode.
-  getOwnPropertyDescriptor: function (state, prop) {
+  getOwnPropertyDescriptor: function getOwnPropertyDescriptor(state, prop) {
     var owner = latest(state);
     var desc = Reflect.getOwnPropertyDescriptor(owner, prop);
-
-    if (desc) {
-      desc.writable = true;
-      desc.configurable = state.type !== ProxyType.ProxyArray || prop !== "length";
-    }
-
-    return desc;
+    if (!desc) return desc;
+    return {
+      writable: true,
+      configurable: state.type_ !== 1
+      /* ProxyArray */
+      || prop !== "length",
+      enumerable: desc.enumerable,
+      value: owner[prop]
+    };
   },
-  defineProperty: function () {
-    throw new Error("Object.defineProperty() cannot be used on an Immer draft"); // prettier-ignore
+  defineProperty: function defineProperty() {
+    die(11);
   },
-  getPrototypeOf: function (state) {
-    return Object.getPrototypeOf(state.base);
+  getPrototypeOf: function getPrototypeOf(state) {
+    return Object.getPrototypeOf(state.base_);
   },
-  setPrototypeOf: function () {
-    throw new Error("Object.setPrototypeOf() cannot be used on an Immer draft"); // prettier-ignore
+  setPrototypeOf: function setPrototypeOf() {
+    die(12);
   }
 };
 /**
@@ -3348,1110 +3775,245 @@ each(objectTraps, function (key, fn) {
 });
 
 arrayTraps.deleteProperty = function (state, prop) {
-  if (isNaN(parseInt(prop))) {
-    throw new Error("Immer only supports deleting array indices"); // prettier-ignore
-  }
+  if ( isNaN(parseInt(prop))) die(13); // @ts-ignore
 
-  return objectTraps.deleteProperty.call(this, state[0], prop);
+  return arrayTraps.set.call(this, state, prop, undefined);
 };
 
 arrayTraps.set = function (state, prop, value) {
-  if (prop !== "length" && isNaN(parseInt(prop))) {
-    throw new Error("Immer only supports setting array indices and the 'length' property"); // prettier-ignore
-  }
-
+  if ( prop !== "length" && isNaN(parseInt(prop))) die(14);
   return objectTraps.set.call(this, state[0], prop, value, state[0]);
-};
-/**
- * Map drafts
- */
-// Access a property without creating an Immer draft.
+}; // Access a property without creating an Immer draft.
 
 
 function peek(draft, prop) {
   var state = draft[DRAFT_STATE];
-  var desc = Reflect.getOwnPropertyDescriptor(state ? latest(state) : draft, prop);
-  return desc && desc.value;
+  var source = state ? latest(state) : draft;
+  return source[prop];
+}
+
+function readPropFromProto(state, source, prop) {
+  var _desc$get;
+
+  var desc = getDescriptorFromProto(source, prop);
+  return desc ? "value" in desc ? desc.value : // This is a very special case, if the prop is a getter defined by the
+  // prototype, we should invoke it with the draft as context!
+  (_desc$get = desc.get) === null || _desc$get === void 0 ? void 0 : _desc$get.call(state.draft_) : undefined;
+}
+
+function getDescriptorFromProto(source, prop) {
+  // 'in' checks proto!
+  if (!(prop in source)) return undefined;
+  var proto = Object.getPrototypeOf(source);
+
+  while (proto) {
+    var desc = Object.getOwnPropertyDescriptor(proto, prop);
+    if (desc) return desc;
+    proto = Object.getPrototypeOf(proto);
+  }
+
+  return undefined;
 }
 
 function markChanged(state) {
-  if (!state.modified) {
-    state.modified = true;
+  if (!state.modified_) {
+    state.modified_ = true;
 
-    if (state.type === ProxyType.ProxyObject || state.type === ProxyType.ProxyArray) {
-      var copy_1 = state.copy = shallowCopy(state.base);
-      each(state.drafts, function (key, value) {
-        // @ts-ignore
-        copy_1[key] = value;
-      });
-      state.drafts = undefined;
-    }
-
-    if (state.parent) {
-      markChanged(state.parent);
+    if (state.parent_) {
+      markChanged(state.parent_);
     }
   }
 }
-
 function prepareCopy(state) {
-  if (!state.copy) {
-    state.copy = shallowCopy(state.base);
+  if (!state.copy_) {
+    state.copy_ = shallowCopy(state.base_);
   }
 }
-
-function willFinalizeES5(scope, result, isReplaced) {
-  scope.drafts.forEach(function (draft) {
-    draft[DRAFT_STATE].finalizing = true;
-  });
-
-  if (!isReplaced) {
-    if (scope.patches) {
-      markChangesRecursively(scope.drafts[0]);
-    } // This is faster when we don't care about which attributes changed.
-
-
-    markChangesSweep(scope.drafts);
-  } // When a child draft is returned, look for changes.
-  else if (isDraft(result) && result[DRAFT_STATE].scope === scope) {
-      markChangesSweep(scope.drafts);
-    }
-}
-function createES5Proxy(base, parent) {
-  var isArray = Array.isArray(base);
-  var draft = clonePotentialDraft(base);
-  each(draft, function (prop) {
-    proxyProperty(draft, prop, isArray || isEnumerable(base, prop));
-  });
-  var state = {
-    type: isArray ? ProxyType.ES5Array : ProxyType.ES5Object,
-    scope: parent ? parent.scope : ImmerScope.current,
-    modified: false,
-    finalizing: false,
-    finalized: false,
-    assigned: {},
-    parent: parent,
-    base: base,
-    draft: draft,
-    copy: null,
-    revoked: false,
-    isManual: false
-  };
-  createHiddenProperty(draft, DRAFT_STATE, state);
-  return draft;
-} // Access a property without creating an Immer draft.
-
-function peek$1(draft, prop) {
-  var state = draft[DRAFT_STATE];
-
-  if (state && !state.finalizing) {
-    state.finalizing = true;
-    var value = draft[prop];
-    state.finalizing = false;
-    return value;
-  }
-
-  return draft[prop];
-}
-
-function get$1(state, prop) {
-  assertUnrevoked(state);
-  var value = peek$1(latest(state), prop);
-  if (state.finalizing) { return value; } // Create a draft if the value is unmodified.
-
-  if (value === peek$1(state.base, prop) && isDraftable(value)) {
-    prepareCopy$1(state); // @ts-ignore
-
-    return state.copy[prop] = state.scope.immer.createProxy(value, state);
-  }
-
-  return value;
-}
-
-function set$1(state, prop, value) {
-  assertUnrevoked(state);
-  state.assigned[prop] = true;
-
-  if (!state.modified) {
-    if (is(value, peek$1(latest(state), prop))) { return; }
-    markChangedES5(state);
-    prepareCopy$1(state);
-  } // @ts-ignore
-
-
-  state.copy[prop] = value;
-}
-
-function markChangedES5(state) {
-  if (!state.modified) {
-    state.modified = true;
-    if (state.parent) { markChangedES5(state.parent); }
-  }
-}
-
-function prepareCopy$1(state) {
-  if (!state.copy) { state.copy = clonePotentialDraft(state.base); }
-}
-
-function clonePotentialDraft(base) {
-  var state = base && base[DRAFT_STATE];
-
-  if (state) {
-    state.finalizing = true;
-    var draft = shallowCopy(state.draft, true);
-    state.finalizing = false;
-    return draft;
-  }
-
-  return shallowCopy(base);
-} // property descriptors are recycled to make sure we don't create a get and set closure per property,
-// but share them all instead
-
-
-var descriptors = {};
-
-function proxyProperty(draft, prop, enumerable) {
-  var desc = descriptors[prop];
-
-  if (desc) {
-    desc.enumerable = enumerable;
-  } else {
-    descriptors[prop] = desc = {
-      configurable: true,
-      enumerable: enumerable,
-      get: function () {
-        return get$1(this[DRAFT_STATE], prop);
-      },
-      set: function (value) {
-        set$1(this[DRAFT_STATE], prop, value);
-      }
-    };
-  }
-
-  Object.defineProperty(draft, prop, desc);
-}
-
-function assertUnrevoked(state) {
-  if (state.revoked === true) { throw new Error("Cannot use a proxy that has been revoked. Did you pass an object from inside an immer function to an async process? " + JSON.stringify(latest(state))); }
-} // This looks expensive, but only proxies are visited, and only objects without known changes are scanned.
-
-function markChangesSweep(drafts) {
-  // The natural order of drafts in the `scope` array is based on when they
-  // were accessed. By processing drafts in reverse natural order, we have a
-  // better chance of processing leaf nodes first. When a leaf node is known to
-  // have changed, we can avoid any traversal of its ancestor nodes.
-  for (var i = drafts.length - 1; i >= 0; i--) {
-    var state = drafts[i][DRAFT_STATE];
-
-    if (!state.modified) {
-      switch (state.type) {
-        case ProxyType.ES5Array:
-          if (hasArrayChanges(state)) { markChangedES5(state); }
-          break;
-
-        case ProxyType.ES5Object:
-          if (hasObjectChanges(state)) { markChangedES5(state); }
-          break;
-      }
-    }
-  }
-}
-
-function markChangesRecursively(object) {
-  if (!object || typeof object !== "object") { return; }
-  var state = object[DRAFT_STATE];
-  if (!state) { return; }
-  var base = state.base,
-      draft = state.draft,
-      assigned = state.assigned,
-      type = state.type;
-
-  if (type === ProxyType.ES5Object) {
-    // Look for added keys.
-    // TODO: looks quite duplicate to hasObjectChanges,
-    // probably there is a faster way to detect changes, as sweep + recurse seems to do some
-    // unnecessary work.
-    // also: probably we can store the information we detect here, to speed up tree finalization!
-    each(draft, function (key) {
-      if (key === DRAFT_STATE) { return; } // The `undefined` check is a fast path for pre-existing keys.
-
-      if (base[key] === undefined && !has(base, key)) {
-        assigned[key] = true;
-        markChangedES5(state);
-      } else if (!assigned[key]) {
-        // Only untouched properties trigger recursion.
-        markChangesRecursively(draft[key]);
-      }
-    }); // Look for removed keys.
-
-    each(base, function (key) {
-      // The `undefined` check is a fast path for pre-existing keys.
-      if (draft[key] === undefined && !has(draft, key)) {
-        assigned[key] = false;
-        markChangedES5(state);
-      }
-    });
-  } else if (type === ProxyType.ES5Array) {
-    if (hasArrayChanges(state)) {
-      markChangedES5(state);
-      assigned.length = true;
-    }
-
-    if (draft.length < base.length) {
-      for (var i = draft.length; i < base.length; i++) { assigned[i] = false; }
-    } else {
-      for (var i = base.length; i < draft.length; i++) { assigned[i] = true; }
-    } // Minimum count is enough, the other parts has been processed.
-
-
-    var min = Math.min(draft.length, base.length);
-
-    for (var i = 0; i < min; i++) {
-      // Only untouched indices trigger recursion.
-      if (assigned[i] === undefined) { markChangesRecursively(draft[i]); }
-    }
-  }
-}
-
-function hasObjectChanges(state) {
-  var base = state.base,
-      draft = state.draft; // Search for added keys and changed keys. Start at the back, because
-  // non-numeric keys are ordered by time of definition on the object.
-
-  var keys = Object.keys(draft);
-
-  for (var i = keys.length - 1; i >= 0; i--) {
-    var key = keys[i];
-    var baseValue = base[key]; // The `undefined` check is a fast path for pre-existing keys.
-
-    if (baseValue === undefined && !has(base, key)) {
-      return true;
-    } // Once a base key is deleted, future changes go undetected, because its
-    // descriptor is erased. This branch detects any missed changes.
-    else {
-        var value = draft[key];
-        var state_1 = value && value[DRAFT_STATE];
-
-        if (state_1 ? state_1.base !== baseValue : !is(value, baseValue)) {
-          return true;
-        }
-      }
-  } // At this point, no keys were added or changed.
-  // Compare key count to determine if keys were deleted.
-
-
-  return keys.length !== Object.keys(base).length;
-}
-
-function hasArrayChanges(state) {
-  var draft = state.draft;
-  if (draft.length !== state.base.length) { return true; } // See #116
-  // If we first shorten the length, our array interceptors will be removed.
-  // If after that new items are added, result in the same original length,
-  // those last items will have no intercepting property.
-  // So if there is no own descriptor on the last position, we know that items were removed and added
-  // N.B.: splice, unshift, etc only shift values around, but not prop descriptors, so we only have to check
-  // the last one
-
-  var descriptor = Object.getOwnPropertyDescriptor(draft, draft.length - 1); // descriptor can be null, but only for newly created sparse arrays, eg. new Array(10)
-
-  if (descriptor && !descriptor.get) { return true; } // For all other cases, we don't have to compare, as they would have been picked up by the index setters
-
-  return false;
-}
-
-var DraftMap = function (_super) {
-  if (!_super) {
-    /* istanbul ignore next */
-    throw new Error("Map is not polyfilled");
-  }
-
-  __extends(DraftMap, _super); // Create class manually, cause #502
-
-
-  function DraftMap(target, parent) {
-    this[DRAFT_STATE] = {
-      type: ProxyType.Map,
-      parent: parent,
-      scope: parent ? parent.scope : ImmerScope.current,
-      modified: false,
-      finalized: false,
-      copy: undefined,
-      assigned: undefined,
-      base: target,
-      draft: this,
-      isManual: false,
-      revoked: false
-    };
-    return this;
-  }
-
-  var p = DraftMap.prototype; // TODO: smaller build size if we create a util for Object.defineProperty
-
-  Object.defineProperty(p, "size", {
-    get: function () {
-      return latest(this[DRAFT_STATE]).size;
-    },
-    enumerable: true,
-    configurable: true
-  });
-
-  p.has = function (key) {
-    return latest(this[DRAFT_STATE]).has(key);
-  };
-
-  p.set = function (key, value) {
-    var state = this[DRAFT_STATE];
-    assertUnrevoked(state);
-
-    if (latest(state).get(key) !== value) {
-      prepareCopy$2(state);
-      state.scope.immer.markChanged(state);
-      state.assigned.set(key, true);
-      state.copy.set(key, value);
-      state.assigned.set(key, true);
-    }
-
-    return this;
-  };
-
-  p.delete = function (key) {
-    if (!this.has(key)) {
-      return false;
-    }
-
-    var state = this[DRAFT_STATE];
-    assertUnrevoked(state);
-    prepareCopy$2(state);
-    state.scope.immer.markChanged(state);
-    state.assigned.set(key, false);
-    state.copy.delete(key);
-    return true;
-  };
-
-  p.clear = function () {
-    var state = this[DRAFT_STATE];
-    assertUnrevoked(state);
-    prepareCopy$2(state);
-    state.scope.immer.markChanged(state);
-    state.assigned = new Map();
-    return state.copy.clear();
-  };
-
-  p.forEach = function (cb, thisArg) {
-    var _this = this;
-
-    var state = this[DRAFT_STATE];
-    latest(state).forEach(function (_value, key, _map) {
-      cb.call(thisArg, _this.get(key), key, _this);
-    });
-  };
-
-  p.get = function (key) {
-    var state = this[DRAFT_STATE];
-    assertUnrevoked(state);
-    var value = latest(state).get(key);
-
-    if (state.finalized || !isDraftable(value)) {
-      return value;
-    }
-
-    if (value !== state.base.get(key)) {
-      return value; // either already drafted or reassigned
-    } // despite what it looks, this creates a draft only once, see above condition
-
-
-    var draft = state.scope.immer.createProxy(value, state);
-    prepareCopy$2(state);
-    state.copy.set(key, draft);
-    return draft;
-  };
-
-  p.keys = function () {
-    return latest(this[DRAFT_STATE]).keys();
-  };
-
-  p.values = function () {
-    var _a;
-
-    var _this = this;
-
-    var iterator = this.keys();
-    return _a = {}, _a[iteratorSymbol] = function () {
-      return _this.values();
-    }, _a.next = function () {
-      var r = iterator.next();
-      /* istanbul ignore next */
-
-      if (r.done) { return r; }
-
-      var value = _this.get(r.value);
-
-      return {
-        done: false,
-        value: value
-      };
-    }, _a;
-  };
-
-  p.entries = function () {
-    var _a;
-
-    var _this = this;
-
-    var iterator = this.keys();
-    return _a = {}, _a[iteratorSymbol] = function () {
-      return _this.entries();
-    }, _a.next = function () {
-      var r = iterator.next();
-      /* istanbul ignore next */
-
-      if (r.done) { return r; }
-
-      var value = _this.get(r.value);
-
-      return {
-        done: false,
-        value: [r.value, value]
-      };
-    }, _a;
-  };
-
-  p[iteratorSymbol] = function () {
-    return this.entries();
-  };
-
-  return DraftMap;
-}(Map);
-
-function proxyMap(target, parent) {
-  // @ts-ignore
-  return new DraftMap(target, parent);
-}
-
-function prepareCopy$2(state) {
-  if (!state.copy) {
-    state.assigned = new Map();
-    state.copy = new Map(state.base);
-  }
-}
-
-var DraftSet = function (_super) {
-  if (!_super) {
-    /* istanbul ignore next */
-    throw new Error("Set is not polyfilled");
-  }
-
-  __extends(DraftSet, _super); // Create class manually, cause #502
-
-
-  function DraftSet(target, parent) {
-    this[DRAFT_STATE] = {
-      type: ProxyType.Set,
-      parent: parent,
-      scope: parent ? parent.scope : ImmerScope.current,
-      modified: false,
-      finalized: false,
-      copy: undefined,
-      base: target,
-      draft: this,
-      drafts: new Map(),
-      revoked: false,
-      isManual: false
-    };
-    return this;
-  }
-
-  var p = DraftSet.prototype;
-  Object.defineProperty(p, "size", {
-    get: function () {
-      return latest(this[DRAFT_STATE]).size;
-    },
-    enumerable: true,
-    configurable: true
-  });
-
-  p.has = function (value) {
-    var state = this[DRAFT_STATE];
-    assertUnrevoked(state); // bit of trickery here, to be able to recognize both the value, and the draft of its value
-
-    if (!state.copy) {
-      return state.base.has(value);
-    }
-
-    if (state.copy.has(value)) { return true; }
-    if (state.drafts.has(value) && state.copy.has(state.drafts.get(value))) { return true; }
-    return false;
-  };
-
-  p.add = function (value) {
-    var state = this[DRAFT_STATE];
-    assertUnrevoked(state);
-
-    if (state.copy) {
-      state.copy.add(value);
-    } else if (!state.base.has(value)) {
-      prepareCopy$3(state);
-      state.scope.immer.markChanged(state);
-      state.copy.add(value);
-    }
-
-    return this;
-  };
-
-  p.delete = function (value) {
-    if (!this.has(value)) {
-      return false;
-    }
-
-    var state = this[DRAFT_STATE];
-    assertUnrevoked(state);
-    prepareCopy$3(state);
-    state.scope.immer.markChanged(state);
-    return state.copy.delete(value) || (state.drafts.has(value) ? state.copy.delete(state.drafts.get(value)) :
-    /* istanbul ignore next */
-    false);
-  };
-
-  p.clear = function () {
-    var state = this[DRAFT_STATE];
-    assertUnrevoked(state);
-    prepareCopy$3(state);
-    state.scope.immer.markChanged(state);
-    return state.copy.clear();
-  };
-
-  p.values = function () {
-    var state = this[DRAFT_STATE];
-    assertUnrevoked(state);
-    prepareCopy$3(state);
-    return state.copy.values();
-  };
-
-  p.entries = function entries() {
-    var state = this[DRAFT_STATE];
-    assertUnrevoked(state);
-    prepareCopy$3(state);
-    return state.copy.entries();
-  };
-
-  p.keys = function () {
-    return this.values();
-  };
-
-  p[iteratorSymbol] = function () {
-    return this.values();
-  };
-
-  p.forEach = function forEach(cb, thisArg) {
-    var iterator = this.values();
-    var result = iterator.next();
-
-    while (!result.done) {
-      cb.call(thisArg, result.value, result.value, this);
-      result = iterator.next();
-    }
-  };
-
-  return DraftSet;
-}(Set);
-
-function proxySet(target, parent) {
-  // @ts-ignore
-  return new DraftSet(target, parent);
-}
-
-function prepareCopy$3(state) {
-  if (!state.copy) {
-    // create drafts for all entries to preserve insertion order
-    state.copy = new Set();
-    state.base.forEach(function (value) {
-      if (isDraftable(value)) {
-        var draft = state.scope.immer.createProxy(value, state);
-        state.drafts.set(value, draft);
-        state.copy.add(draft);
-      } else {
-        state.copy.add(value);
-      }
-    });
-  }
-}
-
-function generatePatches(state, basePath, patches, inversePatches) {
-  switch (state.type) {
-    case ProxyType.ProxyObject:
-    case ProxyType.ES5Object:
-    case ProxyType.Map:
-      return generatePatchesFromAssigned(state, basePath, patches, inversePatches);
-
-    case ProxyType.ES5Array:
-    case ProxyType.ProxyArray:
-      return generateArrayPatches(state, basePath, patches, inversePatches);
-
-    case ProxyType.Set:
-      return generateSetPatches(state, basePath, patches, inversePatches);
-  }
-}
-
-function generateArrayPatches(state, basePath, patches, inversePatches) {
-  var _a, _b;
-
-  var base = state.base,
-      assigned = state.assigned,
-      copy = state.copy;
-  /* istanbul ignore next */
-
-  if (!copy) { die(); } // Reduce complexity by ensuring `base` is never longer.
-
-  if (copy.length < base.length) {
-    _a = [copy, base], base = _a[0], copy = _a[1];
-    _b = [inversePatches, patches], patches = _b[0], inversePatches = _b[1];
-  }
-
-  var delta = copy.length - base.length; // Find the first replaced index.
-
-  var start = 0;
-
-  while (base[start] === copy[start] && start < base.length) {
-    ++start;
-  } // Find the last replaced index. Search from the end to optimize splice patches.
-
-
-  var end = base.length;
-
-  while (end > start && base[end - 1] === copy[end + delta - 1]) {
-    --end;
-  } // Process replaced indices.
-
-
-  for (var i = start; i < end; ++i) {
-    if (assigned[i] && copy[i] !== base[i]) {
-      var path = basePath.concat([i]);
-      patches.push({
-        op: "replace",
-        path: path,
-        value: copy[i]
-      });
-      inversePatches.push({
-        op: "replace",
-        path: path,
-        value: base[i]
-      });
-    }
-  }
-
-  var replaceCount = patches.length; // Process added indices.
-
-  for (var i = end + delta - 1; i >= end; --i) {
-    var path = basePath.concat([i]);
-    patches[replaceCount + i - end] = {
-      op: "add",
-      path: path,
-      value: copy[i]
-    };
-    inversePatches.push({
-      op: "remove",
-      path: path
-    });
-  }
-} // This is used for both Map objects and normal objects.
-
-
-function generatePatchesFromAssigned(state, basePath, patches, inversePatches) {
-  var base = state.base,
-      copy = state.copy;
-  each(state.assigned, function (key, assignedValue) {
-    var origValue = get(base, key);
-    var value = get(copy, key);
-    var op = !assignedValue ? "remove" : has(base, key) ? "replace" : "add";
-    if (origValue === value && op === "replace") { return; }
-    var path = basePath.concat(key);
-    patches.push(op === "remove" ? {
-      op: op,
-      path: path
-    } : {
-      op: op,
-      path: path,
-      value: value
-    });
-    inversePatches.push(op === "add" ? {
-      op: "remove",
-      path: path
-    } : op === "remove" ? {
-      op: "add",
-      path: path,
-      value: origValue
-    } : {
-      op: "replace",
-      path: path,
-      value: origValue
-    });
-  });
-}
-
-function generateSetPatches(state, basePath, patches, inversePatches) {
-  var base = state.base,
-      copy = state.copy;
-  var i = 0;
-  base.forEach(function (value) {
-    if (!copy.has(value)) {
-      var path = basePath.concat([i]);
-      patches.push({
-        op: "remove",
-        path: path,
-        value: value
-      });
-      inversePatches.unshift({
-        op: "add",
-        path: path,
-        value: value
-      });
-    }
-
-    i++;
-  });
-  i = 0;
-  copy.forEach(function (value) {
-    if (!base.has(value)) {
-      var path = basePath.concat([i]);
-      patches.push({
-        op: "add",
-        path: path,
-        value: value
-      });
-      inversePatches.unshift({
-        op: "remove",
-        path: path,
-        value: value
-      });
-    }
-
-    i++;
-  });
-}
-
-function applyPatches(draft, patches) {
-  patches.forEach(function (patch) {
-    var path = patch.path,
-        op = patch.op;
-    /* istanbul ignore next */
-
-    if (!path.length) { die(); }
-    var base = draft;
-
-    for (var i = 0; i < path.length - 1; i++) {
-      base = get(base, path[i]);
-      if (!base || typeof base !== "object") { throw new Error("Cannot apply patch, path doesn't resolve: " + path.join("/")); } // prettier-ignore
-    }
-
-    var type = getArchtype(base);
-    var value = deepClonePatchValue(patch.value); // used to clone patch to ensure original patch is not modified, see #411
-
-    var key = path[path.length - 1];
-
-    switch (op) {
-      case "replace":
-        switch (type) {
-          case Archtype.Map:
-            return base.set(key, value);
-
-          /* istanbul ignore next */
-
-          case Archtype.Set:
-            throw new Error('Sets cannot have "replace" patches.');
-
-          default:
-            // if value is an object, then it's assigned by reference
-            // in the following add or remove ops, the value field inside the patch will also be modifyed
-            // so we use value from the cloned patch
-            // @ts-ignore
-            return base[key] = value;
-        }
-
-      case "add":
-        switch (type) {
-          case Archtype.Array:
-            return base.splice(key, 0, value);
-
-          case Archtype.Map:
-            return base.set(key, value);
-
-          case Archtype.Set:
-            return base.add(value);
-
-          default:
-            return base[key] = value;
-        }
-
-      case "remove":
-        switch (type) {
-          case Archtype.Array:
-            return base.splice(key, 1);
-
-          case Archtype.Map:
-            return base.delete(key);
-
-          case Archtype.Set:
-            return base.delete(patch.value);
-
-          default:
-            return delete base[key];
-        }
-
-      default:
-        throw new Error("Unsupported patch operation: " + op);
-    }
-  });
-  return draft;
-}
-
-function deepClonePatchValue(obj) {
-  if (!obj || typeof obj !== "object") { return obj; }
-  if (Array.isArray(obj)) { return obj.map(deepClonePatchValue); }
-  if (isMap(obj)) { return new Map(Array.from(obj.entries()).map(function (_a) {
-    var k = _a[0],
-        v = _a[1];
-    return [k, deepClonePatchValue(v)];
-  })); }
-  if (isSet(obj)) { return new Set(Array.from(obj).map(deepClonePatchValue)); }
-  var cloned = Object.create(Object.getPrototypeOf(obj));
-
-  for (var key in obj) { cloned[key] = deepClonePatchValue(obj[key]); }
-
-  return cloned;
-}
-
-/*! *****************************************************************************
-Copyright (c) Microsoft Corporation. All rights reserved.
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-this file except in compliance with the License. You may obtain a copy of the
-License at http://www.apache.org/licenses/LICENSE-2.0
-
-THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-MERCHANTABLITY OR NON-INFRINGEMENT.
-
-See the Apache Version 2.0 License for specific language governing permissions
-and limitations under the License.
-***************************************************************************** */
-
-function __spreadArrays() {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
-}
-
-/* istanbul ignore next */
-
-function verifyMinified() {}
-
-var configDefaults = {
-  useProxies: typeof Proxy !== "undefined" && typeof Proxy.revocable !== "undefined" && typeof Reflect !== "undefined",
-  autoFreeze: typeof process !== "undefined" ? process.env.NODE_ENV !== "production" :
-  /* istanbul ignore next */
-  verifyMinified.name === "verifyMinified",
-  onAssign: null,
-  onDelete: null,
-  onCopy: null
-};
 
 var Immer =
-/** @class */
+/*#__PURE__*/
 function () {
   function Immer(config) {
     var _this = this;
 
-    this.useProxies = false;
-    this.autoFreeze = false;
-    each(configDefaults, function (key, value) {
-      var _a, _b; // @ts-ignore
+    this.useProxies_ = hasProxies;
+    this.autoFreeze_ = true;
+    /**
+     * The `produce` function takes a value and a "recipe function" (whose
+     * return value often depends on the base state). The recipe function is
+     * free to mutate its first argument however it wants. All mutations are
+     * only ever applied to a __copy__ of the base state.
+     *
+     * Pass only a function to create a "curried producer" which relieves you
+     * from passing the recipe function every time.
+     *
+     * Only plain objects and arrays are made mutable. All other objects are
+     * considered uncopyable.
+     *
+     * Note: This function is __bound__ to its `Immer` instance.
+     *
+     * @param {any} base - the initial state
+     * @param {Function} recipe - function that receives a proxy of the base state as first argument and which can be freely modified
+     * @param {Function} patchListener - optional function that will be called with all the patches produced here
+     * @returns {any} a new state, or the initial state if nothing was modified
+     */
 
+    this.produce = function (base, recipe, patchListener) {
+      // curried invocation
+      if (typeof base === "function" && typeof recipe !== "function") {
+        var defaultBase = recipe;
+        recipe = base;
+        var self = _this;
+        return function curriedProduce(base) {
+          var _this2 = this;
 
-      _this[key] = (_b = (_a = config) === null || _a === void 0 ? void 0 : _a[key], _b !== null && _b !== void 0 ? _b : value);
-    });
-    this.setUseProxies(this.useProxies);
-    this.produce = this.produce.bind(this);
-    this.produceWithPatches = this.produceWithPatches.bind(this);
-  }
-  /**
-   * The `produce` function takes a value and a "recipe function" (whose
-   * return value often depends on the base state). The recipe function is
-   * free to mutate its first argument however it wants. All mutations are
-   * only ever applied to a __copy__ of the base state.
-   *
-   * Pass only a function to create a "curried producer" which relieves you
-   * from passing the recipe function every time.
-   *
-   * Only plain objects and arrays are made mutable. All other objects are
-   * considered uncopyable.
-   *
-   * Note: This function is __bound__ to its `Immer` instance.
-   *
-   * @param {any} base - the initial state
-   * @param {Function} producer - function that receives a proxy of the base state as first argument and which can be freely modified
-   * @param {Function} patchListener - optional function that will be called with all the patches produced here
-   * @returns {any} a new state, or the initial state if nothing was modified
-   */
+          if (base === void 0) {
+            base = defaultBase;
+          }
 
+          for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+            args[_key - 1] = arguments[_key];
+          }
 
-  Immer.prototype.produce = function (base, recipe, patchListener) {
-    var _this = this; // curried invocation
+          return self.produce(base, function (draft) {
+            var _recipe;
 
+            return (_recipe = recipe).call.apply(_recipe, [_this2, draft].concat(args));
+          }); // prettier-ignore
+        };
+      }
 
-    if (typeof base === "function" && typeof recipe !== "function") {
-      var defaultBase_1 = recipe;
-      recipe = base;
-      var self_1 = this;
-      return function curriedProduce(base) {
-        var arguments$1 = arguments;
+      if (typeof recipe !== "function") die(6);
+      if (patchListener !== undefined && typeof patchListener !== "function") die(7);
+      var result; // Only plain objects, arrays, and "immerable classes" are drafted.
 
-        var _this = this;
+      if (isDraftable(base)) {
+        var scope = enterScope(_this);
+        var proxy = createProxy(_this, base, undefined);
+        var hasError = true;
 
-        if (base === void 0) {
-          base = defaultBase_1;
+        try {
+          result = recipe(proxy);
+          hasError = false;
+        } finally {
+          // finally instead of catch + rethrow better preserves original stack
+          if (hasError) revokeScope(scope);else leaveScope(scope);
         }
 
-        var args = [];
-
-        for (var _i = 1; _i < arguments.length; _i++) {
-          args[_i - 1] = arguments$1[_i];
+        if (typeof Promise !== "undefined" && result instanceof Promise) {
+          return result.then(function (result) {
+            usePatchesInScope(scope, patchListener);
+            return processResult(result, scope);
+          }, function (error) {
+            revokeScope(scope);
+            throw error;
+          });
         }
 
-        return self_1.produce(base, function (draft) {
-          return recipe.call.apply(recipe, __spreadArrays([_this, draft], args));
-        }); // prettier-ignore
-      };
-    } // prettier-ignore
+        usePatchesInScope(scope, patchListener);
+        return processResult(result, scope);
+      } else if (!base || typeof base !== "object") {
+        result = recipe(base);
+        if (result === undefined) result = base;
+        if (result === NOTHING) result = undefined;
+        if (_this.autoFreeze_) freeze(result, true);
 
+        if (patchListener) {
+          var p = [];
+          var ip = [];
+          getPlugin("Patches").generateReplacementPatches_(base, result, p, ip);
+          patchListener(p, ip);
+        }
 
-    {
-      if (typeof recipe !== "function") {
-        throw new Error("The first or second argument to `produce` must be a function");
+        return result;
+      } else die(21, base);
+    };
+
+    this.produceWithPatches = function (base, recipe) {
+      // curried invocation
+      if (typeof base === "function") {
+        return function (state) {
+          for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+            args[_key2 - 1] = arguments[_key2];
+          }
+
+          return _this.produceWithPatches(state, function (draft) {
+            return base.apply(void 0, [draft].concat(args));
+          });
+        };
       }
 
-      if (patchListener !== undefined && typeof patchListener !== "function") {
-        throw new Error("The third argument to `produce` must be a function or undefined");
-      }
-    }
-    var result; // Only plain objects, arrays, and "immerable classes" are drafted.
+      var patches, inversePatches;
 
-    if (isDraftable(base)) {
-      var scope_1 = ImmerScope.enter(this);
-      var proxy = this.createProxy(base, undefined);
-      var hasError = true;
-
-      try {
-        result = recipe(proxy);
-        hasError = false;
-      } finally {
-        // finally instead of catch + rethrow better preserves original stack
-        if (hasError) { scope_1.revoke(); }else { scope_1.leave(); }
-      }
+      var result = _this.produce(base, recipe, function (p, ip) {
+        patches = p;
+        inversePatches = ip;
+      });
 
       if (typeof Promise !== "undefined" && result instanceof Promise) {
-        return result.then(function (result) {
-          scope_1.usePatches(patchListener);
-          return processResult(_this, result, scope_1);
-        }, function (error) {
-          scope_1.revoke();
-          throw error;
+        return result.then(function (nextState) {
+          return [nextState, patches, inversePatches];
         });
       }
 
-      scope_1.usePatches(patchListener);
-      return processResult(this, result, scope_1);
-    } else {
-      result = recipe(base);
-      if (result === NOTHING) { return undefined; }
-      if (result === undefined) { result = base; }
-      maybeFreeze(this, result, true);
-      return result;
-    }
-  };
+      return [result, patches, inversePatches];
+    };
 
-  Immer.prototype.produceWithPatches = function (arg1, arg2, arg3) {
-    var _this = this;
+    if (typeof (config === null || config === void 0 ? void 0 : config.useProxies) === "boolean") this.setUseProxies(config.useProxies);
+    if (typeof (config === null || config === void 0 ? void 0 : config.autoFreeze) === "boolean") this.setAutoFreeze(config.autoFreeze);
+  }
 
-    if (typeof arg1 === "function") {
-      return function (state) {
-        var arguments$1 = arguments;
+  var _proto = Immer.prototype;
 
-        var args = [];
-
-        for (var _i = 1; _i < arguments.length; _i++) {
-          args[_i - 1] = arguments$1[_i];
-        }
-
-        return _this.produceWithPatches(state, function (draft) {
-          return arg1.apply(void 0, __spreadArrays([draft], args));
-        });
-      };
-    } // non-curried form
-
-    /* istanbul ignore next */
-
-
-    if (arg3) { die(); }
-    var patches, inversePatches;
-    var nextState = this.produce(arg1, arg2, function (p, ip) {
-      patches = p;
-      inversePatches = ip;
-    });
-    return [nextState, patches, inversePatches];
-  };
-
-  Immer.prototype.createDraft = function (base) {
-    if (!isDraftable(base)) {
-      throw new Error("First argument to `createDraft` must be a plain object, an array, or an immerable object"); // prettier-ignore
-    }
-
-    var scope = ImmerScope.enter(this);
-    var proxy = this.createProxy(base, undefined);
-    proxy[DRAFT_STATE].isManual = true;
-    scope.leave();
+  _proto.createDraft = function createDraft(base) {
+    if (!isDraftable(base)) die(8);
+    if (isDraft(base)) base = current(base);
+    var scope = enterScope(this);
+    var proxy = createProxy(this, base, undefined);
+    proxy[DRAFT_STATE].isManual_ = true;
+    leaveScope(scope);
     return proxy;
   };
 
-  Immer.prototype.finishDraft = function (draft, patchListener) {
+  _proto.finishDraft = function finishDraft(draft, patchListener) {
     var state = draft && draft[DRAFT_STATE];
 
-    if (!state || !state.isManual) {
-      throw new Error("First argument to `finishDraft` must be a draft returned by `createDraft`"); // prettier-ignore
+    {
+      if (!state || !state.isManual_) die(9);
+      if (state.finalized_) die(10);
     }
 
-    if (state.finalized) {
-      throw new Error("The given draft is already finalized"); // prettier-ignore
-    }
-
-    var scope = state.scope;
-    scope.usePatches(patchListener);
-    return processResult(this, undefined, scope);
-  };
+    var scope = state.scope_;
+    usePatchesInScope(scope, patchListener);
+    return processResult(undefined, scope);
+  }
   /**
    * Pass true to automatically freeze all copies created by Immer.
    *
-   * By default, auto-freezing is disabled in production.
+   * By default, auto-freezing is enabled.
    */
+  ;
 
-
-  Immer.prototype.setAutoFreeze = function (value) {
-    this.autoFreeze = value;
-  };
+  _proto.setAutoFreeze = function setAutoFreeze(value) {
+    this.autoFreeze_ = value;
+  }
   /**
    * Pass true to use the ES2015 `Proxy` class when creating drafts, which is
    * always faster than using ES5 proxies.
    *
    * By default, feature detection is used, so calling this is rarely necessary.
    */
+  ;
 
+  _proto.setUseProxies = function setUseProxies(value) {
+    if (value && !hasProxies) {
+      die(20);
+    }
 
-  Immer.prototype.setUseProxies = function (value) {
-    this.useProxies = value;
+    this.useProxies_ = value;
   };
 
-  Immer.prototype.applyPatches = function (base, patches) {
+  _proto.applyPatches = function applyPatches(base, patches) {
     // If a patch replaces the entire state, take that replacement as base
     // before applying patches
     var i;
@@ -4463,43 +4025,1035 @@ function () {
         base = patch.value;
         break;
       }
+    } // If there was a patch that replaced the entire state, start from the
+    // patch after that.
+
+
+    if (i > -1) {
+      patches = patches.slice(i + 1);
     }
+
+    var applyPatchesImpl = getPlugin("Patches").applyPatches_;
 
     if (isDraft(base)) {
       // N.B: never hits if some patch a replacement, patches are never drafts
-      return applyPatches(base, patches);
+      return applyPatchesImpl(base, patches);
     } // Otherwise, produce a copy of the base state.
 
 
     return this.produce(base, function (draft) {
-      return applyPatches(draft, patches.slice(i + 1));
+      return applyPatchesImpl(draft, patches);
     });
-  };
-
-  Immer.prototype.createProxy = function (value, parent) {
-    // precondition: createProxy should be guarded by isDraftable, so we know we can safely draft
-    var draft = isMap(value) ? proxyMap(value, parent) : isSet(value) ? proxySet(value, parent) : this.useProxies ? createProxy(value, parent) : createES5Proxy(value, parent);
-    var scope = parent ? parent.scope : ImmerScope.current;
-    scope.drafts.push(draft);
-    return draft;
-  };
-
-  Immer.prototype.willFinalize = function (scope, thing, isReplaced) {
-    if (!this.useProxies) { willFinalizeES5(scope, thing, isReplaced); }
-  };
-
-  Immer.prototype.markChanged = function (state) {
-    if (this.useProxies) {
-      markChanged(state);
-    } else {
-      markChangedES5(state);
-    }
   };
 
   return Immer;
 }();
+function createProxy(immer, value, parent) {
+  // precondition: createProxy should be guarded by isDraftable, so we know we can safely draft
+  var draft = isMap(value) ? getPlugin("MapSet").proxyMap_(value, parent) : isSet(value) ? getPlugin("MapSet").proxySet_(value, parent) : immer.useProxies_ ? createProxyProxy(value, parent) : getPlugin("ES5").createES5Proxy_(value, parent);
+  var scope = parent ? parent.scope_ : getCurrentScope();
+  scope.drafts_.push(draft);
+  return draft;
+}
 
-var immer = new Immer();
+function current(value) {
+  if (!isDraft(value)) die(22, value);
+  return currentImpl(value);
+}
+
+function currentImpl(value) {
+  if (!isDraftable(value)) return value;
+  var state = value[DRAFT_STATE];
+  var copy;
+  var archType = getArchtype(value);
+
+  if (state) {
+    if (!state.modified_ && (state.type_ < 4 || !getPlugin("ES5").hasChanges_(state))) return state.base_; // Optimization: avoid generating new drafts during copying
+
+    state.finalized_ = true;
+    copy = copyHelper(value, archType);
+    state.finalized_ = false;
+  } else {
+    copy = copyHelper(value, archType);
+  }
+
+  each(copy, function (key, childValue) {
+    if (state && get(state.base_, key) === childValue) return; // no need to copy or search in something that didn't change
+
+    set(copy, key, currentImpl(childValue));
+  }); // In the future, we might consider freezing here, based on the current settings
+
+  return archType === 3
+  /* Set */
+  ? new Set(copy) : copy;
+}
+
+function copyHelper(value, archType) {
+  // creates a shallow copy, even if it is a map or set
+  switch (archType) {
+    case 2
+    /* Map */
+    :
+      return new Map(value);
+
+    case 3
+    /* Set */
+    :
+      // Set will be cloned as array temporarily, so that we can replace individual items
+      return Array.from(value);
+  }
+
+  return shallowCopy(value);
+}
+
+function enableES5() {
+  function willFinalizeES5_(scope, result, isReplaced) {
+    if (!isReplaced) {
+      if (scope.patches_) {
+        markChangesRecursively(scope.drafts_[0]);
+      } // This is faster when we don't care about which attributes changed.
+
+
+      markChangesSweep(scope.drafts_);
+    } // When a child draft is returned, look for changes.
+    else if (isDraft(result) && result[DRAFT_STATE].scope_ === scope) {
+        markChangesSweep(scope.drafts_);
+      }
+  }
+
+  function createES5Draft(isArray, base) {
+    if (isArray) {
+      var draft = new Array(base.length);
+
+      for (var i = 0; i < base.length; i++) {
+        Object.defineProperty(draft, "" + i, proxyProperty(i, true));
+      }
+
+      return draft;
+    } else {
+      var _descriptors = getOwnPropertyDescriptors(base);
+
+      delete _descriptors[DRAFT_STATE];
+      var keys = ownKeys(_descriptors);
+
+      for (var _i = 0; _i < keys.length; _i++) {
+        var key = keys[_i];
+        _descriptors[key] = proxyProperty(key, isArray || !!_descriptors[key].enumerable);
+      }
+
+      return Object.create(Object.getPrototypeOf(base), _descriptors);
+    }
+  }
+
+  function createES5Proxy_(base, parent) {
+    var isArray = Array.isArray(base);
+    var draft = createES5Draft(isArray, base);
+    var state = {
+      type_: isArray ? 5
+      /* ES5Array */
+      : 4
+      /* ES5Object */
+      ,
+      scope_: parent ? parent.scope_ : getCurrentScope(),
+      modified_: false,
+      finalized_: false,
+      assigned_: {},
+      parent_: parent,
+      // base is the object we are drafting
+      base_: base,
+      // draft is the draft object itself, that traps all reads and reads from either the base (if unmodified) or copy (if modified)
+      draft_: draft,
+      copy_: null,
+      revoked_: false,
+      isManual_: false
+    };
+    Object.defineProperty(draft, DRAFT_STATE, {
+      value: state,
+      // enumerable: false <- the default
+      writable: true
+    });
+    return draft;
+  } // property descriptors are recycled to make sure we don't create a get and set closure per property,
+  // but share them all instead
+
+
+  var descriptors = {};
+
+  function proxyProperty(prop, enumerable) {
+    var desc = descriptors[prop];
+
+    if (desc) {
+      desc.enumerable = enumerable;
+    } else {
+      descriptors[prop] = desc = {
+        configurable: true,
+        enumerable: enumerable,
+        get: function get() {
+          var state = this[DRAFT_STATE];
+          assertUnrevoked(state); // @ts-ignore
+
+          return objectTraps.get(state, prop);
+        },
+        set: function set(value) {
+          var state = this[DRAFT_STATE];
+          assertUnrevoked(state); // @ts-ignore
+
+          objectTraps.set(state, prop, value);
+        }
+      };
+    }
+
+    return desc;
+  } // This looks expensive, but only proxies are visited, and only objects without known changes are scanned.
+
+
+  function markChangesSweep(drafts) {
+    // The natural order of drafts in the `scope` array is based on when they
+    // were accessed. By processing drafts in reverse natural order, we have a
+    // better chance of processing leaf nodes first. When a leaf node is known to
+    // have changed, we can avoid any traversal of its ancestor nodes.
+    for (var i = drafts.length - 1; i >= 0; i--) {
+      var state = drafts[i][DRAFT_STATE];
+
+      if (!state.modified_) {
+        switch (state.type_) {
+          case 5
+          /* ES5Array */
+          :
+            if (hasArrayChanges(state)) markChanged(state);
+            break;
+
+          case 4
+          /* ES5Object */
+          :
+            if (hasObjectChanges(state)) markChanged(state);
+            break;
+        }
+      }
+    }
+  }
+
+  function markChangesRecursively(object) {
+    if (!object || typeof object !== "object") return;
+    var state = object[DRAFT_STATE];
+    if (!state) return;
+    var base_ = state.base_,
+        draft_ = state.draft_,
+        assigned_ = state.assigned_,
+        type_ = state.type_;
+
+    if (type_ === 4
+    /* ES5Object */
+    ) {
+        // Look for added keys.
+        // probably there is a faster way to detect changes, as sweep + recurse seems to do some
+        // unnecessary work.
+        // also: probably we can store the information we detect here, to speed up tree finalization!
+        each(draft_, function (key) {
+          if (key === DRAFT_STATE) return; // The `undefined` check is a fast path for pre-existing keys.
+
+          if (base_[key] === undefined && !has(base_, key)) {
+            assigned_[key] = true;
+            markChanged(state);
+          } else if (!assigned_[key]) {
+            // Only untouched properties trigger recursion.
+            markChangesRecursively(draft_[key]);
+          }
+        }); // Look for removed keys.
+
+        each(base_, function (key) {
+          // The `undefined` check is a fast path for pre-existing keys.
+          if (draft_[key] === undefined && !has(draft_, key)) {
+            assigned_[key] = false;
+            markChanged(state);
+          }
+        });
+      } else if (type_ === 5
+    /* ES5Array */
+    ) {
+        if (hasArrayChanges(state)) {
+          markChanged(state);
+          assigned_.length = true;
+        }
+
+        if (draft_.length < base_.length) {
+          for (var i = draft_.length; i < base_.length; i++) {
+            assigned_[i] = false;
+          }
+        } else {
+          for (var _i2 = base_.length; _i2 < draft_.length; _i2++) {
+            assigned_[_i2] = true;
+          }
+        } // Minimum count is enough, the other parts has been processed.
+
+
+        var min = Math.min(draft_.length, base_.length);
+
+        for (var _i3 = 0; _i3 < min; _i3++) {
+          // Only untouched indices trigger recursion.
+          if (!draft_.hasOwnProperty(_i3)) {
+            assigned_[_i3] = true;
+          }
+
+          if (assigned_[_i3] === undefined) markChangesRecursively(draft_[_i3]);
+        }
+      }
+  }
+
+  function hasObjectChanges(state) {
+    var base_ = state.base_,
+        draft_ = state.draft_; // Search for added keys and changed keys. Start at the back, because
+    // non-numeric keys are ordered by time of definition on the object.
+
+    var keys = ownKeys(draft_);
+
+    for (var i = keys.length - 1; i >= 0; i--) {
+      var key = keys[i];
+      if (key === DRAFT_STATE) continue;
+      var baseValue = base_[key]; // The `undefined` check is a fast path for pre-existing keys.
+
+      if (baseValue === undefined && !has(base_, key)) {
+        return true;
+      } // Once a base key is deleted, future changes go undetected, because its
+      // descriptor is erased. This branch detects any missed changes.
+      else {
+          var value = draft_[key];
+
+          var _state = value && value[DRAFT_STATE];
+
+          if (_state ? _state.base_ !== baseValue : !is(value, baseValue)) {
+            return true;
+          }
+        }
+    } // At this point, no keys were added or changed.
+    // Compare key count to determine if keys were deleted.
+
+
+    var baseIsDraft = !!base_[DRAFT_STATE];
+    return keys.length !== ownKeys(base_).length + (baseIsDraft ? 0 : 1); // + 1 to correct for DRAFT_STATE
+  }
+
+  function hasArrayChanges(state) {
+    var draft_ = state.draft_;
+    if (draft_.length !== state.base_.length) return true; // See #116
+    // If we first shorten the length, our array interceptors will be removed.
+    // If after that new items are added, result in the same original length,
+    // those last items will have no intercepting property.
+    // So if there is no own descriptor on the last position, we know that items were removed and added
+    // N.B.: splice, unshift, etc only shift values around, but not prop descriptors, so we only have to check
+    // the last one
+    // last descriptor can be not a trap, if the array was extended
+
+    var descriptor = Object.getOwnPropertyDescriptor(draft_, draft_.length - 1); // descriptor can be null, but only for newly created sparse arrays, eg. new Array(10)
+
+    if (descriptor && !descriptor.get) return true; // if we miss a property, it has been deleted, so array probobaly changed
+
+    for (var i = 0; i < draft_.length; i++) {
+      if (!draft_.hasOwnProperty(i)) return true;
+    } // For all other cases, we don't have to compare, as they would have been picked up by the index setters
+
+
+    return false;
+  }
+
+  function hasChanges_(state) {
+    return state.type_ === 4
+    /* ES5Object */
+    ? hasObjectChanges(state) : hasArrayChanges(state);
+  }
+
+  function assertUnrevoked(state
+  /*ES5State | MapState | SetState*/
+  ) {
+    if (state.revoked_) die(3, JSON.stringify(latest(state)));
+  }
+
+  loadPlugin("ES5", {
+    createES5Proxy_: createES5Proxy_,
+    willFinalizeES5_: willFinalizeES5_,
+    hasChanges_: hasChanges_
+  });
+}
+
+function enablePatches() {
+  var REPLACE = "replace";
+  var ADD = "add";
+  var REMOVE = "remove";
+
+  function generatePatches_(state, basePath, patches, inversePatches) {
+    switch (state.type_) {
+      case 0
+      /* ProxyObject */
+      :
+      case 4
+      /* ES5Object */
+      :
+      case 2
+      /* Map */
+      :
+        return generatePatchesFromAssigned(state, basePath, patches, inversePatches);
+
+      case 5
+      /* ES5Array */
+      :
+      case 1
+      /* ProxyArray */
+      :
+        return generateArrayPatches(state, basePath, patches, inversePatches);
+
+      case 3
+      /* Set */
+      :
+        return generateSetPatches(state, basePath, patches, inversePatches);
+    }
+  }
+
+  function generateArrayPatches(state, basePath, patches, inversePatches) {
+    var base_ = state.base_,
+        assigned_ = state.assigned_;
+    var copy_ = state.copy_; // Reduce complexity by ensuring `base` is never longer.
+
+    if (copy_.length < base_.length) {
+      var _ref = [copy_, base_];
+      base_ = _ref[0];
+      copy_ = _ref[1];
+      var _ref2 = [inversePatches, patches];
+      patches = _ref2[0];
+      inversePatches = _ref2[1];
+    } // Process replaced indices.
+
+
+    for (var i = 0; i < base_.length; i++) {
+      if (assigned_[i] && copy_[i] !== base_[i]) {
+        var path = basePath.concat([i]);
+        patches.push({
+          op: REPLACE,
+          path: path,
+          // Need to maybe clone it, as it can in fact be the original value
+          // due to the base/copy inversion at the start of this function
+          value: clonePatchValueIfNeeded(copy_[i])
+        });
+        inversePatches.push({
+          op: REPLACE,
+          path: path,
+          value: clonePatchValueIfNeeded(base_[i])
+        });
+      }
+    } // Process added indices.
+
+
+    for (var _i = base_.length; _i < copy_.length; _i++) {
+      var _path = basePath.concat([_i]);
+
+      patches.push({
+        op: ADD,
+        path: _path,
+        // Need to maybe clone it, as it can in fact be the original value
+        // due to the base/copy inversion at the start of this function
+        value: clonePatchValueIfNeeded(copy_[_i])
+      });
+    }
+
+    if (base_.length < copy_.length) {
+      inversePatches.push({
+        op: REPLACE,
+        path: basePath.concat(["length"]),
+        value: base_.length
+      });
+    }
+  } // This is used for both Map objects and normal objects.
+
+
+  function generatePatchesFromAssigned(state, basePath, patches, inversePatches) {
+    var base_ = state.base_,
+        copy_ = state.copy_;
+    each(state.assigned_, function (key, assignedValue) {
+      var origValue = get(base_, key);
+      var value = get(copy_, key);
+      var op = !assignedValue ? REMOVE : has(base_, key) ? REPLACE : ADD;
+      if (origValue === value && op === REPLACE) return;
+      var path = basePath.concat(key);
+      patches.push(op === REMOVE ? {
+        op: op,
+        path: path
+      } : {
+        op: op,
+        path: path,
+        value: value
+      });
+      inversePatches.push(op === ADD ? {
+        op: REMOVE,
+        path: path
+      } : op === REMOVE ? {
+        op: ADD,
+        path: path,
+        value: clonePatchValueIfNeeded(origValue)
+      } : {
+        op: REPLACE,
+        path: path,
+        value: clonePatchValueIfNeeded(origValue)
+      });
+    });
+  }
+
+  function generateSetPatches(state, basePath, patches, inversePatches) {
+    var base_ = state.base_,
+        copy_ = state.copy_;
+    var i = 0;
+    base_.forEach(function (value) {
+      if (!copy_.has(value)) {
+        var path = basePath.concat([i]);
+        patches.push({
+          op: REMOVE,
+          path: path,
+          value: value
+        });
+        inversePatches.unshift({
+          op: ADD,
+          path: path,
+          value: value
+        });
+      }
+
+      i++;
+    });
+    i = 0;
+    copy_.forEach(function (value) {
+      if (!base_.has(value)) {
+        var path = basePath.concat([i]);
+        patches.push({
+          op: ADD,
+          path: path,
+          value: value
+        });
+        inversePatches.unshift({
+          op: REMOVE,
+          path: path,
+          value: value
+        });
+      }
+
+      i++;
+    });
+  }
+
+  function generateReplacementPatches_(baseValue, replacement, patches, inversePatches) {
+    patches.push({
+      op: REPLACE,
+      path: [],
+      value: replacement === NOTHING ? undefined : replacement
+    });
+    inversePatches.push({
+      op: REPLACE,
+      path: [],
+      value: baseValue
+    });
+  }
+
+  function applyPatches_(draft, patches) {
+    patches.forEach(function (patch) {
+      var path = patch.path,
+          op = patch.op;
+      var base = draft;
+
+      for (var i = 0; i < path.length - 1; i++) {
+        var parentType = getArchtype(base);
+        var p = path[i];
+
+        if (typeof p !== "string" && typeof p !== "number") {
+          p = "" + p;
+        } // See #738, avoid prototype pollution
+
+
+        if ((parentType === 0
+        /* Object */
+        || parentType === 1
+        /* Array */
+        ) && (p === "__proto__" || p === "constructor")) die(24);
+        if (typeof base === "function" && p === "prototype") die(24);
+        base = get(base, p);
+        if (typeof base !== "object") die(15, path.join("/"));
+      }
+
+      var type = getArchtype(base);
+      var value = deepClonePatchValue(patch.value); // used to clone patch to ensure original patch is not modified, see #411
+
+      var key = path[path.length - 1];
+
+      switch (op) {
+        case REPLACE:
+          switch (type) {
+            case 2
+            /* Map */
+            :
+              return base.set(key, value);
+
+            /* istanbul ignore next */
+
+            case 3
+            /* Set */
+            :
+              die(16);
+
+            default:
+              // if value is an object, then it's assigned by reference
+              // in the following add or remove ops, the value field inside the patch will also be modifyed
+              // so we use value from the cloned patch
+              // @ts-ignore
+              return base[key] = value;
+          }
+
+        case ADD:
+          switch (type) {
+            case 1
+            /* Array */
+            :
+              return key === "-" ? base.push(value) : base.splice(key, 0, value);
+
+            case 2
+            /* Map */
+            :
+              return base.set(key, value);
+
+            case 3
+            /* Set */
+            :
+              return base.add(value);
+
+            default:
+              return base[key] = value;
+          }
+
+        case REMOVE:
+          switch (type) {
+            case 1
+            /* Array */
+            :
+              return base.splice(key, 1);
+
+            case 2
+            /* Map */
+            :
+              return base.delete(key);
+
+            case 3
+            /* Set */
+            :
+              return base.delete(patch.value);
+
+            default:
+              return delete base[key];
+          }
+
+        default:
+          die(17, op);
+      }
+    });
+    return draft;
+  }
+
+  function deepClonePatchValue(obj) {
+    if (!isDraftable(obj)) return obj;
+    if (Array.isArray(obj)) return obj.map(deepClonePatchValue);
+    if (isMap(obj)) return new Map(Array.from(obj.entries()).map(function (_ref3) {
+      var k = _ref3[0],
+          v = _ref3[1];
+      return [k, deepClonePatchValue(v)];
+    }));
+    if (isSet(obj)) return new Set(Array.from(obj).map(deepClonePatchValue));
+    var cloned = Object.create(Object.getPrototypeOf(obj));
+
+    for (var key in obj) {
+      cloned[key] = deepClonePatchValue(obj[key]);
+    }
+
+    if (has(obj, DRAFTABLE)) cloned[DRAFTABLE] = obj[DRAFTABLE];
+    return cloned;
+  }
+
+  function clonePatchValueIfNeeded(obj) {
+    if (isDraft(obj)) {
+      return deepClonePatchValue(obj);
+    } else return obj;
+  }
+
+  loadPlugin("Patches", {
+    applyPatches_: applyPatches_,
+    generatePatches_: generatePatches_,
+    generateReplacementPatches_: generateReplacementPatches_
+  });
+}
+
+// types only!
+function enableMapSet() {
+  /* istanbul ignore next */
+  var _extendStatics = function extendStatics(d, b) {
+    _extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) {
+        if (b.hasOwnProperty(p)) d[p] = b[p];
+      }
+    };
+
+    return _extendStatics(d, b);
+  }; // Ugly hack to resolve #502 and inherit built in Map / Set
+
+
+  function __extends(d, b) {
+    _extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = ( // @ts-ignore
+    __.prototype = b.prototype, new __());
+  }
+
+  var DraftMap = function (_super) {
+    __extends(DraftMap, _super); // Create class manually, cause #502
+
+
+    function DraftMap(target, parent) {
+      this[DRAFT_STATE] = {
+        type_: 2
+        /* Map */
+        ,
+        parent_: parent,
+        scope_: parent ? parent.scope_ : getCurrentScope(),
+        modified_: false,
+        finalized_: false,
+        copy_: undefined,
+        assigned_: undefined,
+        base_: target,
+        draft_: this,
+        isManual_: false,
+        revoked_: false
+      };
+      return this;
+    }
+
+    var p = DraftMap.prototype;
+    Object.defineProperty(p, "size", {
+      get: function get() {
+        return latest(this[DRAFT_STATE]).size;
+      } // enumerable: false,
+      // configurable: true
+
+    });
+
+    p.has = function (key) {
+      return latest(this[DRAFT_STATE]).has(key);
+    };
+
+    p.set = function (key, value) {
+      var state = this[DRAFT_STATE];
+      assertUnrevoked(state);
+
+      if (!latest(state).has(key) || latest(state).get(key) !== value) {
+        prepareMapCopy(state);
+        markChanged(state);
+        state.assigned_.set(key, true);
+        state.copy_.set(key, value);
+        state.assigned_.set(key, true);
+      }
+
+      return this;
+    };
+
+    p.delete = function (key) {
+      if (!this.has(key)) {
+        return false;
+      }
+
+      var state = this[DRAFT_STATE];
+      assertUnrevoked(state);
+      prepareMapCopy(state);
+      markChanged(state);
+
+      if (state.base_.has(key)) {
+        state.assigned_.set(key, false);
+      } else {
+        state.assigned_.delete(key);
+      }
+
+      state.copy_.delete(key);
+      return true;
+    };
+
+    p.clear = function () {
+      var state = this[DRAFT_STATE];
+      assertUnrevoked(state);
+
+      if (latest(state).size) {
+        prepareMapCopy(state);
+        markChanged(state);
+        state.assigned_ = new Map();
+        each(state.base_, function (key) {
+          state.assigned_.set(key, false);
+        });
+        state.copy_.clear();
+      }
+    };
+
+    p.forEach = function (cb, thisArg) {
+      var _this = this;
+
+      var state = this[DRAFT_STATE];
+      latest(state).forEach(function (_value, key, _map) {
+        cb.call(thisArg, _this.get(key), key, _this);
+      });
+    };
+
+    p.get = function (key) {
+      var state = this[DRAFT_STATE];
+      assertUnrevoked(state);
+      var value = latest(state).get(key);
+
+      if (state.finalized_ || !isDraftable(value)) {
+        return value;
+      }
+
+      if (value !== state.base_.get(key)) {
+        return value; // either already drafted or reassigned
+      } // despite what it looks, this creates a draft only once, see above condition
+
+
+      var draft = createProxy(state.scope_.immer_, value, state);
+      prepareMapCopy(state);
+      state.copy_.set(key, draft);
+      return draft;
+    };
+
+    p.keys = function () {
+      return latest(this[DRAFT_STATE]).keys();
+    };
+
+    p.values = function () {
+      var _this2 = this,
+          _ref;
+
+      var iterator = this.keys();
+      return _ref = {}, _ref[iteratorSymbol] = function () {
+        return _this2.values();
+      }, _ref.next = function next() {
+        var r = iterator.next();
+        /* istanbul ignore next */
+
+        if (r.done) return r;
+
+        var value = _this2.get(r.value);
+
+        return {
+          done: false,
+          value: value
+        };
+      }, _ref;
+    };
+
+    p.entries = function () {
+      var _this3 = this,
+          _ref2;
+
+      var iterator = this.keys();
+      return _ref2 = {}, _ref2[iteratorSymbol] = function () {
+        return _this3.entries();
+      }, _ref2.next = function next() {
+        var r = iterator.next();
+        /* istanbul ignore next */
+
+        if (r.done) return r;
+
+        var value = _this3.get(r.value);
+
+        return {
+          done: false,
+          value: [r.value, value]
+        };
+      }, _ref2;
+    };
+
+    p[iteratorSymbol] = function () {
+      return this.entries();
+    };
+
+    return DraftMap;
+  }(Map);
+
+  function proxyMap_(target, parent) {
+    // @ts-ignore
+    return new DraftMap(target, parent);
+  }
+
+  function prepareMapCopy(state) {
+    if (!state.copy_) {
+      state.assigned_ = new Map();
+      state.copy_ = new Map(state.base_);
+    }
+  }
+
+  var DraftSet = function (_super) {
+    __extends(DraftSet, _super); // Create class manually, cause #502
+
+
+    function DraftSet(target, parent) {
+      this[DRAFT_STATE] = {
+        type_: 3
+        /* Set */
+        ,
+        parent_: parent,
+        scope_: parent ? parent.scope_ : getCurrentScope(),
+        modified_: false,
+        finalized_: false,
+        copy_: undefined,
+        base_: target,
+        draft_: this,
+        drafts_: new Map(),
+        revoked_: false,
+        isManual_: false
+      };
+      return this;
+    }
+
+    var p = DraftSet.prototype;
+    Object.defineProperty(p, "size", {
+      get: function get() {
+        return latest(this[DRAFT_STATE]).size;
+      } // enumerable: true,
+
+    });
+
+    p.has = function (value) {
+      var state = this[DRAFT_STATE];
+      assertUnrevoked(state); // bit of trickery here, to be able to recognize both the value, and the draft of its value
+
+      if (!state.copy_) {
+        return state.base_.has(value);
+      }
+
+      if (state.copy_.has(value)) return true;
+      if (state.drafts_.has(value) && state.copy_.has(state.drafts_.get(value))) return true;
+      return false;
+    };
+
+    p.add = function (value) {
+      var state = this[DRAFT_STATE];
+      assertUnrevoked(state);
+
+      if (!this.has(value)) {
+        prepareSetCopy(state);
+        markChanged(state);
+        state.copy_.add(value);
+      }
+
+      return this;
+    };
+
+    p.delete = function (value) {
+      if (!this.has(value)) {
+        return false;
+      }
+
+      var state = this[DRAFT_STATE];
+      assertUnrevoked(state);
+      prepareSetCopy(state);
+      markChanged(state);
+      return state.copy_.delete(value) || (state.drafts_.has(value) ? state.copy_.delete(state.drafts_.get(value)) :
+      /* istanbul ignore next */
+      false);
+    };
+
+    p.clear = function () {
+      var state = this[DRAFT_STATE];
+      assertUnrevoked(state);
+
+      if (latest(state).size) {
+        prepareSetCopy(state);
+        markChanged(state);
+        state.copy_.clear();
+      }
+    };
+
+    p.values = function () {
+      var state = this[DRAFT_STATE];
+      assertUnrevoked(state);
+      prepareSetCopy(state);
+      return state.copy_.values();
+    };
+
+    p.entries = function entries() {
+      var state = this[DRAFT_STATE];
+      assertUnrevoked(state);
+      prepareSetCopy(state);
+      return state.copy_.entries();
+    };
+
+    p.keys = function () {
+      return this.values();
+    };
+
+    p[iteratorSymbol] = function () {
+      return this.values();
+    };
+
+    p.forEach = function forEach(cb, thisArg) {
+      var iterator = this.values();
+      var result = iterator.next();
+
+      while (!result.done) {
+        cb.call(thisArg, result.value, result.value, this);
+        result = iterator.next();
+      }
+    };
+
+    return DraftSet;
+  }(Set);
+
+  function proxySet_(target, parent) {
+    // @ts-ignore
+    return new DraftSet(target, parent);
+  }
+
+  function prepareSetCopy(state) {
+    if (!state.copy_) {
+      // create drafts for all entries to preserve insertion order
+      state.copy_ = new Set();
+      state.base_.forEach(function (value) {
+        if (isDraftable(value)) {
+          var draft = createProxy(state.scope_.immer_, value, state);
+          state.drafts_.set(value, draft);
+          state.copy_.add(draft);
+        } else {
+          state.copy_.add(value);
+        }
+      });
+    }
+  }
+
+  function assertUnrevoked(state
+  /*ES5State | MapState | SetState*/
+  ) {
+    if (state.revoked_) die(3, JSON.stringify(latest(state)));
+  }
+
+  loadPlugin("MapSet", {
+    proxyMap_: proxyMap_,
+    proxySet_: proxySet_
+  });
+}
+
+function enableAllPlugins() {
+  enableES5();
+  enableMapSet();
+  enablePatches();
+}
+
+var immer =
+/*#__PURE__*/
+new Immer();
 /**
  * The `produce` function takes a value and a "recipe function" (whose
  * return value often depends on the base state). The recipe function is
@@ -4526,14 +5080,18 @@ var produce = immer.produce;
  * [nextState, patches, inversePatches] (instead of just the next state)
  */
 
-var produceWithPatches = immer.produceWithPatches.bind(immer);
+var produceWithPatches =
+/*#__PURE__*/
+immer.produceWithPatches.bind(immer);
 /**
  * Pass true to automatically freeze all copies created by Immer.
  *
- * By default, auto-freezing is disabled in production.
+ * Always freeze by default, even in production mode
  */
 
-var setAutoFreeze = immer.setAutoFreeze.bind(immer);
+var setAutoFreeze =
+/*#__PURE__*/
+immer.setAutoFreeze.bind(immer);
 /**
  * Pass true to use the ES2015 `Proxy` class when creating drafts, which is
  * always faster than using ES5 proxies.
@@ -4541,20 +5099,26 @@ var setAutoFreeze = immer.setAutoFreeze.bind(immer);
  * By default, feature detection is used, so calling this is rarely necessary.
  */
 
-var setUseProxies = immer.setUseProxies.bind(immer);
+var setUseProxies =
+/*#__PURE__*/
+immer.setUseProxies.bind(immer);
 /**
  * Apply an array of Immer patches to the first argument.
  *
  * This function is a producer, which means copy-on-write is in effect.
  */
 
-var applyPatches$1 = immer.applyPatches.bind(immer);
+var applyPatches =
+/*#__PURE__*/
+immer.applyPatches.bind(immer);
 /**
  * Create an Immer draft from the given base state, which may be a draft itself.
  * The draft can be modified until you finalize it with the `finishDraft` function.
  */
 
-var createDraft = immer.createDraft.bind(immer);
+var createDraft =
+/*#__PURE__*/
+immer.createDraft.bind(immer);
 /**
  * Finalize an Immer draft from a `createDraft` call, returning the base state
  * (if no changes were made) or a modified copy. The draft must *not* be
@@ -4564,7 +5128,9 @@ var createDraft = immer.createDraft.bind(immer);
  * changes that were made.
  */
 
-var finishDraft = immer.finishDraft.bind(immer);
+var finishDraft =
+/*#__PURE__*/
+immer.finishDraft.bind(immer);
 /**
  * This function is actually a no-op, but can be used to cast an immutable type
  * to an draft type and make TypeScript happy
@@ -4586,12 +5152,18 @@ function castImmutable(value) {
 }
 
 exports.Immer = Immer;
-exports.applyPatches = applyPatches$1;
+exports.applyPatches = applyPatches;
 exports.castDraft = castDraft;
 exports.castImmutable = castImmutable;
 exports.createDraft = createDraft;
+exports.current = current;
 exports.default = produce;
+exports.enableAllPlugins = enableAllPlugins;
+exports.enableES5 = enableES5;
+exports.enableMapSet = enableMapSet;
+exports.enablePatches = enablePatches;
 exports.finishDraft = finishDraft;
+exports.freeze = freeze;
 exports.immerable = DRAFTABLE;
 exports.isDraft = isDraft;
 exports.isDraftable = isDraftable;
@@ -4603,8 +5175,23 @@ exports.setAutoFreeze = setAutoFreeze;
 exports.setUseProxies = setUseProxies;
 
 
+},{}],38:[function(require,module,exports){
+function n(n){for(var r=arguments.length,t=Array(r>1?r-1:0),e=1;e<r;e++)t[e-1]=arguments[e];throw Error("[Immer] minified error nr: "+n+(t.length?" "+t.map((function(n){return"'"+n+"'"})).join(","):"")+". Find the full error at: https://bit.ly/3cXEKWf")}function r(n){return!!n&&!!n[H]}function t(n){var r;return!!n&&(function(n){if(!n||"object"!=typeof n)return!1;var r=Object.getPrototypeOf(n);if(null===r)return!0;var t=Object.hasOwnProperty.call(r,"constructor")&&r.constructor;return t===Object||"function"==typeof t&&Function.toString.call(t)===Q}(n)||Array.isArray(n)||!!n[G]||!!(null===(r=n.constructor)||void 0===r?void 0:r[G])||c(n)||v(n))}function e(n,r,t){void 0===t&&(t=!1),0===i(n)?(t?Object.keys:T)(n).forEach((function(e){t&&"symbol"==typeof e||r(e,n[e],n)})):n.forEach((function(t,e){return r(e,t,n)}))}function i(n){var r=n[H];return r?r.t>3?r.t-4:r.t:Array.isArray(n)?1:c(n)?2:v(n)?3:0}function u(n,r){return 2===i(n)?n.has(r):Object.prototype.hasOwnProperty.call(n,r)}function o(n,r){return 2===i(n)?n.get(r):n[r]}function f(n,r,t){var e=i(n);2===e?n.set(r,t):3===e?n.add(t):n[r]=t}function a(n,r){return n===r?0!==n||1/n==1/r:n!=n&&r!=r}function c(n){return W&&n instanceof Map}function v(n){return X&&n instanceof Set}function s(n){return n.i||n.u}function p(n){if(Array.isArray(n))return Array.prototype.slice.call(n);var r=U(n);delete r[H];for(var t=T(r),e=0;e<t.length;e++){var i=t[e],u=r[i];!1===u.writable&&(u.writable=!0,u.configurable=!0),(u.get||u.set)&&(r[i]={configurable:!0,writable:!0,enumerable:u.enumerable,value:n[i]})}return Object.create(Object.getPrototypeOf(n),r)}function l(n,u){return void 0===u&&(u=!1),h(n)||r(n)||!t(n)||(i(n)>1&&(n.set=n.add=n.clear=n.delete=d),Object.freeze(n),u&&e(n,(function(n,r){return l(r,!0)}),!0)),n}function d(){n(2)}function h(n){return null==n||"object"!=typeof n||Object.isFrozen(n)}function y(r){var t=V[r];return t||n(18,r),t}function _(n,r){V[n]||(V[n]=r)}function b(){return I}function m(n,r){r&&(y("Patches"),n.o=[],n.v=[],n.s=r)}function j(n){O(n),n.p.forEach(w),n.p=null}function O(n){n===I&&(I=n.l)}function x(n){return I={p:[],l:I,h:n,_:!0,m:0}}function w(n){var r=n[H];0===r.t||1===r.t?r.j():r.O=!0}function S(r,e){e.m=e.p.length;var i=e.p[0],u=void 0!==r&&r!==i;return e.h.S||y("ES5").P(e,r,u),u?(i[H].g&&(j(e),n(4)),t(r)&&(r=P(e,r),e.l||M(e,r)),e.o&&y("Patches").M(i[H].u,r,e.o,e.v)):r=P(e,i,[]),j(e),e.o&&e.s(e.o,e.v),r!==B?r:void 0}function P(n,r,t){if(h(r))return r;var i=r[H];if(!i)return e(r,(function(e,u){return g(n,i,r,e,u,t)}),!0),r;if(i.A!==n)return r;if(!i.g)return M(n,i.u,!0),i.u;if(!i.R){i.R=!0,i.A.m--;var u=4===i.t||5===i.t?i.i=p(i.k):i.i,o=u,f=!1;3===i.t&&(o=new Set(u),u.clear(),f=!0),e(o,(function(r,e){return g(n,i,u,r,e,t,f)})),M(n,u,!1),t&&n.o&&y("Patches").F(i,t,n.o,n.v)}return i.i}function g(n,e,i,o,a,c,v){if(r(a)){var s=P(n,a,c&&e&&3!==e.t&&!u(e.N,o)?c.concat(o):void 0);if(f(i,o,s),!r(s))return;n._=!1}else v&&i.add(a);if(t(a)&&!h(a)){if(!n.h.D&&n.m<1)return;P(n,a),e&&e.A.l||M(n,a)}}function M(n,r,t){void 0===t&&(t=!1),!n.l&&n.h.D&&n._&&l(r,t)}function A(n,r){var t=n[H];return(t?s(t):n)[r]}function z(n,r){if(r in n)for(var t=Object.getPrototypeOf(n);t;){var e=Object.getOwnPropertyDescriptor(t,r);if(e)return e;t=Object.getPrototypeOf(t)}}function E(n){n.g||(n.g=!0,n.l&&E(n.l))}function R(n){n.i||(n.i=p(n.u))}function k(n,r,t){var e=c(r)?y("MapSet").K(r,t):v(r)?y("MapSet").$(r,t):n.S?function(n,r){var t=Array.isArray(n),e={t:t?1:0,A:r?r.A:b(),g:!1,R:!1,N:{},l:r,u:n,k:null,i:null,j:null,C:!1},i=e,u=Y;t&&(i=[e],u=Z);var o=Proxy.revocable(i,u),f=o.revoke,a=o.proxy;return e.k=a,e.j=f,a}(r,t):y("ES5").I(r,t);return(t?t.A:b()).p.push(e),e}function F(u){return r(u)||n(22,u),function n(r){if(!t(r))return r;var u,a=r[H],c=i(r);if(a){if(!a.g&&(a.t<4||!y("ES5").J(a)))return a.u;a.R=!0,u=N(r,c),a.R=!1}else u=N(r,c);return e(u,(function(r,t){a&&o(a.u,r)===t||f(u,r,n(t))})),3===c?new Set(u):u}(u)}function N(n,r){switch(r){case 2:return new Map(n);case 3:return Array.from(n)}return p(n)}function D(){function n(n,r){var t=f[n];return t?t.enumerable=r:f[n]=t={configurable:!0,enumerable:r,get:function(){return Y.get(this[H],n)},set:function(r){Y.set(this[H],n,r)}},t}function t(n){for(var r=n.length-1;r>=0;r--){var t=n[r][H];if(!t.g)switch(t.t){case 5:o(t)&&E(t);break;case 4:i(t)&&E(t)}}}function i(n){for(var r=n.u,t=n.k,e=T(t),i=e.length-1;i>=0;i--){var o=e[i];if(o!==H){var f=r[o];if(void 0===f&&!u(r,o))return!0;var c=t[o],v=c&&c[H];if(v?v.u!==f:!a(c,f))return!0}}var s=!!r[H];return e.length!==T(r).length+(s?0:1)}function o(n){var r=n.k;if(r.length!==n.u.length)return!0;var t=Object.getOwnPropertyDescriptor(r,r.length-1);if(t&&!t.get)return!0;for(var e=0;e<r.length;e++)if(!r.hasOwnProperty(e))return!0;return!1}var f={};_("ES5",{I:function(r,t){var e=Array.isArray(r),i=function(r,t){if(r){for(var e=Array(t.length),i=0;i<t.length;i++)Object.defineProperty(e,""+i,n(i,!0));return e}var u=U(t);delete u[H];for(var o=T(u),f=0;f<o.length;f++){var a=o[f];u[a]=n(a,r||!!u[a].enumerable)}return Object.create(Object.getPrototypeOf(t),u)}(e,r),u={t:e?5:4,A:t?t.A:b(),g:!1,R:!1,N:{},l:t,u:r,k:i,i:null,O:!1,C:!1};return Object.defineProperty(i,H,{value:u,writable:!0}),i},P:function(n,i,f){f?r(i)&&i[H].A===n&&t(n.p):(n.o&&function n(r){if(r&&"object"==typeof r){var t=r[H];if(t){var i=t.u,f=t.k,a=t.N,c=t.t;if(4===c)e(f,(function(r){r!==H&&(void 0!==i[r]||u(i,r)?a[r]||n(f[r]):(a[r]=!0,E(t)))})),e(i,(function(n){void 0!==f[n]||u(f,n)||(a[n]=!1,E(t))}));else if(5===c){if(o(t)&&(E(t),a.length=!0),f.length<i.length)for(var v=f.length;v<i.length;v++)a[v]=!1;else for(var s=i.length;s<f.length;s++)a[s]=!0;for(var p=Math.min(f.length,i.length),l=0;l<p;l++)f.hasOwnProperty(l)||(a[l]=!0),void 0===a[l]&&n(f[l])}}}}(n.p[0]),t(n.p))},J:function(n){return 4===n.t?i(n):o(n)}})}function K(){function f(n){if(!t(n))return n;if(Array.isArray(n))return n.map(f);if(c(n))return new Map(Array.from(n.entries()).map((function(n){return[n[0],f(n[1])]})));if(v(n))return new Set(Array.from(n).map(f));var r=Object.create(Object.getPrototypeOf(n));for(var e in n)r[e]=f(n[e]);return u(n,G)&&(r[G]=n[G]),r}function a(n){return r(n)?f(n):n}var s="add";_("Patches",{W:function(r,t){return t.forEach((function(t){for(var e=t.path,u=t.op,a=r,c=0;c<e.length-1;c++){var v=i(a),p=e[c];"string"!=typeof p&&"number"!=typeof p&&(p=""+p),0!==v&&1!==v||"__proto__"!==p&&"constructor"!==p||n(24),"function"==typeof a&&"prototype"===p&&n(24),"object"!=typeof(a=o(a,p))&&n(15,e.join("/"))}var l=i(a),d=f(t.value),h=e[e.length-1];switch(u){case"replace":switch(l){case 2:return a.set(h,d);case 3:n(16);default:return a[h]=d}case s:switch(l){case 1:return"-"===h?a.push(d):a.splice(h,0,d);case 2:return a.set(h,d);case 3:return a.add(d);default:return a[h]=d}case"remove":switch(l){case 1:return a.splice(h,1);case 2:return a.delete(h);case 3:return a.delete(t.value);default:return delete a[h]}default:n(17,u)}})),r},F:function(n,r,t,i){switch(n.t){case 0:case 4:case 2:return function(n,r,t,i){var f=n.u,c=n.i;e(n.N,(function(n,e){var v=o(f,n),p=o(c,n),l=e?u(f,n)?"replace":s:"remove";if(v!==p||"replace"!==l){var d=r.concat(n);t.push("remove"===l?{op:l,path:d}:{op:l,path:d,value:p}),i.push(l===s?{op:"remove",path:d}:"remove"===l?{op:s,path:d,value:a(v)}:{op:"replace",path:d,value:a(v)})}}))}(n,r,t,i);case 5:case 1:return function(n,r,t,e){var i=n.u,u=n.N,o=n.i;if(o.length<i.length){var f=[o,i];i=f[0],o=f[1];var c=[e,t];t=c[0],e=c[1]}for(var v=0;v<i.length;v++)if(u[v]&&o[v]!==i[v]){var p=r.concat([v]);t.push({op:"replace",path:p,value:a(o[v])}),e.push({op:"replace",path:p,value:a(i[v])})}for(var l=i.length;l<o.length;l++){var d=r.concat([l]);t.push({op:s,path:d,value:a(o[l])})}i.length<o.length&&e.push({op:"replace",path:r.concat(["length"]),value:i.length})}(n,r,t,i);case 3:return function(n,r,t,e){var i=n.u,u=n.i,o=0;i.forEach((function(n){if(!u.has(n)){var i=r.concat([o]);t.push({op:"remove",path:i,value:n}),e.unshift({op:s,path:i,value:n})}o++})),o=0,u.forEach((function(n){if(!i.has(n)){var u=r.concat([o]);t.push({op:s,path:u,value:n}),e.unshift({op:"remove",path:u,value:n})}o++}))}(n,r,t,i)}},M:function(n,r,t,e){t.push({op:"replace",path:[],value:r===B?void 0:r}),e.push({op:"replace",path:[],value:n})}})}function $(){function r(n,r){function t(){this.constructor=n}f(n,r),n.prototype=(t.prototype=r.prototype,new t)}function i(n){n.i||(n.N=new Map,n.i=new Map(n.u))}function u(n){n.i||(n.i=new Set,n.u.forEach((function(r){if(t(r)){var e=k(n.A.h,r,n);n.p.set(r,e),n.i.add(e)}else n.i.add(r)})))}function o(r){r.O&&n(3,JSON.stringify(s(r)))}var f=function(n,r){return(f=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(n,r){n.__proto__=r}||function(n,r){for(var t in r)r.hasOwnProperty(t)&&(n[t]=r[t])})(n,r)},a=function(){function n(n,r){return this[H]={t:2,l:r,A:r?r.A:b(),g:!1,R:!1,i:void 0,N:void 0,u:n,k:this,C:!1,O:!1},this}r(n,Map);var u=n.prototype;return Object.defineProperty(u,"size",{get:function(){return s(this[H]).size}}),u.has=function(n){return s(this[H]).has(n)},u.set=function(n,r){var t=this[H];return o(t),s(t).has(n)&&s(t).get(n)===r||(i(t),E(t),t.N.set(n,!0),t.i.set(n,r),t.N.set(n,!0)),this},u.delete=function(n){if(!this.has(n))return!1;var r=this[H];return o(r),i(r),E(r),r.u.has(n)?r.N.set(n,!1):r.N.delete(n),r.i.delete(n),!0},u.clear=function(){var n=this[H];o(n),s(n).size&&(i(n),E(n),n.N=new Map,e(n.u,(function(r){n.N.set(r,!1)})),n.i.clear())},u.forEach=function(n,r){var t=this;s(this[H]).forEach((function(e,i){n.call(r,t.get(i),i,t)}))},u.get=function(n){var r=this[H];o(r);var e=s(r).get(n);if(r.R||!t(e))return e;if(e!==r.u.get(n))return e;var u=k(r.A.h,e,r);return i(r),r.i.set(n,u),u},u.keys=function(){return s(this[H]).keys()},u.values=function(){var n,r=this,t=this.keys();return(n={})[L]=function(){return r.values()},n.next=function(){var n=t.next();return n.done?n:{done:!1,value:r.get(n.value)}},n},u.entries=function(){var n,r=this,t=this.keys();return(n={})[L]=function(){return r.entries()},n.next=function(){var n=t.next();if(n.done)return n;var e=r.get(n.value);return{done:!1,value:[n.value,e]}},n},u[L]=function(){return this.entries()},n}(),c=function(){function n(n,r){return this[H]={t:3,l:r,A:r?r.A:b(),g:!1,R:!1,i:void 0,u:n,k:this,p:new Map,O:!1,C:!1},this}r(n,Set);var t=n.prototype;return Object.defineProperty(t,"size",{get:function(){return s(this[H]).size}}),t.has=function(n){var r=this[H];return o(r),r.i?!!r.i.has(n)||!(!r.p.has(n)||!r.i.has(r.p.get(n))):r.u.has(n)},t.add=function(n){var r=this[H];return o(r),this.has(n)||(u(r),E(r),r.i.add(n)),this},t.delete=function(n){if(!this.has(n))return!1;var r=this[H];return o(r),u(r),E(r),r.i.delete(n)||!!r.p.has(n)&&r.i.delete(r.p.get(n))},t.clear=function(){var n=this[H];o(n),s(n).size&&(u(n),E(n),n.i.clear())},t.values=function(){var n=this[H];return o(n),u(n),n.i.values()},t.entries=function(){var n=this[H];return o(n),u(n),n.i.entries()},t.keys=function(){return this.values()},t[L]=function(){return this.values()},t.forEach=function(n,r){for(var t=this.values(),e=t.next();!e.done;)n.call(r,e.value,e.value,this),e=t.next()},n}();_("MapSet",{K:function(n,r){return new a(n,r)},$:function(n,r){return new c(n,r)}})}var C;Object.defineProperty(exports,"__esModule",{value:!0});var I,J="undefined"!=typeof Symbol&&"symbol"==typeof Symbol("x"),W="undefined"!=typeof Map,X="undefined"!=typeof Set,q="undefined"!=typeof Proxy&&void 0!==Proxy.revocable&&"undefined"!=typeof Reflect,B=J?Symbol.for("immer-nothing"):((C={})["immer-nothing"]=!0,C),G=J?Symbol.for("immer-draftable"):"__$immer_draftable",H=J?Symbol.for("immer-state"):"__$immer_state",L="undefined"!=typeof Symbol&&Symbol.iterator||"@@iterator",Q=""+Object.prototype.constructor,T="undefined"!=typeof Reflect&&Reflect.ownKeys?Reflect.ownKeys:void 0!==Object.getOwnPropertySymbols?function(n){return Object.getOwnPropertyNames(n).concat(Object.getOwnPropertySymbols(n))}:Object.getOwnPropertyNames,U=Object.getOwnPropertyDescriptors||function(n){var r={};return T(n).forEach((function(t){r[t]=Object.getOwnPropertyDescriptor(n,t)})),r},V={},Y={get:function(n,r){if(r===H)return n;var e=s(n);if(!u(e,r))return function(n,r,t){var e,i=z(r,t);return i?"value"in i?i.value:null===(e=i.get)||void 0===e?void 0:e.call(n.k):void 0}(n,e,r);var i=e[r];return n.R||!t(i)?i:i===A(n.u,r)?(R(n),n.i[r]=k(n.A.h,i,n)):i},has:function(n,r){return r in s(n)},ownKeys:function(n){return Reflect.ownKeys(s(n))},set:function(n,r,t){var e=z(s(n),r);if(null==e?void 0:e.set)return e.set.call(n.k,t),!0;if(!n.g){var i=A(s(n),r),o=null==i?void 0:i[H];if(o&&o.u===t)return n.i[r]=t,n.N[r]=!1,!0;if(a(t,i)&&(void 0!==t||u(n.u,r)))return!0;R(n),E(n)}return n.i[r]===t&&(void 0!==t||r in n.i)||Number.isNaN(t)&&Number.isNaN(n.i[r])||(n.i[r]=t,n.N[r]=!0),!0},deleteProperty:function(n,r){return void 0!==A(n.u,r)||r in n.u?(n.N[r]=!1,R(n),E(n)):delete n.N[r],n.i&&delete n.i[r],!0},getOwnPropertyDescriptor:function(n,r){var t=s(n),e=Reflect.getOwnPropertyDescriptor(t,r);return e?{writable:!0,configurable:1!==n.t||"length"!==r,enumerable:e.enumerable,value:t[r]}:e},defineProperty:function(){n(11)},getPrototypeOf:function(n){return Object.getPrototypeOf(n.u)},setPrototypeOf:function(){n(12)}},Z={};e(Y,(function(n,r){Z[n]=function(){return arguments[0]=arguments[0][0],r.apply(this,arguments)}})),Z.deleteProperty=function(n,r){return Z.set.call(this,n,r,void 0)},Z.set=function(n,r,t){return Y.set.call(this,n[0],r,t,n[0])};var nn=function(){function e(r){var e=this;this.S=q,this.D=!0,this.produce=function(r,i,u){if("function"==typeof r&&"function"!=typeof i){var o=i;i=r;var f=e;return function(n){var r=this;void 0===n&&(n=o);for(var t=arguments.length,e=Array(t>1?t-1:0),u=1;u<t;u++)e[u-1]=arguments[u];return f.produce(n,(function(n){var t;return(t=i).call.apply(t,[r,n].concat(e))}))}}var a;if("function"!=typeof i&&n(6),void 0!==u&&"function"!=typeof u&&n(7),t(r)){var c=x(e),v=k(e,r,void 0),s=!0;try{a=i(v),s=!1}finally{s?j(c):O(c)}return"undefined"!=typeof Promise&&a instanceof Promise?a.then((function(n){return m(c,u),S(n,c)}),(function(n){throw j(c),n})):(m(c,u),S(a,c))}if(!r||"object"!=typeof r){if(void 0===(a=i(r))&&(a=r),a===B&&(a=void 0),e.D&&l(a,!0),u){var p=[],d=[];y("Patches").M(r,a,p,d),u(p,d)}return a}n(21,r)},this.produceWithPatches=function(n,r){if("function"==typeof n)return function(r){for(var t=arguments.length,i=Array(t>1?t-1:0),u=1;u<t;u++)i[u-1]=arguments[u];return e.produceWithPatches(r,(function(r){return n.apply(void 0,[r].concat(i))}))};var t,i,u=e.produce(n,r,(function(n,r){t=n,i=r}));return"undefined"!=typeof Promise&&u instanceof Promise?u.then((function(n){return[n,t,i]})):[u,t,i]},"boolean"==typeof(null==r?void 0:r.useProxies)&&this.setUseProxies(r.useProxies),"boolean"==typeof(null==r?void 0:r.autoFreeze)&&this.setAutoFreeze(r.autoFreeze)}var i=e.prototype;return i.createDraft=function(e){t(e)||n(8),r(e)&&(e=F(e));var i=x(this),u=k(this,e,void 0);return u[H].C=!0,O(i),u},i.finishDraft=function(n,r){var t=(n&&n[H]).A;return m(t,r),S(void 0,t)},i.setAutoFreeze=function(n){this.D=n},i.setUseProxies=function(r){r&&!q&&n(20),this.S=r},i.applyPatches=function(n,t){var e;for(e=t.length-1;e>=0;e--){var i=t[e];if(0===i.path.length&&"replace"===i.op){n=i.value;break}}e>-1&&(t=t.slice(e+1));var u=y("Patches").W;return r(n)?u(n,t):this.produce(n,(function(n){return u(n,t)}))},e}(),rn=new nn,tn=rn.produce,en=rn.produceWithPatches.bind(rn),un=rn.setAutoFreeze.bind(rn),on=rn.setUseProxies.bind(rn),fn=rn.applyPatches.bind(rn),an=rn.createDraft.bind(rn),cn=rn.finishDraft.bind(rn);exports.Immer=nn,exports.applyPatches=fn,exports.castDraft=function(n){return n},exports.castImmutable=function(n){return n},exports.createDraft=an,exports.current=F,exports.default=tn,exports.enableAllPlugins=function(){D(),$(),K()},exports.enableES5=D,exports.enableMapSet=$,exports.enablePatches=K,exports.finishDraft=cn,exports.freeze=l,exports.immerable=G,exports.isDraft=r,exports.isDraftable=t,exports.nothing=B,exports.original=function(t){return r(t)||n(23,t),t[H].u},exports.produce=tn,exports.produceWithPatches=en,exports.setAutoFreeze=un,exports.setUseProxies=on;
+
+
+},{}],39:[function(require,module,exports){
+(function (process){
+
+'use strict'
+
+if (process.env.NODE_ENV === 'production') {
+  module.exports = require('./immer.cjs.production.min.js')
+} else {
+  module.exports = require('./immer.cjs.development.js')
+}
+
 }).call(this,require('_process'))
-},{"_process":42}],39:[function(require,module,exports){
+},{"./immer.cjs.development.js":37,"./immer.cjs.production.min.js":38,"_process":56}],40:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -4850,19 +5437,10 @@ exports.parseHotkey = parseHotkey;
 exports.compareHotkey = compareHotkey;
 exports.toKeyCode = toKeyCode;
 exports.toKeyName = toKeyName;
-},{}],40:[function(require,module,exports){
+},{}],41:[function(require,module,exports){
 'use strict';
 
-/*!
- * isobject <https://github.com/jonschlinkert/isobject>
- *
- * Copyright (c) 2014-2017, Jon Schlinkert.
- * Released under the MIT License.
- */
-
-function isObject(val) {
-  return val != null && typeof val === 'object' && Array.isArray(val) === false;
-}
+Object.defineProperty(exports, '__esModule', { value: true });
 
 /*!
  * is-plain-object <https://github.com/jonschlinkert/is-plain-object>
@@ -4871,23 +5449,22 @@ function isObject(val) {
  * Released under the MIT License.
  */
 
-function isObjectObject(o) {
-  return isObject(o) === true
-    && Object.prototype.toString.call(o) === '[object Object]';
+function isObject(o) {
+  return Object.prototype.toString.call(o) === '[object Object]';
 }
 
 function isPlainObject(o) {
   var ctor,prot;
 
-  if (isObjectObject(o) === false) return false;
+  if (isObject(o) === false) return false;
 
   // If has modified constructor
   ctor = o.constructor;
-  if (typeof ctor !== 'function') return false;
+  if (ctor === undefined) return true;
 
   // If has modified prototype
   prot = ctor.prototype;
-  if (isObjectObject(prot) === false) return false;
+  if (isObject(prot) === false) return false;
 
   // If constructor does not have an Object-specific method
   if (prot.hasOwnProperty('isPrototypeOf') === false) {
@@ -4898,9 +5475,590 @@ function isPlainObject(o) {
   return true;
 }
 
-module.exports = isPlainObject;
+exports.isPlainObject = isPlainObject;
 
-},{}],41:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
+var root = require('./_root');
+
+/** Built-in value references. */
+var Symbol = root.Symbol;
+
+module.exports = Symbol;
+
+},{"./_root":47}],43:[function(require,module,exports){
+var Symbol = require('./_Symbol'),
+    getRawTag = require('./_getRawTag'),
+    objectToString = require('./_objectToString');
+
+/** `Object#toString` result references. */
+var nullTag = '[object Null]',
+    undefinedTag = '[object Undefined]';
+
+/** Built-in value references. */
+var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
+
+/**
+ * The base implementation of `getTag` without fallbacks for buggy environments.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @returns {string} Returns the `toStringTag`.
+ */
+function baseGetTag(value) {
+  if (value == null) {
+    return value === undefined ? undefinedTag : nullTag;
+  }
+  return (symToStringTag && symToStringTag in Object(value))
+    ? getRawTag(value)
+    : objectToString(value);
+}
+
+module.exports = baseGetTag;
+
+},{"./_Symbol":42,"./_getRawTag":45,"./_objectToString":46}],44:[function(require,module,exports){
+(function (global){
+/** Detect free variable `global` from Node.js. */
+var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
+
+module.exports = freeGlobal;
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{}],45:[function(require,module,exports){
+var Symbol = require('./_Symbol');
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * Used to resolve the
+ * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+ * of values.
+ */
+var nativeObjectToString = objectProto.toString;
+
+/** Built-in value references. */
+var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
+
+/**
+ * A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @returns {string} Returns the raw `toStringTag`.
+ */
+function getRawTag(value) {
+  var isOwn = hasOwnProperty.call(value, symToStringTag),
+      tag = value[symToStringTag];
+
+  try {
+    value[symToStringTag] = undefined;
+    var unmasked = true;
+  } catch (e) {}
+
+  var result = nativeObjectToString.call(value);
+  if (unmasked) {
+    if (isOwn) {
+      value[symToStringTag] = tag;
+    } else {
+      delete value[symToStringTag];
+    }
+  }
+  return result;
+}
+
+module.exports = getRawTag;
+
+},{"./_Symbol":42}],46:[function(require,module,exports){
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/**
+ * Used to resolve the
+ * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+ * of values.
+ */
+var nativeObjectToString = objectProto.toString;
+
+/**
+ * Converts `value` to a string using `Object.prototype.toString`.
+ *
+ * @private
+ * @param {*} value The value to convert.
+ * @returns {string} Returns the converted string.
+ */
+function objectToString(value) {
+  return nativeObjectToString.call(value);
+}
+
+module.exports = objectToString;
+
+},{}],47:[function(require,module,exports){
+var freeGlobal = require('./_freeGlobal');
+
+/** Detect free variable `self`. */
+var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
+
+/** Used as a reference to the global object. */
+var root = freeGlobal || freeSelf || Function('return this')();
+
+module.exports = root;
+
+},{"./_freeGlobal":44}],48:[function(require,module,exports){
+var isObject = require('./isObject'),
+    now = require('./now'),
+    toNumber = require('./toNumber');
+
+/** Error message constants. */
+var FUNC_ERROR_TEXT = 'Expected a function';
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeMax = Math.max,
+    nativeMin = Math.min;
+
+/**
+ * Creates a debounced function that delays invoking `func` until after `wait`
+ * milliseconds have elapsed since the last time the debounced function was
+ * invoked. The debounced function comes with a `cancel` method to cancel
+ * delayed `func` invocations and a `flush` method to immediately invoke them.
+ * Provide `options` to indicate whether `func` should be invoked on the
+ * leading and/or trailing edge of the `wait` timeout. The `func` is invoked
+ * with the last arguments provided to the debounced function. Subsequent
+ * calls to the debounced function return the result of the last `func`
+ * invocation.
+ *
+ * **Note:** If `leading` and `trailing` options are `true`, `func` is
+ * invoked on the trailing edge of the timeout only if the debounced function
+ * is invoked more than once during the `wait` timeout.
+ *
+ * If `wait` is `0` and `leading` is `false`, `func` invocation is deferred
+ * until to the next tick, similar to `setTimeout` with a timeout of `0`.
+ *
+ * See [David Corbacho's article](https://css-tricks.com/debouncing-throttling-explained-examples/)
+ * for details over the differences between `_.debounce` and `_.throttle`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Function
+ * @param {Function} func The function to debounce.
+ * @param {number} [wait=0] The number of milliseconds to delay.
+ * @param {Object} [options={}] The options object.
+ * @param {boolean} [options.leading=false]
+ *  Specify invoking on the leading edge of the timeout.
+ * @param {number} [options.maxWait]
+ *  The maximum time `func` is allowed to be delayed before it's invoked.
+ * @param {boolean} [options.trailing=true]
+ *  Specify invoking on the trailing edge of the timeout.
+ * @returns {Function} Returns the new debounced function.
+ * @example
+ *
+ * // Avoid costly calculations while the window size is in flux.
+ * jQuery(window).on('resize', _.debounce(calculateLayout, 150));
+ *
+ * // Invoke `sendMail` when clicked, debouncing subsequent calls.
+ * jQuery(element).on('click', _.debounce(sendMail, 300, {
+ *   'leading': true,
+ *   'trailing': false
+ * }));
+ *
+ * // Ensure `batchLog` is invoked once after 1 second of debounced calls.
+ * var debounced = _.debounce(batchLog, 250, { 'maxWait': 1000 });
+ * var source = new EventSource('/stream');
+ * jQuery(source).on('message', debounced);
+ *
+ * // Cancel the trailing debounced invocation.
+ * jQuery(window).on('popstate', debounced.cancel);
+ */
+function debounce(func, wait, options) {
+  var lastArgs,
+      lastThis,
+      maxWait,
+      result,
+      timerId,
+      lastCallTime,
+      lastInvokeTime = 0,
+      leading = false,
+      maxing = false,
+      trailing = true;
+
+  if (typeof func != 'function') {
+    throw new TypeError(FUNC_ERROR_TEXT);
+  }
+  wait = toNumber(wait) || 0;
+  if (isObject(options)) {
+    leading = !!options.leading;
+    maxing = 'maxWait' in options;
+    maxWait = maxing ? nativeMax(toNumber(options.maxWait) || 0, wait) : maxWait;
+    trailing = 'trailing' in options ? !!options.trailing : trailing;
+  }
+
+  function invokeFunc(time) {
+    var args = lastArgs,
+        thisArg = lastThis;
+
+    lastArgs = lastThis = undefined;
+    lastInvokeTime = time;
+    result = func.apply(thisArg, args);
+    return result;
+  }
+
+  function leadingEdge(time) {
+    // Reset any `maxWait` timer.
+    lastInvokeTime = time;
+    // Start the timer for the trailing edge.
+    timerId = setTimeout(timerExpired, wait);
+    // Invoke the leading edge.
+    return leading ? invokeFunc(time) : result;
+  }
+
+  function remainingWait(time) {
+    var timeSinceLastCall = time - lastCallTime,
+        timeSinceLastInvoke = time - lastInvokeTime,
+        timeWaiting = wait - timeSinceLastCall;
+
+    return maxing
+      ? nativeMin(timeWaiting, maxWait - timeSinceLastInvoke)
+      : timeWaiting;
+  }
+
+  function shouldInvoke(time) {
+    var timeSinceLastCall = time - lastCallTime,
+        timeSinceLastInvoke = time - lastInvokeTime;
+
+    // Either this is the first call, activity has stopped and we're at the
+    // trailing edge, the system time has gone backwards and we're treating
+    // it as the trailing edge, or we've hit the `maxWait` limit.
+    return (lastCallTime === undefined || (timeSinceLastCall >= wait) ||
+      (timeSinceLastCall < 0) || (maxing && timeSinceLastInvoke >= maxWait));
+  }
+
+  function timerExpired() {
+    var time = now();
+    if (shouldInvoke(time)) {
+      return trailingEdge(time);
+    }
+    // Restart the timer.
+    timerId = setTimeout(timerExpired, remainingWait(time));
+  }
+
+  function trailingEdge(time) {
+    timerId = undefined;
+
+    // Only invoke if we have `lastArgs` which means `func` has been
+    // debounced at least once.
+    if (trailing && lastArgs) {
+      return invokeFunc(time);
+    }
+    lastArgs = lastThis = undefined;
+    return result;
+  }
+
+  function cancel() {
+    if (timerId !== undefined) {
+      clearTimeout(timerId);
+    }
+    lastInvokeTime = 0;
+    lastArgs = lastCallTime = lastThis = timerId = undefined;
+  }
+
+  function flush() {
+    return timerId === undefined ? result : trailingEdge(now());
+  }
+
+  function debounced() {
+    var time = now(),
+        isInvoking = shouldInvoke(time);
+
+    lastArgs = arguments;
+    lastThis = this;
+    lastCallTime = time;
+
+    if (isInvoking) {
+      if (timerId === undefined) {
+        return leadingEdge(lastCallTime);
+      }
+      if (maxing) {
+        // Handle invocations in a tight loop.
+        clearTimeout(timerId);
+        timerId = setTimeout(timerExpired, wait);
+        return invokeFunc(lastCallTime);
+      }
+    }
+    if (timerId === undefined) {
+      timerId = setTimeout(timerExpired, wait);
+    }
+    return result;
+  }
+  debounced.cancel = cancel;
+  debounced.flush = flush;
+  return debounced;
+}
+
+module.exports = debounce;
+
+},{"./isObject":49,"./now":52,"./toNumber":54}],49:[function(require,module,exports){
+/**
+ * Checks if `value` is the
+ * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
+ * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+ * @example
+ *
+ * _.isObject({});
+ * // => true
+ *
+ * _.isObject([1, 2, 3]);
+ * // => true
+ *
+ * _.isObject(_.noop);
+ * // => true
+ *
+ * _.isObject(null);
+ * // => false
+ */
+function isObject(value) {
+  var type = typeof value;
+  return value != null && (type == 'object' || type == 'function');
+}
+
+module.exports = isObject;
+
+},{}],50:[function(require,module,exports){
+/**
+ * Checks if `value` is object-like. A value is object-like if it's not `null`
+ * and has a `typeof` result of "object".
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+ * @example
+ *
+ * _.isObjectLike({});
+ * // => true
+ *
+ * _.isObjectLike([1, 2, 3]);
+ * // => true
+ *
+ * _.isObjectLike(_.noop);
+ * // => false
+ *
+ * _.isObjectLike(null);
+ * // => false
+ */
+function isObjectLike(value) {
+  return value != null && typeof value == 'object';
+}
+
+module.exports = isObjectLike;
+
+},{}],51:[function(require,module,exports){
+var baseGetTag = require('./_baseGetTag'),
+    isObjectLike = require('./isObjectLike');
+
+/** `Object#toString` result references. */
+var symbolTag = '[object Symbol]';
+
+/**
+ * Checks if `value` is classified as a `Symbol` primitive or object.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
+ * @example
+ *
+ * _.isSymbol(Symbol.iterator);
+ * // => true
+ *
+ * _.isSymbol('abc');
+ * // => false
+ */
+function isSymbol(value) {
+  return typeof value == 'symbol' ||
+    (isObjectLike(value) && baseGetTag(value) == symbolTag);
+}
+
+module.exports = isSymbol;
+
+},{"./_baseGetTag":43,"./isObjectLike":50}],52:[function(require,module,exports){
+var root = require('./_root');
+
+/**
+ * Gets the timestamp of the number of milliseconds that have elapsed since
+ * the Unix epoch (1 January 1970 00:00:00 UTC).
+ *
+ * @static
+ * @memberOf _
+ * @since 2.4.0
+ * @category Date
+ * @returns {number} Returns the timestamp.
+ * @example
+ *
+ * _.defer(function(stamp) {
+ *   console.log(_.now() - stamp);
+ * }, _.now());
+ * // => Logs the number of milliseconds it took for the deferred invocation.
+ */
+var now = function() {
+  return root.Date.now();
+};
+
+module.exports = now;
+
+},{"./_root":47}],53:[function(require,module,exports){
+var debounce = require('./debounce'),
+    isObject = require('./isObject');
+
+/** Error message constants. */
+var FUNC_ERROR_TEXT = 'Expected a function';
+
+/**
+ * Creates a throttled function that only invokes `func` at most once per
+ * every `wait` milliseconds. The throttled function comes with a `cancel`
+ * method to cancel delayed `func` invocations and a `flush` method to
+ * immediately invoke them. Provide `options` to indicate whether `func`
+ * should be invoked on the leading and/or trailing edge of the `wait`
+ * timeout. The `func` is invoked with the last arguments provided to the
+ * throttled function. Subsequent calls to the throttled function return the
+ * result of the last `func` invocation.
+ *
+ * **Note:** If `leading` and `trailing` options are `true`, `func` is
+ * invoked on the trailing edge of the timeout only if the throttled function
+ * is invoked more than once during the `wait` timeout.
+ *
+ * If `wait` is `0` and `leading` is `false`, `func` invocation is deferred
+ * until to the next tick, similar to `setTimeout` with a timeout of `0`.
+ *
+ * See [David Corbacho's article](https://css-tricks.com/debouncing-throttling-explained-examples/)
+ * for details over the differences between `_.throttle` and `_.debounce`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Function
+ * @param {Function} func The function to throttle.
+ * @param {number} [wait=0] The number of milliseconds to throttle invocations to.
+ * @param {Object} [options={}] The options object.
+ * @param {boolean} [options.leading=true]
+ *  Specify invoking on the leading edge of the timeout.
+ * @param {boolean} [options.trailing=true]
+ *  Specify invoking on the trailing edge of the timeout.
+ * @returns {Function} Returns the new throttled function.
+ * @example
+ *
+ * // Avoid excessively updating the position while scrolling.
+ * jQuery(window).on('scroll', _.throttle(updatePosition, 100));
+ *
+ * // Invoke `renewToken` when the click event is fired, but not more than once every 5 minutes.
+ * var throttled = _.throttle(renewToken, 300000, { 'trailing': false });
+ * jQuery(element).on('click', throttled);
+ *
+ * // Cancel the trailing throttled invocation.
+ * jQuery(window).on('popstate', throttled.cancel);
+ */
+function throttle(func, wait, options) {
+  var leading = true,
+      trailing = true;
+
+  if (typeof func != 'function') {
+    throw new TypeError(FUNC_ERROR_TEXT);
+  }
+  if (isObject(options)) {
+    leading = 'leading' in options ? !!options.leading : leading;
+    trailing = 'trailing' in options ? !!options.trailing : trailing;
+  }
+  return debounce(func, wait, {
+    'leading': leading,
+    'maxWait': wait,
+    'trailing': trailing
+  });
+}
+
+module.exports = throttle;
+
+},{"./debounce":48,"./isObject":49}],54:[function(require,module,exports){
+var isObject = require('./isObject'),
+    isSymbol = require('./isSymbol');
+
+/** Used as references for various `Number` constants. */
+var NAN = 0 / 0;
+
+/** Used to match leading and trailing whitespace. */
+var reTrim = /^\s+|\s+$/g;
+
+/** Used to detect bad signed hexadecimal string values. */
+var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
+
+/** Used to detect binary string values. */
+var reIsBinary = /^0b[01]+$/i;
+
+/** Used to detect octal string values. */
+var reIsOctal = /^0o[0-7]+$/i;
+
+/** Built-in method references without a dependency on `root`. */
+var freeParseInt = parseInt;
+
+/**
+ * Converts `value` to a number.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to process.
+ * @returns {number} Returns the number.
+ * @example
+ *
+ * _.toNumber(3.2);
+ * // => 3.2
+ *
+ * _.toNumber(Number.MIN_VALUE);
+ * // => 5e-324
+ *
+ * _.toNumber(Infinity);
+ * // => Infinity
+ *
+ * _.toNumber('3.2');
+ * // => 3.2
+ */
+function toNumber(value) {
+  if (typeof value == 'number') {
+    return value;
+  }
+  if (isSymbol(value)) {
+    return NAN;
+  }
+  if (isObject(value)) {
+    var other = typeof value.valueOf == 'function' ? value.valueOf() : value;
+    value = isObject(other) ? (other + '') : other;
+  }
+  if (typeof value != 'string') {
+    return value === 0 ? value : +value;
+  }
+  value = value.replace(reTrim, '');
+  var isBinary = reIsBinary.test(value);
+  return (isBinary || reIsOctal.test(value))
+    ? freeParseInt(value.slice(2), isBinary ? 2 : 8)
+    : (reIsBadHex.test(value) ? NAN : +value);
+}
+
+module.exports = toNumber;
+
+},{"./isObject":49,"./isSymbol":51}],55:[function(require,module,exports){
 /*
 object-assign
 (c) Sindre Sorhus
@@ -4992,7 +6150,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 	return to;
 };
 
-},{}],42:[function(require,module,exports){
+},{}],56:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -5178,7 +6336,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],43:[function(require,module,exports){
+},{}],57:[function(require,module,exports){
 (function (process){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -5284,7 +6442,7 @@ checkPropTypes.resetWarningCache = function() {
 module.exports = checkPropTypes;
 
 }).call(this,require('_process'))
-},{"./lib/ReactPropTypesSecret":44,"_process":42}],44:[function(require,module,exports){
+},{"./lib/ReactPropTypesSecret":58,"_process":56}],58:[function(require,module,exports){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -5298,7 +6456,7 @@ var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
 
 module.exports = ReactPropTypesSecret;
 
-},{}],45:[function(require,module,exports){
+},{}],59:[function(require,module,exports){
 (function (process){
 /** @license React v16.12.0
  * react-dom.development.js
@@ -33097,7 +34255,7 @@ module.exports = reactDom;
 }
 
 }).call(this,require('_process'))
-},{"_process":42,"object-assign":41,"prop-types/checkPropTypes":43,"react":50,"scheduler":55,"scheduler/tracing":56}],46:[function(require,module,exports){
+},{"_process":56,"object-assign":55,"prop-types/checkPropTypes":57,"react":64,"scheduler":69,"scheduler/tracing":70}],60:[function(require,module,exports){
 /** @license React v16.12.0
  * react-dom.production.min.js
  *
@@ -33389,7 +34547,7 @@ xe,ye,Ca.injectEventPluginsByName,fa,Sc,function(a){ya(a,Rc)},cb,db,Pd,Ba,Sj,{cu
 (function(a){var b=a.findFiberByHostInstance;return ok(n({},a,{overrideHookState:null,overrideProps:null,setSuspenseHandler:null,scheduleUpdate:null,currentDispatcherRef:Ea.ReactCurrentDispatcher,findHostInstanceByFiber:function(a){a=ic(a);return null===a?null:a.stateNode},findFiberByHostInstance:function(a){return b?b(a):null},findHostInstancesForRefresh:null,scheduleRefresh:null,scheduleRoot:null,setRefreshHandler:null,getCurrentFiber:null}))})({findFiberByHostInstance:Fc,bundleType:0,version:"16.12.0",
 rendererPackageName:"react-dom"});var Dk={default:Ck},Ek=Dk&&Ck||Dk;module.exports=Ek.default||Ek;
 
-},{"object-assign":41,"react":50,"scheduler":55}],47:[function(require,module,exports){
+},{"object-assign":55,"react":64,"scheduler":69}],61:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -33431,7 +34589,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this,require('_process'))
-},{"./cjs/react-dom.development.js":45,"./cjs/react-dom.production.min.js":46,"_process":42}],48:[function(require,module,exports){
+},{"./cjs/react-dom.development.js":59,"./cjs/react-dom.production.min.js":60,"_process":56}],62:[function(require,module,exports){
 (function (process){
 /** @license React v16.12.0
  * react.development.js
@@ -35755,7 +36913,7 @@ module.exports = react;
 }
 
 }).call(this,require('_process'))
-},{"_process":42,"object-assign":41,"prop-types/checkPropTypes":43}],49:[function(require,module,exports){
+},{"_process":56,"object-assign":55,"prop-types/checkPropTypes":57}],63:[function(require,module,exports){
 /** @license React v16.12.0
  * react.production.min.js
  *
@@ -35782,7 +36940,7 @@ b,c){return W().useImperativeHandle(a,b,c)},useDebugValue:function(){},useLayout
 if(null!=b){void 0!==b.ref&&(g=b.ref,l=J.current);void 0!==b.key&&(d=""+b.key);if(a.type&&a.type.defaultProps)var f=a.type.defaultProps;for(k in b)K.call(b,k)&&!L.hasOwnProperty(k)&&(e[k]=void 0===b[k]&&void 0!==f?f[k]:b[k])}var k=arguments.length-2;if(1===k)e.children=c;else if(1<k){f=Array(k);for(var m=0;m<k;m++)f[m]=arguments[m+2];e.children=f}return{$$typeof:p,type:a.type,key:d,ref:g,props:e,_owner:l}},createFactory:function(a){var b=M.bind(null,a);b.type=a;return b},isValidElement:N,version:"16.12.0",
 __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED:{ReactCurrentDispatcher:I,ReactCurrentBatchConfig:{suspense:null},ReactCurrentOwner:J,IsSomeRendererActing:{current:!1},assign:h}},Y={default:X},Z=Y&&X||Y;module.exports=Z.default||Z;
 
-},{"object-assign":41}],50:[function(require,module,exports){
+},{"object-assign":55}],64:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -35793,7 +36951,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this,require('_process'))
-},{"./cjs/react.development.js":48,"./cjs/react.production.min.js":49,"_process":42}],51:[function(require,module,exports){
+},{"./cjs/react.development.js":62,"./cjs/react.production.min.js":63,"_process":56}],65:[function(require,module,exports){
 (function (process){
 /** @license React v0.18.0
  * scheduler-tracing.development.js
@@ -36220,7 +37378,7 @@ exports.unstable_unsubscribe = unstable_unsubscribe;
 }
 
 }).call(this,require('_process'))
-},{"_process":42}],52:[function(require,module,exports){
+},{"_process":56}],66:[function(require,module,exports){
 /** @license React v0.18.0
  * scheduler-tracing.production.min.js
  *
@@ -36232,7 +37390,7 @@ exports.unstable_unsubscribe = unstable_unsubscribe;
 
 'use strict';Object.defineProperty(exports,"__esModule",{value:!0});var b=0;exports.__interactionsRef=null;exports.__subscriberRef=null;exports.unstable_clear=function(a){return a()};exports.unstable_getCurrent=function(){return null};exports.unstable_getThreadID=function(){return++b};exports.unstable_trace=function(a,d,c){return c()};exports.unstable_wrap=function(a){return a};exports.unstable_subscribe=function(){};exports.unstable_unsubscribe=function(){};
 
-},{}],53:[function(require,module,exports){
+},{}],67:[function(require,module,exports){
 (function (process){
 /** @license React v0.18.0
  * scheduler.development.js
@@ -37140,7 +38298,7 @@ exports.unstable_Profiling = unstable_Profiling;
 }
 
 }).call(this,require('_process'))
-},{"_process":42}],54:[function(require,module,exports){
+},{"_process":56}],68:[function(require,module,exports){
 /** @license React v0.18.0
  * scheduler.production.min.js
  *
@@ -37164,7 +38322,7 @@ exports.unstable_scheduleCallback=function(a,b,c){var d=exports.unstable_now();i
 exports.unstable_wrapCallback=function(a){var b=R;return function(){var c=R;R=b;try{return a.apply(this,arguments)}finally{R=c}}};exports.unstable_getCurrentPriorityLevel=function(){return R};exports.unstable_shouldYield=function(){var a=exports.unstable_now();V(a);var b=L(N);return b!==Q&&null!==Q&&null!==b&&null!==b.callback&&b.startTime<=a&&b.expirationTime<Q.expirationTime||k()};exports.unstable_requestPaint=Z;exports.unstable_continueExecution=function(){T||S||(T=!0,f(X))};
 exports.unstable_pauseExecution=function(){};exports.unstable_getFirstCallbackNode=function(){return L(N)};exports.unstable_Profiling=null;
 
-},{}],55:[function(require,module,exports){
+},{}],69:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -37175,7 +38333,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this,require('_process'))
-},{"./cjs/scheduler.development.js":53,"./cjs/scheduler.production.min.js":54,"_process":42}],56:[function(require,module,exports){
+},{"./cjs/scheduler.development.js":67,"./cjs/scheduler.production.min.js":68,"_process":56}],70:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -37186,7 +38344,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this,require('_process'))
-},{"./cjs/scheduler-tracing.development.js":51,"./cjs/scheduler-tracing.production.min.js":52,"_process":42}],57:[function(require,module,exports){
+},{"./cjs/scheduler-tracing.development.js":65,"./cjs/scheduler-tracing.production.min.js":66,"_process":56}],71:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -37260,24 +38418,21 @@ function scrollIntoView(target, options) {
 var _default = scrollIntoView;
 exports["default"] = _default;
 module.exports = exports.default;
-},{"compute-scroll-into-view":34}],58:[function(require,module,exports){
+},{"compute-scroll-into-view":35}],72:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
-
-var isPlainObject = _interopDefault(require('is-plain-object'));
+var isPlainObject = require('is-plain-object');
 var slate = require('slate');
 
 var History = {
   /**
    * Check if a value is a `History` object.
    */
-  isHistory(value) {
-    return isPlainObject(value) && Array.isArray(value.redos) && Array.isArray(value.undos) && (value.redos.length === 0 || slate.Operation.isOperationList(value.redos[0])) && (value.undos.length === 0 || slate.Operation.isOperationList(value.undos[0]));
+  isHistory: function isHistory(value) {
+    return isPlainObject.isPlainObject(value) && Array.isArray(value.redos) && Array.isArray(value.undos) && (value.redos.length === 0 || slate.Operation.isOperationList(value.redos[0].operations)) && (value.undos.length === 0 || slate.Operation.isOperationList(value.undos[0].operations));
   }
-
 };
 
 /**
@@ -37286,40 +38441,41 @@ var History = {
 
 var HISTORY = new WeakMap();
 var SAVING = new WeakMap();
-var MERGING = new WeakMap();
+var MERGING = new WeakMap(); // eslint-disable-next-line no-redeclare
+
 var HistoryEditor = {
   /**
    * Check if a value is a `HistoryEditor` object.
    */
-  isHistoryEditor(value) {
-    return slate.Editor.isEditor(value) && History.isHistory(value.history);
+  isHistoryEditor: function isHistoryEditor(value) {
+    return History.isHistory(value.history) && slate.Editor.isEditor(value);
   },
 
   /**
    * Get the merge flag's current value.
    */
-  isMerging(editor) {
+  isMerging: function isMerging(editor) {
     return MERGING.get(editor);
   },
 
   /**
    * Get the saving flag's current value.
    */
-  isSaving(editor) {
+  isSaving: function isSaving(editor) {
     return SAVING.get(editor);
   },
 
   /**
    * Redo to the previous saved state.
    */
-  redo(editor) {
+  redo: function redo(editor) {
     editor.redo();
   },
 
   /**
    * Undo to the previous saved state.
    */
-  undo(editor) {
+  undo: function undo(editor) {
     editor.undo();
   },
 
@@ -37327,7 +38483,7 @@ var HistoryEditor = {
    * Apply a series of changes inside a synchronous `fn`, without merging any of
    * the new operations into previous save point in the history.
    */
-  withoutMerging(editor, fn) {
+  withoutMerging: function withoutMerging(editor, fn) {
     var prev = HistoryEditor.isMerging(editor);
     MERGING.set(editor, false);
     fn();
@@ -37338,92 +38494,110 @@ var HistoryEditor = {
    * Apply a series of changes inside a synchronous `fn`, without saving any of
    * their operations into the history.
    */
-  withoutSaving(editor, fn) {
+  withoutSaving: function withoutSaving(editor, fn) {
     var prev = HistoryEditor.isSaving(editor);
     SAVING.set(editor, false);
     fn();
     SAVING.set(editor, prev);
   }
-
 };
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 /**
  * The `withHistory` plugin keeps track of the operation history of a Slate
  * editor as operations are applied to it, using undo and redo stacks.
+ *
+ * If you are using TypeScript, you must extend Slate's CustomTypes to use
+ * this plugin.
+ *
+ * See https://docs.slatejs.org/concepts/11-typescript to learn how.
  */
 
-var withHistory = editor => {
+var withHistory = function withHistory(editor) {
   var e = editor;
-  var {
-    apply
-  } = e;
+  var apply = e.apply;
   e.history = {
     undos: [],
     redos: []
   };
 
-  e.redo = () => {
-    var {
-      history
-    } = e;
-    var {
-      redos
-    } = history;
+  e.redo = function () {
+    var history = e.history;
+    var redos = history.redos;
 
     if (redos.length > 0) {
       var batch = redos[redos.length - 1];
-      HistoryEditor.withoutSaving(e, () => {
-        slate.Editor.withoutNormalizing(e, () => {
-          for (var op of batch) {
-            e.apply(op);
+
+      if (batch.selectionBefore) {
+        slate.Transforms.setSelection(e, batch.selectionBefore);
+      }
+
+      HistoryEditor.withoutSaving(e, function () {
+        slate.Editor.withoutNormalizing(e, function () {
+          var _iterator = _createForOfIteratorHelper(batch.operations),
+              _step;
+
+          try {
+            for (_iterator.s(); !(_step = _iterator.n()).done;) {
+              var op = _step.value;
+              e.apply(op);
+            }
+          } catch (err) {
+            _iterator.e(err);
+          } finally {
+            _iterator.f();
           }
         });
       });
       history.redos.pop();
-      history.undos.push(batch);
+      e.writeHistory('undos', batch);
     }
   };
 
-  e.undo = () => {
-    var {
-      history
-    } = e;
-    var {
-      undos
-    } = history;
+  e.undo = function () {
+    var history = e.history;
+    var undos = history.undos;
 
     if (undos.length > 0) {
       var batch = undos[undos.length - 1];
-      HistoryEditor.withoutSaving(e, () => {
-        slate.Editor.withoutNormalizing(e, () => {
-          var inverseOps = batch.map(slate.Operation.inverse).reverse();
+      HistoryEditor.withoutSaving(e, function () {
+        slate.Editor.withoutNormalizing(e, function () {
+          var inverseOps = batch.operations.map(slate.Operation.inverse).reverse();
 
-          for (var op of inverseOps) {
-            // If the final operation is deselecting the editor, skip it. This is
-            if (op === inverseOps[inverseOps.length - 1] && op.type === 'set_selection' && op.newProperties == null) {
-              continue;
-            } else {
+          var _iterator2 = _createForOfIteratorHelper(inverseOps),
+              _step2;
+
+          try {
+            for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+              var op = _step2.value;
               e.apply(op);
             }
+          } catch (err) {
+            _iterator2.e(err);
+          } finally {
+            _iterator2.f();
+          }
+
+          if (batch.selectionBefore) {
+            slate.Transforms.setSelection(e, batch.selectionBefore);
           }
         });
       });
-      history.redos.push(batch);
+      e.writeHistory('redos', batch);
       history.undos.pop();
     }
   };
 
-  e.apply = op => {
-    var {
-      operations,
-      history
-    } = e;
-    var {
-      undos
-    } = history;
+  e.apply = function (op) {
+    var operations = e.operations,
+        history = e.history;
+    var undos = history.undos;
     var lastBatch = undos[undos.length - 1];
-    var lastOp = lastBatch && lastBatch[lastBatch.length - 1];
-    var overwrite = shouldOverwrite(op, lastOp);
+    var lastOp = lastBatch && lastBatch.operations[lastBatch.operations.length - 1];
     var save = HistoryEditor.isSaving(e);
     var merge = HistoryEditor.isMerging(e);
 
@@ -37438,31 +38612,32 @@ var withHistory = editor => {
         } else if (operations.length !== 0) {
           merge = true;
         } else {
-          merge = shouldMerge(op, lastOp) || overwrite;
+          merge = shouldMerge(op, lastOp);
         }
       }
 
       if (lastBatch && merge) {
-        if (overwrite) {
-          lastBatch.pop();
-        }
-
-        lastBatch.push(op);
+        lastBatch.operations.push(op);
       } else {
-        var batch = [op];
-        undos.push(batch);
+        var batch = {
+          operations: [op],
+          selectionBefore: e.selection
+        };
+        e.writeHistory('undos', batch);
       }
 
       while (undos.length > 100) {
         undos.shift();
       }
 
-      if (shouldClear(op)) {
-        history.redos = [];
-      }
+      history.redos = [];
     }
 
     apply(op);
+  };
+
+  e.writeHistory = function (stack, batch) {
+    e.history[stack].push(batch);
   };
 
   return e;
@@ -37471,11 +38646,7 @@ var withHistory = editor => {
  * Check whether to merge an operation into the previous operation.
  */
 
-var shouldMerge = (op, prev) => {
-  if (op.type === 'set_selection') {
-    return true;
-  }
-
+var shouldMerge = function shouldMerge(op, prev) {
   if (prev && op.type === 'insert_text' && prev.type === 'insert_text' && op.offset === prev.offset + prev.text.length && slate.Path.equals(op.path, prev.path)) {
     return true;
   }
@@ -37491,31 +38662,7 @@ var shouldMerge = (op, prev) => {
  */
 
 
-var shouldSave = (op, prev) => {
-  if (op.type === 'set_selection' && op.newProperties == null) {
-    return false;
-  }
-
-  return true;
-};
-/**
- * Check whether an operation should overwrite the previous one.
- */
-
-
-var shouldOverwrite = (op, prev) => {
-  if (prev && op.type === 'set_selection' && prev.type === 'set_selection') {
-    return true;
-  }
-
-  return false;
-};
-/**
- * Check whether an operation should clear the redos stack.
- */
-
-
-var shouldClear = op => {
+var shouldSave = function shouldSave(op, prev) {
   if (op.type === 'set_selection') {
     return false;
   }
@@ -37531,16 +38678,50 @@ exports.SAVING = SAVING;
 exports.withHistory = withHistory;
 
 
-},{"is-plain-object":40,"slate":61}],59:[function(require,module,exports){
+},{"is-plain-object":41,"slate":75}],73:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
-
-var isPlainObject = _interopDefault(require('is-plain-object'));
+var isPlainObject = require('is-plain-object');
 var slate = require('slate');
 
+function unwrapExports (x) {
+	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+}
+
+function createCommonjsModule(fn, module) {
+	return module = { exports: {} }, fn(module, module.exports), module.exports;
+}
+
+var _typeof_1 = createCommonjsModule(function (module) {
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    module.exports = _typeof = function _typeof(obj) {
+      return typeof obj;
+    };
+
+    module.exports["default"] = module.exports, module.exports.__esModule = true;
+  } else {
+    module.exports = _typeof = function _typeof(obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+
+    module.exports["default"] = module.exports, module.exports.__esModule = true;
+  }
+
+  return _typeof(obj);
+}
+
+module.exports = _typeof;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+var _typeof = unwrapExports(_typeof_1);
+
+var defineProperty = createCommonjsModule(function (module) {
 function _defineProperty(obj, key, value) {
   if (key in obj) {
     Object.defineProperty(obj, key, {
@@ -37556,6 +38737,222 @@ function _defineProperty(obj, key, value) {
   return obj;
 }
 
+module.exports = _defineProperty;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+var _defineProperty = unwrapExports(defineProperty);
+
+var arrayWithHoles = createCommonjsModule(function (module) {
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+module.exports = _arrayWithHoles;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+unwrapExports(arrayWithHoles);
+
+var iterableToArrayLimit = createCommonjsModule(function (module) {
+function _iterableToArrayLimit(arr, i) {
+  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+
+  if (_i == null) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+
+  var _s, _e;
+
+  try {
+    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+module.exports = _iterableToArrayLimit;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+unwrapExports(iterableToArrayLimit);
+
+var arrayLikeToArray = createCommonjsModule(function (module) {
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+module.exports = _arrayLikeToArray;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+unwrapExports(arrayLikeToArray);
+
+var unsupportedIterableToArray = createCommonjsModule(function (module) {
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
+}
+
+module.exports = _unsupportedIterableToArray;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+unwrapExports(unsupportedIterableToArray);
+
+var nonIterableRest = createCommonjsModule(function (module) {
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+module.exports = _nonIterableRest;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+unwrapExports(nonIterableRest);
+
+var slicedToArray = createCommonjsModule(function (module) {
+function _slicedToArray(arr, i) {
+  return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
+}
+
+module.exports = _slicedToArray;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+var _slicedToArray = unwrapExports(slicedToArray);
+
+var setPrototypeOf = createCommonjsModule(function (module) {
+function _setPrototypeOf(o, p) {
+  module.exports = _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+
+  module.exports["default"] = module.exports, module.exports.__esModule = true;
+  return _setPrototypeOf(o, p);
+}
+
+module.exports = _setPrototypeOf;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+unwrapExports(setPrototypeOf);
+
+var inherits = createCommonjsModule(function (module) {
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) setPrototypeOf(subClass, superClass);
+}
+
+module.exports = _inherits;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+var _inherits = unwrapExports(inherits);
+
+var assertThisInitialized = createCommonjsModule(function (module) {
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+module.exports = _assertThisInitialized;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+unwrapExports(assertThisInitialized);
+
+var possibleConstructorReturn = createCommonjsModule(function (module) {
+var _typeof = _typeof_1["default"];
+
+
+
+function _possibleConstructorReturn(self, call) {
+  if (call && (_typeof(call) === "object" || typeof call === "function")) {
+    return call;
+  } else if (call !== void 0) {
+    throw new TypeError("Derived constructors may only return object or undefined");
+  }
+
+  return assertThisInitialized(self);
+}
+
+module.exports = _possibleConstructorReturn;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+var _possibleConstructorReturn = unwrapExports(possibleConstructorReturn);
+
+var getPrototypeOf = createCommonjsModule(function (module) {
+function _getPrototypeOf(o) {
+  module.exports = _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  module.exports["default"] = module.exports, module.exports.__esModule = true;
+  return _getPrototypeOf(o);
+}
+
+module.exports = _getPrototypeOf;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+var _getPrototypeOf = unwrapExports(getPrototypeOf);
+
+var classCallCheck = createCommonjsModule(function (module) {
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+module.exports = _classCallCheck;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+var _classCallCheck = unwrapExports(classCallCheck);
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
 /**
  * A weak map to hold anchor tokens.
  */
@@ -37569,46 +38966,66 @@ var FOCUS = new WeakMap();
  * All tokens inherit from a single constructor for `instanceof` checking.
  */
 
-class Token {}
+var Token = function Token() {
+  _classCallCheck(this, Token);
+};
 /**
  * Anchor tokens represent the selection's anchor point.
  */
 
-class AnchorToken extends Token {
-  constructor() {
+var AnchorToken = /*#__PURE__*/function (_Token) {
+  _inherits(AnchorToken, _Token);
+
+  var _super = _createSuper(AnchorToken);
+
+  function AnchorToken() {
+    var _this;
+
     var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    super();
-    var {
-      offset,
-      path
-    } = props;
-    this.offset = offset;
-    this.path = path;
+
+    _classCallCheck(this, AnchorToken);
+
+    _this = _super.call(this);
+    var offset = props.offset,
+        path = props.path;
+    _this.offset = offset;
+    _this.path = path;
+    return _this;
   }
 
-}
+  return AnchorToken;
+}(Token);
 /**
  * Focus tokens represent the selection's focus point.
  */
 
-class FocusToken extends Token {
-  constructor() {
+var FocusToken = /*#__PURE__*/function (_Token2) {
+  _inherits(FocusToken, _Token2);
+
+  var _super2 = _createSuper(FocusToken);
+
+  function FocusToken() {
+    var _this2;
+
     var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    super();
-    var {
-      offset,
-      path
-    } = props;
-    this.offset = offset;
-    this.path = path;
+
+    _classCallCheck(this, FocusToken);
+
+    _this2 = _super2.call(this);
+    var offset = props.offset,
+        path = props.path;
+    _this2.offset = offset;
+    _this2.path = path;
+    return _this2;
   }
 
-}
+  return FocusToken;
+}(Token);
 /**
  * Add an anchor token to the end of a text node.
  */
 
-var addAnchorToken = (text, token) => {
+var addAnchorToken = function addAnchorToken(text, token) {
   var offset = text.text.length;
   ANCHOR.set(text, [offset, token]);
 };
@@ -37616,14 +39033,14 @@ var addAnchorToken = (text, token) => {
  * Get the offset if a text node has an associated anchor token.
  */
 
-var getAnchorOffset = text => {
+var getAnchorOffset = function getAnchorOffset(text) {
   return ANCHOR.get(text);
 };
 /**
  * Add a focus token to the end of a text node.
  */
 
-var addFocusToken = (text, token) => {
+var addFocusToken = function addFocusToken(text, token) {
   var offset = text.text.length;
   FOCUS.set(text, [offset, token]);
 };
@@ -37631,13 +39048,19 @@ var addFocusToken = (text, token) => {
  * Get the offset if a text node has an associated focus token.
  */
 
-var getFocusOffset = text => {
+var getFocusOffset = function getFocusOffset(text) {
   return FOCUS.get(text);
 };
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$1(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$1(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$1(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$1(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 /**
  * Resolve the descedants of a node by normalizing the children that can be
  * passed into a hyperscript creator function.
@@ -37645,10 +39068,10 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 var STRINGS = new WeakSet();
 
-var resolveDescendants = children => {
+var resolveDescendants = function resolveDescendants(children) {
   var nodes = [];
 
-  var addChild = child => {
+  var addChild = function addChild(child) {
     if (child == null) {
       return;
     }
@@ -37693,8 +39116,18 @@ var resolveDescendants = children => {
     }
   };
 
-  for (var child of children.flat(Infinity)) {
-    addChild(child);
+  var _iterator = _createForOfIteratorHelper(children.flat(Infinity)),
+      _step;
+
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var child = _step.value;
+      addChild(child);
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
   }
 
   return nodes;
@@ -37719,7 +39152,7 @@ function createCursor(tagName, attributes, children) {
  */
 
 function createElement(tagName, attributes, children) {
-  return _objectSpread({}, attributes, {
+  return _objectSpread$1(_objectSpread$1({}, attributes), {}, {
     children: resolveDescendants(children)
   });
 }
@@ -37742,18 +39175,22 @@ function createFragment(tagName, attributes, children) {
  */
 
 function createSelection(tagName, attributes, children) {
-  var anchor = children.find(c => c instanceof AnchorToken);
-  var focus = children.find(c => c instanceof FocusToken);
+  var anchor = children.find(function (c) {
+    return c instanceof AnchorToken;
+  });
+  var focus = children.find(function (c) {
+    return c instanceof FocusToken;
+  });
 
-  if (!anchor || !anchor.offset || !anchor.path) {
+  if (!anchor || anchor.offset == null || anchor.path == null) {
     throw new Error("The <selection> hyperscript tag must have an <anchor> tag as a child with `path` and `offset` attributes defined.");
   }
 
-  if (!focus || !focus.offset || !focus.path) {
+  if (!focus || focus.offset == null || focus.path == null) {
     throw new Error("The <selection> hyperscript tag must have a <focus> tag as a child with `path` and `offset` attributes defined.");
   }
 
-  return _objectSpread({
+  return _objectSpread$1({
     anchor: {
       offset: anchor.offset,
       path: anchor.path
@@ -37775,7 +39212,8 @@ function createText(tagName, attributes, children) {
     throw new Error("The <text> hyperscript tag must only contain a single node's worth of children.");
   }
 
-  var [node] = nodes;
+  var _nodes = _slicedToArray(nodes, 1),
+      node = _nodes[0];
 
   if (node == null) {
     node = {
@@ -37789,7 +39227,7 @@ function createText(tagName, attributes, children) {
   // merge with other string children.
 
 
-  STRINGS.delete(node);
+  STRINGS["delete"](node);
   Object.assign(node, attributes);
   return node;
 }
@@ -37797,66 +39235,96 @@ function createText(tagName, attributes, children) {
  * Create a top-level `Editor` object.
  */
 
-function createEditor(tagName, attributes, children) {
-  var otherChildren = [];
-  var selectionChild;
+var createEditor = function createEditor(makeEditor) {
+  return function (tagName, attributes, children) {
+    var otherChildren = [];
+    var selectionChild;
 
-  for (var child of children) {
-    if (slate.Range.isRange(child)) {
-      selectionChild = child;
-    } else {
-      otherChildren.push(child);
-    }
-  }
+    var _iterator2 = _createForOfIteratorHelper(children),
+        _step2;
 
-  var descendants = resolveDescendants(otherChildren);
-  var selection = {};
-  var editor = slate.createEditor();
-  Object.assign(editor, attributes);
-  editor.children = descendants; // Search the document's texts to see if any of them have tokens associated
-  // that need incorporated into the selection.
+    try {
+      for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+        var child = _step2.value;
 
-  for (var [node, path] of slate.Node.texts(editor)) {
-    var anchor = getAnchorOffset(node);
-    var focus = getFocusOffset(node);
-
-    if (anchor != null) {
-      var [offset] = anchor;
-      selection.anchor = {
-        path,
-        offset
-      };
+        if (slate.Range.isRange(child)) {
+          selectionChild = child;
+        } else {
+          otherChildren.push(child);
+        }
+      }
+    } catch (err) {
+      _iterator2.e(err);
+    } finally {
+      _iterator2.f();
     }
 
-    if (focus != null) {
-      var [_offset] = focus;
-      selection.focus = {
-        path,
-        offset: _offset
-      };
+    var descendants = resolveDescendants(otherChildren);
+    var selection = {};
+    var editor = makeEditor();
+    Object.assign(editor, attributes);
+    editor.children = descendants; // Search the document's texts to see if any of them have tokens associated
+    // that need incorporated into the selection.
+
+    var _iterator3 = _createForOfIteratorHelper(slate.Node.texts(editor)),
+        _step3;
+
+    try {
+      for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+        var _step3$value = _slicedToArray(_step3.value, 2),
+            node = _step3$value[0],
+            path = _step3$value[1];
+
+        var anchor = getAnchorOffset(node);
+        var focus = getFocusOffset(node);
+
+        if (anchor != null) {
+          var _anchor = _slicedToArray(anchor, 1),
+              offset = _anchor[0];
+
+          selection.anchor = {
+            path: path,
+            offset: offset
+          };
+        }
+
+        if (focus != null) {
+          var _focus = _slicedToArray(focus, 1),
+              _offset = _focus[0];
+
+          selection.focus = {
+            path: path,
+            offset: _offset
+          };
+        }
+      }
+    } catch (err) {
+      _iterator3.e(err);
+    } finally {
+      _iterator3.f();
     }
-  }
 
-  if (selection.anchor && !selection.focus) {
-    throw new Error("Slate hyperscript ranges must have both `<anchor />` and `<focus />` defined if one is defined, but you only defined `<anchor />`. For collapsed selections, use `<cursor />` instead.");
-  }
+    if (selection.anchor && !selection.focus) {
+      throw new Error("Slate hyperscript ranges must have both `<anchor />` and `<focus />` defined if one is defined, but you only defined `<anchor />`. For collapsed selections, use `<cursor />` instead.");
+    }
 
-  if (!selection.anchor && selection.focus) {
-    throw new Error("Slate hyperscript ranges must have both `<anchor />` and `<focus />` defined if one is defined, but you only defined `<focus />`. For collapsed selections, use `<cursor />` instead.");
-  }
+    if (!selection.anchor && selection.focus) {
+      throw new Error("Slate hyperscript ranges must have both `<anchor />` and `<focus />` defined if one is defined, but you only defined `<focus />`. For collapsed selections, use `<cursor />` instead.");
+    }
 
-  if (selectionChild != null) {
-    editor.selection = selectionChild;
-  } else if (slate.Range.isRange(selection)) {
-    editor.selection = selection;
-  }
+    if (selectionChild != null) {
+      editor.selection = selectionChild;
+    } else if (slate.Range.isRange(selection)) {
+      editor.selection = selection;
+    }
 
-  return editor;
-}
+    return editor;
+  };
+};
 
-function ownKeys$1(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$1(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$1(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$1(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 /**
  * The default creators for Slate objects.
  */
@@ -37864,7 +39332,7 @@ function _objectSpread$1(target) { for (var i = 1; i < arguments.length; i++) { 
 var DEFAULT_CREATORS = {
   anchor: createAnchor,
   cursor: createCursor,
-  editor: createEditor,
+  editor: createEditor(slate.createEditor),
   element: createElement,
   focus: createFocus,
   fragment: createFragment,
@@ -37877,12 +39345,11 @@ var DEFAULT_CREATORS = {
 
 var createHyperscript = function createHyperscript() {
   var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var {
-    elements = {}
-  } = options;
+  var _options$elements = options.elements,
+      elements = _options$elements === void 0 ? {} : _options$elements;
   var elementCreators = normalizeElements(elements);
 
-  var creators = _objectSpread$1({}, DEFAULT_CREATORS, {}, elementCreators, {}, options.creators);
+  var creators = _objectSpread(_objectSpread(_objectSpread({}, DEFAULT_CREATORS), elementCreators), options.creators);
 
   var jsx = createFactory(creators);
   return jsx;
@@ -37892,7 +39359,7 @@ var createHyperscript = function createHyperscript() {
  */
 
 
-var createFactory = creators => {
+var createFactory = function createFactory(creators) {
   var jsx = function jsx(tagName, attributes) {
     for (var _len = arguments.length, children = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
       children[_key - 2] = arguments[_key];
@@ -37908,12 +39375,14 @@ var createFactory = creators => {
       attributes = {};
     }
 
-    if (!isPlainObject(attributes)) {
+    if (!isPlainObject.isPlainObject(attributes)) {
       children = [attributes].concat(children);
       attributes = {};
     }
 
-    children = children.filter(child => Boolean(child)).flat();
+    children = children.filter(function (child) {
+      return Boolean(child);
+    }).flat();
     var ret = creator(tagName, attributes, children);
     return ret;
   };
@@ -37925,18 +39394,18 @@ var createFactory = creators => {
  */
 
 
-var normalizeElements = elements => {
+var normalizeElements = function normalizeElements(elements) {
   var creators = {};
 
   var _loop = function _loop(tagName) {
     var props = elements[tagName];
 
-    if (typeof props !== 'object') {
+    if (_typeof(props) !== 'object') {
       throw new Error("Properties specified for a hyperscript shorthand should be an object, but for the custom element <".concat(tagName, ">  tag you passed: ").concat(props));
     }
 
-    creators[tagName] = (tagName, attributes, children) => {
-      return createElement('element', _objectSpread$1({}, props, {}, attributes), children);
+    creators[tagName] = function (tagName, attributes, children) {
+      return createElement('element', _objectSpread(_objectSpread({}, props), attributes), children);
     };
   };
 
@@ -37953,79 +39422,263 @@ var normalizeElements = elements => {
 
 var jsx = createHyperscript();
 
+exports.createEditor = createEditor;
 exports.createHyperscript = createHyperscript;
+exports.createText = createText;
 exports.jsx = jsx;
 
 
-},{"is-plain-object":40,"slate":61}],60:[function(require,module,exports){
+},{"is-plain-object":41,"slate":75}],74:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
-
+var getDirection = require('direction');
+var debounce = require('lodash/debounce');
+var throttle = require('lodash/throttle');
 var React = require('react');
-var React__default = _interopDefault(React);
+var scrollIntoView = require('scroll-into-view-if-needed');
 var slate = require('slate');
-var debounce = _interopDefault(require('debounce'));
-var scrollIntoView = _interopDefault(require('scroll-into-view-if-needed'));
-var getDirection = _interopDefault(require('direction'));
+var resizeObserver = require('@juggle/resize-observer');
 var isHotkey = require('is-hotkey');
-var ReactDOM = _interopDefault(require('react-dom'));
+var ReactDOM = require('react-dom');
+
+function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+var getDirection__default = /*#__PURE__*/_interopDefaultLegacy(getDirection);
+var debounce__default = /*#__PURE__*/_interopDefaultLegacy(debounce);
+var throttle__default = /*#__PURE__*/_interopDefaultLegacy(throttle);
+var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
+var scrollIntoView__default = /*#__PURE__*/_interopDefaultLegacy(scrollIntoView);
+var ReactDOM__default = /*#__PURE__*/_interopDefaultLegacy(ReactDOM);
+
+function unwrapExports (x) {
+	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+}
+
+function createCommonjsModule(fn, module) {
+	return module = { exports: {} }, fn(module, module.exports), module.exports;
+}
+
+var defineProperty = createCommonjsModule(function (module) {
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+module.exports = _defineProperty;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+var _defineProperty = unwrapExports(defineProperty);
+
+var arrayWithHoles = createCommonjsModule(function (module) {
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+module.exports = _arrayWithHoles;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+unwrapExports(arrayWithHoles);
+
+var iterableToArrayLimit = createCommonjsModule(function (module) {
+function _iterableToArrayLimit(arr, i) {
+  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+
+  if (_i == null) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+
+  var _s, _e;
+
+  try {
+    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+module.exports = _iterableToArrayLimit;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+unwrapExports(iterableToArrayLimit);
+
+var arrayLikeToArray = createCommonjsModule(function (module) {
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+module.exports = _arrayLikeToArray;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+unwrapExports(arrayLikeToArray);
+
+var unsupportedIterableToArray = createCommonjsModule(function (module) {
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
+}
+
+module.exports = _unsupportedIterableToArray;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+unwrapExports(unsupportedIterableToArray);
+
+var nonIterableRest = createCommonjsModule(function (module) {
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+module.exports = _nonIterableRest;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+unwrapExports(nonIterableRest);
+
+var slicedToArray = createCommonjsModule(function (module) {
+function _slicedToArray(arr, i) {
+  return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
+}
+
+module.exports = _slicedToArray;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+var _slicedToArray = unwrapExports(slicedToArray);
+
+var objectWithoutPropertiesLoose = createCommonjsModule(function (module) {
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+
+  return target;
+}
+
+module.exports = _objectWithoutPropertiesLoose;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+unwrapExports(objectWithoutPropertiesLoose);
+
+var objectWithoutProperties = createCommonjsModule(function (module) {
+function _objectWithoutProperties(source, excluded) {
+  if (source == null) return {};
+  var target = objectWithoutPropertiesLoose(source, excluded);
+  var key, i;
+
+  if (Object.getOwnPropertySymbols) {
+    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+
+    for (i = 0; i < sourceSymbolKeys.length; i++) {
+      key = sourceSymbolKeys[i];
+      if (excluded.indexOf(key) >= 0) continue;
+      if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
+      target[key] = source[key];
+    }
+  }
+
+  return target;
+}
+
+module.exports = _objectWithoutProperties;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+var _objectWithoutProperties = unwrapExports(objectWithoutProperties);
 
 /**
- * Leaf content strings.
+ * A React context for sharing the editor object.
  */
-const String = (props) => {
-    const { isLast, leaf, parent, text } = props;
-    const editor = useEditor();
-    const path = ReactEditor.findPath(editor, text);
-    const parentPath = slate.Path.parent(path);
-    // COMPAT: Render text inside void nodes with a zero-width space.
-    // So the node can contain selection but the text is not visible.
-    if (editor.isVoid(parent)) {
-        return React__default.createElement(ZeroWidthString, { length: slate.Node.string(parent).length });
-    }
-    // COMPAT: If this is the last text node in an empty block, render a zero-
-    // width space that will convert into a line break when copying and pasting
-    // to support expected plain text.
-    if (leaf.text === '' &&
-        parent.children[parent.children.length - 1] === text &&
-        !editor.isInline(parent) &&
-        slate.Editor.string(editor, parentPath) === '') {
-        return React__default.createElement(ZeroWidthString, { isLineBreak: true });
-    }
-    // COMPAT: If the text is empty, it's because it's on the edge of an inline
-    // node, so we render a zero-width space so that the selection can be
-    // inserted next to it still.
-    if (leaf.text === '') {
-        return React__default.createElement(ZeroWidthString, null);
-    }
-    // COMPAT: Browsers will collapse trailing new lines at the end of blocks,
-    // so we need to add an extra trailing new lines to prevent that.
-    if (isLast && leaf.text.slice(-1) === '\n') {
-        return React__default.createElement(TextString, { isTrailing: true, text: leaf.text });
-    }
-    return React__default.createElement(TextString, { text: leaf.text });
-};
+
+var EditorContext = /*#__PURE__*/React.createContext(null);
 /**
- * Leaf strings with text in them.
+ * Get the current editor object from the React context.
  */
-const TextString = (props) => {
-    const { text, isTrailing = false } = props;
-    return (React__default.createElement("span", { "data-slate-string": true },
-        text,
-        isTrailing ? '\n' : null));
+
+var useSlateStatic = function useSlateStatic() {
+  var editor = React.useContext(EditorContext);
+
+  if (!editor) {
+    throw new Error("The `useSlateStatic` hook must be used inside the <Slate> component's context.");
+  }
+
+  return editor;
 };
-/**
- * Leaf strings without text, render as zero-width strings.
- */
-const ZeroWidthString = (props) => {
-    const { length = 0, isLineBreak = false } = props;
-    return (React__default.createElement("span", { "data-slate-zero-width": isLineBreak ? 'n' : 'z', "data-slate-length": length },
-        '\uFEFF',
-        isLineBreak ? React__default.createElement("br", null) : null));
-};
+
+var IS_REACT_VERSION_17_OR_ABOVE = parseInt(React__default['default'].version.split('.')[0], 10) >= 17;
+var IS_IOS = typeof navigator !== 'undefined' && typeof window !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+var IS_APPLE = typeof navigator !== 'undefined' && /Mac OS X/.test(navigator.userAgent);
+var IS_ANDROID = typeof navigator !== 'undefined' && /Android/.test(navigator.userAgent);
+var IS_FIREFOX = typeof navigator !== 'undefined' && /^(?!.*Seamonkey)(?=.*Firefox).*/i.test(navigator.userAgent);
+var IS_SAFARI = typeof navigator !== 'undefined' && /Version\/[\d\.]+.*Safari/.test(navigator.userAgent); // "modern" Edge was released at 79.x
+
+var IS_EDGE_LEGACY = typeof navigator !== 'undefined' && /Edge?\/(?:[0-6][0-9]|[0-7][0-8])(?:\.)/i.test(navigator.userAgent);
+var IS_CHROME = typeof navigator !== 'undefined' && /Chrome/i.test(navigator.userAgent); // Native `beforeInput` events don't work well with react on Chrome 75
+// and older, Chrome 76+ can use `beforeInput` though.
+
+var IS_CHROME_LEGACY = typeof navigator !== 'undefined' && /Chrome?\/(?:[0-7][0-5]|[0-6][0-9])(?:\.)/i.test(navigator.userAgent);
+var IS_ANDROID_CHROME_LEGACY = IS_ANDROID && typeof navigator !== 'undefined' && /Chrome?\/(?:[0-5]?\d)(?:\.)/i.test(navigator.userAgent); // Firefox did not support `beforeInput` until `v87`.
+
+var IS_FIREFOX_LEGACY = typeof navigator !== 'undefined' && /^(?!.*Seamonkey)(?=.*Firefox\/(?:[0-7][0-9]|[0-8][0-6])(?:\.)).*/i.test(navigator.userAgent); // UC mobile browser
+
+var IS_UC_MOBILE = typeof navigator !== 'undefined' && /.*UCBrowser/.test(navigator.userAgent); // Wechat browser
+
+var IS_WECHATBROWSER = typeof navigator !== 'undefined' && /.*Wechat/.test(navigator.userAgent); // Check if DOM is available as React does internally.
+// https://github.com/facebook/react/blob/master/packages/shared/ExecutionEnvironment.js
+
+var CAN_USE_DOM = !!(typeof window !== 'undefined' && typeof window.document !== 'undefined' && typeof window.document.createElement !== 'undefined'); // COMPAT: Firefox/Edge Legacy don't support the `beforeinput` event
+// Chrome Legacy doesn't support `beforeinput` correctly
+
+var HAS_BEFORE_INPUT_SUPPORT = (!IS_CHROME_LEGACY || !IS_ANDROID_CHROME_LEGACY) && !IS_EDGE_LEGACY && // globalThis is undefined in older browsers
+typeof globalThis !== 'undefined' && globalThis.InputEvent && // @ts-ignore The `getTargetRanges` property isn't recognized.
+typeof globalThis.InputEvent.prototype.getTargetRanges === 'function';
 
 /**
  * Two weak maps that allow us rebuild a path given a node. They are populated
@@ -38038,281 +39691,2984 @@ var NODE_TO_PARENT = new WeakMap();
  * are used to resolve DOM event-related logic into Slate actions.
  */
 
+var EDITOR_TO_WINDOW = new WeakMap();
 var EDITOR_TO_ELEMENT = new WeakMap();
+var EDITOR_TO_PLACEHOLDER_ELEMENT = new WeakMap();
 var ELEMENT_TO_NODE = new WeakMap();
-var KEY_TO_ELEMENT = new WeakMap();
 var NODE_TO_ELEMENT = new WeakMap();
 var NODE_TO_KEY = new WeakMap();
+var EDITOR_TO_KEY_TO_ELEMENT = new WeakMap();
 /**
  * Weak maps for storing editor-related state.
  */
 
 var IS_READ_ONLY = new WeakMap();
 var IS_FOCUSED = new WeakMap();
+var IS_COMPOSING = new WeakMap();
+var EDITOR_TO_USER_SELECTION = new WeakMap();
 /**
  * Weak map for associating the context `onChange` context with the plugin.
  */
 
 var EDITOR_TO_ON_CHANGE = new WeakMap();
 /**
+ * Weak maps for saving pending state on composition stage.
+ */
+
+var EDITOR_TO_SCHEDULE_FLUSH = new WeakMap();
+var EDITOR_TO_PENDING_INSERTION_MARKS = new WeakMap();
+var EDITOR_TO_USER_MARKS = new WeakMap();
+/**
+ * Android input handling specific weak-maps
+ */
+
+var EDITOR_TO_PENDING_DIFFS = new WeakMap();
+var EDITOR_TO_PENDING_ACTION = new WeakMap();
+var EDITOR_TO_PENDING_SELECTION = new WeakMap();
+var EDITOR_TO_FORCE_RENDER = new WeakMap();
+/**
  * Symbols.
  */
 
 var PLACEHOLDER_SYMBOL = Symbol('placeholder');
+var MARK_PLACEHOLDER_SYMBOL = Symbol('mark-placeholder');
 
-/**
- * Individual leaves in a text node with unique formatting.
- */
-const Leaf = (props) => {
-    const { leaf, isLast, text, parent, renderLeaf = (props) => React__default.createElement(DefaultLeaf, Object.assign({}, props)), } = props;
-    let children = (React__default.createElement(String, { isLast: isLast, leaf: leaf, parent: parent, text: text }));
-    if (leaf[PLACEHOLDER_SYMBOL]) {
-        children = (React__default.createElement(React__default.Fragment, null,
-            React__default.createElement("span", { contentEditable: false, style: {
-                    pointerEvents: 'none',
-                    display: 'inline-block',
-                    verticalAlign: 'text-top',
-                    width: '0',
-                    maxWidth: '100%',
-                    whiteSpace: 'nowrap',
-                    opacity: '0.333',
-                } }, leaf.placeholder),
-            children));
-    }
-    // COMPAT: Having the `data-` attributes on these leaf elements ensures that
-    // in certain misbehaving browsers they aren't weirdly cloned/destroyed by
-    // contenteditable behaviors. (2019/05/08)
-    const attributes = {
-        'data-slate-leaf': true,
-    };
-    return renderLeaf({ attributes, children, leaf, text });
-};
-const MemoizedLeaf = React__default.memo(Leaf, (prev, next) => {
-    return (next.parent === prev.parent &&
-        next.isLast === prev.isLast &&
-        next.renderLeaf === prev.renderLeaf &&
-        next.text === prev.text &&
-        slate.Text.matches(next.leaf, prev.leaf));
+var arrayWithoutHoles = createCommonjsModule(function (module) {
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return arrayLikeToArray(arr);
+}
+
+module.exports = _arrayWithoutHoles;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
 });
+
+unwrapExports(arrayWithoutHoles);
+
+var iterableToArray = createCommonjsModule(function (module) {
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
+}
+
+module.exports = _iterableToArray;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+unwrapExports(iterableToArray);
+
+var nonIterableSpread = createCommonjsModule(function (module) {
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+module.exports = _nonIterableSpread;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+unwrapExports(nonIterableSpread);
+
+var toConsumableArray = createCommonjsModule(function (module) {
+function _toConsumableArray(arr) {
+  return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
+}
+
+module.exports = _toConsumableArray;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+var _toConsumableArray = unwrapExports(toConsumableArray);
+
+function _createForOfIteratorHelper$3(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray$3(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray$3(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$3(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$3(o, minLen); }
+
+function _arrayLikeToArray$3(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+var DOMText = globalThis.Text;
 /**
- * The default custom leaf renderer.
+ * Returns the host window of a DOM node
  */
-const DefaultLeaf = (props) => {
-    const { attributes, children } = props;
-    return React__default.createElement("span", Object.assign({}, attributes), children);
+
+var getDefaultView = function getDefaultView(value) {
+  return value && value.ownerDocument && value.ownerDocument.defaultView || null;
 };
-
 /**
- * Prevent warning on SSR by falling back to useEffect when window is not defined
+ * Check if a DOM node is a comment node.
  */
 
-var useIsomorphicLayoutEffect = typeof window !== 'undefined' ? React.useLayoutEffect : React.useEffect;
-
+var isDOMComment = function isDOMComment(value) {
+  return isDOMNode(value) && value.nodeType === 8;
+};
 /**
- * Text.
+ * Check if a DOM node is an element node.
  */
-const Text = (props) => {
-    const { decorations, isLast, parent, renderLeaf, text } = props;
-    const editor = useEditor();
-    const ref = React.useRef(null);
-    const leaves = slate.Text.decorations(text, decorations);
-    const key = ReactEditor.findKey(editor, text);
-    const children = [];
-    for (let i = 0; i < leaves.length; i++) {
-        const leaf = leaves[i];
-        children.push(React__default.createElement(MemoizedLeaf, { isLast: isLast && i === leaves.length - 1, key: `${key.id}-${i}`, leaf: leaf, text: text, parent: parent, renderLeaf: renderLeaf }));
+
+var isDOMElement = function isDOMElement(value) {
+  return isDOMNode(value) && value.nodeType === 1;
+};
+/**
+ * Check if a value is a DOM node.
+ */
+
+var isDOMNode = function isDOMNode(value) {
+  var window = getDefaultView(value);
+  return !!window && value instanceof window.Node;
+};
+/**
+ * Check if a value is a DOM selection.
+ */
+
+var isDOMSelection = function isDOMSelection(value) {
+  var window = value && value.anchorNode && getDefaultView(value.anchorNode);
+  return !!window && value instanceof window.Selection;
+};
+/**
+ * Check if a DOM node is an element node.
+ */
+
+var isDOMText = function isDOMText(value) {
+  return isDOMNode(value) && value.nodeType === 3;
+};
+/**
+ * Checks whether a paste event is a plaintext-only event.
+ */
+
+var isPlainTextOnlyPaste = function isPlainTextOnlyPaste(event) {
+  return event.clipboardData && event.clipboardData.getData('text/plain') !== '' && event.clipboardData.types.length === 1;
+};
+/**
+ * Normalize a DOM point so that it always refers to a text node.
+ */
+
+var normalizeDOMPoint = function normalizeDOMPoint(domPoint) {
+  var _domPoint = _slicedToArray(domPoint, 2),
+      node = _domPoint[0],
+      offset = _domPoint[1]; // If it's an element node, its offset refers to the index of its children
+  // including comment nodes, so try to find the right text child node.
+
+
+  if (isDOMElement(node) && node.childNodes.length) {
+    var isLast = offset === node.childNodes.length;
+    var index = isLast ? offset - 1 : offset;
+
+    var _getEditableChildAndI = getEditableChildAndIndex(node, index, isLast ? 'backward' : 'forward');
+
+    var _getEditableChildAndI2 = _slicedToArray(_getEditableChildAndI, 2);
+
+    node = _getEditableChildAndI2[0];
+    index = _getEditableChildAndI2[1];
+    // If the editable child found is in front of input offset, we instead seek to its end
+    isLast = index < offset; // If the node has children, traverse until we have a leaf node. Leaf nodes
+    // can be either text nodes, or other void DOM nodes.
+
+    while (isDOMElement(node) && node.childNodes.length) {
+      var i = isLast ? node.childNodes.length - 1 : 0;
+      node = getEditableChild(node, i, isLast ? 'backward' : 'forward');
+    } // Determine the new offset inside the text node.
+
+
+    offset = isLast && node.textContent != null ? node.textContent.length : 0;
+  } // Return the node and offset.
+
+
+  return [node, offset];
+};
+/**
+ * Determines wether the active element is nested within a shadowRoot
+ */
+
+var hasShadowRoot = function hasShadowRoot(node) {
+  var parent = node && node.parentNode;
+
+  while (parent) {
+    if (parent.toString() === '[object ShadowRoot]') {
+      return true;
     }
-    // Update element-related weak maps with the DOM element ref.
-    useIsomorphicLayoutEffect(() => {
-        if (ref.current) {
-            KEY_TO_ELEMENT.set(key, ref.current);
-            NODE_TO_ELEMENT.set(text, ref.current);
-            ELEMENT_TO_NODE.set(ref.current, text);
-        }
-        else {
-            KEY_TO_ELEMENT.delete(key);
-            NODE_TO_ELEMENT.delete(text);
-        }
+
+    parent = parent.parentNode;
+  }
+
+  return false;
+};
+/**
+ * Get the nearest editable child and index at `index` in a `parent`, preferring
+ * `direction`.
+ */
+
+var getEditableChildAndIndex = function getEditableChildAndIndex(parent, index, direction) {
+  var childNodes = parent.childNodes;
+  var child = childNodes[index];
+  var i = index;
+  var triedForward = false;
+  var triedBackward = false; // While the child is a comment node, or an element node with no children,
+  // keep iterating to find a sibling non-void, non-comment node.
+
+  while (isDOMComment(child) || isDOMElement(child) && child.childNodes.length === 0 || isDOMElement(child) && child.getAttribute('contenteditable') === 'false') {
+    if (triedForward && triedBackward) {
+      break;
+    }
+
+    if (i >= childNodes.length) {
+      triedForward = true;
+      i = index - 1;
+      direction = 'backward';
+      continue;
+    }
+
+    if (i < 0) {
+      triedBackward = true;
+      i = index + 1;
+      direction = 'forward';
+      continue;
+    }
+
+    child = childNodes[i];
+    index = i;
+    i += direction === 'forward' ? 1 : -1;
+  }
+
+  return [child, index];
+};
+/**
+ * Get the nearest editable child at `index` in a `parent`, preferring
+ * `direction`.
+ */
+
+var getEditableChild = function getEditableChild(parent, index, direction) {
+  var _getEditableChildAndI3 = getEditableChildAndIndex(parent, index, direction),
+      _getEditableChildAndI4 = _slicedToArray(_getEditableChildAndI3, 1),
+      child = _getEditableChildAndI4[0];
+
+  return child;
+};
+/**
+ * Get a plaintext representation of the content of a node, accounting for block
+ * elements which get a newline appended.
+ *
+ * The domNode must be attached to the DOM.
+ */
+
+var getPlainText = function getPlainText(domNode) {
+  var text = '';
+
+  if (isDOMText(domNode) && domNode.nodeValue) {
+    return domNode.nodeValue;
+  }
+
+  if (isDOMElement(domNode)) {
+    for (var _i = 0, _Array$from = Array.from(domNode.childNodes); _i < _Array$from.length; _i++) {
+      var childNode = _Array$from[_i];
+      text += getPlainText(childNode);
+    }
+
+    var display = getComputedStyle(domNode).getPropertyValue('display');
+
+    if (display === 'block' || display === 'list' || domNode.tagName === 'BR') {
+      text += '\n';
+    }
+  }
+
+  return text;
+};
+/**
+ * Get x-slate-fragment attribute from data-slate-fragment
+ */
+
+var catchSlateFragment = /data-slate-fragment="(.+?)"/m;
+var getSlateFragmentAttribute = function getSlateFragmentAttribute(dataTransfer) {
+  var htmlData = dataTransfer.getData('text/html');
+
+  var _ref = htmlData.match(catchSlateFragment) || [],
+      _ref2 = _slicedToArray(_ref, 2),
+      fragment = _ref2[1];
+
+  return fragment;
+};
+/**
+ * Check whether a mutation originates from a editable element inside the editor.
+ */
+
+var isTrackedMutation = function isTrackedMutation(editor, mutation, batch) {
+  var target = mutation.target;
+
+  if (isDOMElement(target) && target.matches('[contentEditable="false"]')) {
+    return false;
+  }
+
+  var _ReactEditor$getWindo = ReactEditor.getWindow(editor),
+      document = _ReactEditor$getWindo.document;
+
+  if (document.contains(target)) {
+    return ReactEditor.hasDOMNode(editor, target, {
+      editable: true
     });
-    return (React__default.createElement("span", { "data-slate-node": "text", ref: ref }, children));
+  }
+
+  var parentMutation = batch.find(function (_ref3) {
+    var addedNodes = _ref3.addedNodes,
+        removedNodes = _ref3.removedNodes;
+
+    var _iterator = _createForOfIteratorHelper$3(addedNodes),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var node = _step.value;
+
+        if (node === target || node.contains(target)) {
+          return true;
+        }
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    var _iterator2 = _createForOfIteratorHelper$3(removedNodes),
+        _step2;
+
+    try {
+      for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+        var _node = _step2.value;
+
+        if (_node === target || _node.contains(target)) {
+          return true;
+        }
+      }
+    } catch (err) {
+      _iterator2.e(err);
+    } finally {
+      _iterator2.f();
+    }
+  });
+
+  if (!parentMutation || parentMutation === mutation) {
+    return false;
+  } // Target add/remove is tracked. Track the mutation if we track the parent mutation.
+
+
+  return isTrackedMutation(editor, parentMutation, batch);
 };
-const MemoizedText = React__default.memo(Text, (prev, next) => {
-    return (next.parent === prev.parent &&
-        next.isLast === prev.isLast &&
-        next.renderLeaf === prev.renderLeaf &&
-        next.text === prev.text);
+
+var classCallCheck = createCommonjsModule(function (module) {
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+module.exports = _classCallCheck;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
 });
 
+var _classCallCheck = unwrapExports(classCallCheck);
+
 /**
- * A React context for sharing the `selected` state of an element.
+ * An auto-incrementing identifier for keys.
+ */
+var n = 0;
+/**
+ * A class that keeps track of a key string. We use a full class here because we
+ * want to be able to use them as keys in `WeakMap` objects.
  */
 
-var SelectedContext = React.createContext(false);
-/**
- * Get the current `selected` state of an element.
- */
+var Key = function Key() {
+  _classCallCheck(this, Key);
 
-var useSelected = () => {
-  return React.useContext(SelectedContext);
+  this.id = "".concat(n++);
 };
 
-/**
- * Element.
- */
-const Element = (props) => {
-    const { decorate, decorations, element, renderElement = (p) => React__default.createElement(DefaultElement, Object.assign({}, p)), renderLeaf, selection, } = props;
-    const ref = React.useRef(null);
-    const editor = useEditor();
-    const readOnly = useReadOnly();
-    const isInline = editor.isInline(element);
-    const key = ReactEditor.findKey(editor, element);
-    let children = (React__default.createElement(Children, { decorate: decorate, decorations: decorations, node: element, renderElement: renderElement, renderLeaf: renderLeaf, selection: selection }));
-    // Attributes that the developer must mix into the element in their
-    // custom node renderer component.
-    const attributes = {
-        'data-slate-node': 'element',
-        ref,
-    };
-    if (isInline) {
-        attributes['data-slate-inline'] = true;
+var ReactEditor = {
+  androidPendingDiffs: function androidPendingDiffs(editor) {
+    return EDITOR_TO_PENDING_DIFFS.get(editor);
+  },
+  androidScheduleFlush: function androidScheduleFlush(editor) {
+    var _EDITOR_TO_SCHEDULE_F;
+
+    (_EDITOR_TO_SCHEDULE_F = EDITOR_TO_SCHEDULE_FLUSH.get(editor)) === null || _EDITOR_TO_SCHEDULE_F === void 0 ? void 0 : _EDITOR_TO_SCHEDULE_F();
+  },
+  blur: function blur(editor) {
+    var el = ReactEditor.toDOMNode(editor, editor);
+    var root = ReactEditor.findDocumentOrShadowRoot(editor);
+    IS_FOCUSED.set(editor, false);
+
+    if (root.activeElement === el) {
+      el.blur();
     }
-    // If it's a block node with inline children, add the proper `dir` attribute
-    // for text direction.
-    if (!isInline && slate.Editor.hasInlines(editor, element)) {
-        const text = slate.Node.string(element);
-        const dir = getDirection(text);
-        if (dir === 'rtl') {
-            attributes.dir = dir;
-        }
+  },
+  deselect: function deselect(editor) {
+    var selection = editor.selection;
+    var root = ReactEditor.findDocumentOrShadowRoot(editor);
+    var domSelection = root.getSelection();
+
+    if (domSelection && domSelection.rangeCount > 0) {
+      domSelection.removeAllRanges();
     }
-    // If it's a void node, wrap the children in extra void-specific elements.
-    if (slate.Editor.isVoid(editor, element)) {
-        attributes['data-slate-void'] = true;
-        if (!readOnly && isInline) {
-            attributes.contentEditable = false;
-        }
-        const Tag = isInline ? 'span' : 'div';
-        const [[text]] = slate.Node.texts(element);
-        children = readOnly ? null : (React__default.createElement(Tag, { "data-slate-spacer": true, style: {
-                height: '0',
-                color: 'transparent',
-                outline: 'none',
-                position: 'absolute',
-            } },
-            React__default.createElement(MemoizedText, { decorations: [], isLast: false, parent: element, text: text })));
-        NODE_TO_INDEX.set(text, 0);
-        NODE_TO_PARENT.set(text, element);
+
+    if (selection) {
+      slate.Transforms.deselect(editor);
     }
-    // Update element-related weak maps with the DOM element ref.
-    useIsomorphicLayoutEffect(() => {
-        if (ref.current) {
-            KEY_TO_ELEMENT.set(key, ref.current);
-            NODE_TO_ELEMENT.set(element, ref.current);
-            ELEMENT_TO_NODE.set(ref.current, element);
-        }
-        else {
-            KEY_TO_ELEMENT.delete(key);
-            NODE_TO_ELEMENT.delete(element);
-        }
+  },
+  findDocumentOrShadowRoot: function findDocumentOrShadowRoot(editor) {
+    var el = ReactEditor.toDOMNode(editor, editor);
+    var root = el.getRootNode();
+
+    if ((root instanceof Document || root instanceof ShadowRoot) && root.getSelection != null) {
+      return root;
+    }
+
+    return el.ownerDocument;
+  },
+  findEventRange: function findEventRange(editor, event) {
+    if ('nativeEvent' in event) {
+      event = event.nativeEvent;
+    }
+
+    var _event = event,
+        x = _event.clientX,
+        y = _event.clientY,
+        target = _event.target;
+
+    if (x == null || y == null) {
+      throw new Error("Cannot resolve a Slate range from a DOM event: ".concat(event));
+    }
+
+    var node = ReactEditor.toSlateNode(editor, event.target);
+    var path = ReactEditor.findPath(editor, node); // If the drop target is inside a void node, move it into either the
+    // next or previous node, depending on which side the `x` and `y`
+    // coordinates are closest to.
+
+    if (slate.Element.isElement(node) && slate.Editor.isVoid(editor, node)) {
+      var rect = target.getBoundingClientRect();
+      var isPrev = editor.isInline(node) ? x - rect.left < rect.left + rect.width - x : y - rect.top < rect.top + rect.height - y;
+      var edge = slate.Editor.point(editor, path, {
+        edge: isPrev ? 'start' : 'end'
+      });
+      var point = isPrev ? slate.Editor.before(editor, edge) : slate.Editor.after(editor, edge);
+
+      if (point) {
+        var _range = slate.Editor.range(editor, point);
+
+        return _range;
+      }
+    } // Else resolve a range from the caret position where the drop occured.
+
+
+    var domRange;
+
+    var _ReactEditor$getWindo = ReactEditor.getWindow(editor),
+        document = _ReactEditor$getWindo.document; // COMPAT: In Firefox, `caretRangeFromPoint` doesn't exist. (2016/07/25)
+
+
+    if (document.caretRangeFromPoint) {
+      domRange = document.caretRangeFromPoint(x, y);
+    } else {
+      var position = document.caretPositionFromPoint(x, y);
+
+      if (position) {
+        domRange = document.createRange();
+        domRange.setStart(position.offsetNode, position.offset);
+        domRange.setEnd(position.offsetNode, position.offset);
+      }
+    }
+
+    if (!domRange) {
+      throw new Error("Cannot resolve a Slate range from a DOM event: ".concat(event));
+    } // Resolve a Slate range from the DOM range.
+
+
+    var range = ReactEditor.toSlateRange(editor, domRange, {
+      exactMatch: false,
+      suppressThrow: false
     });
-    return (React__default.createElement(SelectedContext.Provider, { value: !!selection }, renderElement({ attributes, children, element })));
+    return range;
+  },
+  findKey: function findKey(editor, node) {
+    var key = NODE_TO_KEY.get(node);
+
+    if (!key) {
+      key = new Key();
+      NODE_TO_KEY.set(node, key);
+    }
+
+    return key;
+  },
+  findPath: function findPath(editor, node) {
+    var path = [];
+    var child = node;
+
+    while (true) {
+      var parent = NODE_TO_PARENT.get(child);
+
+      if (parent == null) {
+        if (slate.Editor.isEditor(child)) {
+          return path;
+        } else {
+          break;
+        }
+      }
+
+      var i = NODE_TO_INDEX.get(child);
+
+      if (i == null) {
+        break;
+      }
+
+      path.unshift(i);
+      child = parent;
+    }
+
+    throw new Error("Unable to find the path for Slate node: ".concat(slate.Scrubber.stringify(node)));
+  },
+  focus: function focus(editor) {
+    var el = ReactEditor.toDOMNode(editor, editor);
+    var root = ReactEditor.findDocumentOrShadowRoot(editor);
+    IS_FOCUSED.set(editor, true);
+
+    if (root.activeElement !== el) {
+      el.focus({
+        preventScroll: true
+      });
+    }
+  },
+  getWindow: function getWindow(editor) {
+    var window = EDITOR_TO_WINDOW.get(editor);
+
+    if (!window) {
+      throw new Error('Unable to find a host window element for this editor');
+    }
+
+    return window;
+  },
+  hasDOMNode: function hasDOMNode(editor, target) {
+    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+    var _options$editable = options.editable,
+        editable = _options$editable === void 0 ? false : _options$editable;
+    var editorEl = ReactEditor.toDOMNode(editor, editor);
+    var targetEl; // COMPAT: In Firefox, reading `target.nodeType` will throw an error if
+    // target is originating from an internal "restricted" element (e.g. a
+    // stepper arrow on a number input). (2018/05/04)
+    // https://github.com/ianstormtaylor/slate/issues/1819
+
+    try {
+      targetEl = isDOMElement(target) ? target : target.parentElement;
+    } catch (err) {
+      if (!err.message.includes('Permission denied to access property "nodeType"')) {
+        throw err;
+      }
+    }
+
+    if (!targetEl) {
+      return false;
+    }
+
+    return targetEl.closest("[data-slate-editor]") === editorEl && (!editable || targetEl.isContentEditable ? true : typeof targetEl.isContentEditable === 'boolean' && // isContentEditable exists only on HTMLElement, and on other nodes it will be undefined
+    // this is the core logic that lets you know you got the right editor.selection instead of null when editor is contenteditable="false"(readOnly)
+    targetEl.closest('[contenteditable="false"]') === editorEl || !!targetEl.getAttribute('data-slate-zero-width'));
+  },
+  hasEditableTarget: function hasEditableTarget(editor, target) {
+    return isDOMNode(target) && ReactEditor.hasDOMNode(editor, target, {
+      editable: true
+    });
+  },
+  hasRange: function hasRange(editor, range) {
+    var anchor = range.anchor,
+        focus = range.focus;
+    return slate.Editor.hasPath(editor, anchor.path) && slate.Editor.hasPath(editor, focus.path);
+  },
+  hasSelectableTarget: function hasSelectableTarget(editor, target) {
+    return ReactEditor.hasEditableTarget(editor, target) || ReactEditor.isTargetInsideNonReadonlyVoid(editor, target);
+  },
+  hasTarget: function hasTarget(editor, target) {
+    return isDOMNode(target) && ReactEditor.hasDOMNode(editor, target);
+  },
+  insertData: function insertData(editor, data) {
+    editor.insertData(data);
+  },
+  insertFragmentData: function insertFragmentData(editor, data) {
+    return editor.insertFragmentData(data);
+  },
+  insertTextData: function insertTextData(editor, data) {
+    return editor.insertTextData(data);
+  },
+  isComposing: function isComposing(editor) {
+    return !!IS_COMPOSING.get(editor);
+  },
+  isFocused: function isFocused(editor) {
+    return !!IS_FOCUSED.get(editor);
+  },
+  isReadOnly: function isReadOnly(editor) {
+    return !!IS_READ_ONLY.get(editor);
+  },
+  isTargetInsideNonReadonlyVoid: function isTargetInsideNonReadonlyVoid(editor, target) {
+    if (IS_READ_ONLY.get(editor)) return false;
+    var slateNode = ReactEditor.hasTarget(editor, target) && ReactEditor.toSlateNode(editor, target);
+    return slate.Element.isElement(slateNode) && slate.Editor.isVoid(editor, slateNode);
+  },
+  setFragmentData: function setFragmentData(editor, data, originEvent) {
+    return editor.setFragmentData(data, originEvent);
+  },
+  toDOMNode: function toDOMNode(editor, node) {
+    var KEY_TO_ELEMENT = EDITOR_TO_KEY_TO_ELEMENT.get(editor);
+    var domNode = slate.Editor.isEditor(node) ? EDITOR_TO_ELEMENT.get(editor) : KEY_TO_ELEMENT === null || KEY_TO_ELEMENT === void 0 ? void 0 : KEY_TO_ELEMENT.get(ReactEditor.findKey(editor, node));
+
+    if (!domNode) {
+      throw new Error("Cannot resolve a DOM node from Slate node: ".concat(slate.Scrubber.stringify(node)));
+    }
+
+    return domNode;
+  },
+  toDOMPoint: function toDOMPoint(editor, point) {
+    var _Editor$node = slate.Editor.node(editor, point.path),
+        _Editor$node2 = _slicedToArray(_Editor$node, 1),
+        node = _Editor$node2[0];
+
+    var el = ReactEditor.toDOMNode(editor, node);
+    var domPoint; // If we're inside a void node, force the offset to 0, otherwise the zero
+    // width spacing character will result in an incorrect offset of 1
+
+    if (slate.Editor["void"](editor, {
+      at: point
+    })) {
+      point = {
+        path: point.path,
+        offset: 0
+      };
+    } // For each leaf, we need to isolate its content, which means filtering
+    // to its direct text and zero-width spans. (We have to filter out any
+    // other siblings that may have been rendered alongside them.)
+
+
+    var selector = "[data-slate-string], [data-slate-zero-width]";
+    var texts = Array.from(el.querySelectorAll(selector));
+    var start = 0;
+
+    for (var i = 0; i < texts.length; i++) {
+      var text = texts[i];
+      var domNode = text.childNodes[0];
+
+      if (domNode == null || domNode.textContent == null) {
+        continue;
+      }
+
+      var length = domNode.textContent.length;
+      var attr = text.getAttribute('data-slate-length');
+      var trueLength = attr == null ? length : parseInt(attr, 10);
+      var end = start + trueLength; // Prefer putting the selection inside the mark placeholder to ensure
+      // composed text is displayed with the correct marks.
+
+      var nextText = texts[i + 1];
+
+      if (point.offset === end && nextText !== null && nextText !== void 0 && nextText.hasAttribute('data-slate-mark-placeholder')) {
+        var _nextText$textContent;
+
+        var domText = nextText.childNodes[0];
+        domPoint = [// COMPAT: If we don't explicity set the dom point to be on the actual
+        // dom text element, chrome will put the selection behind the actual dom
+        // text element, causing domRange.getBoundingClientRect() calls on a collapsed
+        // selection to return incorrect zero values (https://bugs.chromium.org/p/chromium/issues/detail?id=435438)
+        // which will cause issues when scrolling to it.
+        domText instanceof DOMText ? domText : nextText, (_nextText$textContent = nextText.textContent) !== null && _nextText$textContent !== void 0 && _nextText$textContent.startsWith("\uFEFF") ? 1 : 0];
+        break;
+      }
+
+      if (point.offset <= end) {
+        var offset = Math.min(length, Math.max(0, point.offset - start));
+        domPoint = [domNode, offset];
+        break;
+      }
+
+      start = end;
+    }
+
+    if (!domPoint) {
+      throw new Error("Cannot resolve a DOM point from Slate point: ".concat(slate.Scrubber.stringify(point)));
+    }
+
+    return domPoint;
+  },
+  toDOMRange: function toDOMRange(editor, range) {
+    var anchor = range.anchor,
+        focus = range.focus;
+    var isBackward = slate.Range.isBackward(range);
+    var domAnchor = ReactEditor.toDOMPoint(editor, anchor);
+    var domFocus = slate.Range.isCollapsed(range) ? domAnchor : ReactEditor.toDOMPoint(editor, focus);
+    var window = ReactEditor.getWindow(editor);
+    var domRange = window.document.createRange();
+
+    var _ref = isBackward ? domFocus : domAnchor,
+        _ref2 = _slicedToArray(_ref, 2),
+        startNode = _ref2[0],
+        startOffset = _ref2[1];
+
+    var _ref3 = isBackward ? domAnchor : domFocus,
+        _ref4 = _slicedToArray(_ref3, 2),
+        endNode = _ref4[0],
+        endOffset = _ref4[1]; // A slate Point at zero-width Leaf always has an offset of 0 but a native DOM selection at
+    // zero-width node has an offset of 1 so we have to check if we are in a zero-width node and
+    // adjust the offset accordingly.
+
+
+    var startEl = isDOMElement(startNode) ? startNode : startNode.parentElement;
+    var isStartAtZeroWidth = !!startEl.getAttribute('data-slate-zero-width');
+    var endEl = isDOMElement(endNode) ? endNode : endNode.parentElement;
+    var isEndAtZeroWidth = !!endEl.getAttribute('data-slate-zero-width');
+    domRange.setStart(startNode, isStartAtZeroWidth ? 1 : startOffset);
+    domRange.setEnd(endNode, isEndAtZeroWidth ? 1 : endOffset);
+    return domRange;
+  },
+  toSlateNode: function toSlateNode(editor, domNode) {
+    var domEl = isDOMElement(domNode) ? domNode : domNode.parentElement;
+
+    if (domEl && !domEl.hasAttribute('data-slate-node')) {
+      domEl = domEl.closest("[data-slate-node]");
+    }
+
+    var node = domEl ? ELEMENT_TO_NODE.get(domEl) : null;
+
+    if (!node) {
+      throw new Error("Cannot resolve a Slate node from DOM node: ".concat(domEl));
+    }
+
+    return node;
+  },
+  toSlatePoint: function toSlatePoint(editor, domPoint, options) {
+    var exactMatch = options.exactMatch,
+        suppressThrow = options.suppressThrow;
+
+    var _ref5 = exactMatch ? domPoint : normalizeDOMPoint(domPoint),
+        _ref6 = _slicedToArray(_ref5, 2),
+        nearestNode = _ref6[0],
+        nearestOffset = _ref6[1];
+
+    var parentNode = nearestNode.parentNode;
+    var textNode = null;
+    var offset = 0;
+
+    if (parentNode) {
+      var _domNode$textContent, _domNode$textContent2;
+
+      var editorEl = ReactEditor.toDOMNode(editor, editor);
+      var potentialVoidNode = parentNode.closest('[data-slate-void="true"]'); // Need to ensure that the closest void node is actually a void node
+      // within this editor, and not a void node within some parent editor. This can happen
+      // if this editor is within a void node of another editor ("nested editors", like in
+      // the "Editable Voids" example on the docs site).
+
+      var voidNode = potentialVoidNode && editorEl.contains(potentialVoidNode) ? potentialVoidNode : null;
+      var leafNode = parentNode.closest('[data-slate-leaf]');
+      var domNode = null; // Calculate how far into the text node the `nearestNode` is, so that we
+      // can determine what the offset relative to the text node is.
+
+      if (leafNode) {
+        textNode = leafNode.closest('[data-slate-node="text"]');
+
+        if (textNode) {
+          var window = ReactEditor.getWindow(editor);
+          var range = window.document.createRange();
+          range.setStart(textNode, 0);
+          range.setEnd(nearestNode, nearestOffset);
+          var contents = range.cloneContents();
+          var removals = [].concat(_toConsumableArray(Array.prototype.slice.call(contents.querySelectorAll('[data-slate-zero-width]'))), _toConsumableArray(Array.prototype.slice.call(contents.querySelectorAll('[contenteditable=false]'))));
+          removals.forEach(function (el) {
+            // COMPAT: While composing at the start of a text node, some keyboards put
+            // the text content inside the zero width space.
+            if (IS_ANDROID && !exactMatch && el.hasAttribute('data-slate-zero-width') && el.textContent.length > 0 && el.textContext !== "\uFEFF") {
+              if (el.textContent.startsWith("\uFEFF")) {
+                el.textContent = el.textContent.slice(1);
+              }
+
+              return;
+            }
+
+            el.parentNode.removeChild(el);
+          }); // COMPAT: Edge has a bug where Range.prototype.toString() will
+          // convert \n into \r\n. The bug causes a loop when slate-react
+          // attempts to reposition its cursor to match the native position. Use
+          // textContent.length instead.
+          // https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/10291116/
+
+          offset = contents.textContent.length;
+          domNode = textNode;
+        }
+      } else if (voidNode) {
+        // For void nodes, the element with the offset key will be a cousin, not an
+        // ancestor, so find it by going down from the nearest void parent and taking the
+        // first one that isn't inside a nested editor.
+        var leafNodes = voidNode.querySelectorAll('[data-slate-leaf]');
+
+        for (var index = 0; index < leafNodes.length; index++) {
+          var current = leafNodes[index];
+
+          if (ReactEditor.hasDOMNode(editor, current)) {
+            leafNode = current;
+            break;
+          }
+        } // COMPAT: In read-only editors the leaf is not rendered.
+
+
+        if (!leafNode) {
+          offset = 1;
+        } else {
+          textNode = leafNode.closest('[data-slate-node="text"]');
+          domNode = leafNode;
+          offset = domNode.textContent.length;
+          domNode.querySelectorAll('[data-slate-zero-width]').forEach(function (el) {
+            offset -= el.textContent.length;
+          });
+        }
+      }
+
+      if (domNode && offset === domNode.textContent.length && // COMPAT: Android IMEs might remove the zero width space while composing,
+      // and we don't add it for line-breaks.
+      IS_ANDROID && domNode.getAttribute('data-slate-zero-width') === 'z' && (_domNode$textContent = domNode.textContent) !== null && _domNode$textContent !== void 0 && _domNode$textContent.startsWith("\uFEFF") && (parentNode.hasAttribute('data-slate-zero-width') || IS_FIREFOX && (_domNode$textContent2 = domNode.textContent) !== null && _domNode$textContent2 !== void 0 && _domNode$textContent2.endsWith('\n\n'))) {
+        offset--;
+      }
+    }
+
+    if (IS_ANDROID && !textNode && !exactMatch) {
+      var node = parentNode.hasAttribute('data-slate-node') ? parentNode : parentNode.closest('[data-slate-node]');
+
+      if (node && ReactEditor.hasDOMNode(editor, node, {
+        editable: true
+      })) {
+        var _slateNode = ReactEditor.toSlateNode(editor, node);
+
+        var _Editor$start = slate.Editor.start(editor, ReactEditor.findPath(editor, _slateNode)),
+            _path = _Editor$start.path,
+            _offset = _Editor$start.offset;
+
+        if (!node.querySelector('[data-slate-leaf]')) {
+          _offset = nearestOffset;
+        }
+
+        return {
+          path: _path,
+          offset: _offset
+        };
+      }
+    }
+
+    if (!textNode) {
+      if (suppressThrow) {
+        return null;
+      }
+
+      throw new Error("Cannot resolve a Slate point from DOM point: ".concat(domPoint));
+    } // COMPAT: If someone is clicking from one Slate editor into another,
+    // the select event fires twice, once for the old editor's `element`
+    // first, and then afterwards for the correct `element`. (2017/03/03)
+
+
+    var slateNode = ReactEditor.toSlateNode(editor, textNode);
+    var path = ReactEditor.findPath(editor, slateNode);
+    return {
+      path: path,
+      offset: offset
+    };
+  },
+  toSlateRange: function toSlateRange(editor, domRange, options) {
+    var exactMatch = options.exactMatch,
+        suppressThrow = options.suppressThrow;
+    var el = isDOMSelection(domRange) ? domRange.anchorNode : domRange.startContainer;
+    var anchorNode;
+    var anchorOffset;
+    var focusNode;
+    var focusOffset;
+    var isCollapsed;
+
+    if (el) {
+      if (isDOMSelection(domRange)) {
+        anchorNode = domRange.anchorNode;
+        anchorOffset = domRange.anchorOffset;
+        focusNode = domRange.focusNode;
+        focusOffset = domRange.focusOffset; // COMPAT: There's a bug in chrome that always returns `true` for
+        // `isCollapsed` for a Selection that comes from a ShadowRoot.
+        // (2020/08/08)
+        // https://bugs.chromium.org/p/chromium/issues/detail?id=447523
+
+        if (IS_CHROME && hasShadowRoot(anchorNode)) {
+          isCollapsed = domRange.anchorNode === domRange.focusNode && domRange.anchorOffset === domRange.focusOffset;
+        } else {
+          isCollapsed = domRange.isCollapsed;
+        }
+      } else {
+        anchorNode = domRange.startContainer;
+        anchorOffset = domRange.startOffset;
+        focusNode = domRange.endContainer;
+        focusOffset = domRange.endOffset;
+        isCollapsed = domRange.collapsed;
+      }
+    }
+
+    if (anchorNode == null || focusNode == null || anchorOffset == null || focusOffset == null) {
+      throw new Error("Cannot resolve a Slate range from DOM range: ".concat(domRange));
+    } // COMPAT: Triple-clicking a word in chrome will sometimes place the focus
+    // inside a `contenteditable="false"` DOM node following the word, which
+    // will cause `toSlatePoint` to throw an error. (2023/03/07)
+
+
+    if ('getAttribute' in focusNode && focusNode.getAttribute('contenteditable') === 'false') {
+      var _anchorNode$textConte;
+
+      focusNode = anchorNode;
+      focusOffset = ((_anchorNode$textConte = anchorNode.textContent) === null || _anchorNode$textConte === void 0 ? void 0 : _anchorNode$textConte.length) || 0;
+    }
+
+    var anchor = ReactEditor.toSlatePoint(editor, [anchorNode, anchorOffset], {
+      exactMatch: exactMatch,
+      suppressThrow: suppressThrow
+    });
+
+    if (!anchor) {
+      return null;
+    }
+
+    var focus = isCollapsed ? anchor : ReactEditor.toSlatePoint(editor, [focusNode, focusOffset], {
+      exactMatch: exactMatch,
+      suppressThrow: suppressThrow
+    });
+
+    if (!focus) {
+      return null;
+    }
+    /**
+     * suppose we have this document:
+     *
+     * { type: 'paragraph',
+     *   children: [
+     *     { text: 'foo ' },
+     *     { text: 'bar' },
+     *     { text: ' baz' }
+     *   ]
+     * }
+     *
+     * a double click on "bar" on chrome will create this range:
+     *
+     * anchor -> [0,1] offset 0
+     * focus  -> [0,1] offset 3
+     *
+     * while on firefox will create this range:
+     *
+     * anchor -> [0,0] offset 4
+     * focus  -> [0,2] offset 0
+     *
+     * let's try to fix it...
+     */
+
+
+    if (IS_FIREFOX && !isCollapsed && anchorNode !== focusNode) {
+      var isEnd = slate.Editor.isEnd(editor, anchor, anchor.path);
+      var isStart = slate.Editor.isStart(editor, focus, focus.path);
+
+      if (isEnd) {
+        var after = slate.Editor.after(editor, anchor); // Editor.after() might return undefined
+
+        anchor = after || anchor;
+      }
+
+      if (isStart) {
+        var before = slate.Editor.before(editor, focus);
+        focus = before || focus;
+      }
+    }
+
+    var range = {
+      anchor: anchor,
+      focus: focus
+    }; // if the selection is a hanging range that ends in a void
+    // and the DOM focus is an Element
+    // (meaning that the selection ends before the element)
+    // unhang the range to avoid mistakenly including the void
+
+    if (slate.Range.isExpanded(range) && slate.Range.isForward(range) && isDOMElement(focusNode) && slate.Editor["void"](editor, {
+      at: range.focus,
+      mode: 'highest'
+    })) {
+      range = slate.Editor.unhangRange(editor, range, {
+        voids: true
+      });
+    }
+
+    return range;
+  }
 };
-const MemoizedElement = React__default.memo(Element, (prev, next) => {
-    return (prev.decorate === next.decorate &&
-        prev.element === next.element &&
-        prev.renderElement === next.renderElement &&
-        prev.renderLeaf === next.renderLeaf &&
-        isRangeListEqual(prev.decorations, next.decorations) &&
-        (prev.selection === next.selection ||
-            (!!prev.selection &&
-                !!next.selection &&
-                slate.Range.equals(prev.selection, next.selection))));
-});
+
 /**
- * The default element renderer.
+ * Check whether a text diff was applied in a way we can perform the pending action on /
+ * recover the pending selection.
  */
-const DefaultElement = (props) => {
-    const { attributes, children, element } = props;
-    const editor = useEditor();
-    const Tag = editor.isInline(element) ? 'span' : 'div';
-    return (React__default.createElement(Tag, Object.assign({}, attributes, { style: { position: 'relative' } }), children));
+
+function verifyDiffState(editor, textDiff) {
+  var path = textDiff.path,
+      diff = textDiff.diff;
+
+  if (!slate.Editor.hasPath(editor, path)) {
+    return false;
+  }
+
+  var node = slate.Node.get(editor, path);
+
+  if (!slate.Text.isText(node)) {
+    return false;
+  }
+
+  if (diff.start !== node.text.length || diff.text.length === 0) {
+    return node.text.slice(diff.start, diff.start + diff.text.length) === diff.text;
+  }
+
+  var nextPath = slate.Path.next(path);
+
+  if (!slate.Editor.hasPath(editor, nextPath)) {
+    return false;
+  }
+
+  var nextNode = slate.Node.get(editor, nextPath);
+  return slate.Text.isText(nextNode) && nextNode.text.startsWith(diff.text);
+}
+function applyStringDiff(text) {
+  for (var _len = arguments.length, diffs = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    diffs[_key - 1] = arguments[_key];
+  }
+
+  return diffs.reduce(function (text, diff) {
+    return text.slice(0, diff.start) + diff.text + text.slice(diff.end);
+  }, text);
+}
+
+function longestCommonPrefixLength(str, another) {
+  var length = Math.min(str.length, another.length);
+
+  for (var i = 0; i < length; i++) {
+    if (str.charAt(i) !== another.charAt(i)) {
+      return i;
+    }
+  }
+
+  return length;
+}
+
+function longestCommonSuffixLength(str, another, max) {
+  var length = Math.min(str.length, another.length, max);
+
+  for (var i = 0; i < length; i++) {
+    if (str.charAt(str.length - i - 1) !== another.charAt(another.length - i - 1)) {
+      return i;
+    }
+  }
+
+  return length;
+}
+/**
+ * Remove redundant changes from the diff so that it spans the minimal possible range
+ */
+
+
+function normalizeStringDiff(targetText, diff) {
+  var start = diff.start,
+      end = diff.end,
+      text = diff.text;
+  var removedText = targetText.slice(start, end);
+  var prefixLength = longestCommonPrefixLength(removedText, text);
+  var max = Math.min(removedText.length - prefixLength, text.length - prefixLength);
+  var suffixLength = longestCommonSuffixLength(removedText, text, max);
+  var normalized = {
+    start: start + prefixLength,
+    end: end - suffixLength,
+    text: text.slice(prefixLength, text.length - suffixLength)
+  };
+
+  if (normalized.start === normalized.end && normalized.text.length === 0) {
+    return null;
+  }
+
+  return normalized;
+}
+/**
+ * Return a string diff that is equivalent to applying b after a spanning the range of
+ * both changes
+ */
+
+function mergeStringDiffs(targetText, a, b) {
+  var start = Math.min(a.start, b.start);
+  var overlap = Math.max(0, Math.min(a.start + a.text.length, b.end) - b.start);
+  var applied = applyStringDiff(targetText, a, b);
+  var sliceEnd = Math.max(b.start + b.text.length, a.start + a.text.length + (a.start + a.text.length > b.start ? b.text.length : 0) - overlap);
+  var text = applied.slice(start, sliceEnd);
+  var end = Math.max(a.end, b.end - a.text.length + (a.end - a.start));
+  return normalizeStringDiff(targetText, {
+    start: start,
+    end: end,
+    text: text
+  });
+}
+/**
+ * Get the slate range the text diff spans.
+ */
+
+function targetRange(textDiff) {
+  var path = textDiff.path,
+      diff = textDiff.diff;
+  return {
+    anchor: {
+      path: path,
+      offset: diff.start
+    },
+    focus: {
+      path: path,
+      offset: diff.end
+    }
+  };
+}
+/**
+ * Normalize a 'pending point' a.k.a a point based on the dom state before applying
+ * the pending diffs. Since the pending diffs might have been inserted with different
+ * marks we have to 'walk' the offset from the starting position to ensure we still
+ * have a valid point inside the document
+ */
+
+function normalizePoint(editor, point) {
+  var path = point.path,
+      offset = point.offset;
+
+  if (!slate.Editor.hasPath(editor, path)) {
+    return null;
+  }
+
+  var leaf = slate.Node.get(editor, path);
+
+  if (!slate.Text.isText(leaf)) {
+    return null;
+  }
+
+  var parentBlock = slate.Editor.above(editor, {
+    match: function match(n) {
+      return slate.Element.isElement(n) && slate.Editor.isBlock(editor, n);
+    },
+    at: path
+  });
+
+  if (!parentBlock) {
+    return null;
+  }
+
+  while (offset > leaf.text.length) {
+    var entry = slate.Editor.next(editor, {
+      at: path,
+      match: slate.Text.isText
+    });
+
+    if (!entry || !slate.Path.isDescendant(entry[1], parentBlock[1])) {
+      return null;
+    }
+
+    offset -= leaf.text.length;
+    leaf = entry[0];
+    path = entry[1];
+  }
+
+  return {
+    path: path,
+    offset: offset
+  };
+}
+/**
+ * Normalize a 'pending selection' to ensure it's valid in the current document state.
+ */
+
+function normalizeRange(editor, range) {
+  var anchor = normalizePoint(editor, range.anchor);
+
+  if (!anchor) {
+    return null;
+  }
+
+  if (slate.Range.isCollapsed(range)) {
+    return {
+      anchor: anchor,
+      focus: anchor
+    };
+  }
+
+  var focus = normalizePoint(editor, range.focus);
+
+  if (!focus) {
+    return null;
+  }
+
+  return {
+    anchor: anchor,
+    focus: focus
+  };
+}
+function transformPendingPoint(editor, point, op) {
+  var pendingDiffs = EDITOR_TO_PENDING_DIFFS.get(editor);
+  var textDiff = pendingDiffs === null || pendingDiffs === void 0 ? void 0 : pendingDiffs.find(function (_ref) {
+    var path = _ref.path;
+    return slate.Path.equals(path, point.path);
+  });
+
+  if (!textDiff || point.offset <= textDiff.diff.start) {
+    return slate.Point.transform(point, op, {
+      affinity: 'backward'
+    });
+  }
+
+  var diff = textDiff.diff; // Point references location inside the diff => transform the point based on the location
+  // the diff will be applied to and add the offset inside the diff.
+
+  if (point.offset <= diff.start + diff.text.length) {
+    var _anchor = {
+      path: point.path,
+      offset: diff.start
+    };
+
+    var _transformed = slate.Point.transform(_anchor, op, {
+      affinity: 'backward'
+    });
+
+    if (!_transformed) {
+      return null;
+    }
+
+    return {
+      path: _transformed.path,
+      offset: _transformed.offset + point.offset - diff.start
+    };
+  } // Point references location after the diff
+
+
+  var anchor = {
+    path: point.path,
+    offset: point.offset - diff.text.length + diff.end - diff.start
+  };
+  var transformed = slate.Point.transform(anchor, op, {
+    affinity: 'backward'
+  });
+
+  if (!transformed) {
+    return null;
+  }
+
+  if (op.type === 'split_node' && slate.Path.equals(op.path, point.path) && anchor.offset < op.position && diff.start < op.position) {
+    return transformed;
+  }
+
+  return {
+    path: transformed.path,
+    offset: transformed.offset + diff.text.length - diff.end + diff.start
+  };
+}
+function transformPendingRange(editor, range, op) {
+  var anchor = transformPendingPoint(editor, range.anchor, op);
+
+  if (!anchor) {
+    return null;
+  }
+
+  if (slate.Range.isCollapsed(range)) {
+    return {
+      anchor: anchor,
+      focus: anchor
+    };
+  }
+
+  var focus = transformPendingPoint(editor, range.focus, op);
+
+  if (!focus) {
+    return null;
+  }
+
+  return {
+    anchor: anchor,
+    focus: focus
+  };
+}
+function transformTextDiff(textDiff, op) {
+  var path = textDiff.path,
+      diff = textDiff.diff,
+      id = textDiff.id;
+
+  switch (op.type) {
+    case 'insert_text':
+      {
+        if (!slate.Path.equals(op.path, path) || op.offset >= diff.end) {
+          return textDiff;
+        }
+
+        if (op.offset <= diff.start) {
+          return {
+            diff: {
+              start: op.text.length + diff.start,
+              end: op.text.length + diff.end,
+              text: diff.text
+            },
+            id: id,
+            path: path
+          };
+        }
+
+        return {
+          diff: {
+            start: diff.start,
+            end: diff.end + op.text.length,
+            text: diff.text
+          },
+          id: id,
+          path: path
+        };
+      }
+
+    case 'remove_text':
+      {
+        if (!slate.Path.equals(op.path, path) || op.offset >= diff.end) {
+          return textDiff;
+        }
+
+        if (op.offset + op.text.length <= diff.start) {
+          return {
+            diff: {
+              start: diff.start - op.text.length,
+              end: diff.end - op.text.length,
+              text: diff.text
+            },
+            id: id,
+            path: path
+          };
+        }
+
+        return {
+          diff: {
+            start: diff.start,
+            end: diff.end - op.text.length,
+            text: diff.text
+          },
+          id: id,
+          path: path
+        };
+      }
+
+    case 'split_node':
+      {
+        if (!slate.Path.equals(op.path, path) || op.position >= diff.end) {
+          return {
+            diff: diff,
+            id: id,
+            path: slate.Path.transform(path, op, {
+              affinity: 'backward'
+            })
+          };
+        }
+
+        if (op.position > diff.start) {
+          return {
+            diff: {
+              start: diff.start,
+              end: Math.min(op.position, diff.end),
+              text: diff.text
+            },
+            id: id,
+            path: path
+          };
+        }
+
+        return {
+          diff: {
+            start: diff.start - op.position,
+            end: diff.end - op.position,
+            text: diff.text
+          },
+          id: id,
+          path: slate.Path.transform(path, op, {
+            affinity: 'forward'
+          })
+        };
+      }
+
+    case 'merge_node':
+      {
+        if (!slate.Path.equals(op.path, path)) {
+          return {
+            diff: diff,
+            id: id,
+            path: slate.Path.transform(path, op)
+          };
+        }
+
+        return {
+          diff: {
+            start: diff.start + op.position,
+            end: diff.end + op.position,
+            text: diff.text
+          },
+          id: id,
+          path: slate.Path.transform(path, op)
+        };
+      }
+  }
+
+  var newPath = slate.Path.transform(path, op);
+
+  if (!newPath) {
+    return null;
+  }
+
+  return {
+    diff: diff,
+    path: newPath,
+    id: id
+  };
+}
+
+function ownKeys$3(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$3(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$3(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$3(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+// When using keyboard English association function, conpositionEnd triggered too fast, resulting in after `insertText` still maintain association state.
+
+var RESOLVE_DELAY = 25; // Time with no user interaction before the current user action is considered as done.
+
+var FLUSH_DELAY = 200; // Replace with `const debug = console.log` to debug
+
+var debug = function debug() {}; // Type guard to check if a value is a DataTransfer
+
+
+var isDataTransfer = function isDataTransfer(value) {
+  return (value === null || value === void 0 ? void 0 : value.constructor.name) === 'DataTransfer';
+};
+
+function createAndroidInputManager(_ref) {
+  var editor = _ref.editor,
+      scheduleOnDOMSelectionChange = _ref.scheduleOnDOMSelectionChange,
+      onDOMSelectionChange = _ref.onDOMSelectionChange;
+  var flushing = false;
+  var compositionEndTimeoutId = null;
+  var flushTimeoutId = null;
+  var actionTimeoutId = null;
+  var idCounter = 0;
+  var insertPositionHint = false;
+
+  var applyPendingSelection = function applyPendingSelection() {
+    var pendingSelection = EDITOR_TO_PENDING_SELECTION.get(editor);
+    EDITOR_TO_PENDING_SELECTION["delete"](editor);
+
+    if (pendingSelection) {
+      var selection = editor.selection;
+      var normalized = normalizeRange(editor, pendingSelection);
+
+      if (normalized && (!selection || !slate.Range.equals(normalized, selection))) {
+        slate.Transforms.select(editor, normalized);
+      }
+    }
+  };
+
+  var performAction = function performAction() {
+    var action = EDITOR_TO_PENDING_ACTION.get(editor);
+    EDITOR_TO_PENDING_ACTION["delete"](editor);
+
+    if (!action) {
+      return;
+    }
+
+    if (action.at) {
+      var target = slate.Point.isPoint(action.at) ? normalizePoint(editor, action.at) : normalizeRange(editor, action.at);
+
+      if (!target) {
+        return;
+      }
+
+      var _targetRange = slate.Editor.range(editor, target);
+
+      if (!editor.selection || !slate.Range.equals(editor.selection, _targetRange)) {
+        slate.Transforms.select(editor, target);
+      }
+    }
+
+    action.run();
+  };
+
+  var flush = function flush() {
+    if (flushTimeoutId) {
+      clearTimeout(flushTimeoutId);
+      flushTimeoutId = null;
+    }
+
+    if (actionTimeoutId) {
+      clearTimeout(actionTimeoutId);
+      actionTimeoutId = null;
+    }
+
+    if (!hasPendingDiffs() && !hasPendingAction()) {
+      applyPendingSelection();
+      return;
+    }
+
+    if (!flushing) {
+      flushing = true;
+      setTimeout(function () {
+        return flushing = false;
+      });
+    }
+
+    if (hasPendingAction()) {
+      flushing = 'action';
+    }
+
+    var selectionRef = editor.selection && slate.Editor.rangeRef(editor, editor.selection, {
+      affinity: 'forward'
+    });
+    EDITOR_TO_USER_MARKS.set(editor, editor.marks);
+    debug('flush', EDITOR_TO_PENDING_ACTION.get(editor), EDITOR_TO_PENDING_DIFFS.get(editor));
+    var scheduleSelectionChange = hasPendingDiffs();
+    var diff;
+
+    while (diff = (_EDITOR_TO_PENDING_DI = EDITOR_TO_PENDING_DIFFS.get(editor)) === null || _EDITOR_TO_PENDING_DI === void 0 ? void 0 : _EDITOR_TO_PENDING_DI[0]) {
+      var _EDITOR_TO_PENDING_DI, _EDITOR_TO_PENDING_DI2;
+
+      var pendingMarks = EDITOR_TO_PENDING_INSERTION_MARKS.get(editor);
+
+      if (pendingMarks !== undefined) {
+        EDITOR_TO_PENDING_INSERTION_MARKS["delete"](editor);
+        editor.marks = pendingMarks;
+      }
+
+      if (pendingMarks && insertPositionHint === false) {
+        insertPositionHint = null;
+      }
+
+      var range = targetRange(diff);
+
+      if (!editor.selection || !slate.Range.equals(editor.selection, range)) {
+        slate.Transforms.select(editor, range);
+      }
+
+      if (diff.diff.text) {
+        slate.Editor.insertText(editor, diff.diff.text);
+      } else {
+        slate.Editor.deleteFragment(editor);
+      } // Remove diff only after we have applied it to account for it when transforming
+      // pending ranges.
+
+
+      EDITOR_TO_PENDING_DIFFS.set(editor, (_EDITOR_TO_PENDING_DI2 = EDITOR_TO_PENDING_DIFFS.get(editor)) === null || _EDITOR_TO_PENDING_DI2 === void 0 ? void 0 : _EDITOR_TO_PENDING_DI2.filter(function (_ref2) {
+        var id = _ref2.id;
+        return id !== diff.id;
+      }));
+
+      if (!verifyDiffState(editor, diff)) {
+        scheduleSelectionChange = false;
+        EDITOR_TO_PENDING_ACTION["delete"](editor);
+        EDITOR_TO_USER_MARKS["delete"](editor);
+        flushing = 'action'; // Ensure we don't restore the pending user (dom) selection
+        // since the document and dom state do not match.
+
+        EDITOR_TO_PENDING_SELECTION["delete"](editor);
+        scheduleOnDOMSelectionChange.cancel();
+        onDOMSelectionChange.cancel();
+        selectionRef === null || selectionRef === void 0 ? void 0 : selectionRef.unref();
+      }
+    }
+
+    var selection = selectionRef === null || selectionRef === void 0 ? void 0 : selectionRef.unref();
+
+    if (selection && !EDITOR_TO_PENDING_SELECTION.get(editor) && (!editor.selection || !slate.Range.equals(selection, editor.selection))) {
+      slate.Transforms.select(editor, selection);
+    }
+
+    if (hasPendingAction()) {
+      performAction();
+      return;
+    } // COMPAT: The selectionChange event is fired after the action is performed,
+    // so we have to manually schedule it to ensure we don't 'throw away' the selection
+    // while rendering if we have pending changes.
+
+
+    if (scheduleSelectionChange) {
+      scheduleOnDOMSelectionChange();
+    }
+
+    scheduleOnDOMSelectionChange.flush();
+    onDOMSelectionChange.flush();
+    applyPendingSelection();
+    var userMarks = EDITOR_TO_USER_MARKS.get(editor);
+    EDITOR_TO_USER_MARKS["delete"](editor);
+
+    if (userMarks !== undefined) {
+      editor.marks = userMarks;
+      editor.onChange();
+    }
+  };
+
+  var handleCompositionEnd = function handleCompositionEnd(_event) {
+    if (compositionEndTimeoutId) {
+      clearTimeout(compositionEndTimeoutId);
+    }
+
+    compositionEndTimeoutId = setTimeout(function () {
+      IS_COMPOSING.set(editor, false);
+      flush();
+    }, RESOLVE_DELAY);
+  };
+
+  var handleCompositionStart = function handleCompositionStart(_event) {
+    IS_COMPOSING.set(editor, true);
+
+    if (compositionEndTimeoutId) {
+      clearTimeout(compositionEndTimeoutId);
+      compositionEndTimeoutId = null;
+    }
+  };
+
+  var updatePlaceholderVisibility = function updatePlaceholderVisibility() {
+    var forceHide = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+    var placeholderElement = EDITOR_TO_PLACEHOLDER_ELEMENT.get(editor);
+
+    if (!placeholderElement) {
+      return;
+    }
+
+    if (hasPendingDiffs() || forceHide) {
+      placeholderElement.style.display = 'none';
+      return;
+    }
+
+    placeholderElement.style.removeProperty('display');
+  };
+
+  var storeDiff = function storeDiff(path, diff) {
+    var _EDITOR_TO_PENDING_DI3;
+    var pendingDiffs = (_EDITOR_TO_PENDING_DI3 = EDITOR_TO_PENDING_DIFFS.get(editor)) !== null && _EDITOR_TO_PENDING_DI3 !== void 0 ? _EDITOR_TO_PENDING_DI3 : [];
+    EDITOR_TO_PENDING_DIFFS.set(editor, pendingDiffs);
+    var target = slate.Node.leaf(editor, path);
+    var idx = pendingDiffs.findIndex(function (change) {
+      return slate.Path.equals(change.path, path);
+    });
+
+    if (idx < 0) {
+      var normalized = normalizeStringDiff(target.text, diff);
+
+      if (normalized) {
+        pendingDiffs.push({
+          path: path,
+          diff: diff,
+          id: idCounter++
+        });
+      }
+
+      updatePlaceholderVisibility();
+      return;
+    }
+
+    var merged = mergeStringDiffs(target.text, pendingDiffs[idx].diff, diff);
+
+    if (!merged) {
+      pendingDiffs.splice(idx, 1);
+      updatePlaceholderVisibility();
+      return;
+    }
+
+    pendingDiffs[idx] = _objectSpread$3(_objectSpread$3({}, pendingDiffs[idx]), {}, {
+      diff: merged
+    });
+  };
+
+  var scheduleAction = function scheduleAction(run) {
+    var _ref3 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+        at = _ref3.at;
+
+    insertPositionHint = false;
+    EDITOR_TO_PENDING_SELECTION["delete"](editor);
+    scheduleOnDOMSelectionChange.cancel();
+    onDOMSelectionChange.cancel();
+
+    if (hasPendingAction()) {
+      flush();
+    }
+
+    EDITOR_TO_PENDING_ACTION.set(editor, {
+      at: at,
+      run: run
+    }); // COMPAT: When deleting before a non-contenteditable element chrome only fires a beforeinput,
+    // (no input) and doesn't perform any dom mutations. Without a flush timeout we would never flush
+    // in this case and thus never actually perform the action.
+
+    actionTimeoutId = setTimeout(flush);
+  };
+
+  var handleDOMBeforeInput = function handleDOMBeforeInput(event) {
+    var _targetRange2;
+
+    if (flushTimeoutId) {
+      clearTimeout(flushTimeoutId);
+      flushTimeoutId = null;
+    }
+
+    var type = event.inputType;
+    var targetRange = null;
+    var data = event.dataTransfer || event.data || undefined;
+
+    if (insertPositionHint !== false && type !== 'insertText' && type !== 'insertCompositionText') {
+      insertPositionHint = false;
+    }
+
+    var _event$getTargetRange = event.getTargetRanges(),
+        _event$getTargetRange2 = _slicedToArray(_event$getTargetRange, 1),
+        nativeTargetRange = _event$getTargetRange2[0];
+
+    if (nativeTargetRange) {
+      targetRange = ReactEditor.toSlateRange(editor, nativeTargetRange, {
+        exactMatch: false,
+        suppressThrow: true
+      });
+    } // COMPAT: SelectionChange event is fired after the action is performed, so we
+    // have to manually get the selection here to ensure it's up-to-date.
+
+
+    var window = ReactEditor.getWindow(editor);
+    var domSelection = window.getSelection();
+
+    if (!targetRange && domSelection) {
+      nativeTargetRange = domSelection;
+      targetRange = ReactEditor.toSlateRange(editor, domSelection, {
+        exactMatch: false,
+        suppressThrow: true
+      });
+    }
+
+    targetRange = (_targetRange2 = targetRange) !== null && _targetRange2 !== void 0 ? _targetRange2 : editor.selection;
+
+    if (!targetRange) {
+      return;
+    } // By default, the input manager tries to store text diffs so that we can
+    // defer flushing them at a later point in time. We don't want to flush
+    // for every input event as this can be expensive. However, there are some
+    // scenarios where we cannot safely store the text diff and must instead
+    // schedule an action to let Slate normalize the editor state.
+
+
+    var canStoreDiff = true;
+
+    if (type.startsWith('delete')) {
+      if (slate.Range.isExpanded(targetRange)) {
+        var _Range$edges = slate.Range.edges(targetRange),
+            _Range$edges2 = _slicedToArray(_Range$edges, 2),
+            _start = _Range$edges2[0],
+            _end = _Range$edges2[1];
+
+        var _leaf = slate.Node.leaf(editor, _start.path);
+
+        if (_leaf.text.length === _start.offset && _end.offset === 0) {
+          var next = slate.Editor.next(editor, {
+            at: _start.path,
+            match: slate.Text.isText
+          });
+
+          if (next && slate.Path.equals(next[1], _end.path)) {
+            targetRange = {
+              anchor: _end,
+              focus: _end
+            };
+          }
+        }
+      }
+
+      var direction = type.endsWith('Backward') ? 'backward' : 'forward';
+
+      var _Range$edges3 = slate.Range.edges(targetRange),
+          _Range$edges4 = _slicedToArray(_Range$edges3, 2),
+          start = _Range$edges4[0],
+          end = _Range$edges4[1];
+
+      var _Editor$leaf = slate.Editor.leaf(editor, start.path),
+          _Editor$leaf2 = _slicedToArray(_Editor$leaf, 2),
+          leaf = _Editor$leaf2[0],
+          path = _Editor$leaf2[1];
+
+      var diff = {
+        text: '',
+        start: start.offset,
+        end: end.offset
+      };
+      var pendingDiffs = EDITOR_TO_PENDING_DIFFS.get(editor);
+      var relevantPendingDiffs = pendingDiffs === null || pendingDiffs === void 0 ? void 0 : pendingDiffs.find(function (change) {
+        return slate.Path.equals(change.path, path);
+      });
+      var diffs = relevantPendingDiffs ? [relevantPendingDiffs.diff, diff] : [diff];
+      var text = applyStringDiff.apply(void 0, [leaf.text].concat(diffs));
+
+      if (text.length === 0) {
+        // Text leaf will be removed, so we need to schedule an
+        // action to remove it so that Slate can normalize instead
+        // of storing as a diff
+        canStoreDiff = false;
+      }
+
+      if (slate.Range.isExpanded(targetRange)) {
+        if (canStoreDiff && slate.Path.equals(targetRange.anchor.path, targetRange.focus.path)) {
+          var point = {
+            path: targetRange.anchor.path,
+            offset: start.offset
+          };
+          var range = slate.Editor.range(editor, point, point);
+          handleUserSelect(range);
+          return storeDiff(targetRange.anchor.path, {
+            text: '',
+            end: end.offset,
+            start: start.offset
+          });
+        }
+
+        return scheduleAction(function () {
+          return slate.Editor.deleteFragment(editor, {
+            direction: direction
+          });
+        }, {
+          at: targetRange
+        });
+      }
+    }
+
+    switch (type) {
+      case 'deleteByComposition':
+      case 'deleteByCut':
+      case 'deleteByDrag':
+        {
+          return scheduleAction(function () {
+            return slate.Editor.deleteFragment(editor);
+          }, {
+            at: targetRange
+          });
+        }
+
+      case 'deleteContent':
+      case 'deleteContentForward':
+        {
+          var _targetRange3 = targetRange,
+              anchor = _targetRange3.anchor;
+
+          if (canStoreDiff && slate.Range.isCollapsed(targetRange)) {
+            var targetNode = slate.Node.leaf(editor, anchor.path);
+
+            if (anchor.offset < targetNode.text.length) {
+              return storeDiff(anchor.path, {
+                text: '',
+                start: anchor.offset,
+                end: anchor.offset + 1
+              });
+            }
+          }
+
+          return scheduleAction(function () {
+            return slate.Editor.deleteForward(editor);
+          }, {
+            at: targetRange
+          });
+        }
+
+      case 'deleteContentBackward':
+        {
+          var _nativeTargetRange;
+
+          var _targetRange4 = targetRange,
+              _anchor = _targetRange4.anchor; // If we have a mismatch between the native and slate selection being collapsed
+          // we are most likely deleting a zero-width placeholder and thus should perform it
+          // as an action to ensure correct behavior (mostly happens with mark placeholders)
+
+          var nativeCollapsed = isDOMSelection(nativeTargetRange) ? nativeTargetRange.isCollapsed : !!((_nativeTargetRange = nativeTargetRange) !== null && _nativeTargetRange !== void 0 && _nativeTargetRange.collapsed);
+
+          if (canStoreDiff && nativeCollapsed && slate.Range.isCollapsed(targetRange) && _anchor.offset > 0) {
+            return storeDiff(_anchor.path, {
+              text: '',
+              start: _anchor.offset - 1,
+              end: _anchor.offset
+            });
+          }
+
+          return scheduleAction(function () {
+            return slate.Editor.deleteBackward(editor);
+          }, {
+            at: targetRange
+          });
+        }
+
+      case 'deleteEntireSoftLine':
+        {
+          return scheduleAction(function () {
+            slate.Editor.deleteBackward(editor, {
+              unit: 'line'
+            });
+            slate.Editor.deleteForward(editor, {
+              unit: 'line'
+            });
+          }, {
+            at: targetRange
+          });
+        }
+
+      case 'deleteHardLineBackward':
+        {
+          return scheduleAction(function () {
+            return slate.Editor.deleteBackward(editor, {
+              unit: 'block'
+            });
+          }, {
+            at: targetRange
+          });
+        }
+
+      case 'deleteSoftLineBackward':
+        {
+          return scheduleAction(function () {
+            return slate.Editor.deleteBackward(editor, {
+              unit: 'line'
+            });
+          }, {
+            at: targetRange
+          });
+        }
+
+      case 'deleteHardLineForward':
+        {
+          return scheduleAction(function () {
+            return slate.Editor.deleteForward(editor, {
+              unit: 'block'
+            });
+          }, {
+            at: targetRange
+          });
+        }
+
+      case 'deleteSoftLineForward':
+        {
+          return scheduleAction(function () {
+            return slate.Editor.deleteForward(editor, {
+              unit: 'line'
+            });
+          }, {
+            at: targetRange
+          });
+        }
+
+      case 'deleteWordBackward':
+        {
+          return scheduleAction(function () {
+            return slate.Editor.deleteBackward(editor, {
+              unit: 'word'
+            });
+          }, {
+            at: targetRange
+          });
+        }
+
+      case 'deleteWordForward':
+        {
+          return scheduleAction(function () {
+            return slate.Editor.deleteForward(editor, {
+              unit: 'word'
+            });
+          }, {
+            at: targetRange
+          });
+        }
+
+      case 'insertLineBreak':
+        {
+          return scheduleAction(function () {
+            return slate.Editor.insertSoftBreak(editor);
+          }, {
+            at: targetRange
+          });
+        }
+
+      case 'insertParagraph':
+        {
+          return scheduleAction(function () {
+            return slate.Editor.insertBreak(editor);
+          }, {
+            at: targetRange
+          });
+        }
+
+      case 'insertCompositionText':
+      case 'deleteCompositionText':
+      case 'insertFromComposition':
+      case 'insertFromDrop':
+      case 'insertFromPaste':
+      case 'insertFromYank':
+      case 'insertReplacementText':
+      case 'insertText':
+        {
+          if (isDataTransfer(data)) {
+            return scheduleAction(function () {
+              return ReactEditor.insertData(editor, data);
+            }, {
+              at: targetRange
+            });
+          }
+
+          var _text = data !== null && data !== void 0 ? data : ''; // COMPAT: If we are writing inside a placeholder, the ime inserts the text inside
+          // the placeholder itself and thus includes the zero-width space inside edit events.
+
+
+          if (EDITOR_TO_PENDING_INSERTION_MARKS.get(editor)) {
+            _text = _text.replace("\uFEFF", '');
+          } // Pastes from the Android clipboard will generate `insertText` events.
+          // If the copied text contains any newlines, Android will append an
+          // extra newline to the end of the copied text.
+
+
+          if (type === 'insertText' && /.*\n.*\n$/.test(_text)) {
+            _text = _text.slice(0, -1);
+          } // If the text includes a newline, split it at newlines and paste each component
+          // string, with soft breaks in between each.
+
+
+          if (_text.includes('\n')) {
+            return scheduleAction(function () {
+              var parts = _text.split('\n');
+
+              parts.forEach(function (line, i) {
+                if (line) {
+                  slate.Editor.insertText(editor, line);
+                }
+
+                if (i !== parts.length - 1) {
+                  slate.Editor.insertSoftBreak(editor);
+                }
+              });
+            }, {
+              at: targetRange
+            });
+          }
+
+          if (slate.Path.equals(targetRange.anchor.path, targetRange.focus.path)) {
+            var _Range$edges5 = slate.Range.edges(targetRange),
+                _Range$edges6 = _slicedToArray(_Range$edges5, 2),
+                _start2 = _Range$edges6[0],
+                _end2 = _Range$edges6[1];
+
+            var _diff = {
+              start: _start2.offset,
+              end: _end2.offset,
+              text: _text
+            }; // COMPAT: Swiftkey has a weird bug where the target range of the 2nd word
+            // inserted after a mark placeholder is inserted with an anchor offset off by 1.
+            // So writing 'some text' will result in 'some ttext'. Luckily all 'normal' insert
+            // text events are fired with the correct target ranges, only the final 'insertComposition'
+            // isn't, so we can adjust the target range start offset if we are confident this is the
+            // swiftkey insert causing the issue.
+
+            if (_text && insertPositionHint && type === 'insertCompositionText') {
+              var hintPosition = insertPositionHint.start + insertPositionHint.text.search(/\S|$/);
+
+              var diffPosition = _diff.start + _diff.text.search(/\S|$/);
+
+              if (diffPosition === hintPosition + 1 && _diff.end === insertPositionHint.start + insertPositionHint.text.length) {
+                _diff.start -= 1;
+                insertPositionHint = null;
+                scheduleFlush();
+              } else {
+                insertPositionHint = false;
+              }
+            } else if (type === 'insertText') {
+              if (insertPositionHint === null) {
+                insertPositionHint = _diff;
+              } else if (insertPositionHint && slate.Range.isCollapsed(targetRange) && insertPositionHint.end + insertPositionHint.text.length === _start2.offset) {
+                insertPositionHint = _objectSpread$3(_objectSpread$3({}, insertPositionHint), {}, {
+                  text: insertPositionHint.text + _text
+                });
+              } else {
+                insertPositionHint = false;
+              }
+            } else {
+              insertPositionHint = false;
+            }
+
+            if (canStoreDiff) {
+              storeDiff(_start2.path, _diff);
+              return;
+            }
+          }
+
+          return scheduleAction(function () {
+            return slate.Editor.insertText(editor, _text);
+          }, {
+            at: targetRange
+          });
+        }
+    }
+  };
+
+  var hasPendingAction = function hasPendingAction() {
+    return !!EDITOR_TO_PENDING_ACTION.get(editor);
+  };
+
+  var hasPendingDiffs = function hasPendingDiffs() {
+    var _EDITOR_TO_PENDING_DI4;
+
+    return !!((_EDITOR_TO_PENDING_DI4 = EDITOR_TO_PENDING_DIFFS.get(editor)) !== null && _EDITOR_TO_PENDING_DI4 !== void 0 && _EDITOR_TO_PENDING_DI4.length);
+  };
+
+  var hasPendingChanges = function hasPendingChanges() {
+    return hasPendingAction() || hasPendingDiffs();
+  };
+
+  var isFlushing = function isFlushing() {
+    return flushing;
+  };
+
+  var handleUserSelect = function handleUserSelect(range) {
+    EDITOR_TO_PENDING_SELECTION.set(editor, range);
+
+    if (flushTimeoutId) {
+      clearTimeout(flushTimeoutId);
+      flushTimeoutId = null;
+    }
+
+    var selection = editor.selection;
+
+    if (!range) {
+      return;
+    }
+
+    var pathChanged = !selection || !slate.Path.equals(selection.anchor.path, range.anchor.path);
+    var parentPathChanged = !selection || !slate.Path.equals(selection.anchor.path.slice(0, -1), range.anchor.path.slice(0, -1));
+
+    if (pathChanged && insertPositionHint || parentPathChanged) {
+      insertPositionHint = false;
+    }
+
+    if (pathChanged || hasPendingDiffs()) {
+      flushTimeoutId = setTimeout(flush, FLUSH_DELAY);
+    }
+  };
+
+  var handleInput = function handleInput() {
+    if (hasPendingAction() || !hasPendingDiffs()) {
+      flush();
+    }
+  };
+
+  var handleKeyDown = function handleKeyDown(_) {
+    // COMPAT: Swiftkey closes the keyboard when typing inside a empty node
+    // directly next to a non-contenteditable element (= the placeholder).
+    // The only event fired soon enough for us to allow hiding the placeholder
+    // without swiftkey picking it up is the keydown event, so we have to hide it
+    // here. See https://github.com/ianstormtaylor/slate/pull/4988#issuecomment-1201050535
+    if (!hasPendingDiffs()) {
+      updatePlaceholderVisibility(true);
+      setTimeout(updatePlaceholderVisibility);
+    }
+  };
+
+  var scheduleFlush = function scheduleFlush() {
+    if (!hasPendingAction()) {
+      actionTimeoutId = setTimeout(flush);
+    }
+  };
+
+  var handleDomMutations = function handleDomMutations(mutations) {
+    if (hasPendingDiffs() || hasPendingAction()) {
+      return;
+    }
+
+    if (mutations.some(function (mutation) {
+      return isTrackedMutation(editor, mutation, mutations);
+    })) {
+      var _EDITOR_TO_FORCE_REND;
+
+      // Cause a re-render to restore the dom state if we encounter tracked mutations without
+      // a corresponding pending action.
+      (_EDITOR_TO_FORCE_REND = EDITOR_TO_FORCE_RENDER.get(editor)) === null || _EDITOR_TO_FORCE_REND === void 0 ? void 0 : _EDITOR_TO_FORCE_REND();
+    }
+  };
+
+  return {
+    flush: flush,
+    scheduleFlush: scheduleFlush,
+    hasPendingDiffs: hasPendingDiffs,
+    hasPendingAction: hasPendingAction,
+    hasPendingChanges: hasPendingChanges,
+    isFlushing: isFlushing,
+    handleUserSelect: handleUserSelect,
+    handleCompositionEnd: handleCompositionEnd,
+    handleCompositionStart: handleCompositionStart,
+    handleDOMBeforeInput: handleDOMBeforeInput,
+    handleKeyDown: handleKeyDown,
+    handleDomMutations: handleDomMutations,
+    handleInput: handleInput
+  };
+}
+
+function useIsMounted() {
+  var isMountedRef = React.useRef(false);
+  React.useEffect(function () {
+    isMountedRef.current = true;
+    return function () {
+      isMountedRef.current = false;
+    };
+  }, []);
+  return isMountedRef.current;
+}
+
+/**
+ * Prevent warning on SSR by falling back to useEffect when DOM isn't available
+ */
+
+var useIsomorphicLayoutEffect = CAN_USE_DOM ? React.useLayoutEffect : React.useEffect;
+
+function useMutationObserver(node, callback, options) {
+  var _useState = React.useState(function () {
+    return new MutationObserver(callback);
+  }),
+      _useState2 = _slicedToArray(_useState, 1),
+      mutationObserver = _useState2[0];
+
+  useIsomorphicLayoutEffect(function () {
+    // Discard mutations caused during render phase. This works due to react calling
+    // useLayoutEffect synchronously after the render phase before the next tick.
+    mutationObserver.takeRecords();
+  });
+  React.useEffect(function () {
+    if (!node.current) {
+      throw new Error('Failed to attach MutationObserver, `node` is undefined');
+    }
+
+    mutationObserver.observe(node.current, options);
+    return function () {
+      return mutationObserver.disconnect();
+    };
+  }, [mutationObserver, node, options]);
+}
+
+var _excluded$3 = ["node"];
+
+function ownKeys$2(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$2(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$2(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$2(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+var MUTATION_OBSERVER_CONFIG$1 = {
+  subtree: true,
+  childList: true,
+  characterData: true
+};
+var useAndroidInputManager = !IS_ANDROID ? function () {
+  return null;
+} : function (_ref) {
+  var node = _ref.node,
+      options = _objectWithoutProperties(_ref, _excluded$3);
+
+  if (!IS_ANDROID) {
+    return null;
+  }
+
+  var editor = useSlateStatic();
+  var isMounted = useIsMounted();
+
+  var _useState = React.useState(function () {
+    return createAndroidInputManager(_objectSpread$2({
+      editor: editor
+    }, options));
+  }),
+      _useState2 = _slicedToArray(_useState, 1),
+      inputManager = _useState2[0];
+
+  useMutationObserver(node, inputManager.handleDomMutations, MUTATION_OBSERVER_CONFIG$1);
+  EDITOR_TO_SCHEDULE_FLUSH.set(editor, inputManager.scheduleFlush);
+
+  if (isMounted) {
+    inputManager.flush();
+  }
+
+  return inputManager;
+};
+
+var _excluded$2 = ["anchor", "focus"],
+    _excluded2$1 = ["anchor", "focus"];
+var shallowCompare = function shallowCompare(obj1, obj2) {
+  return Object.keys(obj1).length === Object.keys(obj2).length && Object.keys(obj1).every(function (key) {
+    return obj2.hasOwnProperty(key) && obj1[key] === obj2[key];
+  });
+};
+
+var isDecorationFlagsEqual = function isDecorationFlagsEqual(range, other) {
+  range.anchor;
+      range.focus;
+      var rangeOwnProps = _objectWithoutProperties(range, _excluded$2);
+
+  other.anchor;
+      other.focus;
+      var otherOwnProps = _objectWithoutProperties(other, _excluded2$1);
+
+  return range[PLACEHOLDER_SYMBOL] === other[PLACEHOLDER_SYMBOL] && shallowCompare(rangeOwnProps, otherOwnProps);
 };
 /**
- * Check if a list of ranges is equal to another.
+ * Check if a list of decorator ranges are equal to another.
  *
  * PERF: this requires the two lists to also have the ranges inside them in the
  * same order, but this is an okay constraint for us since decorations are
  * kept in order, and the odd case where they aren't is okay to re-render for.
  */
-const isRangeListEqual = (list, another) => {
-    if (list.length !== another.length) {
-        return false;
+
+
+var isElementDecorationsEqual = function isElementDecorationsEqual(list, another) {
+  if (list.length !== another.length) {
+    return false;
+  }
+
+  for (var i = 0; i < list.length; i++) {
+    var range = list[i];
+    var other = another[i];
+
+    if (!slate.Range.equals(range, other) || !isDecorationFlagsEqual(range, other)) {
+      return false;
     }
-    for (let i = 0; i < list.length; i++) {
-        const range = list[i];
-        const other = another[i];
-        if (!slate.Range.equals(range, other)) {
-            return false;
-        }
+  }
+
+  return true;
+};
+/**
+ * Check if a list of decorator ranges are equal to another.
+ *
+ * PERF: this requires the two lists to also have the ranges inside them in the
+ * same order, but this is an okay constraint for us since decorations are
+ * kept in order, and the odd case where they aren't is okay to re-render for.
+ */
+
+var isTextDecorationsEqual = function isTextDecorationsEqual(list, another) {
+  if (list.length !== another.length) {
+    return false;
+  }
+
+  for (var i = 0; i < list.length; i++) {
+    var range = list[i];
+    var other = another[i]; // compare only offsets because paths doesn't matter for text
+
+    if (range.anchor.offset !== other.anchor.offset || range.focus.offset !== other.focus.offset || !isDecorationFlagsEqual(range, other)) {
+      return false;
     }
-    return true;
+  }
+
+  return true;
 };
 
 /**
- * A React context for sharing the editor object.
+ * Leaf content strings.
  */
-const EditorContext = React.createContext(null);
+
+var String = function String(props) {
+  var isLast = props.isLast,
+      leaf = props.leaf,
+      parent = props.parent,
+      text = props.text;
+  var editor = useSlateStatic();
+  var path = ReactEditor.findPath(editor, text);
+  var parentPath = slate.Path.parent(path);
+  var isMarkPlaceholder = leaf[MARK_PLACEHOLDER_SYMBOL] === true; // COMPAT: Render text inside void nodes with a zero-width space.
+  // So the node can contain selection but the text is not visible.
+
+  if (editor.isVoid(parent)) {
+    return /*#__PURE__*/React__default['default'].createElement(ZeroWidthString, {
+      length: slate.Node.string(parent).length
+    });
+  } // COMPAT: If this is the last text node in an empty block, render a zero-
+  // width space that will convert into a line break when copying and pasting
+  // to support expected plain text.
+
+
+  if (leaf.text === '' && parent.children[parent.children.length - 1] === text && !editor.isInline(parent) && slate.Editor.string(editor, parentPath) === '') {
+    return /*#__PURE__*/React__default['default'].createElement(ZeroWidthString, {
+      isLineBreak: true,
+      isMarkPlaceholder: isMarkPlaceholder
+    });
+  } // COMPAT: If the text is empty, it's because it's on the edge of an inline
+  // node, so we render a zero-width space so that the selection can be
+  // inserted next to it still.
+
+
+  if (leaf.text === '') {
+    return /*#__PURE__*/React__default['default'].createElement(ZeroWidthString, {
+      isMarkPlaceholder: isMarkPlaceholder
+    });
+  } // COMPAT: Browsers will collapse trailing new lines at the end of blocks,
+  // so we need to add an extra trailing new lines to prevent that.
+
+
+  if (isLast && leaf.text.slice(-1) === '\n') {
+    return /*#__PURE__*/React__default['default'].createElement(TextString, {
+      isTrailing: true,
+      text: leaf.text
+    });
+  }
+
+  return /*#__PURE__*/React__default['default'].createElement(TextString, {
+    text: leaf.text
+  });
+};
 /**
- * Get the current editor object from the React context.
+ * Leaf strings with text in them.
  */
-const useEditor = () => {
-    const editor = React.useContext(EditorContext);
-    if (!editor) {
-        throw new Error(`The \`useEditor\` hook must be used inside the <Slate> component's context.`);
-    }
-    return editor;
+
+
+var TextString = function TextString(props) {
+  var text = props.text,
+      _props$isTrailing = props.isTrailing,
+      isTrailing = _props$isTrailing === void 0 ? false : _props$isTrailing;
+  var ref = React.useRef(null);
+
+  var getTextContent = function getTextContent() {
+    return "".concat(text !== null && text !== void 0 ? text : '').concat(isTrailing ? '\n' : '');
+  };
+
+  var _useState = React.useState(getTextContent),
+      _useState2 = _slicedToArray(_useState, 1),
+      initialText = _useState2[0]; // This is the actual text rendering boundary where we interface with the DOM
+  // The text is not rendered as part of the virtual DOM, as since we handle basic character insertions natively,
+  // updating the DOM is not a one way dataflow anymore. What we need here is not reconciliation and diffing
+  // with previous version of the virtual DOM, but rather diffing with the actual DOM element, and replace the DOM <span> content
+  // exactly if and only if its current content does not match our current virtual DOM.
+  // Otherwise the DOM TextNode would always be replaced by React as the user types, which interferes with native text features,
+  // eg makes native spellcheck opt out from checking the text node.
+  // useLayoutEffect: updating our span before browser paint
+
+
+  useIsomorphicLayoutEffect(function () {
+    // null coalescing text to make sure we're not outputing "null" as a string in the extreme case it is nullish at runtime
+    var textWithTrailing = getTextContent();
+
+    if (ref.current && ref.current.textContent !== textWithTrailing) {
+      ref.current.textContent = textWithTrailing;
+    } // intentionally not specifying dependencies, so that this effect runs on every render
+    // as this effectively replaces "specifying the text in the virtual DOM under the <span> below" on each render
+
+  }); // We intentionally render a memoized <span> that only receives the initial text content when the component is mounted.
+  // We defer to the layout effect above to update the `textContent` of the span element when needed.
+
+  return /*#__PURE__*/React__default['default'].createElement(MemoizedText$1, {
+    ref: ref
+  }, initialText);
 };
 
+var MemoizedText$1 = /*#__PURE__*/React.memo( /*#__PURE__*/React.forwardRef(function (props, ref) {
+  return /*#__PURE__*/React__default['default'].createElement("span", {
+    "data-slate-string": true,
+    ref: ref
+  }, props.children);
+}));
+/**
+ * Leaf strings without text, render as zero-width strings.
+ */
+
+var ZeroWidthString = function ZeroWidthString(props) {
+  var _props$length = props.length,
+      length = _props$length === void 0 ? 0 : _props$length,
+      _props$isLineBreak = props.isLineBreak,
+      isLineBreak = _props$isLineBreak === void 0 ? false : _props$isLineBreak,
+      _props$isMarkPlacehol = props.isMarkPlaceholder,
+      isMarkPlaceholder = _props$isMarkPlacehol === void 0 ? false : _props$isMarkPlacehol;
+  var attributes = {
+    'data-slate-zero-width': isLineBreak ? 'n' : 'z',
+    'data-slate-length': length
+  };
+
+  if (isMarkPlaceholder) {
+    attributes['data-slate-mark-placeholder'] = true;
+  }
+
+  return /*#__PURE__*/React__default['default'].createElement("span", Object.assign({}, attributes), !IS_ANDROID || !isLineBreak ? "\uFEFF" : null, isLineBreak ? /*#__PURE__*/React__default['default'].createElement("br", null) : null);
+};
+
+function disconnectPlaceholderResizeObserver(placeholderResizeObserver, releaseObserver) {
+  if (placeholderResizeObserver.current) {
+    placeholderResizeObserver.current.disconnect();
+
+    if (releaseObserver) {
+      placeholderResizeObserver.current = null;
+    }
+  }
+}
+
+function clearTimeoutRef(timeoutRef) {
+  if (timeoutRef.current) {
+    clearTimeout(timeoutRef.current);
+    timeoutRef.current = null;
+  }
+}
+/**
+ * Individual leaves in a text node with unique formatting.
+ */
+
+
+var Leaf = function Leaf(props) {
+  var leaf = props.leaf,
+      isLast = props.isLast,
+      text = props.text,
+      parent = props.parent,
+      renderPlaceholder = props.renderPlaceholder,
+      _props$renderLeaf = props.renderLeaf,
+      renderLeaf = _props$renderLeaf === void 0 ? function (props) {
+    return /*#__PURE__*/React__default['default'].createElement(DefaultLeaf, Object.assign({}, props));
+  } : _props$renderLeaf;
+  var editor = useSlateStatic();
+  var placeholderResizeObserver = React.useRef(null);
+  var placeholderRef = React.useRef(null);
+
+  var _useState = React.useState(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      showPlaceholder = _useState2[0],
+      setShowPlaceholder = _useState2[1];
+
+  var showPlaceholderTimeoutRef = React.useRef(null);
+  var callbackPlaceholderRef = React.useCallback(function (placeholderEl) {
+    disconnectPlaceholderResizeObserver(placeholderResizeObserver, placeholderEl == null);
+
+    if (placeholderEl == null) {
+      var _leaf$onPlaceholderRe;
+
+      EDITOR_TO_PLACEHOLDER_ELEMENT["delete"](editor);
+      (_leaf$onPlaceholderRe = leaf.onPlaceholderResize) === null || _leaf$onPlaceholderRe === void 0 ? void 0 : _leaf$onPlaceholderRe.call(leaf, null);
+    } else {
+      EDITOR_TO_PLACEHOLDER_ELEMENT.set(editor, placeholderEl);
+
+      if (!placeholderResizeObserver.current) {
+        // Create a new observer and observe the placeholder element.
+        var ResizeObserver = window.ResizeObserver || resizeObserver.ResizeObserver;
+        placeholderResizeObserver.current = new ResizeObserver(function () {
+          var _leaf$onPlaceholderRe2;
+
+          (_leaf$onPlaceholderRe2 = leaf.onPlaceholderResize) === null || _leaf$onPlaceholderRe2 === void 0 ? void 0 : _leaf$onPlaceholderRe2.call(leaf, placeholderEl);
+        });
+      }
+
+      placeholderResizeObserver.current.observe(placeholderEl);
+      placeholderRef.current = placeholderEl;
+    }
+  }, [placeholderRef, leaf, editor]);
+  var children = /*#__PURE__*/React__default['default'].createElement(String, {
+    isLast: isLast,
+    leaf: leaf,
+    parent: parent,
+    text: text
+  });
+  var leafIsPlaceholder = leaf[PLACEHOLDER_SYMBOL];
+  React.useEffect(function () {
+    if (leafIsPlaceholder) {
+      if (!showPlaceholderTimeoutRef.current) {
+        // Delay the placeholder so it will not render in a selection
+        showPlaceholderTimeoutRef.current = setTimeout(function () {
+          setShowPlaceholder(true);
+          showPlaceholderTimeoutRef.current = null;
+        }, 300);
+      }
+    } else {
+      clearTimeoutRef(showPlaceholderTimeoutRef);
+      setShowPlaceholder(false);
+    }
+
+    return function () {
+      return clearTimeoutRef(showPlaceholderTimeoutRef);
+    };
+  }, [leafIsPlaceholder, setShowPlaceholder]);
+
+  if (leafIsPlaceholder && showPlaceholder) {
+    var placeholderProps = {
+      children: leaf.placeholder,
+      attributes: {
+        'data-slate-placeholder': true,
+        style: {
+          position: 'absolute',
+          top: 0,
+          pointerEvents: 'none',
+          width: '100%',
+          maxWidth: '100%',
+          display: 'block',
+          opacity: '0.333',
+          userSelect: 'none',
+          textDecoration: 'none',
+          // Fixes https://github.com/udecode/plate/issues/2315
+          WebkitUserModify: IS_SAFARI ? 'inherit' : undefined
+        },
+        contentEditable: false,
+        ref: callbackPlaceholderRef
+      }
+    };
+    children = /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, renderPlaceholder(placeholderProps), children);
+  } // COMPAT: Having the `data-` attributes on these leaf elements ensures that
+  // in certain misbehaving browsers they aren't weirdly cloned/destroyed by
+  // contenteditable behaviors. (2019/05/08)
+
+
+  var attributes = {
+    'data-slate-leaf': true
+  };
+  return renderLeaf({
+    attributes: attributes,
+    children: children,
+    leaf: leaf,
+    text: text
+  });
+};
+
+var MemoizedLeaf = /*#__PURE__*/React__default['default'].memo(Leaf, function (prev, next) {
+  return next.parent === prev.parent && next.isLast === prev.isLast && next.renderLeaf === prev.renderLeaf && next.renderPlaceholder === prev.renderPlaceholder && next.text === prev.text && slate.Text.equals(next.leaf, prev.leaf) && next.leaf[PLACEHOLDER_SYMBOL] === prev.leaf[PLACEHOLDER_SYMBOL];
+});
+var DefaultLeaf = function DefaultLeaf(props) {
+  var attributes = props.attributes,
+      children = props.children;
+  return /*#__PURE__*/React__default['default'].createElement("span", Object.assign({}, attributes), children);
+};
+
+/**
+ * Text.
+ */
+
+var Text = function Text(props) {
+  var decorations = props.decorations,
+      isLast = props.isLast,
+      parent = props.parent,
+      renderPlaceholder = props.renderPlaceholder,
+      renderLeaf = props.renderLeaf,
+      text = props.text;
+  var editor = useSlateStatic();
+  var ref = React.useRef(null);
+  var leaves = slate.Text.decorations(text, decorations);
+  var key = ReactEditor.findKey(editor, text);
+  var children = [];
+
+  for (var i = 0; i < leaves.length; i++) {
+    var leaf = leaves[i];
+    children.push( /*#__PURE__*/React__default['default'].createElement(MemoizedLeaf, {
+      isLast: isLast && i === leaves.length - 1,
+      key: "".concat(key.id, "-").concat(i),
+      renderPlaceholder: renderPlaceholder,
+      leaf: leaf,
+      text: text,
+      parent: parent,
+      renderLeaf: renderLeaf
+    }));
+  } // Update element-related weak maps with the DOM element ref.
+
+
+  var callbackRef = React.useCallback(function (span) {
+    var KEY_TO_ELEMENT = EDITOR_TO_KEY_TO_ELEMENT.get(editor);
+
+    if (span) {
+      KEY_TO_ELEMENT === null || KEY_TO_ELEMENT === void 0 ? void 0 : KEY_TO_ELEMENT.set(key, span);
+      NODE_TO_ELEMENT.set(text, span);
+      ELEMENT_TO_NODE.set(span, text);
+    } else {
+      KEY_TO_ELEMENT === null || KEY_TO_ELEMENT === void 0 ? void 0 : KEY_TO_ELEMENT["delete"](key);
+      NODE_TO_ELEMENT["delete"](text);
+
+      if (ref.current) {
+        ELEMENT_TO_NODE["delete"](ref.current);
+      }
+    }
+
+    ref.current = span;
+  }, [ref, editor, key, text]);
+  return /*#__PURE__*/React__default['default'].createElement("span", {
+    "data-slate-node": "text",
+    ref: callbackRef
+  }, children);
+};
+
+var MemoizedText = /*#__PURE__*/React__default['default'].memo(Text, function (prev, next) {
+  return next.parent === prev.parent && next.isLast === prev.isLast && next.renderLeaf === prev.renderLeaf && next.renderPlaceholder === prev.renderPlaceholder && next.text === prev.text && isTextDecorationsEqual(next.decorations, prev.decorations);
+});
+
+/**
+ * Element.
+ */
+
+var Element = function Element(props) {
+  var decorations = props.decorations,
+      element = props.element,
+      _props$renderElement = props.renderElement,
+      renderElement = _props$renderElement === void 0 ? function (p) {
+    return /*#__PURE__*/React__default['default'].createElement(DefaultElement, Object.assign({}, p));
+  } : _props$renderElement,
+      renderPlaceholder = props.renderPlaceholder,
+      renderLeaf = props.renderLeaf,
+      selection = props.selection;
+  var editor = useSlateStatic();
+  var readOnly = useReadOnly();
+  var isInline = editor.isInline(element);
+  var key = ReactEditor.findKey(editor, element);
+  var ref = React.useCallback(function (ref) {
+    // Update element-related weak maps with the DOM element ref.
+    var KEY_TO_ELEMENT = EDITOR_TO_KEY_TO_ELEMENT.get(editor);
+
+    if (ref) {
+      KEY_TO_ELEMENT === null || KEY_TO_ELEMENT === void 0 ? void 0 : KEY_TO_ELEMENT.set(key, ref);
+      NODE_TO_ELEMENT.set(element, ref);
+      ELEMENT_TO_NODE.set(ref, element);
+    } else {
+      KEY_TO_ELEMENT === null || KEY_TO_ELEMENT === void 0 ? void 0 : KEY_TO_ELEMENT["delete"](key);
+      NODE_TO_ELEMENT["delete"](element);
+    }
+  }, [editor, key, element]);
+  var children = useChildren({
+    decorations: decorations,
+    node: element,
+    renderElement: renderElement,
+    renderPlaceholder: renderPlaceholder,
+    renderLeaf: renderLeaf,
+    selection: selection
+  }); // Attributes that the developer must mix into the element in their
+  // custom node renderer component.
+
+  var attributes = {
+    'data-slate-node': 'element',
+    ref: ref
+  };
+
+  if (isInline) {
+    attributes['data-slate-inline'] = true;
+  } // If it's a block node with inline children, add the proper `dir` attribute
+  // for text direction.
+
+
+  if (!isInline && slate.Editor.hasInlines(editor, element)) {
+    var text = slate.Node.string(element);
+    var dir = getDirection__default['default'](text);
+
+    if (dir === 'rtl') {
+      attributes.dir = dir;
+    }
+  } // If it's a void node, wrap the children in extra void-specific elements.
+
+
+  if (slate.Editor.isVoid(editor, element)) {
+    attributes['data-slate-void'] = true;
+
+    if (!readOnly && isInline) {
+      attributes.contentEditable = false;
+    }
+
+    var Tag = isInline ? 'span' : 'div';
+
+    var _Node$texts = slate.Node.texts(element),
+        _Node$texts2 = _slicedToArray(_Node$texts, 1),
+        _Node$texts2$ = _slicedToArray(_Node$texts2[0], 1),
+        _text = _Node$texts2$[0];
+
+    children = /*#__PURE__*/React__default['default'].createElement(Tag, {
+      "data-slate-spacer": true,
+      style: {
+        height: '0',
+        color: 'transparent',
+        outline: 'none',
+        position: 'absolute'
+      }
+    }, /*#__PURE__*/React__default['default'].createElement(MemoizedText, {
+      renderPlaceholder: renderPlaceholder,
+      decorations: [],
+      isLast: false,
+      parent: element,
+      text: _text
+    }));
+    NODE_TO_INDEX.set(_text, 0);
+    NODE_TO_PARENT.set(_text, element);
+  }
+
+  return renderElement({
+    attributes: attributes,
+    children: children,
+    element: element
+  });
+};
+
+var MemoizedElement = /*#__PURE__*/React__default['default'].memo(Element, function (prev, next) {
+  return prev.element === next.element && prev.renderElement === next.renderElement && prev.renderLeaf === next.renderLeaf && prev.renderPlaceholder === next.renderPlaceholder && isElementDecorationsEqual(prev.decorations, next.decorations) && (prev.selection === next.selection || !!prev.selection && !!next.selection && slate.Range.equals(prev.selection, next.selection));
+});
+/**
+ * The default element renderer.
+ */
+
+var DefaultElement = function DefaultElement(props) {
+  var attributes = props.attributes,
+      children = props.children,
+      element = props.element;
+  var editor = useSlateStatic();
+  var Tag = editor.isInline(element) ? 'span' : 'div';
+  return /*#__PURE__*/React__default['default'].createElement(Tag, Object.assign({}, attributes, {
+    style: {
+      position: 'relative'
+    }
+  }), children);
+};
+
+/**
+ * A React context for sharing the `decorate` prop of the editable.
+ */
+
+var DecorateContext = /*#__PURE__*/React.createContext(function () {
+  return [];
+});
+/**
+ * Get the current `decorate` prop of the editable.
+ */
+
+var useDecorate = function useDecorate() {
+  return React.useContext(DecorateContext);
+};
+
+/**
+ * A React context for sharing the `selected` state of an element.
+ */
+
+var SelectedContext = /*#__PURE__*/React.createContext(false);
+/**
+ * Get the current `selected` state of an element.
+ */
+
+var useSelected = function useSelected() {
+  return React.useContext(SelectedContext);
+};
+
+function _createForOfIteratorHelper$2(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray$2(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray$2(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$2(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$2(o, minLen); }
+
+function _arrayLikeToArray$2(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 /**
  * Children.
  */
-const Children = (props) => {
-    const { decorate, decorations, node, renderElement, renderLeaf, selection, } = props;
-    const editor = useEditor();
-    const path = ReactEditor.findPath(editor, node);
-    const children = [];
-    const isLeafBlock = slate.Element.isElement(node) &&
-        !editor.isInline(node) &&
-        slate.Editor.hasInlines(editor, node);
-    for (let i = 0; i < node.children.length; i++) {
-        const p = path.concat(i);
-        const n = node.children[i];
-        const key = ReactEditor.findKey(editor, n);
-        const range = slate.Editor.range(editor, p);
-        const sel = selection && slate.Range.intersection(range, selection);
-        const ds = decorate([n, p]);
-        for (const dec of decorations) {
-            const d = slate.Range.intersection(dec, range);
-            if (d) {
-                ds.push(d);
-            }
+
+var useChildren = function useChildren(props) {
+  var decorations = props.decorations,
+      node = props.node,
+      renderElement = props.renderElement,
+      renderPlaceholder = props.renderPlaceholder,
+      renderLeaf = props.renderLeaf,
+      selection = props.selection;
+  var decorate = useDecorate();
+  var editor = useSlateStatic();
+  var path = ReactEditor.findPath(editor, node);
+  var children = [];
+  var isLeafBlock = slate.Element.isElement(node) && !editor.isInline(node) && slate.Editor.hasInlines(editor, node);
+
+  for (var i = 0; i < node.children.length; i++) {
+    var p = path.concat(i);
+    var n = node.children[i];
+    var key = ReactEditor.findKey(editor, n);
+    var range = slate.Editor.range(editor, p);
+    var sel = selection && slate.Range.intersection(range, selection);
+    var ds = decorate([n, p]);
+
+    var _iterator = _createForOfIteratorHelper$2(decorations),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var dec = _step.value;
+        var d = slate.Range.intersection(dec, range);
+
+        if (d) {
+          ds.push(d);
         }
-        if (slate.Element.isElement(n)) {
-            children.push(React__default.createElement(MemoizedElement, { decorate: decorate, decorations: ds, element: n, key: key.id, renderElement: renderElement, renderLeaf: renderLeaf, selection: sel }));
-        }
-        else {
-            children.push(React__default.createElement(MemoizedText, { decorations: ds, key: key.id, isLast: isLeafBlock && i === node.children.length - 1, parent: node, renderLeaf: renderLeaf, text: n }));
-        }
-        NODE_TO_INDEX.set(n, i);
-        NODE_TO_PARENT.set(n, node);
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
     }
-    return React__default.createElement(React__default.Fragment, null, children);
+
+    if (slate.Element.isElement(n)) {
+      children.push( /*#__PURE__*/React__default['default'].createElement(SelectedContext.Provider, {
+        key: "provider-".concat(key.id),
+        value: !!sel
+      }, /*#__PURE__*/React__default['default'].createElement(MemoizedElement, {
+        decorations: ds,
+        element: n,
+        key: key.id,
+        renderElement: renderElement,
+        renderPlaceholder: renderPlaceholder,
+        renderLeaf: renderLeaf,
+        selection: sel
+      })));
+    } else {
+      children.push( /*#__PURE__*/React__default['default'].createElement(MemoizedText, {
+        decorations: ds,
+        key: key.id,
+        isLast: isLeafBlock && i === node.children.length - 1,
+        parent: node,
+        renderPlaceholder: renderPlaceholder,
+        renderLeaf: renderLeaf,
+        text: n
+      }));
+    }
+
+    NODE_TO_INDEX.set(n, i);
+    NODE_TO_PARENT.set(n, node);
+  }
+
+  return children;
 };
 
-var IS_IOS = typeof navigator !== 'undefined' && typeof window !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-var IS_APPLE = typeof navigator !== 'undefined' && /Mac OS X/.test(navigator.userAgent);
-var IS_FIREFOX = typeof navigator !== 'undefined' && /^(?!.*Seamonkey)(?=.*Firefox).*/i.test(navigator.userAgent);
-var IS_SAFARI = typeof navigator !== 'undefined' && /Version\/[\d\.]+.*Safari/.test(navigator.userAgent);
+/**
+ * A React context for sharing the `readOnly` state of the editor.
+ */
+
+var ReadOnlyContext = /*#__PURE__*/React.createContext(false);
+/**
+ * Get the current `readOnly` state of the editor.
+ */
+
+var useReadOnly = function useReadOnly() {
+  return React.useContext(ReadOnlyContext);
+};
+
+var SlateContext = /*#__PURE__*/React.createContext(null);
+/**
+ * Get the current editor object from the React context.
+ */
+
+var useSlate = function useSlate() {
+  var context = React.useContext(SlateContext);
+
+  if (!context) {
+    throw new Error("The `useSlate` hook must be used inside the <Slate> component's context.");
+  }
+
+  var editor = context.editor;
+  return editor;
+};
+var useSlateWithV = function useSlateWithV() {
+  var context = React.useContext(SlateContext);
+
+  if (!context) {
+    throw new Error("The `useSlate` hook must be used inside the <Slate> component's context.");
+  }
+
+  return context;
+};
+
+function useTrackUserInput() {
+  var editor = useSlateStatic();
+  var receivedUserInput = React.useRef(false);
+  var animationFrameIdRef = React.useRef(0);
+  var onUserInput = React.useCallback(function () {
+    if (receivedUserInput.current) {
+      return;
+    }
+
+    receivedUserInput.current = true;
+    var window = ReactEditor.getWindow(editor);
+    window.cancelAnimationFrame(animationFrameIdRef.current);
+    animationFrameIdRef.current = window.requestAnimationFrame(function () {
+      receivedUserInput.current = false;
+    });
+  }, [editor]);
+  React.useEffect(function () {
+    return function () {
+      return cancelAnimationFrame(animationFrameIdRef.current);
+    };
+  }, []);
+  return {
+    receivedUserInput: receivedUserInput,
+    onUserInput: onUserInput
+  };
+}
+
+var TRIPLE_CLICK = 3;
 
 /**
  * Hotkey mappings for each platform.
@@ -38330,7 +42686,8 @@ var HOTKEYS = {
   extendBackward: 'shift+left',
   extendForward: 'shift+right',
   italic: 'mod+i',
-  splitBlock: 'shift?+enter',
+  insertSoftBreak: 'shift+enter',
+  splitBlock: 'enter',
   undo: 'mod+z'
 };
 var APPLE_HOTKEYS = {
@@ -38358,14 +42715,14 @@ var WINDOWS_HOTKEYS = {
  * Create a platform-aware hotkey checker.
  */
 
-var create = key => {
+var create = function create(key) {
   var generic = HOTKEYS[key];
   var apple = APPLE_HOTKEYS[key];
   var windows = WINDOWS_HOTKEYS[key];
   var isGeneric = generic && isHotkey.isKeyHotkey(generic);
   var isApple = apple && isHotkey.isKeyHotkey(apple);
   var isWindows = windows && isHotkey.isKeyHotkey(windows);
-  return event => {
+  return function (event) {
     if (isGeneric && isGeneric(event)) return true;
     if (IS_APPLE && isApple && isApple(event)) return true;
     if (!IS_APPLE && isWindows && isWindows(event)) return true;
@@ -38398,1448 +42755,2469 @@ var Hotkeys = {
   isMoveWordBackward: create('moveWordBackward'),
   isMoveWordForward: create('moveWordForward'),
   isRedo: create('redo'),
+  isSoftBreak: create('insertSoftBreak'),
   isSplitBlock: create('splitBlock'),
   isTransposeCharacter: create('transposeCharacter'),
   isUndo: create('undo')
 };
 
-/**
- * A React context for sharing the `readOnly` state of the editor.
- */
+var createClass = createCommonjsModule(function (module) {
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
 
-var ReadOnlyContext = React.createContext(false);
-/**
- * Get the current `readOnly` state of the editor.
- */
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
 
-var useReadOnly = () => {
-  return React.useContext(ReadOnlyContext);
-};
+module.exports = _createClass;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
 
-/**
- * A React context for sharing the editor object, in a way that re-renders the
- * context whenever changes occur.
- */
-const SlateContext = React.createContext(null);
-/**
- * Get the current editor object from the React context.
- */
-const useSlate = () => {
-    const context = React.useContext(SlateContext);
-    if (!context) {
-        throw new Error(`The \`useSlate\` hook must be used inside the <SlateProvider> component's context.`);
-    }
-    const [editor] = context;
-    return editor;
-};
+var _createClass = unwrapExports(createClass);
 
-/**
- * Types.
- */
-/**
- * Check if a DOM node is a comment node.
- */
+var setPrototypeOf = createCommonjsModule(function (module) {
+function _setPrototypeOf(o, p) {
+  module.exports = _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
 
-var isDOMComment = value => {
-  return isDOMNode(value) && value.nodeType === 8;
-};
-/**
- * Check if a DOM node is an element node.
- */
+  module.exports["default"] = module.exports, module.exports.__esModule = true;
+  return _setPrototypeOf(o, p);
+}
 
-var isDOMElement = value => {
-  return isDOMNode(value) && value.nodeType === 1;
-};
-/**
- * Check if a value is a DOM node.
- */
+module.exports = _setPrototypeOf;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
 
-var isDOMNode = value => {
-  return value instanceof Node;
-};
-/**
- * Check if a DOM node is an element node.
- */
+unwrapExports(setPrototypeOf);
 
-var isDOMText = value => {
-  return isDOMNode(value) && value.nodeType === 3;
-};
-/**
- * Normalize a DOM point so that it always refers to a text node.
- */
-
-var normalizeDOMPoint = domPoint => {
-  var [node, offset] = domPoint; // If it's an element node, its offset refers to the index of its children
-  // including comment nodes, so try to find the right text child node.
-
-  if (isDOMElement(node) && node.childNodes.length) {
-    var isLast = offset === node.childNodes.length;
-    var direction = isLast ? 'backward' : 'forward';
-    var index = isLast ? offset - 1 : offset;
-    node = getEditableChild(node, index, direction); // If the node has children, traverse until we have a leaf node. Leaf nodes
-    // can be either text nodes, or other void DOM nodes.
-
-    while (isDOMElement(node) && node.childNodes.length) {
-      var i = isLast ? node.childNodes.length - 1 : 0;
-      node = getEditableChild(node, i, direction);
-    } // Determine the new offset inside the text node.
-
-
-    offset = isLast && node.textContent != null ? node.textContent.length : 0;
-  } // Return the node and offset.
-
-
-  return [node, offset];
-};
-/**
- * Get the nearest editable child at `index` in a `parent`, preferring
- * `direction`.
- */
-
-var getEditableChild = (parent, index, direction) => {
-  var {
-    childNodes
-  } = parent;
-  var child = childNodes[index];
-  var i = index;
-  var triedForward = false;
-  var triedBackward = false; // While the child is a comment node, or an element node with no children,
-  // keep iterating to find a sibling non-void, non-comment node.
-
-  while (isDOMComment(child) || isDOMElement(child) && child.childNodes.length === 0 || isDOMElement(child) && child.getAttribute('contenteditable') === 'false') {
-    if (triedForward && triedBackward) {
-      break;
-    }
-
-    if (i >= childNodes.length) {
-      triedForward = true;
-      i = index - 1;
-      direction = 'backward';
-      continue;
-    }
-
-    if (i < 0) {
-      triedBackward = true;
-      i = index + 1;
-      direction = 'forward';
-      continue;
-    }
-
-    child = childNodes[i];
-    i += direction === 'forward' ? 1 : -1;
+var inherits = createCommonjsModule(function (module) {
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
   }
 
-  return child;
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) setPrototypeOf(subClass, superClass);
+}
+
+module.exports = _inherits;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+var _inherits = unwrapExports(inherits);
+
+var _typeof_1 = createCommonjsModule(function (module) {
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    module.exports = _typeof = function _typeof(obj) {
+      return typeof obj;
+    };
+
+    module.exports["default"] = module.exports, module.exports.__esModule = true;
+  } else {
+    module.exports = _typeof = function _typeof(obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+
+    module.exports["default"] = module.exports, module.exports.__esModule = true;
+  }
+
+  return _typeof(obj);
+}
+
+module.exports = _typeof;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+unwrapExports(_typeof_1);
+
+var assertThisInitialized = createCommonjsModule(function (module) {
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+module.exports = _assertThisInitialized;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+unwrapExports(assertThisInitialized);
+
+var possibleConstructorReturn = createCommonjsModule(function (module) {
+var _typeof = _typeof_1["default"];
+
+
+
+function _possibleConstructorReturn(self, call) {
+  if (call && (_typeof(call) === "object" || typeof call === "function")) {
+    return call;
+  } else if (call !== void 0) {
+    throw new TypeError("Derived constructors may only return object or undefined");
+  }
+
+  return assertThisInitialized(self);
+}
+
+module.exports = _possibleConstructorReturn;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+var _possibleConstructorReturn = unwrapExports(possibleConstructorReturn);
+
+var getPrototypeOf = createCommonjsModule(function (module) {
+function _getPrototypeOf(o) {
+  module.exports = _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  module.exports["default"] = module.exports, module.exports.__esModule = true;
+  return _getPrototypeOf(o);
+}
+
+module.exports = _getPrototypeOf;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+var _getPrototypeOf = unwrapExports(getPrototypeOf);
+
+var createRestoreDomManager = function createRestoreDomManager(editor, receivedUserInput) {
+  var bufferedMutations = [];
+
+  var clear = function clear() {
+    bufferedMutations = [];
+  };
+
+  var registerMutations = function registerMutations(mutations) {
+    var _bufferedMutations;
+
+    if (!receivedUserInput.current) {
+      return;
+    }
+
+    var trackedMutations = mutations.filter(function (mutation) {
+      return isTrackedMutation(editor, mutation, mutations);
+    });
+
+    (_bufferedMutations = bufferedMutations).push.apply(_bufferedMutations, _toConsumableArray(trackedMutations));
+  };
+
+  function restoreDOM() {
+    if (bufferedMutations.length > 0) {
+      bufferedMutations.reverse().forEach(function (mutation) {
+        if (mutation.type === 'characterData') {
+          // We don't want to restore the DOM for characterData mutations
+          // because this interrupts the composition.
+          return;
+        }
+
+        mutation.removedNodes.forEach(function (node) {
+          mutation.target.insertBefore(node, mutation.nextSibling);
+        });
+        mutation.addedNodes.forEach(function (node) {
+          mutation.target.removeChild(node);
+        });
+      }); // Clear buffered mutations to ensure we don't undo them twice
+
+      clear();
+    }
+  }
+
+  return {
+    registerMutations: registerMutations,
+    restoreDOM: restoreDOM,
+    clear: clear
+  };
 };
 
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+var MUTATION_OBSERVER_CONFIG = {
+  subtree: true,
+  childList: true,
+  characterData: true,
+  characterDataOldValue: true
+}; // We have to use a class component here since we rely on `getSnapshotBeforeUpdate` which has no FC equivalent
+// to run code synchronously immediately before react commits the component update to the DOM.
+
+var RestoreDOMComponent = /*#__PURE__*/function (_Component) {
+  _inherits(RestoreDOMComponent, _Component);
+
+  var _super = _createSuper(RestoreDOMComponent);
+
+  function RestoreDOMComponent() {
+    var _this;
+
+    _classCallCheck(this, RestoreDOMComponent);
+
+    _this = _super.apply(this, arguments);
+    _this.context = null;
+    _this.manager = null;
+    _this.mutationObserver = null;
+    return _this;
+  }
+
+  _createClass(RestoreDOMComponent, [{
+    key: "observe",
+    value: function observe() {
+      var _this$mutationObserve;
+
+      var node = this.props.node;
+
+      if (!node.current) {
+        throw new Error('Failed to attach MutationObserver, `node` is undefined');
+      }
+
+      (_this$mutationObserve = this.mutationObserver) === null || _this$mutationObserve === void 0 ? void 0 : _this$mutationObserve.observe(node.current, MUTATION_OBSERVER_CONFIG);
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var receivedUserInput = this.props.receivedUserInput;
+      var editor = this.context;
+      this.manager = createRestoreDomManager(editor, receivedUserInput);
+      this.mutationObserver = new MutationObserver(this.manager.registerMutations);
+      this.observe();
+    }
+  }, {
+    key: "getSnapshotBeforeUpdate",
+    value: function getSnapshotBeforeUpdate() {
+      var _this$mutationObserve2, _this$mutationObserve3, _this$manager2;
+
+      var pendingMutations = (_this$mutationObserve2 = this.mutationObserver) === null || _this$mutationObserve2 === void 0 ? void 0 : _this$mutationObserve2.takeRecords();
+
+      if (pendingMutations !== null && pendingMutations !== void 0 && pendingMutations.length) {
+        var _this$manager;
+
+        (_this$manager = this.manager) === null || _this$manager === void 0 ? void 0 : _this$manager.registerMutations(pendingMutations);
+      }
+
+      (_this$mutationObserve3 = this.mutationObserver) === null || _this$mutationObserve3 === void 0 ? void 0 : _this$mutationObserve3.disconnect();
+      (_this$manager2 = this.manager) === null || _this$manager2 === void 0 ? void 0 : _this$manager2.restoreDOM();
+      return null;
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      var _this$manager3;
+
+      (_this$manager3 = this.manager) === null || _this$manager3 === void 0 ? void 0 : _this$manager3.clear();
+      this.observe();
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      var _this$mutationObserve4;
+
+      (_this$mutationObserve4 = this.mutationObserver) === null || _this$mutationObserve4 === void 0 ? void 0 : _this$mutationObserve4.disconnect();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return this.props.children;
+    }
+  }]);
+
+  return RestoreDOMComponent;
+}(React.Component);
+
+RestoreDOMComponent.contextType = EditorContext;
+var RestoreDOM = IS_ANDROID ? RestoreDOMComponent : function (_ref) {
+  var children = _ref.children;
+  return /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, children);
+};
+
+var _excluded$1 = ["autoFocus", "decorate", "onDOMBeforeInput", "placeholder", "readOnly", "renderElement", "renderLeaf", "renderPlaceholder", "scrollSelectionIntoView", "style", "as", "disableDefaultStyles"],
+    _excluded2 = ["text"];
+
+function _createForOfIteratorHelper$1(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray$1(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray$1(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$1(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$1(o, minLen); }
+
+function _arrayLikeToArray$1(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function ownKeys$1(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$1(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$1(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$1(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+var Children = function Children(props) {
+  return /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, useChildren(props));
+};
 /**
  * Editable.
  */
-const Editable = (props) => {
-    const { autoFocus, decorate = defaultDecorate, onDOMBeforeInput: propsOnDOMBeforeInput, placeholder, readOnly = false, renderElement, renderLeaf, style = {}, as: Component = 'div', ...attributes } = props;
-    const editor = useSlate();
-    const ref = React.useRef(null);
-    // Update internal state on each render.
-    IS_READ_ONLY.set(editor, readOnly);
-    // Keep track of some state for the event handler logic.
-    const state = React.useMemo(() => ({
-        isComposing: false,
-        isUpdatingSelection: false,
-        latestElement: null,
-    }), []);
-    // Update element-related weak maps with the DOM element ref.
-    useIsomorphicLayoutEffect(() => {
-        if (ref.current) {
-            EDITOR_TO_ELEMENT.set(editor, ref.current);
-            NODE_TO_ELEMENT.set(editor, ref.current);
-            ELEMENT_TO_NODE.set(ref.current, editor);
-        }
-        else {
-            NODE_TO_ELEMENT.delete(editor);
-        }
-    });
-    // Attach a native DOM event handler for `selectionchange`, because React's
-    // built-in `onSelect` handler doesn't fire for all selection changes. It's a
-    // leaky polyfill that only fires on keypresses or clicks. Instead, we want to
-    // fire for any change to the selection inside the editor. (2019/11/04)
-    // https://github.com/facebook/react/issues/5785
-    useIsomorphicLayoutEffect(() => {
-        window.document.addEventListener('selectionchange', onDOMSelectionChange);
-        return () => {
-            window.document.removeEventListener('selectionchange', onDOMSelectionChange);
-        };
-    }, []);
-    // Attach a native DOM event handler for `beforeinput` events, because React's
-    // built-in `onBeforeInput` is actually a leaky polyfill that doesn't expose
-    // real `beforeinput` events sadly... (2019/11/04)
-    // https://github.com/facebook/react/issues/11211
-    useIsomorphicLayoutEffect(() => {
-        if (ref.current) {
-            // @ts-ignore The `beforeinput` event isn't recognized.
-            ref.current.addEventListener('beforeinput', onDOMBeforeInput);
-        }
-        return () => {
-            if (ref.current) {
-                // @ts-ignore The `beforeinput` event isn't recognized.
-                ref.current.removeEventListener('beforeinput', onDOMBeforeInput);
-            }
-        };
-    }, []);
-    // Whenever the editor updates, make sure the DOM selection state is in sync.
-    useIsomorphicLayoutEffect(() => {
-        const { selection } = editor;
-        const domSelection = window.getSelection();
-        if (state.isComposing || !domSelection || !ReactEditor.isFocused(editor)) {
-            return;
-        }
-        const hasDomSelection = domSelection.type !== 'None';
-        // If the DOM selection is properly unset, we're done.
-        if (!selection && !hasDomSelection) {
-            return;
-        }
-        const newDomRange = selection && ReactEditor.toDOMRange(editor, selection);
-        // If the DOM selection is already correct, we're done.
-        if (hasDomSelection &&
-            newDomRange &&
-            isRangeEqual(domSelection.getRangeAt(0), newDomRange)) {
-            return;
-        }
-        // Otherwise the DOM selection is out of sync, so update it.
-        const el = ReactEditor.toDOMNode(editor, editor);
-        state.isUpdatingSelection = true;
-        domSelection.removeAllRanges();
-        if (newDomRange) {
-            domSelection.addRange(newDomRange);
-            const leafEl = newDomRange.startContainer.parentElement;
-            scrollIntoView(leafEl, { scrollMode: 'if-needed' });
-        }
-        setTimeout(() => {
-            // COMPAT: In Firefox, it's not enough to create a range, you also need
-            // to focus the contenteditable element too. (2016/11/16)
-            if (newDomRange && IS_FIREFOX) {
-                el.focus();
-            }
-            state.isUpdatingSelection = false;
-        });
-    });
-    // The autoFocus TextareaHTMLAttribute doesn't do anything on a div, so it
-    // needs to be manually focused.
-    React.useEffect(() => {
-        if (ref.current && autoFocus) {
-            ref.current.focus();
-        }
-    }, [autoFocus]);
-    // Listen on the native `beforeinput` event to get real "Level 2" events. This
-    // is required because React's `beforeinput` is fake and never really attaches
-    // to the real event sadly. (2019/11/01)
-    // https://github.com/facebook/react/issues/11211
-    const onDOMBeforeInput = React.useCallback((event) => {
-        if (!readOnly &&
-            hasEditableTarget(editor, event.target) &&
-            !isDOMEventHandled(event, propsOnDOMBeforeInput)) {
-            const { selection } = editor;
-            const { inputType: type } = event;
-            const data = event.dataTransfer || event.data || undefined;
-            // These two types occur while a user is composing text and can't be
-            // cancelled. Let them through and wait for the composition to end.
-            if (type === 'insertCompositionText' ||
-                type === 'deleteCompositionText') {
-                return;
-            }
-            event.preventDefault();
-            // COMPAT: For the deleting forward/backward input types we don't want
-            // to change the selection because it is the range that will be deleted,
-            // and those commands determine that for themselves.
-            if (!type.startsWith('delete') || type.startsWith('deleteBy')) {
-                const [targetRange] = event.getTargetRanges();
-                if (targetRange) {
-                    const range = ReactEditor.toSlateRange(editor, targetRange);
-                    if (!selection || !slate.Range.equals(selection, range)) {
-                        slate.Transforms.select(editor, range);
-                    }
-                }
-            }
-            // COMPAT: If the selection is expanded, even if the command seems like
-            // a delete forward/backward command it should delete the selection.
-            if (selection &&
-                slate.Range.isExpanded(selection) &&
-                type.startsWith('delete')) {
-                slate.Editor.deleteFragment(editor);
-                return;
-            }
-            switch (type) {
-                case 'deleteByComposition':
-                case 'deleteByCut':
-                case 'deleteByDrag': {
-                    slate.Editor.deleteFragment(editor);
-                    break;
-                }
-                case 'deleteContent':
-                case 'deleteContentForward': {
-                    slate.Editor.deleteForward(editor);
-                    break;
-                }
-                case 'deleteContentBackward': {
-                    slate.Editor.deleteBackward(editor);
-                    break;
-                }
-                case 'deleteEntireSoftLine': {
-                    slate.Editor.deleteBackward(editor, { unit: 'line' });
-                    slate.Editor.deleteForward(editor, { unit: 'line' });
-                    break;
-                }
-                case 'deleteHardLineBackward': {
-                    slate.Editor.deleteBackward(editor, { unit: 'block' });
-                    break;
-                }
-                case 'deleteSoftLineBackward': {
-                    slate.Editor.deleteBackward(editor, { unit: 'line' });
-                    break;
-                }
-                case 'deleteHardLineForward': {
-                    slate.Editor.deleteForward(editor, { unit: 'block' });
-                    break;
-                }
-                case 'deleteSoftLineForward': {
-                    slate.Editor.deleteForward(editor, { unit: 'line' });
-                    break;
-                }
-                case 'deleteWordBackward': {
-                    slate.Editor.deleteBackward(editor, { unit: 'word' });
-                    break;
-                }
-                case 'deleteWordForward': {
-                    slate.Editor.deleteForward(editor, { unit: 'word' });
-                    break;
-                }
-                case 'insertLineBreak':
-                case 'insertParagraph': {
-                    slate.Editor.insertBreak(editor);
-                    break;
-                }
-                case 'insertFromComposition':
-                case 'insertFromDrop':
-                case 'insertFromPaste':
-                case 'insertFromYank':
-                case 'insertReplacementText':
-                case 'insertText': {
-                    if (data instanceof DataTransfer) {
-                        ReactEditor.insertData(editor, data);
-                    }
-                    else if (typeof data === 'string') {
-                        slate.Editor.insertText(editor, data);
-                    }
-                    break;
-                }
-            }
-        }
-    }, []);
-    // Listen on the native `selectionchange` event to be able to update any time
-    // the selection changes. This is required because React's `onSelect` is leaky
-    // and non-standard so it doesn't fire until after a selection has been
-    // released. This causes issues in situations where another change happens
-    // while a selection is being dragged.
-    const onDOMSelectionChange = React.useCallback(debounce(() => {
-        if (!readOnly && !state.isComposing && !state.isUpdatingSelection) {
-            const { activeElement } = window.document;
-            const el = ReactEditor.toDOMNode(editor, editor);
-            const domSelection = window.getSelection();
-            const domRange = domSelection &&
-                domSelection.rangeCount > 0 &&
-                domSelection.getRangeAt(0);
-            if (activeElement === el) {
-                state.latestElement = activeElement;
-                IS_FOCUSED.set(editor, true);
-            }
-            else {
-                IS_FOCUSED.delete(editor);
-            }
-            if (domRange &&
-                hasEditableTarget(editor, domRange.startContainer) &&
-                hasEditableTarget(editor, domRange.endContainer)) {
-                const range = ReactEditor.toSlateRange(editor, domRange);
-                slate.Transforms.select(editor, range);
-            }
-            else {
-                slate.Transforms.deselect(editor);
-            }
-        }
-    }, 100), []);
-    const decorations = decorate([editor, []]);
-    if (placeholder &&
-        editor.children.length === 1 &&
-        Array.from(slate.Node.texts(editor)).length === 1 &&
-        slate.Node.string(editor) === '') {
-        const start = slate.Editor.start(editor, []);
-        decorations.push({
-            [PLACEHOLDER_SYMBOL]: true,
-            placeholder,
-            anchor: start,
-            focus: start,
-        });
+
+
+var Editable = function Editable(props) {
+  var defaultRenderPlaceholder = React.useCallback(function (props) {
+    return /*#__PURE__*/React__default['default'].createElement(DefaultPlaceholder, Object.assign({}, props));
+  }, []);
+
+  var autoFocus = props.autoFocus,
+      _props$decorate = props.decorate,
+      decorate = _props$decorate === void 0 ? defaultDecorate : _props$decorate,
+      propsOnDOMBeforeInput = props.onDOMBeforeInput,
+      placeholder = props.placeholder,
+      _props$readOnly = props.readOnly,
+      readOnly = _props$readOnly === void 0 ? false : _props$readOnly,
+      renderElement = props.renderElement,
+      renderLeaf = props.renderLeaf,
+      _props$renderPlacehol = props.renderPlaceholder,
+      renderPlaceholder = _props$renderPlacehol === void 0 ? defaultRenderPlaceholder : _props$renderPlacehol,
+      _props$scrollSelectio = props.scrollSelectionIntoView,
+      scrollSelectionIntoView = _props$scrollSelectio === void 0 ? defaultScrollSelectionIntoView : _props$scrollSelectio,
+      _props$style = props.style,
+      userStyle = _props$style === void 0 ? {} : _props$style,
+      _props$as = props.as,
+      Component = _props$as === void 0 ? 'div' : _props$as,
+      _props$disableDefault = props.disableDefaultStyles,
+      disableDefaultStyles = _props$disableDefault === void 0 ? false : _props$disableDefault,
+      attributes = _objectWithoutProperties(props, _excluded$1);
+
+  var editor = useSlate(); // Rerender editor when composition status changed
+
+  var _useState = React.useState(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      isComposing = _useState2[0],
+      setIsComposing = _useState2[1];
+
+  var ref = React.useRef(null);
+  var deferredOperations = React.useRef([]);
+
+  var _useState3 = React.useState(),
+      _useState4 = _slicedToArray(_useState3, 2),
+      placeholderHeight = _useState4[0],
+      setPlaceholderHeight = _useState4[1];
+
+  var _useTrackUserInput = useTrackUserInput(),
+      onUserInput = _useTrackUserInput.onUserInput,
+      receivedUserInput = _useTrackUserInput.receivedUserInput;
+
+  var _useReducer = React.useReducer(function (s) {
+    return s + 1;
+  }, 0),
+      _useReducer2 = _slicedToArray(_useReducer, 2),
+      forceRender = _useReducer2[1];
+
+  EDITOR_TO_FORCE_RENDER.set(editor, forceRender); // Update internal state on each render.
+
+  IS_READ_ONLY.set(editor, readOnly); // Keep track of some state for the event handler logic.
+
+  var state = React.useMemo(function () {
+    return {
+      isDraggingInternally: false,
+      isUpdatingSelection: false,
+      latestElement: null,
+      hasMarkPlaceholder: false
+    };
+  }, []); // The autoFocus TextareaHTMLAttribute doesn't do anything on a div, so it
+  // needs to be manually focused.
+
+  React.useEffect(function () {
+    if (ref.current && autoFocus) {
+      ref.current.focus();
     }
-    return (React__default.createElement(ReadOnlyContext.Provider, { value: readOnly },
-        React__default.createElement(Component
-        // COMPAT: The Grammarly Chrome extension works by changing the DOM
-        // out from under `contenteditable` elements, which leads to weird
-        // behaviors so we have to disable it like editor. (2017/04/24)
-        , Object.assign({ "data-gramm": false, role: readOnly ? undefined : 'textbox' }, attributes, { 
-            // COMPAT: Firefox doesn't support the `beforeinput` event, so we'd
-            // have to use hacks to make these replacement-based features work.
-            spellCheck: IS_FIREFOX ? undefined : attributes.spellCheck, autoCorrect: IS_FIREFOX ? undefined : attributes.autoCorrect, autoCapitalize: IS_FIREFOX ? undefined : attributes.autoCapitalize, "data-slate-editor": true, "data-slate-node": "value", contentEditable: readOnly ? undefined : true, suppressContentEditableWarning: true, ref: ref, style: {
-                // Prevent the default outline styles.
-                outline: 'none',
-                // Preserve adjacent whitespace and new lines.
-                whiteSpace: 'pre-wrap',
-                // Allow words to break if they are too long.
-                wordWrap: 'break-word',
-                // Allow for passed-in styles to override anything.
-                ...style,
-            }, onBeforeInput: React.useCallback((event) => {
-                // COMPAT: Firefox doesn't support the `beforeinput` event, so we
-                // fall back to React's leaky polyfill instead just for it. It
-                // only works for the `insertText` input type.
-                if (IS_FIREFOX && !readOnly) {
-                    event.preventDefault();
-                    const text = event.data;
-                    slate.Editor.insertText(editor, text);
-                }
-            }, [readOnly]), onBlur: React.useCallback((event) => {
-                if (readOnly ||
-                    state.isUpdatingSelection ||
-                    !hasEditableTarget(editor, event.target) ||
-                    isEventHandled(event, attributes.onBlur)) {
-                    return;
-                }
-                // COMPAT: If the current `activeElement` is still the previous
-                // one, this is due to the window being blurred when the tab
-                // itself becomes unfocused, so we want to abort early to allow to
-                // editor to stay focused when the tab becomes focused again.
-                if (state.latestElement === window.document.activeElement) {
-                    return;
-                }
-                const { relatedTarget } = event;
-                const el = ReactEditor.toDOMNode(editor, editor);
-                // COMPAT: The event should be ignored if the focus is returning
-                // to the editor from an embedded editable element (eg. an <input>
-                // element inside a void node).
-                if (relatedTarget === el) {
-                    return;
-                }
-                // COMPAT: The event should be ignored if the focus is moving from
-                // the editor to inside a void node's spacer element.
-                if (isDOMElement(relatedTarget) &&
-                    relatedTarget.hasAttribute('data-slate-spacer')) {
-                    return;
-                }
-                // COMPAT: The event should be ignored if the focus is moving to a
-                // non- editable section of an element that isn't a void node (eg.
-                // a list item of the check list example).
-                if (relatedTarget != null &&
-                    isDOMNode(relatedTarget) &&
-                    ReactEditor.hasDOMNode(editor, relatedTarget)) {
-                    const node = ReactEditor.toSlateNode(editor, relatedTarget);
-                    if (slate.Element.isElement(node) && !editor.isVoid(node)) {
-                        return;
-                    }
-                }
-                IS_FOCUSED.delete(editor);
-            }, [readOnly, attributes.onBlur]), onClick: React.useCallback((event) => {
-                if (!readOnly &&
-                    hasTarget(editor, event.target) &&
-                    !isEventHandled(event, attributes.onClick) &&
-                    isDOMNode(event.target)) {
-                    const node = ReactEditor.toSlateNode(editor, event.target);
-                    const path = ReactEditor.findPath(editor, node);
-                    const start = slate.Editor.start(editor, path);
-                    if (slate.Editor.void(editor, { at: start })) {
-                        const range = slate.Editor.range(editor, start);
-                        slate.Transforms.select(editor, range);
-                    }
-                }
-            }, [readOnly, attributes.onClick]), onCompositionEnd: React.useCallback((event) => {
-                if (hasEditableTarget(editor, event.target) &&
-                    !isEventHandled(event, attributes.onCompositionEnd)) {
-                    state.isComposing = false;
-                    // COMPAT: In Chrome, `beforeinput` events for compositions
-                    // aren't correct and never fire the "insertFromComposition"
-                    // type that we need. So instead, insert whenever a composition
-                    // ends since it will already have been committed to the DOM.
-                    if (!IS_SAFARI && !IS_FIREFOX && event.data) {
-                        slate.Editor.insertText(editor, event.data);
-                    }
-                }
-            }, [attributes.onCompositionEnd]), onCompositionStart: React.useCallback((event) => {
-                if (hasEditableTarget(editor, event.target) &&
-                    !isEventHandled(event, attributes.onCompositionStart)) {
-                    state.isComposing = true;
-                }
-            }, [attributes.onCompositionStart]), onCopy: React.useCallback((event) => {
-                if (hasEditableTarget(editor, event.target) &&
-                    !isEventHandled(event, attributes.onCopy)) {
-                    event.preventDefault();
-                    setFragmentData(event.clipboardData, editor);
-                }
-            }, [attributes.onCopy]), onCut: React.useCallback((event) => {
-                if (!readOnly &&
-                    hasEditableTarget(editor, event.target) &&
-                    !isEventHandled(event, attributes.onCut)) {
-                    event.preventDefault();
-                    setFragmentData(event.clipboardData, editor);
-                    const { selection } = editor;
-                    if (selection && slate.Range.isExpanded(selection)) {
-                        slate.Editor.deleteFragment(editor);
-                    }
-                }
-            }, [readOnly, attributes.onCut]), onDragOver: React.useCallback((event) => {
-                if (hasTarget(editor, event.target) &&
-                    !isEventHandled(event, attributes.onDragOver)) {
-                    // Only when the target is void, call `preventDefault` to signal
-                    // that drops are allowed. Editable content is droppable by
-                    // default, and calling `preventDefault` hides the cursor.
-                    const node = ReactEditor.toSlateNode(editor, event.target);
-                    if (slate.Editor.isVoid(editor, node)) {
-                        event.preventDefault();
-                    }
-                }
-            }, [attributes.onDragOver]), onDragStart: React.useCallback((event) => {
-                if (hasTarget(editor, event.target) &&
-                    !isEventHandled(event, attributes.onDragStart)) {
-                    const node = ReactEditor.toSlateNode(editor, event.target);
-                    const path = ReactEditor.findPath(editor, node);
-                    const voidMatch = slate.Editor.void(editor, { at: path });
-                    // If starting a drag on a void node, make sure it is selected
-                    // so that it shows up in the selection's fragment.
-                    if (voidMatch) {
-                        const range = slate.Editor.range(editor, path);
-                        slate.Transforms.select(editor, range);
-                    }
-                    setFragmentData(event.dataTransfer, editor);
-                }
-            }, [attributes.onDragStart]), onDrop: React.useCallback((event) => {
-                if (hasTarget(editor, event.target) &&
-                    !readOnly &&
-                    !isEventHandled(event, attributes.onDrop)) {
-                    // COMPAT: Firefox doesn't fire `beforeinput` events at all, and
-                    // Chromium browsers don't properly fire them for files being
-                    // dropped into a `contenteditable`. (2019/11/26)
-                    // https://bugs.chromium.org/p/chromium/issues/detail?id=1028668
-                    if (IS_FIREFOX ||
-                        (!IS_SAFARI && event.dataTransfer.files.length > 0)) {
-                        event.preventDefault();
-                        const range = ReactEditor.findEventRange(editor, event);
-                        const data = event.dataTransfer;
-                        slate.Transforms.select(editor, range);
-                        ReactEditor.insertData(editor, data);
-                    }
-                }
-            }, [readOnly, attributes.onDrop]), onFocus: React.useCallback((event) => {
-                if (!readOnly &&
-                    !state.isUpdatingSelection &&
-                    hasEditableTarget(editor, event.target) &&
-                    !isEventHandled(event, attributes.onFocus)) {
-                    const el = ReactEditor.toDOMNode(editor, editor);
-                    state.latestElement = window.document.activeElement;
-                    // COMPAT: If the editor has nested editable elements, the focus
-                    // can go to them. In Firefox, this must be prevented because it
-                    // results in issues with keyboard navigation. (2017/03/30)
-                    if (IS_FIREFOX && event.target !== el) {
-                        el.focus();
-                        return;
-                    }
-                    IS_FOCUSED.set(editor, true);
-                }
-            }, [readOnly, attributes.onFocus]), onKeyDown: React.useCallback((event) => {
-                if (!readOnly &&
-                    hasEditableTarget(editor, event.target) &&
-                    !isEventHandled(event, attributes.onKeyDown)) {
-                    const { nativeEvent } = event;
-                    const { selection } = editor;
-                    // COMPAT: Since we prevent the default behavior on
-                    // `beforeinput` events, the browser doesn't think there's ever
-                    // any history stack to undo or redo, so we have to manage these
-                    // hotkeys ourselves. (2019/11/06)
-                    if (Hotkeys.isRedo(nativeEvent)) {
-                        event.preventDefault();
-                        if (editor.redo) {
-                            editor.redo();
-                        }
-                        return;
-                    }
-                    if (Hotkeys.isUndo(nativeEvent)) {
-                        event.preventDefault();
-                        if (editor.undo) {
-                            editor.undo();
-                        }
-                        return;
-                    }
-                    // COMPAT: Certain browsers don't handle the selection updates
-                    // properly. In Chrome, the selection isn't properly extended.
-                    // And in Firefox, the selection isn't properly collapsed.
-                    // (2017/10/17)
-                    if (Hotkeys.isMoveLineBackward(nativeEvent)) {
-                        event.preventDefault();
-                        slate.Transforms.move(editor, { unit: 'line', reverse: true });
-                        return;
-                    }
-                    if (Hotkeys.isMoveLineForward(nativeEvent)) {
-                        event.preventDefault();
-                        slate.Transforms.move(editor, { unit: 'line' });
-                        return;
-                    }
-                    if (Hotkeys.isExtendLineBackward(nativeEvent)) {
-                        event.preventDefault();
-                        slate.Transforms.move(editor, {
-                            unit: 'line',
-                            edge: 'focus',
-                            reverse: true,
-                        });
-                        return;
-                    }
-                    if (Hotkeys.isExtendLineForward(nativeEvent)) {
-                        event.preventDefault();
-                        slate.Transforms.move(editor, { unit: 'line', edge: 'focus' });
-                        return;
-                    }
-                    // COMPAT: If a void node is selected, or a zero-width text node
-                    // adjacent to an inline is selected, we need to handle these
-                    // hotkeys manually because browsers won't be able to skip over
-                    // the void node with the zero-width space not being an empty
-                    // string.
-                    if (Hotkeys.isMoveBackward(nativeEvent)) {
-                        event.preventDefault();
-                        if (selection && slate.Range.isCollapsed(selection)) {
-                            slate.Transforms.move(editor, { reverse: true });
-                        }
-                        else {
-                            slate.Transforms.collapse(editor, { edge: 'start' });
-                        }
-                        return;
-                    }
-                    if (Hotkeys.isMoveForward(nativeEvent)) {
-                        event.preventDefault();
-                        if (selection && slate.Range.isCollapsed(selection)) {
-                            slate.Transforms.move(editor);
-                        }
-                        else {
-                            slate.Transforms.collapse(editor, { edge: 'end' });
-                        }
-                        return;
-                    }
-                    if (Hotkeys.isMoveWordBackward(nativeEvent)) {
-                        event.preventDefault();
-                        slate.Transforms.move(editor, { unit: 'word', reverse: true });
-                        return;
-                    }
-                    if (Hotkeys.isMoveWordForward(nativeEvent)) {
-                        event.preventDefault();
-                        slate.Transforms.move(editor, { unit: 'word' });
-                        return;
-                    }
-                    // COMPAT: Firefox doesn't support the `beforeinput` event, so we
-                    // fall back to guessing at the input intention for hotkeys.
-                    // COMPAT: In iOS, some of these hotkeys are handled in the
-                    if (IS_FIREFOX) {
-                        // We don't have a core behavior for these, but they change the
-                        // DOM if we don't prevent them, so we have to.
-                        if (Hotkeys.isBold(nativeEvent) ||
-                            Hotkeys.isItalic(nativeEvent) ||
-                            Hotkeys.isTransposeCharacter(nativeEvent)) {
-                            event.preventDefault();
-                            return;
-                        }
-                        if (Hotkeys.isSplitBlock(nativeEvent)) {
-                            event.preventDefault();
-                            slate.Editor.insertBreak(editor);
-                            return;
-                        }
-                        if (Hotkeys.isDeleteBackward(nativeEvent)) {
-                            event.preventDefault();
-                            if (selection && slate.Range.isExpanded(selection)) {
-                                slate.Editor.deleteFragment(editor);
-                            }
-                            else {
-                                slate.Editor.deleteBackward(editor);
-                            }
-                            return;
-                        }
-                        if (Hotkeys.isDeleteForward(nativeEvent)) {
-                            event.preventDefault();
-                            if (selection && slate.Range.isExpanded(selection)) {
-                                slate.Editor.deleteFragment(editor);
-                            }
-                            else {
-                                slate.Editor.deleteForward(editor);
-                            }
-                            return;
-                        }
-                        if (Hotkeys.isDeleteLineBackward(nativeEvent)) {
-                            event.preventDefault();
-                            if (selection && slate.Range.isExpanded(selection)) {
-                                slate.Editor.deleteFragment(editor);
-                            }
-                            else {
-                                slate.Editor.deleteBackward(editor, { unit: 'line' });
-                            }
-                            return;
-                        }
-                        if (Hotkeys.isDeleteLineForward(nativeEvent)) {
-                            event.preventDefault();
-                            if (selection && slate.Range.isExpanded(selection)) {
-                                slate.Editor.deleteFragment(editor);
-                            }
-                            else {
-                                slate.Editor.deleteForward(editor, { unit: 'line' });
-                            }
-                            return;
-                        }
-                        if (Hotkeys.isDeleteWordBackward(nativeEvent)) {
-                            event.preventDefault();
-                            if (selection && slate.Range.isExpanded(selection)) {
-                                slate.Editor.deleteFragment(editor);
-                            }
-                            else {
-                                slate.Editor.deleteBackward(editor, { unit: 'word' });
-                            }
-                            return;
-                        }
-                        if (Hotkeys.isDeleteWordForward(nativeEvent)) {
-                            event.preventDefault();
-                            if (selection && slate.Range.isExpanded(selection)) {
-                                slate.Editor.deleteFragment(editor);
-                            }
-                            else {
-                                slate.Editor.deleteForward(editor, { unit: 'word' });
-                            }
-                            return;
-                        }
-                    }
-                }
-            }, [readOnly, attributes.onKeyDown]), onPaste: React.useCallback((event) => {
-                // COMPAT: Firefox doesn't support the `beforeinput` event, so we
-                // fall back to React's `onPaste` here instead.
-                if (IS_FIREFOX &&
-                    !readOnly &&
-                    hasEditableTarget(editor, event.target) &&
-                    !isEventHandled(event, attributes.onPaste)) {
-                    event.preventDefault();
-                    ReactEditor.insertData(editor, event.clipboardData);
-                }
-            }, [readOnly, attributes.onPaste]) }),
-            React__default.createElement(Children, { decorate: decorate, decorations: decorations, node: editor, renderElement: renderElement, renderLeaf: renderLeaf, selection: editor.selection }))));
+  }, [autoFocus]);
+  /**
+   * The AndroidInputManager object has a cyclical dependency on onDOMSelectionChange
+   *
+   * It is defined as a reference to simplify hook dependencies and clarify that
+   * it needs to be initialized.
+   */
+
+  var androidInputManagerRef = React.useRef(); // Listen on the native `selectionchange` event to be able to update any time
+  // the selection changes. This is required because React's `onSelect` is leaky
+  // and non-standard so it doesn't fire until after a selection has been
+  // released. This causes issues in situations where another change happens
+  // while a selection is being dragged.
+
+  var onDOMSelectionChange = React.useMemo(function () {
+    return throttle__default['default'](function () {
+      var androidInputManager = androidInputManagerRef.current;
+
+      if ((IS_ANDROID || !ReactEditor.isComposing(editor)) && (!state.isUpdatingSelection || androidInputManager !== null && androidInputManager !== void 0 && androidInputManager.isFlushing()) && !state.isDraggingInternally) {
+        var root = ReactEditor.findDocumentOrShadowRoot(editor);
+        var activeElement = root.activeElement;
+        var el = ReactEditor.toDOMNode(editor, editor);
+        var domSelection = root.getSelection();
+
+        if (activeElement === el) {
+          state.latestElement = activeElement;
+          IS_FOCUSED.set(editor, true);
+        } else {
+          IS_FOCUSED["delete"](editor);
+        }
+
+        if (!domSelection) {
+          return slate.Transforms.deselect(editor);
+        }
+
+        var anchorNode = domSelection.anchorNode,
+            focusNode = domSelection.focusNode;
+        var anchorNodeSelectable = ReactEditor.hasEditableTarget(editor, anchorNode) || ReactEditor.isTargetInsideNonReadonlyVoid(editor, anchorNode);
+        var focusNodeSelectable = ReactEditor.hasEditableTarget(editor, focusNode) || ReactEditor.isTargetInsideNonReadonlyVoid(editor, focusNode);
+
+        if (anchorNodeSelectable && focusNodeSelectable) {
+          var range = ReactEditor.toSlateRange(editor, domSelection, {
+            exactMatch: false,
+            suppressThrow: true
+          });
+
+          if (range) {
+            if (!ReactEditor.isComposing(editor) && !(androidInputManager !== null && androidInputManager !== void 0 && androidInputManager.hasPendingChanges()) && !(androidInputManager !== null && androidInputManager !== void 0 && androidInputManager.isFlushing())) {
+              slate.Transforms.select(editor, range);
+            } else {
+              androidInputManager === null || androidInputManager === void 0 ? void 0 : androidInputManager.handleUserSelect(range);
+            }
+          }
+        } // Deselect the editor if the dom selection is not selectable in readonly mode
+
+
+        if (readOnly && (!anchorNodeSelectable || !focusNodeSelectable)) {
+          slate.Transforms.deselect(editor);
+        }
+      }
+    }, 100);
+  }, [editor, readOnly, state]);
+  var scheduleOnDOMSelectionChange = React.useMemo(function () {
+    return debounce__default['default'](onDOMSelectionChange, 0);
+  }, [onDOMSelectionChange]);
+  androidInputManagerRef.current = useAndroidInputManager({
+    node: ref,
+    onDOMSelectionChange: onDOMSelectionChange,
+    scheduleOnDOMSelectionChange: scheduleOnDOMSelectionChange
+  });
+  useIsomorphicLayoutEffect(function () {
+    var _androidInputManagerR, _androidInputManagerR2;
+
+    // Update element-related weak maps with the DOM element ref.
+    var window;
+
+    if (ref.current && (window = getDefaultView(ref.current))) {
+      EDITOR_TO_WINDOW.set(editor, window);
+      EDITOR_TO_ELEMENT.set(editor, ref.current);
+      NODE_TO_ELEMENT.set(editor, ref.current);
+      ELEMENT_TO_NODE.set(ref.current, editor);
+    } else {
+      NODE_TO_ELEMENT["delete"](editor);
+    } // Make sure the DOM selection state is in sync.
+
+
+    var selection = editor.selection;
+    var root = ReactEditor.findDocumentOrShadowRoot(editor);
+    var domSelection = root.getSelection();
+
+    if (!domSelection || !ReactEditor.isFocused(editor) || (_androidInputManagerR = androidInputManagerRef.current) !== null && _androidInputManagerR !== void 0 && _androidInputManagerR.hasPendingAction()) {
+      return;
+    }
+
+    var setDomSelection = function setDomSelection(forceChange) {
+      var hasDomSelection = domSelection.type !== 'None'; // If the DOM selection is properly unset, we're done.
+
+      if (!selection && !hasDomSelection) {
+        return;
+      } // verify that the dom selection is in the editor
+
+
+      var editorElement = EDITOR_TO_ELEMENT.get(editor);
+      var hasDomSelectionInEditor = false;
+
+      if (editorElement.contains(domSelection.anchorNode) && editorElement.contains(domSelection.focusNode)) {
+        hasDomSelectionInEditor = true;
+      } // If the DOM selection is in the editor and the editor selection is already correct, we're done.
+
+
+      if (hasDomSelection && hasDomSelectionInEditor && selection && !forceChange) {
+        var slateRange = ReactEditor.toSlateRange(editor, domSelection, {
+          exactMatch: true,
+          // domSelection is not necessarily a valid Slate range
+          // (e.g. when clicking on contentEditable:false element)
+          suppressThrow: true
+        });
+
+        if (slateRange && slate.Range.equals(slateRange, selection)) {
+          var _anchorNode$parentEle;
+
+          if (!state.hasMarkPlaceholder) {
+            return;
+          } // Ensure selection is inside the mark placeholder
+
+
+          var anchorNode = domSelection.anchorNode;
+
+          if (anchorNode !== null && anchorNode !== void 0 && (_anchorNode$parentEle = anchorNode.parentElement) !== null && _anchorNode$parentEle !== void 0 && _anchorNode$parentEle.hasAttribute('data-slate-mark-placeholder')) {
+            return;
+          }
+        }
+      } // when <Editable/> is being controlled through external value
+      // then its children might just change - DOM responds to it on its own
+      // but Slate's value is not being updated through any operation
+      // and thus it doesn't transform selection on its own
+
+
+      if (selection && !ReactEditor.hasRange(editor, selection)) {
+        editor.selection = ReactEditor.toSlateRange(editor, domSelection, {
+          exactMatch: false,
+          suppressThrow: true
+        });
+        return;
+      } // Otherwise the DOM selection is out of sync, so update it.
+
+
+      state.isUpdatingSelection = true;
+      var newDomRange = selection && ReactEditor.toDOMRange(editor, selection);
+
+      if (newDomRange) {
+        if (slate.Range.isBackward(selection)) {
+          domSelection.setBaseAndExtent(newDomRange.endContainer, newDomRange.endOffset, newDomRange.startContainer, newDomRange.startOffset);
+        } else {
+          domSelection.setBaseAndExtent(newDomRange.startContainer, newDomRange.startOffset, newDomRange.endContainer, newDomRange.endOffset);
+        }
+
+        scrollSelectionIntoView(editor, newDomRange);
+      } else {
+        domSelection.removeAllRanges();
+      }
+
+      return newDomRange;
+    };
+
+    var newDomRange = setDomSelection();
+    var ensureSelection = ((_androidInputManagerR2 = androidInputManagerRef.current) === null || _androidInputManagerR2 === void 0 ? void 0 : _androidInputManagerR2.isFlushing()) === 'action';
+
+    if (!IS_ANDROID || !ensureSelection) {
+      setTimeout(function () {
+        // COMPAT: In Firefox, it's not enough to create a range, you also need
+        // to focus the contenteditable element too. (2016/11/16)
+        if (newDomRange && IS_FIREFOX) {
+          var el = ReactEditor.toDOMNode(editor, editor);
+          el.focus();
+        }
+
+        state.isUpdatingSelection = false;
+      });
+      return;
+    }
+
+    var timeoutId = null;
+    var animationFrameId = requestAnimationFrame(function () {
+      if (ensureSelection) {
+        var ensureDomSelection = function ensureDomSelection(forceChange) {
+          try {
+            var el = ReactEditor.toDOMNode(editor, editor);
+            el.focus();
+            setDomSelection(forceChange);
+          } catch (e) {// Ignore, dom and state might be out of sync
+          }
+        }; // Compat: Android IMEs try to force their selection by manually re-applying it even after we set it.
+        // This essentially would make setting the slate selection during an update meaningless, so we force it
+        // again here. We can't only do it in the setTimeout after the animation frame since that would cause a
+        // visible flicker.
+
+
+        ensureDomSelection();
+        timeoutId = setTimeout(function () {
+          // COMPAT: While setting the selection in an animation frame visually correctly sets the selection,
+          // it doesn't update GBoards spellchecker state. We have to manually trigger a selection change after
+          // the animation frame to ensure it displays the correct state.
+          ensureDomSelection(true);
+          state.isUpdatingSelection = false;
+        });
+      }
+    });
+    return function () {
+      cancelAnimationFrame(animationFrameId);
+
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }); // Listen on the native `beforeinput` event to get real "Level 2" events. This
+  // is required because React's `beforeinput` is fake and never really attaches
+  // to the real event sadly. (2019/11/01)
+  // https://github.com/facebook/react/issues/11211
+
+  var onDOMBeforeInput = React.useCallback(function (event) {
+    onUserInput();
+
+    if (!readOnly && ReactEditor.hasEditableTarget(editor, event.target) && !isDOMEventHandled(event, propsOnDOMBeforeInput)) {
+      var _EDITOR_TO_USER_SELEC;
+
+      // COMPAT: BeforeInput events aren't cancelable on android, so we have to handle them differently using the android input manager.
+      if (androidInputManagerRef.current) {
+        return androidInputManagerRef.current.handleDOMBeforeInput(event);
+      } // Some IMEs/Chrome extensions like e.g. Grammarly set the selection immediately before
+      // triggering a `beforeinput` expecting the change to be applied to the immediately before
+      // set selection.
+
+
+      scheduleOnDOMSelectionChange.flush();
+      onDOMSelectionChange.flush();
+      var selection = editor.selection;
+      var type = event.inputType;
+      var data = event.dataTransfer || event.data || undefined;
+      var isCompositionChange = type === 'insertCompositionText' || type === 'deleteCompositionText'; // COMPAT: use composition change events as a hint to where we should insert
+      // composition text if we aren't composing to work around https://github.com/ianstormtaylor/slate/issues/5038
+
+      if (isCompositionChange && ReactEditor.isComposing(editor)) {
+        return;
+      }
+
+      var _native = false;
+
+      if (type === 'insertText' && selection && slate.Range.isCollapsed(selection) && // Only use native character insertion for single characters a-z or space for now.
+      // Long-press events (hold a + press 4 = ä) to choose a special character otherwise
+      // causes duplicate inserts.
+      event.data && event.data.length === 1 && /[a-z ]/i.test(event.data) && // Chrome has issues correctly editing the start of nodes: https://bugs.chromium.org/p/chromium/issues/detail?id=1249405
+      // When there is an inline element, e.g. a link, and you select
+      // right after it (the start of the next node).
+      selection.anchor.offset !== 0) {
+        var _node$parentElement, _window$getComputedSt;
+
+        _native = true; // Skip native if there are marks, as
+        // `insertText` will insert a node, not just text.
+
+        if (editor.marks) {
+          _native = false;
+        } // Chrome also has issues correctly editing the end of anchor elements: https://bugs.chromium.org/p/chromium/issues/detail?id=1259100
+        // Therefore we don't allow native events to insert text at the end of anchor nodes.
+
+
+        var anchor = selection.anchor;
+
+        var _ReactEditor$toDOMPoi = ReactEditor.toDOMPoint(editor, anchor),
+            _ReactEditor$toDOMPoi2 = _slicedToArray(_ReactEditor$toDOMPoi, 2),
+            node = _ReactEditor$toDOMPoi2[0],
+            offset = _ReactEditor$toDOMPoi2[1];
+
+        var anchorNode = (_node$parentElement = node.parentElement) === null || _node$parentElement === void 0 ? void 0 : _node$parentElement.closest('a');
+        var window = ReactEditor.getWindow(editor);
+
+        if (_native && anchorNode && ReactEditor.hasDOMNode(editor, anchorNode)) {
+          var _lastText$textContent;
+
+          // Find the last text node inside the anchor.
+          var lastText = window === null || window === void 0 ? void 0 : window.document.createTreeWalker(anchorNode, NodeFilter.SHOW_TEXT).lastChild();
+
+          if (lastText === node && ((_lastText$textContent = lastText.textContent) === null || _lastText$textContent === void 0 ? void 0 : _lastText$textContent.length) === offset) {
+            _native = false;
+          }
+        } // Chrome has issues with the presence of tab characters inside elements with whiteSpace = 'pre'
+        // causing abnormal insert behavior: https://bugs.chromium.org/p/chromium/issues/detail?id=1219139
+
+
+        if (_native && node.parentElement && (window === null || window === void 0 ? void 0 : (_window$getComputedSt = window.getComputedStyle(node.parentElement)) === null || _window$getComputedSt === void 0 ? void 0 : _window$getComputedSt.whiteSpace) === 'pre') {
+          var block = slate.Editor.above(editor, {
+            at: anchor.path,
+            match: function match(n) {
+              return slate.Element.isElement(n) && slate.Editor.isBlock(editor, n);
+            }
+          });
+
+          if (block && slate.Node.string(block[0]).includes('\t')) {
+            _native = false;
+          }
+        }
+      } // COMPAT: For the deleting forward/backward input types we don't want
+      // to change the selection because it is the range that will be deleted,
+      // and those commands determine that for themselves.
+
+
+      if (!type.startsWith('delete') || type.startsWith('deleteBy')) {
+        var _event$getTargetRange = event.getTargetRanges(),
+            _event$getTargetRange2 = _slicedToArray(_event$getTargetRange, 1),
+            targetRange = _event$getTargetRange2[0];
+
+        if (targetRange) {
+          var range = ReactEditor.toSlateRange(editor, targetRange, {
+            exactMatch: false,
+            suppressThrow: false
+          });
+
+          if (!selection || !slate.Range.equals(selection, range)) {
+            _native = false;
+            var selectionRef = !isCompositionChange && editor.selection && slate.Editor.rangeRef(editor, editor.selection);
+            slate.Transforms.select(editor, range);
+
+            if (selectionRef) {
+              EDITOR_TO_USER_SELECTION.set(editor, selectionRef);
+            }
+          }
+        }
+      } // Composition change types occur while a user is composing text and can't be
+      // cancelled. Let them through and wait for the composition to end.
+
+
+      if (isCompositionChange) {
+        return;
+      }
+
+      if (!_native) {
+        event.preventDefault();
+      } // COMPAT: If the selection is expanded, even if the command seems like
+      // a delete forward/backward command it should delete the selection.
+
+
+      if (selection && slate.Range.isExpanded(selection) && type.startsWith('delete')) {
+        var direction = type.endsWith('Backward') ? 'backward' : 'forward';
+        slate.Editor.deleteFragment(editor, {
+          direction: direction
+        });
+        return;
+      }
+
+      switch (type) {
+        case 'deleteByComposition':
+        case 'deleteByCut':
+        case 'deleteByDrag':
+          {
+            slate.Editor.deleteFragment(editor);
+            break;
+          }
+
+        case 'deleteContent':
+        case 'deleteContentForward':
+          {
+            slate.Editor.deleteForward(editor);
+            break;
+          }
+
+        case 'deleteContentBackward':
+          {
+            slate.Editor.deleteBackward(editor);
+            break;
+          }
+
+        case 'deleteEntireSoftLine':
+          {
+            slate.Editor.deleteBackward(editor, {
+              unit: 'line'
+            });
+            slate.Editor.deleteForward(editor, {
+              unit: 'line'
+            });
+            break;
+          }
+
+        case 'deleteHardLineBackward':
+          {
+            slate.Editor.deleteBackward(editor, {
+              unit: 'block'
+            });
+            break;
+          }
+
+        case 'deleteSoftLineBackward':
+          {
+            slate.Editor.deleteBackward(editor, {
+              unit: 'line'
+            });
+            break;
+          }
+
+        case 'deleteHardLineForward':
+          {
+            slate.Editor.deleteForward(editor, {
+              unit: 'block'
+            });
+            break;
+          }
+
+        case 'deleteSoftLineForward':
+          {
+            slate.Editor.deleteForward(editor, {
+              unit: 'line'
+            });
+            break;
+          }
+
+        case 'deleteWordBackward':
+          {
+            slate.Editor.deleteBackward(editor, {
+              unit: 'word'
+            });
+            break;
+          }
+
+        case 'deleteWordForward':
+          {
+            slate.Editor.deleteForward(editor, {
+              unit: 'word'
+            });
+            break;
+          }
+
+        case 'insertLineBreak':
+          slate.Editor.insertSoftBreak(editor);
+          break;
+
+        case 'insertParagraph':
+          {
+            slate.Editor.insertBreak(editor);
+            break;
+          }
+
+        case 'insertFromComposition':
+        case 'insertFromDrop':
+        case 'insertFromPaste':
+        case 'insertFromYank':
+        case 'insertReplacementText':
+        case 'insertText':
+          {
+            if (type === 'insertFromComposition') {
+              // COMPAT: in Safari, `compositionend` is dispatched after the
+              // `beforeinput` for "insertFromComposition". But if we wait for it
+              // then we will abort because we're still composing and the selection
+              // won't be updated properly.
+              // https://www.w3.org/TR/input-events-2/
+              if (ReactEditor.isComposing(editor)) {
+                setIsComposing(false);
+                IS_COMPOSING.set(editor, false);
+              }
+            } // use a weak comparison instead of 'instanceof' to allow
+            // programmatic access of paste events coming from external windows
+            // like cypress where cy.window does not work realibly
+
+
+            if ((data === null || data === void 0 ? void 0 : data.constructor.name) === 'DataTransfer') {
+              ReactEditor.insertData(editor, data);
+            } else if (typeof data === 'string') {
+              // Only insertText operations use the native functionality, for now.
+              // Potentially expand to single character deletes, as well.
+              if (_native) {
+                deferredOperations.current.push(function () {
+                  return slate.Editor.insertText(editor, data);
+                });
+              } else {
+                slate.Editor.insertText(editor, data);
+              }
+            }
+
+            break;
+          }
+      } // Restore the actual user section if nothing manually set it.
+
+
+      var toRestore = (_EDITOR_TO_USER_SELEC = EDITOR_TO_USER_SELECTION.get(editor)) === null || _EDITOR_TO_USER_SELEC === void 0 ? void 0 : _EDITOR_TO_USER_SELEC.unref();
+      EDITOR_TO_USER_SELECTION["delete"](editor);
+
+      if (toRestore && (!editor.selection || !slate.Range.equals(editor.selection, toRestore))) {
+        slate.Transforms.select(editor, toRestore);
+      }
+    }
+  }, [editor, onDOMSelectionChange, onUserInput, propsOnDOMBeforeInput, readOnly, scheduleOnDOMSelectionChange]);
+  var callbackRef = React.useCallback(function (node) {
+    if (node == null) {
+      onDOMSelectionChange.cancel();
+      scheduleOnDOMSelectionChange.cancel();
+      EDITOR_TO_ELEMENT["delete"](editor);
+      NODE_TO_ELEMENT["delete"](editor);
+
+      if (ref.current && HAS_BEFORE_INPUT_SUPPORT) {
+        // @ts-ignore The `beforeinput` event isn't recognized.
+        ref.current.removeEventListener('beforeinput', onDOMBeforeInput);
+      }
+    } else {
+      // Attach a native DOM event handler for `beforeinput` events, because React's
+      // built-in `onBeforeInput` is actually a leaky polyfill that doesn't expose
+      // real `beforeinput` events sadly... (2019/11/04)
+      // https://github.com/facebook/react/issues/11211
+      if (HAS_BEFORE_INPUT_SUPPORT) {
+        // @ts-ignore The `beforeinput` event isn't recognized.
+        node.addEventListener('beforeinput', onDOMBeforeInput);
+      }
+    }
+
+    ref.current = node;
+  }, [onDOMSelectionChange, scheduleOnDOMSelectionChange, editor, onDOMBeforeInput]); // Attach a native DOM event handler for `selectionchange`, because React's
+  // built-in `onSelect` handler doesn't fire for all selection changes. It's a
+  // leaky polyfill that only fires on keypresses or clicks. Instead, we want to
+  // fire for any change to the selection inside the editor. (2019/11/04)
+  // https://github.com/facebook/react/issues/5785
+
+  useIsomorphicLayoutEffect(function () {
+    var window = ReactEditor.getWindow(editor);
+    window.document.addEventListener('selectionchange', scheduleOnDOMSelectionChange);
+    return function () {
+      window.document.removeEventListener('selectionchange', scheduleOnDOMSelectionChange);
+    };
+  }, [scheduleOnDOMSelectionChange]);
+  var decorations = decorate([editor, []]);
+  var showPlaceholder = placeholder && editor.children.length === 1 && Array.from(slate.Node.texts(editor)).length === 1 && slate.Node.string(editor) === '' && !isComposing;
+  var placeHolderResizeHandler = React.useCallback(function (placeholderEl) {
+    if (placeholderEl && showPlaceholder) {
+      var _placeholderEl$getBou;
+
+      setPlaceholderHeight((_placeholderEl$getBou = placeholderEl.getBoundingClientRect()) === null || _placeholderEl$getBou === void 0 ? void 0 : _placeholderEl$getBou.height);
+    } else {
+      setPlaceholderHeight(undefined);
+    }
+  }, [showPlaceholder]);
+
+  if (showPlaceholder) {
+    var _decorations$push;
+
+    var start = slate.Editor.start(editor, []);
+    decorations.push((_decorations$push = {}, _defineProperty(_decorations$push, PLACEHOLDER_SYMBOL, true), _defineProperty(_decorations$push, "placeholder", placeholder), _defineProperty(_decorations$push, "onPlaceholderResize", placeHolderResizeHandler), _defineProperty(_decorations$push, "anchor", start), _defineProperty(_decorations$push, "focus", start), _decorations$push));
+  }
+
+  var marks = editor.marks;
+  state.hasMarkPlaceholder = false;
+
+  if (editor.selection && slate.Range.isCollapsed(editor.selection) && marks) {
+    var anchor = editor.selection.anchor;
+    var leaf = slate.Node.leaf(editor, anchor.path);
+
+    leaf.text;
+        var rest = _objectWithoutProperties(leaf, _excluded2); // While marks isn't a 'complete' text, we can still use loose Text.equals
+    // here which only compares marks anyway.
+
+
+    if (!slate.Text.equals(leaf, marks, {
+      loose: true
+    })) {
+      state.hasMarkPlaceholder = true;
+      var unset = Object.fromEntries(Object.keys(rest).map(function (mark) {
+        return [mark, null];
+      }));
+      decorations.push(_objectSpread$1(_objectSpread$1(_objectSpread$1(_defineProperty({}, MARK_PLACEHOLDER_SYMBOL, true), unset), marks), {}, {
+        anchor: anchor,
+        focus: anchor
+      }));
+    }
+  } // Update EDITOR_TO_MARK_PLACEHOLDER_MARKS in setTimeout useEffect to ensure we don't set it
+  // before we receive the composition end event.
+
+
+  React.useEffect(function () {
+    setTimeout(function () {
+      var selection = editor.selection;
+
+      if (selection) {
+        var _anchor = selection.anchor;
+
+        var _text = slate.Node.leaf(editor, _anchor.path); // While marks isn't a 'complete' text, we can still use loose Text.equals
+        // here which only compares marks anyway.
+
+
+        if (marks && !slate.Text.equals(_text, marks, {
+          loose: true
+        })) {
+          EDITOR_TO_PENDING_INSERTION_MARKS.set(editor, marks);
+          return;
+        }
+      }
+
+      EDITOR_TO_PENDING_INSERTION_MARKS["delete"](editor);
+    });
+  });
+  return /*#__PURE__*/React__default['default'].createElement(ReadOnlyContext.Provider, {
+    value: readOnly
+  }, /*#__PURE__*/React__default['default'].createElement(DecorateContext.Provider, {
+    value: decorate
+  }, /*#__PURE__*/React__default['default'].createElement(RestoreDOM, {
+    node: ref,
+    receivedUserInput: receivedUserInput
+  }, /*#__PURE__*/React__default['default'].createElement(Component, Object.assign({
+    role: readOnly ? undefined : 'textbox',
+    "aria-multiline": readOnly ? undefined : true
+  }, attributes, {
+    // COMPAT: Certain browsers don't support the `beforeinput` event, so we'd
+    // have to use hacks to make these replacement-based features work.
+    // For SSR situations HAS_BEFORE_INPUT_SUPPORT is false and results in prop
+    // mismatch warning app moves to browser. Pass-through consumer props when
+    // not CAN_USE_DOM (SSR) and default to falsy value
+    spellCheck: HAS_BEFORE_INPUT_SUPPORT || !CAN_USE_DOM ? attributes.spellCheck : false,
+    autoCorrect: HAS_BEFORE_INPUT_SUPPORT || !CAN_USE_DOM ? attributes.autoCorrect : 'false',
+    autoCapitalize: HAS_BEFORE_INPUT_SUPPORT || !CAN_USE_DOM ? attributes.autoCapitalize : 'false',
+    "data-slate-editor": true,
+    "data-slate-node": "value",
+    // explicitly set this
+    contentEditable: !readOnly,
+    // in some cases, a decoration needs access to the range / selection to decorate a text node,
+    // then you will select the whole text node when you select part the of text
+    // this magic zIndex="-1" will fix it
+    zindex: -1,
+    suppressContentEditableWarning: true,
+    ref: callbackRef,
+    style: _objectSpread$1(_objectSpread$1({}, disableDefaultStyles ? {} : _objectSpread$1({
+      // Allow positioning relative to the editable element.
+      position: 'relative',
+      // Prevent the default outline styles.
+      outline: 'none',
+      // Preserve adjacent whitespace and new lines.
+      whiteSpace: 'pre-wrap',
+      // Allow words to break if they are too long.
+      wordWrap: 'break-word'
+    }, placeholderHeight ? {
+      minHeight: placeholderHeight
+    } : {})), userStyle),
+    onBeforeInput: React.useCallback(function (event) {
+      // COMPAT: Certain browsers don't support the `beforeinput` event, so we
+      // fall back to React's leaky polyfill instead just for it. It
+      // only works for the `insertText` input type.
+      if (!HAS_BEFORE_INPUT_SUPPORT && !readOnly && !isEventHandled(event, attributes.onBeforeInput) && ReactEditor.hasSelectableTarget(editor, event.target)) {
+        event.preventDefault();
+
+        if (!ReactEditor.isComposing(editor)) {
+          var _text2 = event.data;
+          slate.Editor.insertText(editor, _text2);
+        }
+      }
+    }, [attributes.onBeforeInput, editor, readOnly]),
+    onInput: React.useCallback(function (event) {
+      if (isEventHandled(event, attributes.onInput)) {
+        return;
+      }
+
+      if (androidInputManagerRef.current) {
+        androidInputManagerRef.current.handleInput();
+        return;
+      } // Flush native operations, as native events will have propogated
+      // and we can correctly compare DOM text values in components
+      // to stop rendering, so that browser functions like autocorrect
+      // and spellcheck work as expected.
+
+
+      var _iterator = _createForOfIteratorHelper$1(deferredOperations.current),
+          _step;
+
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var op = _step.value;
+          op();
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+
+      deferredOperations.current = [];
+    }, [attributes.onInput]),
+    onBlur: React.useCallback(function (event) {
+      if (readOnly || state.isUpdatingSelection || !ReactEditor.hasSelectableTarget(editor, event.target) || isEventHandled(event, attributes.onBlur)) {
+        return;
+      } // COMPAT: If the current `activeElement` is still the previous
+      // one, this is due to the window being blurred when the tab
+      // itself becomes unfocused, so we want to abort early to allow to
+      // editor to stay focused when the tab becomes focused again.
+
+
+      var root = ReactEditor.findDocumentOrShadowRoot(editor);
+
+      if (state.latestElement === root.activeElement) {
+        return;
+      }
+
+      var relatedTarget = event.relatedTarget;
+      var el = ReactEditor.toDOMNode(editor, editor); // COMPAT: The event should be ignored if the focus is returning
+      // to the editor from an embedded editable element (eg. an <input>
+      // element inside a void node).
+
+      if (relatedTarget === el) {
+        return;
+      } // COMPAT: The event should be ignored if the focus is moving from
+      // the editor to inside a void node's spacer element.
+
+
+      if (isDOMElement(relatedTarget) && relatedTarget.hasAttribute('data-slate-spacer')) {
+        return;
+      } // COMPAT: The event should be ignored if the focus is moving to a
+      // non- editable section of an element that isn't a void node (eg.
+      // a list item of the check list example).
+
+
+      if (relatedTarget != null && isDOMNode(relatedTarget) && ReactEditor.hasDOMNode(editor, relatedTarget)) {
+        var node = ReactEditor.toSlateNode(editor, relatedTarget);
+
+        if (slate.Element.isElement(node) && !editor.isVoid(node)) {
+          return;
+        }
+      } // COMPAT: Safari doesn't always remove the selection even if the content-
+      // editable element no longer has focus. Refer to:
+      // https://stackoverflow.com/questions/12353247/force-contenteditable-div-to-stop-accepting-input-after-it-loses-focus-under-web
+
+
+      if (IS_SAFARI) {
+        var domSelection = root.getSelection();
+        domSelection === null || domSelection === void 0 ? void 0 : domSelection.removeAllRanges();
+      }
+
+      IS_FOCUSED["delete"](editor);
+    }, [readOnly, state.isUpdatingSelection, state.latestElement, editor, attributes.onBlur]),
+    onClick: React.useCallback(function (event) {
+      if (ReactEditor.hasTarget(editor, event.target) && !isEventHandled(event, attributes.onClick) && isDOMNode(event.target)) {
+        var node = ReactEditor.toSlateNode(editor, event.target);
+        var path = ReactEditor.findPath(editor, node); // At this time, the Slate document may be arbitrarily different,
+        // because onClick handlers can change the document before we get here.
+        // Therefore we must check that this path actually exists,
+        // and that it still refers to the same node.
+
+        if (!slate.Editor.hasPath(editor, path) || slate.Node.get(editor, path) !== node) {
+          return;
+        }
+
+        if (event.detail === TRIPLE_CLICK && path.length >= 1) {
+          var blockPath = path;
+
+          if (!(slate.Element.isElement(node) && slate.Editor.isBlock(editor, node))) {
+            var _block$;
+
+            var block = slate.Editor.above(editor, {
+              match: function match(n) {
+                return slate.Element.isElement(n) && slate.Editor.isBlock(editor, n);
+              },
+              at: path
+            });
+            blockPath = (_block$ = block === null || block === void 0 ? void 0 : block[1]) !== null && _block$ !== void 0 ? _block$ : path.slice(0, 1);
+          }
+
+          var range = slate.Editor.range(editor, blockPath);
+          slate.Transforms.select(editor, range);
+          return;
+        }
+
+        if (readOnly) {
+          return;
+        }
+
+        var _start = slate.Editor.start(editor, path);
+
+        var end = slate.Editor.end(editor, path);
+        var startVoid = slate.Editor["void"](editor, {
+          at: _start
+        });
+        var endVoid = slate.Editor["void"](editor, {
+          at: end
+        });
+
+        if (startVoid && endVoid && slate.Path.equals(startVoid[1], endVoid[1])) {
+          var _range = slate.Editor.range(editor, _start);
+
+          slate.Transforms.select(editor, _range);
+        }
+      }
+    }, [editor, attributes.onClick, readOnly]),
+    onCompositionEnd: React.useCallback(function (event) {
+      if (ReactEditor.hasSelectableTarget(editor, event.target)) {
+        var _androidInputManagerR3;
+
+        if (ReactEditor.isComposing(editor)) {
+          setIsComposing(false);
+          IS_COMPOSING.set(editor, false);
+        }
+
+        (_androidInputManagerR3 = androidInputManagerRef.current) === null || _androidInputManagerR3 === void 0 ? void 0 : _androidInputManagerR3.handleCompositionEnd(event);
+
+        if (isEventHandled(event, attributes.onCompositionEnd) || IS_ANDROID) {
+          return;
+        } // COMPAT: In Chrome, `beforeinput` events for compositions
+        // aren't correct and never fire the "insertFromComposition"
+        // type that we need. So instead, insert whenever a composition
+        // ends since it will already have been committed to the DOM.
+
+
+        if (!IS_SAFARI && !IS_FIREFOX_LEGACY && !IS_IOS && !IS_WECHATBROWSER && !IS_UC_MOBILE && event.data) {
+          var placeholderMarks = EDITOR_TO_PENDING_INSERTION_MARKS.get(editor);
+          EDITOR_TO_PENDING_INSERTION_MARKS["delete"](editor); // Ensure we insert text with the marks the user was actually seeing
+
+          if (placeholderMarks !== undefined) {
+            EDITOR_TO_USER_MARKS.set(editor, editor.marks);
+            editor.marks = placeholderMarks;
+          }
+
+          slate.Editor.insertText(editor, event.data);
+          var userMarks = EDITOR_TO_USER_MARKS.get(editor);
+          EDITOR_TO_USER_MARKS["delete"](editor);
+
+          if (userMarks !== undefined) {
+            editor.marks = userMarks;
+          }
+        }
+      }
+    }, [attributes.onCompositionEnd, editor]),
+    onCompositionUpdate: React.useCallback(function (event) {
+      if (ReactEditor.hasSelectableTarget(editor, event.target) && !isEventHandled(event, attributes.onCompositionUpdate)) {
+        if (!ReactEditor.isComposing(editor)) {
+          setIsComposing(true);
+          IS_COMPOSING.set(editor, true);
+        }
+      }
+    }, [attributes.onCompositionUpdate, editor]),
+    onCompositionStart: React.useCallback(function (event) {
+      if (ReactEditor.hasSelectableTarget(editor, event.target)) {
+        var _androidInputManagerR4;
+
+        (_androidInputManagerR4 = androidInputManagerRef.current) === null || _androidInputManagerR4 === void 0 ? void 0 : _androidInputManagerR4.handleCompositionStart(event);
+
+        if (isEventHandled(event, attributes.onCompositionStart) || IS_ANDROID) {
+          return;
+        }
+
+        setIsComposing(true);
+        var selection = editor.selection;
+
+        if (selection) {
+          if (slate.Range.isExpanded(selection)) {
+            slate.Editor.deleteFragment(editor);
+            return;
+          }
+
+          var inline = slate.Editor.above(editor, {
+            match: function match(n) {
+              return slate.Element.isElement(n) && slate.Editor.isInline(editor, n);
+            },
+            mode: 'highest'
+          });
+
+          if (inline) {
+            var _inline = _slicedToArray(inline, 2),
+                inlinePath = _inline[1];
+
+            if (slate.Editor.isEnd(editor, selection.anchor, inlinePath)) {
+              var point = slate.Editor.after(editor, inlinePath);
+              slate.Transforms.setSelection(editor, {
+                anchor: point,
+                focus: point
+              });
+            }
+          }
+        }
+      }
+    }, [attributes.onCompositionStart, editor]),
+    onCopy: React.useCallback(function (event) {
+      if (ReactEditor.hasSelectableTarget(editor, event.target) && !isEventHandled(event, attributes.onCopy) && !isDOMEventTargetInput(event)) {
+        event.preventDefault();
+        ReactEditor.setFragmentData(editor, event.clipboardData, 'copy');
+      }
+    }, [attributes.onCopy, editor]),
+    onCut: React.useCallback(function (event) {
+      if (!readOnly && ReactEditor.hasSelectableTarget(editor, event.target) && !isEventHandled(event, attributes.onCut) && !isDOMEventTargetInput(event)) {
+        event.preventDefault();
+        ReactEditor.setFragmentData(editor, event.clipboardData, 'cut');
+        var selection = editor.selection;
+
+        if (selection) {
+          if (slate.Range.isExpanded(selection)) {
+            slate.Editor.deleteFragment(editor);
+          } else {
+            var node = slate.Node.parent(editor, selection.anchor.path);
+
+            if (slate.Editor.isVoid(editor, node)) {
+              slate.Transforms["delete"](editor);
+            }
+          }
+        }
+      }
+    }, [readOnly, editor, attributes.onCut]),
+    onDragOver: React.useCallback(function (event) {
+      if (ReactEditor.hasTarget(editor, event.target) && !isEventHandled(event, attributes.onDragOver)) {
+        // Only when the target is void, call `preventDefault` to signal
+        // that drops are allowed. Editable content is droppable by
+        // default, and calling `preventDefault` hides the cursor.
+        var node = ReactEditor.toSlateNode(editor, event.target);
+
+        if (slate.Element.isElement(node) && slate.Editor.isVoid(editor, node)) {
+          event.preventDefault();
+        }
+      }
+    }, [attributes.onDragOver, editor]),
+    onDragStart: React.useCallback(function (event) {
+      if (!readOnly && ReactEditor.hasTarget(editor, event.target) && !isEventHandled(event, attributes.onDragStart)) {
+        var node = ReactEditor.toSlateNode(editor, event.target);
+        var path = ReactEditor.findPath(editor, node);
+        var voidMatch = slate.Element.isElement(node) && slate.Editor.isVoid(editor, node) || slate.Editor["void"](editor, {
+          at: path,
+          voids: true
+        }); // If starting a drag on a void node, make sure it is selected
+        // so that it shows up in the selection's fragment.
+
+        if (voidMatch) {
+          var range = slate.Editor.range(editor, path);
+          slate.Transforms.select(editor, range);
+        }
+
+        state.isDraggingInternally = true;
+        ReactEditor.setFragmentData(editor, event.dataTransfer, 'drag');
+      }
+    }, [readOnly, editor, attributes.onDragStart, state]),
+    onDrop: React.useCallback(function (event) {
+      if (!readOnly && ReactEditor.hasTarget(editor, event.target) && !isEventHandled(event, attributes.onDrop)) {
+        event.preventDefault(); // Keep a reference to the dragged range before updating selection
+
+        var draggedRange = editor.selection; // Find the range where the drop happened
+
+        var range = ReactEditor.findEventRange(editor, event);
+        var data = event.dataTransfer;
+        slate.Transforms.select(editor, range);
+
+        if (state.isDraggingInternally) {
+          if (draggedRange && !slate.Range.equals(draggedRange, range) && !slate.Editor["void"](editor, {
+            at: range,
+            voids: true
+          })) {
+            slate.Transforms["delete"](editor, {
+              at: draggedRange
+            });
+          }
+        }
+
+        ReactEditor.insertData(editor, data); // When dragging from another source into the editor, it's possible
+        // that the current editor does not have focus.
+
+        if (!ReactEditor.isFocused(editor)) {
+          ReactEditor.focus(editor);
+        }
+      }
+
+      state.isDraggingInternally = false;
+    }, [readOnly, editor, attributes.onDrop, state]),
+    onDragEnd: React.useCallback(function (event) {
+      if (!readOnly && state.isDraggingInternally && attributes.onDragEnd && ReactEditor.hasTarget(editor, event.target)) {
+        attributes.onDragEnd(event);
+      } // When dropping on a different droppable element than the current editor,
+      // `onDrop` is not called. So we need to clean up in `onDragEnd` instead.
+      // Note: `onDragEnd` is only called when `onDrop` is not called
+
+
+      state.isDraggingInternally = false;
+    }, [readOnly, state, attributes, editor]),
+    onFocus: React.useCallback(function (event) {
+      if (!readOnly && !state.isUpdatingSelection && ReactEditor.hasEditableTarget(editor, event.target) && !isEventHandled(event, attributes.onFocus)) {
+        var el = ReactEditor.toDOMNode(editor, editor);
+        var root = ReactEditor.findDocumentOrShadowRoot(editor);
+        state.latestElement = root.activeElement; // COMPAT: If the editor has nested editable elements, the focus
+        // can go to them. In Firefox, this must be prevented because it
+        // results in issues with keyboard navigation. (2017/03/30)
+
+        if (IS_FIREFOX && event.target !== el) {
+          el.focus();
+          return;
+        }
+
+        IS_FOCUSED.set(editor, true);
+      }
+    }, [readOnly, state, editor, attributes.onFocus]),
+    onKeyDown: React.useCallback(function (event) {
+      if (!readOnly && ReactEditor.hasEditableTarget(editor, event.target)) {
+        var _androidInputManagerR5;
+
+        (_androidInputManagerR5 = androidInputManagerRef.current) === null || _androidInputManagerR5 === void 0 ? void 0 : _androidInputManagerR5.handleKeyDown(event);
+        var nativeEvent = event.nativeEvent; // COMPAT: The composition end event isn't fired reliably in all browsers,
+        // so we sometimes might end up stuck in a composition state even though we
+        // aren't composing any more.
+
+        if (ReactEditor.isComposing(editor) && nativeEvent.isComposing === false) {
+          IS_COMPOSING.set(editor, false);
+          setIsComposing(false);
+        }
+
+        if (isEventHandled(event, attributes.onKeyDown) || ReactEditor.isComposing(editor)) {
+          return;
+        }
+
+        var selection = editor.selection;
+        var element = editor.children[selection !== null ? selection.focus.path[0] : 0];
+        var isRTL = getDirection__default['default'](slate.Node.string(element)) === 'rtl'; // COMPAT: Since we prevent the default behavior on
+        // `beforeinput` events, the browser doesn't think there's ever
+        // any history stack to undo or redo, so we have to manage these
+        // hotkeys ourselves. (2019/11/06)
+
+        if (Hotkeys.isRedo(nativeEvent)) {
+          event.preventDefault();
+          var maybeHistoryEditor = editor;
+
+          if (typeof maybeHistoryEditor.redo === 'function') {
+            maybeHistoryEditor.redo();
+          }
+
+          return;
+        }
+
+        if (Hotkeys.isUndo(nativeEvent)) {
+          event.preventDefault();
+          var _maybeHistoryEditor = editor;
+
+          if (typeof _maybeHistoryEditor.undo === 'function') {
+            _maybeHistoryEditor.undo();
+          }
+
+          return;
+        } // COMPAT: Certain browsers don't handle the selection updates
+        // properly. In Chrome, the selection isn't properly extended.
+        // And in Firefox, the selection isn't properly collapsed.
+        // (2017/10/17)
+
+
+        if (Hotkeys.isMoveLineBackward(nativeEvent)) {
+          event.preventDefault();
+          slate.Transforms.move(editor, {
+            unit: 'line',
+            reverse: true
+          });
+          return;
+        }
+
+        if (Hotkeys.isMoveLineForward(nativeEvent)) {
+          event.preventDefault();
+          slate.Transforms.move(editor, {
+            unit: 'line'
+          });
+          return;
+        }
+
+        if (Hotkeys.isExtendLineBackward(nativeEvent)) {
+          event.preventDefault();
+          slate.Transforms.move(editor, {
+            unit: 'line',
+            edge: 'focus',
+            reverse: true
+          });
+          return;
+        }
+
+        if (Hotkeys.isExtendLineForward(nativeEvent)) {
+          event.preventDefault();
+          slate.Transforms.move(editor, {
+            unit: 'line',
+            edge: 'focus'
+          });
+          return;
+        } // COMPAT: If a void node is selected, or a zero-width text node
+        // adjacent to an inline is selected, we need to handle these
+        // hotkeys manually because browsers won't be able to skip over
+        // the void node with the zero-width space not being an empty
+        // string.
+
+
+        if (Hotkeys.isMoveBackward(nativeEvent)) {
+          event.preventDefault();
+
+          if (selection && slate.Range.isCollapsed(selection)) {
+            slate.Transforms.move(editor, {
+              reverse: !isRTL
+            });
+          } else {
+            slate.Transforms.collapse(editor, {
+              edge: 'start'
+            });
+          }
+
+          return;
+        }
+
+        if (Hotkeys.isMoveForward(nativeEvent)) {
+          event.preventDefault();
+
+          if (selection && slate.Range.isCollapsed(selection)) {
+            slate.Transforms.move(editor, {
+              reverse: isRTL
+            });
+          } else {
+            slate.Transforms.collapse(editor, {
+              edge: 'end'
+            });
+          }
+
+          return;
+        }
+
+        if (Hotkeys.isMoveWordBackward(nativeEvent)) {
+          event.preventDefault();
+
+          if (selection && slate.Range.isExpanded(selection)) {
+            slate.Transforms.collapse(editor, {
+              edge: 'focus'
+            });
+          }
+
+          slate.Transforms.move(editor, {
+            unit: 'word',
+            reverse: !isRTL
+          });
+          return;
+        }
+
+        if (Hotkeys.isMoveWordForward(nativeEvent)) {
+          event.preventDefault();
+
+          if (selection && slate.Range.isExpanded(selection)) {
+            slate.Transforms.collapse(editor, {
+              edge: 'focus'
+            });
+          }
+
+          slate.Transforms.move(editor, {
+            unit: 'word',
+            reverse: isRTL
+          });
+          return;
+        } // COMPAT: Certain browsers don't support the `beforeinput` event, so we
+        // fall back to guessing at the input intention for hotkeys.
+        // COMPAT: In iOS, some of these hotkeys are handled in the
+
+
+        if (!HAS_BEFORE_INPUT_SUPPORT) {
+          // We don't have a core behavior for these, but they change the
+          // DOM if we don't prevent them, so we have to.
+          if (Hotkeys.isBold(nativeEvent) || Hotkeys.isItalic(nativeEvent) || Hotkeys.isTransposeCharacter(nativeEvent)) {
+            event.preventDefault();
+            return;
+          }
+
+          if (Hotkeys.isSoftBreak(nativeEvent)) {
+            event.preventDefault();
+            slate.Editor.insertSoftBreak(editor);
+            return;
+          }
+
+          if (Hotkeys.isSplitBlock(nativeEvent)) {
+            event.preventDefault();
+            slate.Editor.insertBreak(editor);
+            return;
+          }
+
+          if (Hotkeys.isDeleteBackward(nativeEvent)) {
+            event.preventDefault();
+
+            if (selection && slate.Range.isExpanded(selection)) {
+              slate.Editor.deleteFragment(editor, {
+                direction: 'backward'
+              });
+            } else {
+              slate.Editor.deleteBackward(editor);
+            }
+
+            return;
+          }
+
+          if (Hotkeys.isDeleteForward(nativeEvent)) {
+            event.preventDefault();
+
+            if (selection && slate.Range.isExpanded(selection)) {
+              slate.Editor.deleteFragment(editor, {
+                direction: 'forward'
+              });
+            } else {
+              slate.Editor.deleteForward(editor);
+            }
+
+            return;
+          }
+
+          if (Hotkeys.isDeleteLineBackward(nativeEvent)) {
+            event.preventDefault();
+
+            if (selection && slate.Range.isExpanded(selection)) {
+              slate.Editor.deleteFragment(editor, {
+                direction: 'backward'
+              });
+            } else {
+              slate.Editor.deleteBackward(editor, {
+                unit: 'line'
+              });
+            }
+
+            return;
+          }
+
+          if (Hotkeys.isDeleteLineForward(nativeEvent)) {
+            event.preventDefault();
+
+            if (selection && slate.Range.isExpanded(selection)) {
+              slate.Editor.deleteFragment(editor, {
+                direction: 'forward'
+              });
+            } else {
+              slate.Editor.deleteForward(editor, {
+                unit: 'line'
+              });
+            }
+
+            return;
+          }
+
+          if (Hotkeys.isDeleteWordBackward(nativeEvent)) {
+            event.preventDefault();
+
+            if (selection && slate.Range.isExpanded(selection)) {
+              slate.Editor.deleteFragment(editor, {
+                direction: 'backward'
+              });
+            } else {
+              slate.Editor.deleteBackward(editor, {
+                unit: 'word'
+              });
+            }
+
+            return;
+          }
+
+          if (Hotkeys.isDeleteWordForward(nativeEvent)) {
+            event.preventDefault();
+
+            if (selection && slate.Range.isExpanded(selection)) {
+              slate.Editor.deleteFragment(editor, {
+                direction: 'forward'
+              });
+            } else {
+              slate.Editor.deleteForward(editor, {
+                unit: 'word'
+              });
+            }
+
+            return;
+          }
+        } else {
+          if (IS_CHROME || IS_SAFARI) {
+            // COMPAT: Chrome and Safari support `beforeinput` event but do not fire
+            // an event when deleting backwards in a selected void inline node
+            if (selection && (Hotkeys.isDeleteBackward(nativeEvent) || Hotkeys.isDeleteForward(nativeEvent)) && slate.Range.isCollapsed(selection)) {
+              var currentNode = slate.Node.parent(editor, selection.anchor.path);
+
+              if (slate.Element.isElement(currentNode) && slate.Editor.isVoid(editor, currentNode) && (slate.Editor.isInline(editor, currentNode) || slate.Editor.isBlock(editor, currentNode))) {
+                event.preventDefault();
+                slate.Editor.deleteBackward(editor, {
+                  unit: 'block'
+                });
+                return;
+              }
+            }
+          }
+        }
+      }
+    }, [readOnly, editor, attributes.onKeyDown]),
+    onPaste: React.useCallback(function (event) {
+      if (!readOnly && ReactEditor.hasEditableTarget(editor, event.target) && !isEventHandled(event, attributes.onPaste)) {
+        // COMPAT: Certain browsers don't support the `beforeinput` event, so we
+        // fall back to React's `onPaste` here instead.
+        // COMPAT: Firefox, Chrome and Safari don't emit `beforeinput` events
+        // when "paste without formatting" is used, so fallback. (2020/02/20)
+        // COMPAT: Safari InputEvents generated by pasting won't include
+        // application/x-slate-fragment items, so use the
+        // ClipboardEvent here. (2023/03/15)
+        if (!HAS_BEFORE_INPUT_SUPPORT || isPlainTextOnlyPaste(event.nativeEvent) || IS_SAFARI) {
+          event.preventDefault();
+          ReactEditor.insertData(editor, event.clipboardData);
+        }
+      }
+    }, [readOnly, editor, attributes.onPaste])
+  }), /*#__PURE__*/React__default['default'].createElement(Children, {
+    decorations: decorations,
+    node: editor,
+    renderElement: renderElement,
+    renderPlaceholder: renderPlaceholder,
+    renderLeaf: renderLeaf,
+    selection: editor.selection
+  })))));
+};
+/**
+ * The default placeholder element
+ */
+
+var DefaultPlaceholder = function DefaultPlaceholder(_ref) {
+  var attributes = _ref.attributes,
+      children = _ref.children;
+  return (
+    /*#__PURE__*/
+    // COMPAT: Artificially add a line-break to the end on the placeholder element
+    // to prevent Android IMEs to pick up its content in autocorrect and to auto-capitalize the first letter
+    React__default['default'].createElement("span", Object.assign({}, attributes), children, IS_ANDROID && /*#__PURE__*/React__default['default'].createElement("br", null))
+  );
 };
 /**
  * A default memoized decorate function.
  */
-const defaultDecorate = () => [];
-/**
- * Check if two DOM range objects are equal.
- */
-const isRangeEqual = (a, b) => {
-    return ((a.startContainer === b.startContainer &&
-        a.startOffset === b.startOffset &&
-        a.endContainer === b.endContainer &&
-        a.endOffset === b.endOffset) ||
-        (a.startContainer === b.endContainer &&
-            a.startOffset === b.endOffset &&
-            a.endContainer === b.startContainer &&
-            a.endOffset === b.startOffset));
+
+var defaultDecorate = function defaultDecorate() {
+  return [];
 };
 /**
- * Check if the target is in the editor.
+ * A default implement to scroll dom range into view.
  */
-const hasTarget = (editor, target) => {
-    return isDOMNode(target) && ReactEditor.hasDOMNode(editor, target);
-};
-/**
- * Check if the target is editable and in the editor.
- */
-const hasEditableTarget = (editor, target) => {
-    return (isDOMNode(target) &&
-        ReactEditor.hasDOMNode(editor, target, { editable: true }));
+
+var defaultScrollSelectionIntoView = function defaultScrollSelectionIntoView(editor, domRange) {
+  // This was affecting the selection of multiple blocks and dragging behavior,
+  // so enabled only if the selection has been collapsed.
+  if (domRange.getBoundingClientRect && (!editor.selection || editor.selection && slate.Range.isCollapsed(editor.selection))) {
+    var leafEl = domRange.startContainer.parentElement;
+    leafEl.getBoundingClientRect = domRange.getBoundingClientRect.bind(domRange);
+    scrollIntoView__default['default'](leafEl, {
+      scrollMode: 'if-needed'
+    }); // @ts-expect-error an unorthodox delete D:
+
+    delete leafEl.getBoundingClientRect;
+  }
 };
 /**
  * Check if an event is overrided by a handler.
  */
-const isEventHandled = (event, handler) => {
-    if (!handler) {
-        return false;
-    }
-    handler(event);
-    return event.isDefaultPrevented() || event.isPropagationStopped();
+
+
+var isEventHandled = function isEventHandled(event, handler) {
+  if (!handler) {
+    return false;
+  } // The custom event handler may return a boolean to specify whether the event
+  // shall be treated as being handled or not.
+
+
+  var shouldTreatEventAsHandled = handler(event);
+
+  if (shouldTreatEventAsHandled != null) {
+    return shouldTreatEventAsHandled;
+  }
+
+  return event.isDefaultPrevented() || event.isPropagationStopped();
+};
+/**
+ * Check if the event's target is an input element
+ */
+
+var isDOMEventTargetInput = function isDOMEventTargetInput(event) {
+  return isDOMNode(event.target) && (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement);
 };
 /**
  * Check if a DOM event is overrided by a handler.
  */
-const isDOMEventHandled = (event, handler) => {
-    if (!handler) {
-        return false;
-    }
-    handler(event);
-    return event.defaultPrevented;
-};
-/**
- * Set the currently selected fragment to the clipboard.
- */
-const setFragmentData = (dataTransfer, editor) => {
-    const { selection } = editor;
-    if (!selection) {
-        return;
-    }
-    const [start, end] = slate.Range.edges(selection);
-    const startVoid = slate.Editor.void(editor, { at: start.path });
-    const endVoid = slate.Editor.void(editor, { at: end.path });
-    if (slate.Range.isCollapsed(selection) && !startVoid) {
-        return;
-    }
-    // Create a fake selection so that we can add a Base64-encoded copy of the
-    // fragment to the HTML, to decode on future pastes.
-    const domRange = ReactEditor.toDOMRange(editor, selection);
-    let contents = domRange.cloneContents();
-    let attach = contents.childNodes[0];
-    // Make sure attach is non-empty, since empty nodes will not get copied.
-    contents.childNodes.forEach(node => {
-        if (node.textContent && node.textContent.trim() !== '') {
-            attach = node;
-        }
-    });
-    // COMPAT: If the end node is a void node, we need to move the end of the
-    // range from the void node's spacer span, to the end of the void node's
-    // content, since the spacer is before void's content in the DOM.
-    if (endVoid) {
-        const [voidNode] = endVoid;
-        const r = domRange.cloneRange();
-        const domNode = ReactEditor.toDOMNode(editor, voidNode);
-        r.setEndAfter(domNode);
-        contents = r.cloneContents();
-    }
-    // COMPAT: If the start node is a void node, we need to attach the encoded
-    // fragment to the void node's content node instead of the spacer, because
-    // attaching it to empty `<div>/<span>` nodes will end up having it erased by
-    // most browsers. (2018/04/27)
-    if (startVoid) {
-        attach = contents.querySelector('[data-slate-spacer]');
-    }
-    // Remove any zero-width space spans from the cloned DOM so that they don't
-    // show up elsewhere when pasted.
-    Array.from(contents.querySelectorAll('[data-slate-zero-width]')).forEach(zw => {
-        const isNewline = zw.getAttribute('data-slate-zero-width') === 'n';
-        zw.textContent = isNewline ? '\n' : '';
-    });
-    // Set a `data-slate-fragment` attribute on a non-empty node, so it shows up
-    // in the HTML, and can be used for intra-Slate pasting. If it's a text
-    // node, wrap it in a `<span>` so we have something to set an attribute on.
-    if (isDOMText(attach)) {
-        const span = document.createElement('span');
-        // COMPAT: In Chrome and Safari, if we don't add the `white-space` style
-        // then leading and trailing spaces will be ignored. (2017/09/21)
-        span.style.whiteSpace = 'pre';
-        span.appendChild(attach);
-        contents.appendChild(span);
-        attach = span;
-    }
-    const fragment = slate.Node.fragment(editor, selection);
-    const string = JSON.stringify(fragment);
-    const encoded = window.btoa(encodeURIComponent(string));
-    attach.setAttribute('data-slate-fragment', encoded);
-    dataTransfer.setData('application/x-slate-fragment', encoded);
-    // Add the content to a <div> so that we can get its inner HTML.
-    const div = document.createElement('div');
-    div.appendChild(contents);
-    dataTransfer.setData('text/html', div.innerHTML);
-    dataTransfer.setData('text/plain', getPlainText(div));
-};
-/**
- * Get a plaintext representation of the content of a node, accounting for block
- * elements which get a newline appended.
- */
-const getPlainText = (domNode) => {
-    let text = '';
-    if (isDOMText(domNode) && domNode.nodeValue) {
-        return domNode.nodeValue;
-    }
-    if (isDOMElement(domNode)) {
-        for (const childNode of Array.from(domNode.childNodes)) {
-            text += getPlainText(childNode);
-        }
-        const display = getComputedStyle(domNode).getPropertyValue('display');
-        if (display === 'block' || display === 'list' || domNode.tagName === 'BR') {
-            text += '\n';
-        }
-    }
-    return text;
-};
 
-/**
- * An auto-incrementing identifier for keys.
- */
-var n = 0;
-/**
- * A class that keeps track of a key string. We use a full class here because we
- * want to be able to use them as keys in `WeakMap` objects.
- */
+var isDOMEventHandled = function isDOMEventHandled(event, handler) {
+  if (!handler) {
+    return false;
+  } // The custom event handler may return a boolean to specify whether the event
+  // shall be treated as being handled or not.
 
-class Key {
-  constructor() {
-    this.id = "".concat(n++);
+
+  var shouldTreatEventAsHandled = handler(event);
+
+  if (shouldTreatEventAsHandled != null) {
+    return shouldTreatEventAsHandled;
   }
 
-}
-
-var ReactEditor = {
-  /**
-   * Find a key for a Slate node.
-   */
-  findKey(editor, node) {
-    var key = NODE_TO_KEY.get(node);
-
-    if (!key) {
-      key = new Key();
-      NODE_TO_KEY.set(node, key);
-    }
-
-    return key;
-  },
-
-  /**
-   * Find the path of Slate node.
-   */
-  findPath(editor, node) {
-    var path = [];
-    var child = node;
-
-    while (true) {
-      var parent = NODE_TO_PARENT.get(child);
-
-      if (parent == null) {
-        if (slate.Editor.isEditor(child)) {
-          return path;
-        } else {
-          break;
-        }
-      }
-
-      var i = NODE_TO_INDEX.get(child);
-
-      if (i == null) {
-        break;
-      }
-
-      path.unshift(i);
-      child = parent;
-    }
-
-    throw new Error("Unable to find the path for Slate node: ".concat(JSON.stringify(node)));
-  },
-
-  /**
-   * Check if the editor is focused.
-   */
-  isFocused(editor) {
-    return !!IS_FOCUSED.get(editor);
-  },
-
-  /**
-   * Check if the editor is in read-only mode.
-   */
-  isReadOnly(editor) {
-    return !!IS_READ_ONLY.get(editor);
-  },
-
-  /**
-   * Blur the editor.
-   */
-  blur(editor) {
-    var el = ReactEditor.toDOMNode(editor, editor);
-    IS_FOCUSED.set(editor, false);
-
-    if (window.document.activeElement === el) {
-      el.blur();
-    }
-  },
-
-  /**
-   * Focus the editor.
-   */
-  focus(editor) {
-    var el = ReactEditor.toDOMNode(editor, editor);
-    IS_FOCUSED.set(editor, true);
-
-    if (window.document.activeElement !== el) {
-      el.focus({
-        preventScroll: true
-      });
-    }
-  },
-
-  /**
-   * Deselect the editor.
-   */
-  deselect(editor) {
-    var {
-      selection
-    } = editor;
-    var domSelection = window.getSelection();
-
-    if (domSelection && domSelection.rangeCount > 0) {
-      domSelection.removeAllRanges();
-    }
-
-    if (selection) {
-      slate.Transforms.deselect(editor);
-    }
-  },
-
-  /**
-   * Check if a DOM node is within the editor.
-   */
-  hasDOMNode(editor, target) {
-    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-    var {
-      editable = false
-    } = options;
-    var el = ReactEditor.toDOMNode(editor, editor);
-    var element; // COMPAT: In Firefox, reading `target.nodeType` will throw an error if
-    // target is originating from an internal "restricted" element (e.g. a
-    // stepper arrow on a number input). (2018/05/04)
-    // https://github.com/ianstormtaylor/slate/issues/1819
-
-    try {
-      element = isDOMElement(target) ? target : target.parentElement;
-    } catch (err) {
-      if (!err.message.includes('Permission denied to access property "nodeType"')) {
-        throw err;
-      }
-    }
-
-    if (!element) {
-      return false;
-    }
-
-    return element.closest("[data-slate-editor]") === el && (!editable || el.isContentEditable);
-  },
-
-  /**
-   * Insert data from a `DataTransfer` into the editor.
-   */
-  insertData(editor, data) {
-    editor.insertData(data);
-  },
-
-  /**
-   * Find the native DOM element from a Slate node.
-   */
-  toDOMNode(editor, node) {
-    var domNode = slate.Editor.isEditor(node) ? EDITOR_TO_ELEMENT.get(editor) : KEY_TO_ELEMENT.get(ReactEditor.findKey(editor, node));
-
-    if (!domNode) {
-      throw new Error("Cannot resolve a DOM node from Slate node: ".concat(JSON.stringify(node)));
-    }
-
-    return domNode;
-  },
-
-  /**
-   * Find a native DOM selection point from a Slate point.
-   */
-  toDOMPoint(editor, point) {
-    var [node] = slate.Editor.node(editor, point.path);
-    var el = ReactEditor.toDOMNode(editor, node);
-    var domPoint; // If we're inside a void node, force the offset to 0, otherwise the zero
-    // width spacing character will result in an incorrect offset of 1
-
-    if (slate.Editor.void(editor, {
-      at: point
-    })) {
-      point = {
-        path: point.path,
-        offset: 0
-      };
-    } // For each leaf, we need to isolate its content, which means filtering
-    // to its direct text and zero-width spans. (We have to filter out any
-    // other siblings that may have been rendered alongside them.)
-
-
-    var selector = "[data-slate-string], [data-slate-zero-width]";
-    var texts = Array.from(el.querySelectorAll(selector));
-    var start = 0;
-
-    for (var text of texts) {
-      var domNode = text.childNodes[0];
-
-      if (domNode == null || domNode.textContent == null) {
-        continue;
-      }
-
-      var {
-        length
-      } = domNode.textContent;
-      var attr = text.getAttribute('data-slate-length');
-      var trueLength = attr == null ? length : parseInt(attr, 10);
-      var end = start + trueLength;
-
-      if (point.offset <= end) {
-        var offset = Math.min(length, Math.max(0, point.offset - start));
-        domPoint = [domNode, offset];
-        break;
-      }
-
-      start = end;
-    }
-
-    if (!domPoint) {
-      throw new Error("Cannot resolve a DOM point from Slate point: ".concat(JSON.stringify(point)));
-    }
-
-    return domPoint;
-  },
-
-  /**
-   * Find a native DOM range from a Slate `range`.
-   */
-  toDOMRange(editor, range) {
-    var {
-      anchor,
-      focus
-    } = range;
-    var domAnchor = ReactEditor.toDOMPoint(editor, anchor);
-    var domFocus = slate.Range.isCollapsed(range) ? domAnchor : ReactEditor.toDOMPoint(editor, focus);
-    var domRange = window.document.createRange();
-    var start = slate.Range.isBackward(range) ? domFocus : domAnchor;
-    var end = slate.Range.isBackward(range) ? domAnchor : domFocus;
-    domRange.setStart(start[0], start[1]);
-    domRange.setEnd(end[0], end[1]);
-    return domRange;
-  },
-
-  /**
-   * Find a Slate node from a native DOM `element`.
-   */
-  toSlateNode(editor, domNode) {
-    var domEl = isDOMElement(domNode) ? domNode : domNode.parentElement;
-
-    if (domEl && !domEl.hasAttribute('data-slate-node')) {
-      domEl = domEl.closest("[data-slate-node]");
-    }
-
-    var node = domEl ? ELEMENT_TO_NODE.get(domEl) : null;
-
-    if (!node) {
-      throw new Error("Cannot resolve a Slate node from DOM node: ".concat(domEl));
-    }
-
-    return node;
-  },
-
-  /**
-   * Get the target range from a DOM `event`.
-   */
-  findEventRange(editor, event) {
-    if ('nativeEvent' in event) {
-      event = event.nativeEvent;
-    }
-
-    var {
-      clientX: x,
-      clientY: y,
-      target
-    } = event;
-
-    if (x == null || y == null) {
-      throw new Error("Cannot resolve a Slate range from a DOM event: ".concat(event));
-    }
-
-    var node = ReactEditor.toSlateNode(editor, event.target);
-    var path = ReactEditor.findPath(editor, node); // If the drop target is inside a void node, move it into either the
-    // next or previous node, depending on which side the `x` and `y`
-    // coordinates are closest to.
-
-    if (slate.Editor.isVoid(editor, node)) {
-      var rect = target.getBoundingClientRect();
-      var isPrev = editor.isInline(node) ? x - rect.left < rect.left + rect.width - x : y - rect.top < rect.top + rect.height - y;
-      var edge = slate.Editor.point(editor, path, {
-        edge: isPrev ? 'start' : 'end'
-      });
-      var point = isPrev ? slate.Editor.before(editor, edge) : slate.Editor.after(editor, edge);
-
-      if (point) {
-        var _range = slate.Editor.range(editor, point);
-
-        return _range;
-      }
-    } // Else resolve a range from the caret position where the drop occured.
-
-
-    var domRange;
-    var {
-      document
-    } = window; // COMPAT: In Firefox, `caretRangeFromPoint` doesn't exist. (2016/07/25)
-
-    if (document.caretRangeFromPoint) {
-      domRange = document.caretRangeFromPoint(x, y);
-    } else {
-      var position = document.caretPositionFromPoint(x, y);
-
-      if (position) {
-        domRange = document.createRange();
-        domRange.setStart(position.offsetNode, position.offset);
-        domRange.setEnd(position.offsetNode, position.offset);
-      }
-    }
-
-    if (!domRange) {
-      throw new Error("Cannot resolve a Slate range from a DOM event: ".concat(event));
-    } // Resolve a Slate range from the DOM range.
-
-
-    var range = ReactEditor.toSlateRange(editor, domRange);
-    return range;
-  },
-
-  /**
-   * Find a Slate point from a DOM selection's `domNode` and `domOffset`.
-   */
-  toSlatePoint(editor, domPoint) {
-    var [nearestNode, nearestOffset] = normalizeDOMPoint(domPoint);
-    var parentNode = nearestNode.parentNode;
-    var textNode = null;
-    var offset = 0;
-
-    if (parentNode) {
-      var voidNode = parentNode.closest('[data-slate-void="true"]');
-      var leafNode = parentNode.closest('[data-slate-leaf]');
-      var domNode = null; // Calculate how far into the text node the `nearestNode` is, so that we
-      // can determine what the offset relative to the text node is.
-
-      if (leafNode) {
-        textNode = leafNode.closest('[data-slate-node="text"]');
-        var range = window.document.createRange();
-        range.setStart(textNode, 0);
-        range.setEnd(nearestNode, nearestOffset);
-        var contents = range.cloneContents();
-        var removals = [...contents.querySelectorAll('[data-slate-zero-width]'), ...contents.querySelectorAll('[contenteditable=false]')];
-        removals.forEach(el => {
-          el.parentNode.removeChild(el);
-        }); // COMPAT: Edge has a bug where Range.prototype.toString() will
-        // convert \n into \r\n. The bug causes a loop when slate-react
-        // attempts to reposition its cursor to match the native position. Use
-        // textContent.length instead.
-        // https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/10291116/
-
-        offset = contents.textContent.length;
-        domNode = textNode;
-      } else if (voidNode) {
-        // For void nodes, the element with the offset key will be a cousin, not an
-        // ancestor, so find it by going down from the nearest void parent.
-        leafNode = voidNode.querySelector('[data-slate-leaf]');
-        textNode = leafNode.closest('[data-slate-node="text"]');
-        domNode = leafNode;
-        offset = domNode.textContent.length;
-      } // COMPAT: If the parent node is a Slate zero-width space, editor is
-      // because the text node should have no characters. However, during IME
-      // composition the ASCII characters will be prepended to the zero-width
-      // space, so subtract 1 from the offset to account for the zero-width
-      // space character.
-
-
-      if (domNode && offset === domNode.textContent.length && parentNode.hasAttribute('data-slate-zero-width')) {
-        offset--;
-      }
-    }
-
-    if (!textNode) {
-      throw new Error("Cannot resolve a Slate point from DOM point: ".concat(domPoint));
-    } // COMPAT: If someone is clicking from one Slate editor into another,
-    // the select event fires twice, once for the old editor's `element`
-    // first, and then afterwards for the correct `element`. (2017/03/03)
-
-
-    var slateNode = ReactEditor.toSlateNode(editor, textNode);
-    var path = ReactEditor.findPath(editor, slateNode);
-    return {
-      path,
-      offset
-    };
-  },
-
-  /**
-   * Find a Slate range from a DOM range or selection.
-   */
-  toSlateRange(editor, domRange) {
-    var el = domRange instanceof Selection ? domRange.anchorNode : domRange.startContainer;
-    var anchorNode;
-    var anchorOffset;
-    var focusNode;
-    var focusOffset;
-    var isCollapsed;
-
-    if (el) {
-      if (domRange instanceof Selection) {
-        anchorNode = domRange.anchorNode;
-        anchorOffset = domRange.anchorOffset;
-        focusNode = domRange.focusNode;
-        focusOffset = domRange.focusOffset;
-        isCollapsed = domRange.isCollapsed;
-      } else {
-        anchorNode = domRange.startContainer;
-        anchorOffset = domRange.startOffset;
-        focusNode = domRange.endContainer;
-        focusOffset = domRange.endOffset;
-        isCollapsed = domRange.collapsed;
-      }
-    }
-
-    if (anchorNode == null || focusNode == null || anchorOffset == null || focusOffset == null) {
-      throw new Error("Cannot resolve a Slate range from DOM range: ".concat(domRange));
-    }
-
-    var anchor = ReactEditor.toSlatePoint(editor, [anchorNode, anchorOffset]);
-    var focus = isCollapsed ? anchor : ReactEditor.toSlatePoint(editor, [focusNode, focusOffset]);
-    return {
-      anchor,
-      focus
-    };
-  }
-
+  return event.defaultPrevented;
 };
 
 /**
  * A React context for sharing the `focused` state of the editor.
  */
 
-var FocusedContext = React.createContext(false);
+var FocusedContext = /*#__PURE__*/React.createContext(false);
 /**
  * Get the current `focused` state of the editor.
  */
 
-var useFocused = () => {
+var useFocused = function useFocused() {
   return React.useContext(FocusedContext);
 };
 
+function isError(error) {
+  return error instanceof Error;
+}
+/**
+ * A React context for sharing the editor selector context in a way to control rerenders
+ */
+
+
+var SlateSelectorContext = /*#__PURE__*/React.createContext({});
+
+var refEquality = function refEquality(a, b) {
+  return a === b;
+};
+/**
+ * use redux style selectors to prevent rerendering on every keystroke.
+ * Bear in mind rerendering can only prevented if the returned value is a value type or for reference types (e.g. objects and arrays) add a custom equality function.
+ *
+ * Example:
+ * ```
+ *  const isSelectionActive = useSlateSelector(editor => Boolean(editor.selection));
+ * ```
+ */
+
+
+function useSlateSelector(selector) {
+  var equalityFn = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : refEquality;
+
+  var _useReducer = React.useReducer(function (s) {
+    return s + 1;
+  }, 0),
+      _useReducer2 = _slicedToArray(_useReducer, 2),
+      forceRender = _useReducer2[1];
+
+  var context = React.useContext(SlateSelectorContext);
+
+  if (!context) {
+    throw new Error("The `useSlateSelector` hook must be used inside the <Slate> component's context.");
+  }
+
+  var getSlate = context.getSlate,
+      addEventListener = context.addEventListener;
+  var latestSubscriptionCallbackError = React.useRef();
+  var latestSelector = React.useRef(function () {
+    return null;
+  });
+  var latestSelectedState = React.useRef(null);
+  var selectedState;
+
+  try {
+    if (selector !== latestSelector.current || latestSubscriptionCallbackError.current) {
+      selectedState = selector(getSlate());
+    } else {
+      selectedState = latestSelectedState.current;
+    }
+  } catch (err) {
+    if (latestSubscriptionCallbackError.current && isError(err)) {
+      err.message += "\nThe error may be correlated with this previous error:\n".concat(latestSubscriptionCallbackError.current.stack, "\n\n");
+    }
+
+    throw err;
+  }
+
+  useIsomorphicLayoutEffect(function () {
+    latestSelector.current = selector;
+    latestSelectedState.current = selectedState;
+    latestSubscriptionCallbackError.current = undefined;
+  });
+  useIsomorphicLayoutEffect(function () {
+    function checkForUpdates() {
+      try {
+        var newSelectedState = latestSelector.current(getSlate());
+
+        if (equalityFn(newSelectedState, latestSelectedState.current)) {
+          return;
+        }
+
+        latestSelectedState.current = newSelectedState;
+      } catch (err) {
+        // we ignore all errors here, since when the component
+        // is re-rendered, the selectors are called again, and
+        // will throw again, if neither props nor store state
+        // changed
+        latestSubscriptionCallbackError.current = err;
+      }
+
+      forceRender();
+    }
+
+    var unsubscribe = addEventListener(checkForUpdates);
+    checkForUpdates();
+    return function () {
+      return unsubscribe();
+    };
+  }, // don't rerender on equalityFn change since we want to be able to define it inline
+  [addEventListener, getSlate]);
+  return selectedState;
+}
+/**
+ * Create selector context with editor updating on every editor change
+ */
+
+function useSelectorContext(editor) {
+  var eventListeners = React.useRef([]).current;
+  var slateRef = React.useRef({
+    editor: editor
+  }).current;
+  var onChange = React.useCallback(function (editor) {
+    slateRef.editor = editor;
+    eventListeners.forEach(function (listener) {
+      return listener(editor);
+    });
+  }, [eventListeners, slateRef]);
+  var selectorContext = React.useMemo(function () {
+    return {
+      getSlate: function getSlate() {
+        return slateRef.editor;
+      },
+      addEventListener: function addEventListener(callback) {
+        eventListeners.push(callback);
+        return function () {
+          eventListeners.splice(eventListeners.indexOf(callback), 1);
+        };
+      }
+    };
+  }, [eventListeners, slateRef]);
+  return {
+    selectorContext: selectorContext,
+    onChange: onChange
+  };
+}
+
+var _excluded = ["editor", "children", "onChange", "value"];
 /**
  * A wrapper around the provider to handle `onChange` events, because the editor
  * is a mutable singleton so it won't ever register as "changed" otherwise.
  */
-const Slate = (props) => {
-    const { editor, children, onChange, value, ...rest } = props;
-    const [key, setKey] = React.useState(0);
-    const context = React.useMemo(() => {
-        editor.children = value;
-        Object.assign(editor, rest);
-        return [editor];
-    }, [key, value, ...Object.values(rest)]);
-    const onContextChange = React.useCallback(() => {
-        onChange(editor.children);
-        setKey(key + 1);
-    }, [key, onChange]);
+
+var Slate = function Slate(props) {
+  var editor = props.editor,
+      children = props.children,
+      onChange = props.onChange,
+      value = props.value,
+      rest = _objectWithoutProperties(props, _excluded);
+
+  var unmountRef = React.useRef(false);
+
+  var _React$useState = React__default['default'].useState(function () {
+    if (!slate.Node.isNodeList(value)) {
+      throw new Error("[Slate] value is invalid! Expected a list of elements but got: ".concat(slate.Scrubber.stringify(value)));
+    }
+
+    if (!slate.Editor.isEditor(editor)) {
+      throw new Error("[Slate] editor is invalid! You passed: ".concat(slate.Scrubber.stringify(editor)));
+    }
+
+    editor.children = value;
+    Object.assign(editor, rest);
+    return {
+      v: 0,
+      editor: editor
+    };
+  }),
+      _React$useState2 = _slicedToArray(_React$useState, 2),
+      context = _React$useState2[0],
+      setContext = _React$useState2[1];
+
+  var _useSelectorContext = useSelectorContext(editor),
+      selectorContext = _useSelectorContext.selectorContext,
+      handleSelectorChange = _useSelectorContext.onChange;
+
+  var onContextChange = React.useCallback(function () {
+    if (onChange) {
+      onChange(editor.children);
+    }
+
+    setContext(function (prevContext) {
+      return {
+        v: prevContext.v + 1,
+        editor: editor
+      };
+    });
+    handleSelectorChange(editor);
+  }, [editor, handleSelectorChange, onChange]);
+  React.useEffect(function () {
     EDITOR_TO_ON_CHANGE.set(editor, onContextChange);
-    return (React__default.createElement(SlateContext.Provider, { value: context },
-        React__default.createElement(EditorContext.Provider, { value: editor },
-            React__default.createElement(FocusedContext.Provider, { value: ReactEditor.isFocused(editor) }, children))));
+    return function () {
+      EDITOR_TO_ON_CHANGE.set(editor, function () {});
+      unmountRef.current = true;
+    };
+  }, [editor, onContextChange]);
+
+  var _useState = React.useState(ReactEditor.isFocused(editor)),
+      _useState2 = _slicedToArray(_useState, 2),
+      isFocused = _useState2[0],
+      setIsFocused = _useState2[1];
+
+  React.useEffect(function () {
+    setIsFocused(ReactEditor.isFocused(editor));
+  }, [editor]);
+  useIsomorphicLayoutEffect(function () {
+    var fn = function fn() {
+      return setIsFocused(ReactEditor.isFocused(editor));
+    };
+
+    if (IS_REACT_VERSION_17_OR_ABOVE) {
+      // In React >= 17 onFocus and onBlur listen to the focusin and focusout events during the bubbling phase.
+      // Therefore in order for <Editable />'s handlers to run first, which is necessary for ReactEditor.isFocused(editor)
+      // to return the correct value, we have to listen to the focusin and focusout events without useCapture here.
+      document.addEventListener('focusin', fn);
+      document.addEventListener('focusout', fn);
+      return function () {
+        document.removeEventListener('focusin', fn);
+        document.removeEventListener('focusout', fn);
+      };
+    } else {
+      document.addEventListener('focus', fn, true);
+      document.addEventListener('blur', fn, true);
+      return function () {
+        document.removeEventListener('focus', fn, true);
+        document.removeEventListener('blur', fn, true);
+      };
+    }
+  }, []);
+  return /*#__PURE__*/React__default['default'].createElement(SlateSelectorContext.Provider, {
+    value: selectorContext
+  }, /*#__PURE__*/React__default['default'].createElement(SlateContext.Provider, {
+    value: context
+  }, /*#__PURE__*/React__default['default'].createElement(EditorContext.Provider, {
+    value: context.editor
+  }, /*#__PURE__*/React__default['default'].createElement(FocusedContext.Provider, {
+    value: isFocused
+  }, children))));
 };
 
 /**
- * `withReact` adds React and DOM specific behaviors to the editor.
+ * Get the current editor object from the React context.
+ * @deprecated Use useSlateStatic instead.
  */
 
-var withReact = editor => {
-  var e = editor;
-  var {
-    apply,
-    onChange
-  } = e;
+var useEditor = function useEditor() {
+  var editor = React.useContext(EditorContext);
 
-  e.apply = op => {
+  if (!editor) {
+    throw new Error("The `useEditor` hook must be used inside the <Slate> component's context.");
+  }
+
+  return editor;
+};
+
+/**
+ * Get the current slate selection.
+ * Only triggers a rerender when the selection actually changes
+ */
+
+var useSlateSelection = function useSlateSelection() {
+  return useSlateSelector(function (editor) {
+    return editor.selection;
+  }, isSelectionEqual);
+};
+
+var isSelectionEqual = function isSelectionEqual(a, b) {
+  if (!a && !b) return true;
+  if (!a || !b) return false;
+  return slate.Range.equals(a, b);
+};
+
+/**
+ * Utilities for single-line deletion
+ */
+
+var doRectsIntersect = function doRectsIntersect(rect, compareRect) {
+  var middle = (compareRect.top + compareRect.bottom) / 2;
+  return rect.top <= middle && rect.bottom >= middle;
+};
+
+var areRangesSameLine = function areRangesSameLine(editor, range1, range2) {
+  var rect1 = ReactEditor.toDOMRange(editor, range1).getBoundingClientRect();
+  var rect2 = ReactEditor.toDOMRange(editor, range2).getBoundingClientRect();
+  return doRectsIntersect(rect1, rect2) && doRectsIntersect(rect2, rect1);
+};
+/**
+ * A helper utility that returns the end portion of a `Range`
+ * which is located on a single line.
+ *
+ * @param {Editor} editor The editor object to compare against
+ * @param {Range} parentRange The parent range to compare against
+ * @returns {Range} A valid portion of the parentRange which is one a single line
+ */
+
+
+var findCurrentLineRange = function findCurrentLineRange(editor, parentRange) {
+  var parentRangeBoundary = slate.Editor.range(editor, slate.Range.end(parentRange));
+  var positions = Array.from(slate.Editor.positions(editor, {
+    at: parentRange
+  }));
+  var left = 0;
+  var right = positions.length;
+  var middle = Math.floor(right / 2);
+
+  if (areRangesSameLine(editor, slate.Editor.range(editor, positions[left]), parentRangeBoundary)) {
+    return slate.Editor.range(editor, positions[left], parentRangeBoundary);
+  }
+
+  if (positions.length < 2) {
+    return slate.Editor.range(editor, positions[positions.length - 1], parentRangeBoundary);
+  }
+
+  while (middle !== positions.length && middle !== left) {
+    if (areRangesSameLine(editor, slate.Editor.range(editor, positions[middle]), parentRangeBoundary)) {
+      right = middle;
+    } else {
+      left = middle;
+    }
+
+    middle = Math.floor((left + right) / 2);
+  }
+
+  return slate.Editor.range(editor, positions[right], parentRangeBoundary);
+};
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+/**
+ * `withReact` adds React and DOM specific behaviors to the editor.
+ *
+ * If you are using TypeScript, you must extend Slate's CustomTypes to use
+ * this plugin.
+ *
+ * See https://docs.slatejs.org/concepts/11-typescript to learn how.
+ */
+
+var withReact = function withReact(editor) {
+  var clipboardFormatKey = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'x-slate-fragment';
+  var e = editor;
+  var apply = e.apply,
+      onChange = e.onChange,
+      deleteBackward = e.deleteBackward,
+      addMark = e.addMark,
+      removeMark = e.removeMark; // The WeakMap which maps a key to a specific HTMLElement must be scoped to the editor instance to
+  // avoid collisions between editors in the DOM that share the same value.
+
+  EDITOR_TO_KEY_TO_ELEMENT.set(e, new WeakMap());
+
+  e.addMark = function (key, value) {
+    var _EDITOR_TO_SCHEDULE_F, _EDITOR_TO_PENDING_DI;
+
+    (_EDITOR_TO_SCHEDULE_F = EDITOR_TO_SCHEDULE_FLUSH.get(e)) === null || _EDITOR_TO_SCHEDULE_F === void 0 ? void 0 : _EDITOR_TO_SCHEDULE_F();
+
+    if (!EDITOR_TO_PENDING_INSERTION_MARKS.get(e) && (_EDITOR_TO_PENDING_DI = EDITOR_TO_PENDING_DIFFS.get(e)) !== null && _EDITOR_TO_PENDING_DI !== void 0 && _EDITOR_TO_PENDING_DI.length) {
+      // Ensure the current pending diffs originating from changes before the addMark
+      // are applied with the current formatting
+      EDITOR_TO_PENDING_INSERTION_MARKS.set(e, null);
+    }
+
+    EDITOR_TO_USER_MARKS["delete"](e);
+    addMark(key, value);
+  };
+
+  e.removeMark = function (key) {
+    var _EDITOR_TO_PENDING_DI2;
+
+    if (!EDITOR_TO_PENDING_INSERTION_MARKS.get(e) && (_EDITOR_TO_PENDING_DI2 = EDITOR_TO_PENDING_DIFFS.get(e)) !== null && _EDITOR_TO_PENDING_DI2 !== void 0 && _EDITOR_TO_PENDING_DI2.length) {
+      // Ensure the current pending diffs originating from changes before the addMark
+      // are applied with the current formatting
+      EDITOR_TO_PENDING_INSERTION_MARKS.set(e, null);
+    }
+
+    EDITOR_TO_USER_MARKS["delete"](e);
+    removeMark(key);
+  };
+
+  e.deleteBackward = function (unit) {
+    if (unit !== 'line') {
+      return deleteBackward(unit);
+    }
+
+    if (e.selection && slate.Range.isCollapsed(e.selection)) {
+      var parentBlockEntry = slate.Editor.above(e, {
+        match: function match(n) {
+          return slate.Element.isElement(n) && slate.Editor.isBlock(e, n);
+        },
+        at: e.selection
+      });
+
+      if (parentBlockEntry) {
+        var _parentBlockEntry = _slicedToArray(parentBlockEntry, 2),
+            parentBlockPath = _parentBlockEntry[1];
+
+        var parentElementRange = slate.Editor.range(e, parentBlockPath, e.selection.anchor);
+        var currentLineRange = findCurrentLineRange(e, parentElementRange);
+
+        if (!slate.Range.isCollapsed(currentLineRange)) {
+          slate.Transforms["delete"](e, {
+            at: currentLineRange
+          });
+        }
+      }
+    }
+  }; // This attempts to reset the NODE_TO_KEY entry to the correct value
+  // as apply() changes the object reference and hence invalidates the NODE_TO_KEY entry
+
+
+  e.apply = function (op) {
     var matches = [];
+    var pendingDiffs = EDITOR_TO_PENDING_DIFFS.get(e);
+
+    if (pendingDiffs !== null && pendingDiffs !== void 0 && pendingDiffs.length) {
+      var transformed = pendingDiffs.map(function (textDiff) {
+        return transformTextDiff(textDiff, op);
+      }).filter(Boolean);
+      EDITOR_TO_PENDING_DIFFS.set(e, transformed);
+    }
+
+    var pendingSelection = EDITOR_TO_PENDING_SELECTION.get(e);
+
+    if (pendingSelection) {
+      EDITOR_TO_PENDING_SELECTION.set(e, transformPendingRange(e, pendingSelection, op));
+    }
+
+    var pendingAction = EDITOR_TO_PENDING_ACTION.get(e);
+
+    if (pendingAction !== null && pendingAction !== void 0 && pendingAction.at) {
+      var at = slate.Point.isPoint(pendingAction === null || pendingAction === void 0 ? void 0 : pendingAction.at) ? transformPendingPoint(e, pendingAction.at, op) : transformPendingRange(e, pendingAction.at, op);
+      EDITOR_TO_PENDING_ACTION.set(e, at ? _objectSpread(_objectSpread({}, pendingAction), {}, {
+        at: at
+      }) : null);
+    }
 
     switch (op.type) {
       case 'insert_text':
       case 'remove_text':
       case 'set_node':
+      case 'split_node':
         {
-          for (var [node, path] of slate.Editor.levels(e, {
-            at: op.path
-          })) {
-            var key = ReactEditor.findKey(e, node);
-            matches.push([path, key]);
-          }
+          matches.push.apply(matches, _toConsumableArray(getMatches(e, op.path)));
+          break;
+        }
 
+      case 'set_selection':
+        {
+          var _EDITOR_TO_USER_SELEC;
+
+          // Selection was manually set, don't restore the user selection after the change.
+          (_EDITOR_TO_USER_SELEC = EDITOR_TO_USER_SELECTION.get(e)) === null || _EDITOR_TO_USER_SELEC === void 0 ? void 0 : _EDITOR_TO_USER_SELEC.unref();
+          EDITOR_TO_USER_SELECTION["delete"](e);
           break;
         }
 
       case 'insert_node':
       case 'remove_node':
-      case 'merge_node':
-      case 'split_node':
         {
-          for (var [_node, _path] of slate.Editor.levels(e, {
-            at: slate.Path.parent(op.path)
-          })) {
-            var _key = ReactEditor.findKey(e, _node);
+          matches.push.apply(matches, _toConsumableArray(getMatches(e, slate.Path.parent(op.path))));
+          break;
+        }
 
-            matches.push([_path, _key]);
-          }
+      case 'merge_node':
+        {
+          var prevPath = slate.Path.previous(op.path);
+          matches.push.apply(matches, _toConsumableArray(getMatches(e, prevPath)));
+          break;
+        }
 
+      case 'move_node':
+        {
+          var commonPath = slate.Path.common(slate.Path.parent(op.path), slate.Path.parent(op.newPath));
+          matches.push.apply(matches, _toConsumableArray(getMatches(e, commonPath)));
           break;
         }
     }
 
     apply(op);
 
-    for (var [_path2, _key2] of matches) {
-      var [_node2] = slate.Editor.node(e, _path2);
-      NODE_TO_KEY.set(_node2, _key2);
+    for (var _i = 0, _matches = matches; _i < _matches.length; _i++) {
+      var _matches$_i = _slicedToArray(_matches[_i], 2),
+          path = _matches$_i[0],
+          key = _matches$_i[1];
+
+      var _Editor$node = slate.Editor.node(e, path),
+          _Editor$node2 = _slicedToArray(_Editor$node, 1),
+          node = _Editor$node2[0];
+
+      NODE_TO_KEY.set(node, key);
     }
   };
 
-  e.insertData = data => {
-    var fragment = data.getData('application/x-slate-fragment');
+  e.setFragmentData = function (data) {
+    var selection = e.selection;
+
+    if (!selection) {
+      return;
+    }
+
+    var _Range$edges = slate.Range.edges(selection),
+        _Range$edges2 = _slicedToArray(_Range$edges, 2),
+        start = _Range$edges2[0],
+        end = _Range$edges2[1];
+
+    var startVoid = slate.Editor["void"](e, {
+      at: start.path
+    });
+    var endVoid = slate.Editor["void"](e, {
+      at: end.path
+    });
+
+    if (slate.Range.isCollapsed(selection) && !startVoid) {
+      return;
+    } // Create a fake selection so that we can add a Base64-encoded copy of the
+    // fragment to the HTML, to decode on future pastes.
+
+
+    var domRange = ReactEditor.toDOMRange(e, selection);
+    var contents = domRange.cloneContents();
+    var attach = contents.childNodes[0]; // Make sure attach is non-empty, since empty nodes will not get copied.
+
+    contents.childNodes.forEach(function (node) {
+      if (node.textContent && node.textContent.trim() !== '') {
+        attach = node;
+      }
+    }); // COMPAT: If the end node is a void node, we need to move the end of the
+    // range from the void node's spacer span, to the end of the void node's
+    // content, since the spacer is before void's content in the DOM.
+
+    if (endVoid) {
+      var _endVoid = _slicedToArray(endVoid, 1),
+          voidNode = _endVoid[0];
+
+      var r = domRange.cloneRange();
+      var domNode = ReactEditor.toDOMNode(e, voidNode);
+      r.setEndAfter(domNode);
+      contents = r.cloneContents();
+    } // COMPAT: If the start node is a void node, we need to attach the encoded
+    // fragment to the void node's content node instead of the spacer, because
+    // attaching it to empty `<div>/<span>` nodes will end up having it erased by
+    // most browsers. (2018/04/27)
+
+
+    if (startVoid) {
+      attach = contents.querySelector('[data-slate-spacer]');
+    } // Remove any zero-width space spans from the cloned DOM so that they don't
+    // show up elsewhere when pasted.
+
+
+    Array.from(contents.querySelectorAll('[data-slate-zero-width]')).forEach(function (zw) {
+      var isNewline = zw.getAttribute('data-slate-zero-width') === 'n';
+      zw.textContent = isNewline ? '\n' : '';
+    }); // Set a `data-slate-fragment` attribute on a non-empty node, so it shows up
+    // in the HTML, and can be used for intra-Slate pasting. If it's a text
+    // node, wrap it in a `<span>` so we have something to set an attribute on.
+
+    if (isDOMText(attach)) {
+      var span = attach.ownerDocument.createElement('span'); // COMPAT: In Chrome and Safari, if we don't add the `white-space` style
+      // then leading and trailing spaces will be ignored. (2017/09/21)
+
+      span.style.whiteSpace = 'pre';
+      span.appendChild(attach);
+      contents.appendChild(span);
+      attach = span;
+    }
+
+    var fragment = e.getFragment();
+    var string = JSON.stringify(fragment);
+    var encoded = window.btoa(encodeURIComponent(string));
+    attach.setAttribute('data-slate-fragment', encoded);
+    data.setData("application/".concat(clipboardFormatKey), encoded); // Add the content to a <div> so that we can get its inner HTML.
+
+    var div = contents.ownerDocument.createElement('div');
+    div.appendChild(contents);
+    div.setAttribute('hidden', 'true');
+    contents.ownerDocument.body.appendChild(div);
+    data.setData('text/html', div.innerHTML);
+    data.setData('text/plain', getPlainText(div));
+    contents.ownerDocument.body.removeChild(div);
+    return data;
+  };
+
+  e.insertData = function (data) {
+    if (!e.insertFragmentData(data)) {
+      e.insertTextData(data);
+    }
+  };
+
+  e.insertFragmentData = function (data) {
+    /**
+     * Checking copied fragment from application/x-slate-fragment or data-slate-fragment
+     */
+    var fragment = data.getData("application/".concat(clipboardFormatKey)) || getSlateFragmentAttribute(data);
 
     if (fragment) {
       var decoded = decodeURIComponent(window.atob(fragment));
       var parsed = JSON.parse(decoded);
-      slate.Transforms.insertFragment(e, parsed);
-      return;
+      e.insertFragment(parsed);
+      return true;
     }
 
+    return false;
+  };
+
+  e.insertTextData = function (data) {
     var text = data.getData('text/plain');
 
     if (text) {
-      var lines = text.split('\n');
+      var lines = text.split(/\r\n|\r|\n/);
       var split = false;
 
-      for (var line of lines) {
-        if (split) {
-          slate.Transforms.splitNodes(e);
-        }
+      var _iterator = _createForOfIteratorHelper(lines),
+          _step;
 
-        slate.Transforms.insertText(e, line);
-        split = true;
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var line = _step.value;
+
+          if (split) {
+            slate.Transforms.splitNodes(e, {
+              always: true
+            });
+          }
+
+          e.insertText(line);
+          split = true;
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
       }
+
+      return true;
     }
+
+    return false;
   };
 
-  e.onChange = () => {
+  e.onChange = function (options) {
     // COMPAT: React doesn't batch `setState` hook calls, which means that the
     // children and selection can get out of sync for one render pass. So we
     // have to use this unstable API to ensure it batches them. (2019/12/03)
     // https://github.com/facebook/react/issues/14259#issuecomment-439702367
-    ReactDOM.unstable_batchedUpdates(() => {
+    ReactDOM__default['default'].unstable_batchedUpdates(function () {
       var onContextChange = EDITOR_TO_ON_CHANGE.get(e);
 
       if (onContextChange) {
         onContextChange();
       }
 
-      onChange();
+      onChange(options);
     });
   };
 
   return e;
 };
 
+var getMatches = function getMatches(e, path) {
+  var matches = [];
+
+  var _iterator2 = _createForOfIteratorHelper(slate.Editor.levels(e, {
+    at: path
+  })),
+      _step2;
+
+  try {
+    for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+      var _step2$value = _slicedToArray(_step2.value, 2),
+          n = _step2$value[0],
+          p = _step2$value[1];
+
+      var key = ReactEditor.findKey(e, n);
+      matches.push([p, key]);
+    }
+  } catch (err) {
+    _iterator2.e(err);
+  } finally {
+    _iterator2.f();
+  }
+
+  return matches;
+};
+
 exports.DefaultElement = DefaultElement;
 exports.DefaultLeaf = DefaultLeaf;
+exports.DefaultPlaceholder = DefaultPlaceholder;
 exports.Editable = Editable;
 exports.ReactEditor = ReactEditor;
 exports.Slate = Slate;
@@ -39848,20 +45226,465 @@ exports.useFocused = useFocused;
 exports.useReadOnly = useReadOnly;
 exports.useSelected = useSelected;
 exports.useSlate = useSlate;
+exports.useSlateSelection = useSlateSelection;
+exports.useSlateSelector = useSlateSelector;
+exports.useSlateStatic = useSlateStatic;
+exports.useSlateWithV = useSlateWithV;
 exports.withReact = withReact;
 
 
-},{"debounce":35,"direction":36,"is-hotkey":39,"react":50,"react-dom":47,"scroll-into-view-if-needed":57,"slate":61}],61:[function(require,module,exports){
+},{"@juggle/resize-observer":34,"direction":36,"is-hotkey":40,"lodash/debounce":48,"lodash/throttle":53,"react":64,"react-dom":61,"scroll-into-view-if-needed":71,"slate":75}],75:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
-
-var isPlainObject = _interopDefault(require('is-plain-object'));
+var isPlainObject = require('is-plain-object');
 var immer = require('immer');
-var esrever = require('esrever');
 
+var PathRef = {
+  transform: function transform(ref, op) {
+    var current = ref.current,
+        affinity = ref.affinity;
+
+    if (current == null) {
+      return;
+    }
+
+    var path = Path.transform(current, op, {
+      affinity: affinity
+    });
+    ref.current = path;
+
+    if (path == null) {
+      ref.unref();
+    }
+  }
+};
+
+var PointRef = {
+  transform: function transform(ref, op) {
+    var current = ref.current,
+        affinity = ref.affinity;
+
+    if (current == null) {
+      return;
+    }
+
+    var point = Point.transform(current, op, {
+      affinity: affinity
+    });
+    ref.current = point;
+
+    if (point == null) {
+      ref.unref();
+    }
+  }
+};
+
+var RangeRef = {
+  transform: function transform(ref, op) {
+    var current = ref.current,
+        affinity = ref.affinity;
+
+    if (current == null) {
+      return;
+    }
+
+    var path = Range.transform(current, op, {
+      affinity: affinity
+    });
+    ref.current = path;
+
+    if (path == null) {
+      ref.unref();
+    }
+  }
+};
+
+var DIRTY_PATHS = new WeakMap();
+var DIRTY_PATH_KEYS = new WeakMap();
+var FLUSHING = new WeakMap();
+var NORMALIZING = new WeakMap();
+var PATH_REFS = new WeakMap();
+var POINT_REFS = new WeakMap();
+var RANGE_REFS = new WeakMap();
+
+function unwrapExports (x) {
+	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+}
+
+function createCommonjsModule(fn, module) {
+	return module = { exports: {} }, fn(module, module.exports), module.exports;
+}
+
+var arrayLikeToArray = createCommonjsModule(function (module) {
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+module.exports = _arrayLikeToArray;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+unwrapExports(arrayLikeToArray);
+
+var arrayWithoutHoles = createCommonjsModule(function (module) {
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return arrayLikeToArray(arr);
+}
+
+module.exports = _arrayWithoutHoles;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+unwrapExports(arrayWithoutHoles);
+
+var iterableToArray = createCommonjsModule(function (module) {
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
+}
+
+module.exports = _iterableToArray;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+unwrapExports(iterableToArray);
+
+var unsupportedIterableToArray = createCommonjsModule(function (module) {
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
+}
+
+module.exports = _unsupportedIterableToArray;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+unwrapExports(unsupportedIterableToArray);
+
+var nonIterableSpread = createCommonjsModule(function (module) {
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+module.exports = _nonIterableSpread;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+unwrapExports(nonIterableSpread);
+
+var toConsumableArray = createCommonjsModule(function (module) {
+function _toConsumableArray(arr) {
+  return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
+}
+
+module.exports = _toConsumableArray;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+var _toConsumableArray = unwrapExports(toConsumableArray);
+
+// eslint-disable-next-line no-redeclare
+var Path = {
+  ancestors: function ancestors(path) {
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    var _options$reverse = options.reverse,
+        reverse = _options$reverse === void 0 ? false : _options$reverse;
+    var paths = Path.levels(path, options);
+
+    if (reverse) {
+      paths = paths.slice(1);
+    } else {
+      paths = paths.slice(0, -1);
+    }
+
+    return paths;
+  },
+  common: function common(path, another) {
+    var common = [];
+
+    for (var i = 0; i < path.length && i < another.length; i++) {
+      var av = path[i];
+      var bv = another[i];
+
+      if (av !== bv) {
+        break;
+      }
+
+      common.push(av);
+    }
+
+    return common;
+  },
+  compare: function compare(path, another) {
+    var min = Math.min(path.length, another.length);
+
+    for (var i = 0; i < min; i++) {
+      if (path[i] < another[i]) return -1;
+      if (path[i] > another[i]) return 1;
+    }
+
+    return 0;
+  },
+  endsAfter: function endsAfter(path, another) {
+    var i = path.length - 1;
+    var as = path.slice(0, i);
+    var bs = another.slice(0, i);
+    var av = path[i];
+    var bv = another[i];
+    return Path.equals(as, bs) && av > bv;
+  },
+  endsAt: function endsAt(path, another) {
+    var i = path.length;
+    var as = path.slice(0, i);
+    var bs = another.slice(0, i);
+    return Path.equals(as, bs);
+  },
+  endsBefore: function endsBefore(path, another) {
+    var i = path.length - 1;
+    var as = path.slice(0, i);
+    var bs = another.slice(0, i);
+    var av = path[i];
+    var bv = another[i];
+    return Path.equals(as, bs) && av < bv;
+  },
+  equals: function equals(path, another) {
+    return path.length === another.length && path.every(function (n, i) {
+      return n === another[i];
+    });
+  },
+  hasPrevious: function hasPrevious(path) {
+    return path[path.length - 1] > 0;
+  },
+  isAfter: function isAfter(path, another) {
+    return Path.compare(path, another) === 1;
+  },
+  isAncestor: function isAncestor(path, another) {
+    return path.length < another.length && Path.compare(path, another) === 0;
+  },
+  isBefore: function isBefore(path, another) {
+    return Path.compare(path, another) === -1;
+  },
+  isChild: function isChild(path, another) {
+    return path.length === another.length + 1 && Path.compare(path, another) === 0;
+  },
+  isCommon: function isCommon(path, another) {
+    return path.length <= another.length && Path.compare(path, another) === 0;
+  },
+  isDescendant: function isDescendant(path, another) {
+    return path.length > another.length && Path.compare(path, another) === 0;
+  },
+  isParent: function isParent(path, another) {
+    return path.length + 1 === another.length && Path.compare(path, another) === 0;
+  },
+  isPath: function isPath(value) {
+    return Array.isArray(value) && (value.length === 0 || typeof value[0] === 'number');
+  },
+  isSibling: function isSibling(path, another) {
+    if (path.length !== another.length) {
+      return false;
+    }
+
+    var as = path.slice(0, -1);
+    var bs = another.slice(0, -1);
+    var al = path[path.length - 1];
+    var bl = another[another.length - 1];
+    return al !== bl && Path.equals(as, bs);
+  },
+  levels: function levels(path) {
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    var _options$reverse2 = options.reverse,
+        reverse = _options$reverse2 === void 0 ? false : _options$reverse2;
+    var list = [];
+
+    for (var i = 0; i <= path.length; i++) {
+      list.push(path.slice(0, i));
+    }
+
+    if (reverse) {
+      list.reverse();
+    }
+
+    return list;
+  },
+  next: function next(path) {
+    if (path.length === 0) {
+      throw new Error("Cannot get the next path of a root path [".concat(path, "], because it has no next index."));
+    }
+
+    var last = path[path.length - 1];
+    return path.slice(0, -1).concat(last + 1);
+  },
+  operationCanTransformPath: function operationCanTransformPath(operation) {
+    switch (operation.type) {
+      case 'insert_node':
+      case 'remove_node':
+      case 'merge_node':
+      case 'split_node':
+      case 'move_node':
+        return true;
+
+      default:
+        return false;
+    }
+  },
+  parent: function parent(path) {
+    if (path.length === 0) {
+      throw new Error("Cannot get the parent path of the root path [".concat(path, "]."));
+    }
+
+    return path.slice(0, -1);
+  },
+  previous: function previous(path) {
+    if (path.length === 0) {
+      throw new Error("Cannot get the previous path of a root path [".concat(path, "], because it has no previous index."));
+    }
+
+    var last = path[path.length - 1];
+
+    if (last <= 0) {
+      throw new Error("Cannot get the previous path of a first child path [".concat(path, "] because it would result in a negative index."));
+    }
+
+    return path.slice(0, -1).concat(last - 1);
+  },
+  relative: function relative(path, ancestor) {
+    if (!Path.isAncestor(ancestor, path) && !Path.equals(path, ancestor)) {
+      throw new Error("Cannot get the relative path of [".concat(path, "] inside ancestor [").concat(ancestor, "], because it is not above or equal to the path."));
+    }
+
+    return path.slice(ancestor.length);
+  },
+  transform: function transform(path, operation) {
+    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+    if (!path) return null; // PERF: use destructing instead of immer
+
+    var p = _toConsumableArray(path);
+
+    var _options$affinity = options.affinity,
+        affinity = _options$affinity === void 0 ? 'forward' : _options$affinity; // PERF: Exit early if the operation is guaranteed not to have an effect.
+
+    if (path.length === 0) {
+      return p;
+    }
+
+    switch (operation.type) {
+      case 'insert_node':
+        {
+          var op = operation.path;
+
+          if (Path.equals(op, p) || Path.endsBefore(op, p) || Path.isAncestor(op, p)) {
+            p[op.length - 1] += 1;
+          }
+
+          break;
+        }
+
+      case 'remove_node':
+        {
+          var _op = operation.path;
+
+          if (Path.equals(_op, p) || Path.isAncestor(_op, p)) {
+            return null;
+          } else if (Path.endsBefore(_op, p)) {
+            p[_op.length - 1] -= 1;
+          }
+
+          break;
+        }
+
+      case 'merge_node':
+        {
+          var _op2 = operation.path,
+              position = operation.position;
+
+          if (Path.equals(_op2, p) || Path.endsBefore(_op2, p)) {
+            p[_op2.length - 1] -= 1;
+          } else if (Path.isAncestor(_op2, p)) {
+            p[_op2.length - 1] -= 1;
+            p[_op2.length] += position;
+          }
+
+          break;
+        }
+
+      case 'split_node':
+        {
+          var _op3 = operation.path,
+              _position = operation.position;
+
+          if (Path.equals(_op3, p)) {
+            if (affinity === 'forward') {
+              p[p.length - 1] += 1;
+            } else if (affinity === 'backward') ; else {
+              return null;
+            }
+          } else if (Path.endsBefore(_op3, p)) {
+            p[_op3.length - 1] += 1;
+          } else if (Path.isAncestor(_op3, p) && path[_op3.length] >= _position) {
+            p[_op3.length - 1] += 1;
+            p[_op3.length] -= _position;
+          }
+
+          break;
+        }
+
+      case 'move_node':
+        {
+          var _op4 = operation.path,
+              onp = operation.newPath; // If the old and new path are the same, it's a no-op.
+
+          if (Path.equals(_op4, onp)) {
+            return p;
+          }
+
+          if (Path.isAncestor(_op4, p) || Path.equals(_op4, p)) {
+            var copy = onp.slice();
+
+            if (Path.endsBefore(_op4, onp) && _op4.length < onp.length) {
+              copy[_op4.length - 1] -= 1;
+            }
+
+            return copy.concat(p.slice(_op4.length));
+          } else if (Path.isSibling(_op4, onp) && (Path.isAncestor(onp, p) || Path.equals(onp, p))) {
+            if (Path.endsBefore(_op4, p)) {
+              p[_op4.length - 1] -= 1;
+            } else {
+              p[_op4.length - 1] += 1;
+            }
+          } else if (Path.endsBefore(onp, p) || Path.equals(onp, p) || Path.isAncestor(onp, p)) {
+            if (Path.endsBefore(_op4, p)) {
+              p[_op4.length - 1] -= 1;
+            }
+
+            p[onp.length - 1] += 1;
+          } else if (Path.endsBefore(_op4, p)) {
+            if (Path.equals(onp, p)) {
+              p[onp.length - 1] += 1;
+            }
+
+            p[_op4.length - 1] -= 1;
+          }
+
+          break;
+        }
+    }
+
+    return p;
+  }
+};
+
+var defineProperty = createCommonjsModule(function (module) {
 function _defineProperty(obj, key, value) {
   if (key in obj) {
     Object.defineProperty(obj, key, {
@@ -39877,405 +45700,637 @@ function _defineProperty(obj, key, value) {
   return obj;
 }
 
-var DIRTY_PATHS = new WeakMap();
-var FLUSHING = new WeakMap();
-var NORMALIZING = new WeakMap();
-var PATH_REFS = new WeakMap();
-var POINT_REFS = new WeakMap();
-var RANGE_REFS = new WeakMap();
+module.exports = _defineProperty;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+var _defineProperty = unwrapExports(defineProperty);
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-/**
- * Create a new Slate `Editor` object.
- */
+var arrayWithHoles = createCommonjsModule(function (module) {
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
 
-var createEditor = () => {
-  var editor = {
-    children: [],
-    operations: [],
-    selection: null,
-    marks: null,
-    isInline: () => false,
-    isVoid: () => false,
-    onChange: () => {},
-    apply: op => {
-      for (var ref of Editor.pathRefs(editor)) {
-        PathRef.transform(ref, op);
-      }
+module.exports = _arrayWithHoles;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
 
-      for (var _ref of Editor.pointRefs(editor)) {
-        PointRef.transform(_ref, op);
-      }
+unwrapExports(arrayWithHoles);
 
-      for (var _ref2 of Editor.rangeRefs(editor)) {
-        RangeRef.transform(_ref2, op);
-      }
+var iterableToArrayLimit = createCommonjsModule(function (module) {
+function _iterableToArrayLimit(arr, i) {
+  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
 
-      var set = new Set();
-      var dirtyPaths = [];
+  if (_i == null) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
 
-      var add = path => {
-        if (path) {
-          var key = path.join(',');
+  var _s, _e;
 
-          if (!set.has(key)) {
-            set.add(key);
-            dirtyPaths.push(path);
-          }
-        }
-      };
+  try {
+    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
 
-      var oldDirtyPaths = DIRTY_PATHS.get(editor) || [];
-      var newDirtyPaths = getDirtyPaths(op);
-
-      for (var path of oldDirtyPaths) {
-        var newPath = Path.transform(path, op);
-        add(newPath);
-      }
-
-      for (var _path of newDirtyPaths) {
-        add(_path);
-      }
-
-      DIRTY_PATHS.set(editor, dirtyPaths);
-      Editor.transform(editor, op);
-      editor.operations.push(op);
-      Editor.normalize(editor); // Clear any formats applied to the cursor if the selection changes.
-
-      if (op.type === 'set_selection') {
-        editor.marks = null;
-      }
-
-      if (!FLUSHING.get(editor)) {
-        FLUSHING.set(editor, true);
-        Promise.resolve().then(() => {
-          FLUSHING.set(editor, false);
-          editor.onChange();
-          editor.operations = [];
-        });
-      }
-    },
-    addMark: (key, value) => {
-      var {
-        selection
-      } = editor;
-
-      if (selection) {
-        if (Range.isExpanded(selection)) {
-          Transforms.setNodes(editor, {
-            [key]: value
-          }, {
-            match: Text.isText,
-            split: true
-          });
-        } else {
-          var marks = _objectSpread({}, Editor.marks(editor) || {}, {
-            [key]: value
-          });
-
-          editor.marks = marks;
-          editor.onChange();
-        }
-      }
-    },
-    deleteBackward: unit => {
-      var {
-        selection
-      } = editor;
-
-      if (selection && Range.isCollapsed(selection)) {
-        Transforms.delete(editor, {
-          unit,
-          reverse: true
-        });
-      }
-    },
-    deleteForward: unit => {
-      var {
-        selection
-      } = editor;
-
-      if (selection && Range.isCollapsed(selection)) {
-        Transforms.delete(editor, {
-          unit
-        });
-      }
-    },
-    deleteFragment: () => {
-      var {
-        selection
-      } = editor;
-
-      if (selection && Range.isExpanded(selection)) {
-        Transforms.delete(editor);
-      }
-    },
-    insertBreak: () => {
-      Transforms.splitNodes(editor, {
-        always: true
-      });
-    },
-    insertFragment: fragment => {
-      Transforms.insertFragment(editor, fragment);
-    },
-    insertNode: node => {
-      Transforms.insertNodes(editor, node);
-    },
-    insertText: text => {
-      var {
-        selection,
-        marks
-      } = editor;
-
-      if (selection) {
-        // If the cursor is at the end of an inline, move it outside of
-        // the inline before inserting
-        if (Range.isCollapsed(selection)) {
-          var inline = Editor.above(editor, {
-            match: n => Editor.isInline(editor, n),
-            mode: 'highest'
-          });
-
-          if (inline) {
-            var [, inlinePath] = inline;
-
-            if (Editor.isEnd(editor, selection.anchor, inlinePath)) {
-              var point = Editor.after(editor, inlinePath);
-              Transforms.setSelection(editor, {
-                anchor: point,
-                focus: point
-              });
-            }
-          }
-        }
-
-        if (marks) {
-          var node = _objectSpread({
-            text
-          }, marks);
-
-          Transforms.insertNodes(editor, node);
-        } else {
-          Transforms.insertText(editor, text);
-        }
-
-        editor.marks = null;
-      }
-    },
-    normalizeNode: entry => {
-      var [node, path] = entry; // There are no core normalizations for text nodes.
-
-      if (Text.isText(node)) {
-        return;
-      } // Ensure that block and inline nodes have at least one text child.
-
-
-      if (Element.isElement(node) && node.children.length === 0) {
-        var child = {
-          text: ''
-        };
-        Transforms.insertNodes(editor, child, {
-          at: path.concat(0),
-          voids: true
-        });
-        return;
-      } // Determine whether the node should have block or inline children.
-
-
-      var shouldHaveInlines = Editor.isEditor(node) ? false : Element.isElement(node) && (editor.isInline(node) || node.children.length === 0 || Text.isText(node.children[0]) || editor.isInline(node.children[0])); // Since we'll be applying operations while iterating, keep track of an
-      // index that accounts for any added/removed nodes.
-
-      var n = 0;
-
-      for (var i = 0; i < node.children.length; i++, n++) {
-        var _child = node.children[i];
-        var prev = node.children[i - 1];
-        var isLast = i === node.children.length - 1;
-        var isInlineOrText = Text.isText(_child) || Element.isElement(_child) && editor.isInline(_child); // Only allow block nodes in the top-level children and parent blocks
-        // that only contain block nodes. Similarly, only allow inline nodes in
-        // other inline nodes, or parent blocks that only contain inlines and
-        // text.
-
-        if (isInlineOrText !== shouldHaveInlines) {
-          Transforms.removeNodes(editor, {
-            at: path.concat(n),
-            voids: true
-          });
-          n--;
-        } else if (Element.isElement(_child)) {
-          // Ensure that inline nodes are surrounded by text nodes.
-          if (editor.isInline(_child)) {
-            if (prev == null || !Text.isText(prev)) {
-              var newChild = {
-                text: ''
-              };
-              Transforms.insertNodes(editor, newChild, {
-                at: path.concat(n),
-                voids: true
-              });
-              n++;
-            } else if (isLast) {
-              var _newChild = {
-                text: ''
-              };
-              Transforms.insertNodes(editor, _newChild, {
-                at: path.concat(n + 1),
-                voids: true
-              });
-              n++;
-            }
-          }
-        } else {
-          // Merge adjacent text nodes that are empty or match.
-          if (prev != null && Text.isText(prev)) {
-            if (Text.equals(_child, prev, {
-              loose: true
-            })) {
-              Transforms.mergeNodes(editor, {
-                at: path.concat(n),
-                voids: true
-              });
-              n--;
-            } else if (prev.text === '') {
-              Transforms.removeNodes(editor, {
-                at: path.concat(n - 1),
-                voids: true
-              });
-              n--;
-            } else if (isLast && _child.text === '') {
-              Transforms.removeNodes(editor, {
-                at: path.concat(n),
-                voids: true
-              });
-              n--;
-            }
-          }
-        }
-      }
-    },
-    removeMark: key => {
-      var {
-        selection
-      } = editor;
-
-      if (selection) {
-        if (Range.isExpanded(selection)) {
-          Transforms.unsetNodes(editor, key, {
-            match: Text.isText,
-            split: true
-          });
-        } else {
-          var marks = _objectSpread({}, Editor.marks(editor) || {});
-
-          delete marks[key];
-          editor.marks = marks;
-          editor.onChange();
-        }
-      }
+      if (i && _arr.length === i) break;
     }
-  };
-  return editor;
-};
-/**
- * Get the "dirty" paths generated from an operation.
- */
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
 
-var getDirtyPaths = op => {
+  return _arr;
+}
+
+module.exports = _iterableToArrayLimit;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+unwrapExports(iterableToArrayLimit);
+
+var nonIterableRest = createCommonjsModule(function (module) {
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+module.exports = _nonIterableRest;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+unwrapExports(nonIterableRest);
+
+var slicedToArray = createCommonjsModule(function (module) {
+function _slicedToArray(arr, i) {
+  return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
+}
+
+module.exports = _slicedToArray;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+var _slicedToArray = unwrapExports(slicedToArray);
+
+function ownKeys$e(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$e(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$e(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$e(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _createForOfIteratorHelper$l(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray$l(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray$l(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$l(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$l(o, minLen); }
+
+function _arrayLikeToArray$l(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+var applyToDraft = function applyToDraft(editor, selection, op) {
   switch (op.type) {
-    case 'insert_text':
-    case 'remove_text':
-    case 'set_node':
-      {
-        var {
-          path
-        } = op;
-        return Path.levels(path);
-      }
-
     case 'insert_node':
       {
-        var {
-          node,
-          path: _path2
-        } = op;
-        var levels = Path.levels(_path2);
-        var descendants = Text.isText(node) ? [] : Array.from(Node.nodes(node), (_ref3) => {
-          var [, p] = _ref3;
-          return _path2.concat(p);
-        });
-        return [...levels, ...descendants];
+        var path = op.path,
+            node = op.node;
+        var parent = Node.parent(editor, path);
+        var index = path[path.length - 1];
+
+        if (index > parent.children.length) {
+          throw new Error("Cannot apply an \"insert_node\" operation at path [".concat(path, "] because the destination is past the end of the node."));
+        }
+
+        parent.children.splice(index, 0, node);
+
+        if (selection) {
+          var _iterator = _createForOfIteratorHelper$l(Range.points(selection)),
+              _step;
+
+          try {
+            for (_iterator.s(); !(_step = _iterator.n()).done;) {
+              var _step$value = _slicedToArray(_step.value, 2),
+                  point = _step$value[0],
+                  key = _step$value[1];
+
+              selection[key] = Point.transform(point, op);
+            }
+          } catch (err) {
+            _iterator.e(err);
+          } finally {
+            _iterator.f();
+          }
+        }
+
+        break;
+      }
+
+    case 'insert_text':
+      {
+        var _path = op.path,
+            offset = op.offset,
+            text = op.text;
+        if (text.length === 0) break;
+
+        var _node = Node.leaf(editor, _path);
+
+        var before = _node.text.slice(0, offset);
+
+        var after = _node.text.slice(offset);
+
+        _node.text = before + text + after;
+
+        if (selection) {
+          var _iterator2 = _createForOfIteratorHelper$l(Range.points(selection)),
+              _step2;
+
+          try {
+            for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+              var _step2$value = _slicedToArray(_step2.value, 2),
+                  _point = _step2$value[0],
+                  _key = _step2$value[1];
+
+              selection[_key] = Point.transform(_point, op);
+            }
+          } catch (err) {
+            _iterator2.e(err);
+          } finally {
+            _iterator2.f();
+          }
+        }
+
+        break;
       }
 
     case 'merge_node':
       {
-        var {
-          path: _path3
-        } = op;
-        var ancestors = Path.ancestors(_path3);
-        var previousPath = Path.previous(_path3);
-        return [...ancestors, previousPath];
+        var _path2 = op.path;
+
+        var _node2 = Node.get(editor, _path2);
+
+        var prevPath = Path.previous(_path2);
+        var prev = Node.get(editor, prevPath);
+
+        var _parent = Node.parent(editor, _path2);
+
+        var _index = _path2[_path2.length - 1];
+
+        if (Text.isText(_node2) && Text.isText(prev)) {
+          prev.text += _node2.text;
+        } else if (!Text.isText(_node2) && !Text.isText(prev)) {
+          var _prev$children;
+
+          (_prev$children = prev.children).push.apply(_prev$children, _toConsumableArray(_node2.children));
+        } else {
+          throw new Error("Cannot apply a \"merge_node\" operation at path [".concat(_path2, "] to nodes of different interfaces: ").concat(Scrubber.stringify(_node2), " ").concat(Scrubber.stringify(prev)));
+        }
+
+        _parent.children.splice(_index, 1);
+
+        if (selection) {
+          var _iterator3 = _createForOfIteratorHelper$l(Range.points(selection)),
+              _step3;
+
+          try {
+            for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+              var _step3$value = _slicedToArray(_step3.value, 2),
+                  _point2 = _step3$value[0],
+                  _key2 = _step3$value[1];
+
+              selection[_key2] = Point.transform(_point2, op);
+            }
+          } catch (err) {
+            _iterator3.e(err);
+          } finally {
+            _iterator3.f();
+          }
+        }
+
+        break;
       }
 
     case 'move_node':
       {
-        var {
-          path: _path4,
-          newPath
-        } = op;
+        var _path3 = op.path,
+            newPath = op.newPath;
 
-        if (Path.equals(_path4, newPath)) {
-          return [];
+        if (Path.isAncestor(_path3, newPath)) {
+          throw new Error("Cannot move a path [".concat(_path3, "] to new path [").concat(newPath, "] because the destination is inside itself."));
         }
 
-        var oldAncestors = [];
-        var newAncestors = [];
+        var _node3 = Node.get(editor, _path3);
 
-        for (var ancestor of Path.ancestors(_path4)) {
-          var p = Path.transform(ancestor, op);
-          oldAncestors.push(p);
+        var _parent2 = Node.parent(editor, _path3);
+
+        var _index2 = _path3[_path3.length - 1]; // This is tricky, but since the `path` and `newPath` both refer to
+        // the same snapshot in time, there's a mismatch. After either
+        // removing the original position, the second step's path can be out
+        // of date. So instead of using the `op.newPath` directly, we
+        // transform `op.path` to ascertain what the `newPath` would be after
+        // the operation was applied.
+
+        _parent2.children.splice(_index2, 1);
+
+        var truePath = Path.transform(_path3, op);
+        var newParent = Node.get(editor, Path.parent(truePath));
+        var newIndex = truePath[truePath.length - 1];
+        newParent.children.splice(newIndex, 0, _node3);
+
+        if (selection) {
+          var _iterator4 = _createForOfIteratorHelper$l(Range.points(selection)),
+              _step4;
+
+          try {
+            for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+              var _step4$value = _slicedToArray(_step4.value, 2),
+                  _point3 = _step4$value[0],
+                  _key3 = _step4$value[1];
+
+              selection[_key3] = Point.transform(_point3, op);
+            }
+          } catch (err) {
+            _iterator4.e(err);
+          } finally {
+            _iterator4.f();
+          }
         }
 
-        for (var _ancestor of Path.ancestors(newPath)) {
-          var _p = Path.transform(_ancestor, op);
-
-          newAncestors.push(_p);
-        }
-
-        return [...oldAncestors, ...newAncestors];
+        break;
       }
 
     case 'remove_node':
       {
-        var {
-          path: _path5
-        } = op;
+        var _path4 = op.path;
+        var _index3 = _path4[_path4.length - 1];
 
-        var _ancestors = Path.ancestors(_path5);
+        var _parent3 = Node.parent(editor, _path4);
 
-        return [..._ancestors];
+        _parent3.children.splice(_index3, 1); // Transform all of the points in the value, but if the point was in the
+        // node that was removed we need to update the range or remove it.
+
+
+        if (selection) {
+          var _iterator5 = _createForOfIteratorHelper$l(Range.points(selection)),
+              _step5;
+
+          try {
+            for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
+              var _step5$value = _slicedToArray(_step5.value, 2),
+                  _point4 = _step5$value[0],
+                  _key4 = _step5$value[1];
+
+              var result = Point.transform(_point4, op);
+
+              if (selection != null && result != null) {
+                selection[_key4] = result;
+              } else {
+                var _prev = void 0;
+
+                var next = void 0;
+
+                var _iterator6 = _createForOfIteratorHelper$l(Node.texts(editor)),
+                    _step6;
+
+                try {
+                  for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
+                    var _step6$value = _slicedToArray(_step6.value, 2),
+                        n = _step6$value[0],
+                        p = _step6$value[1];
+
+                    if (Path.compare(p, _path4) === -1) {
+                      _prev = [n, p];
+                    } else {
+                      next = [n, p];
+                      break;
+                    }
+                  }
+                } catch (err) {
+                  _iterator6.e(err);
+                } finally {
+                  _iterator6.f();
+                }
+
+                var preferNext = false;
+
+                if (_prev && next) {
+                  if (Path.equals(next[1], _path4)) {
+                    preferNext = !Path.hasPrevious(next[1]);
+                  } else {
+                    preferNext = Path.common(_prev[1], _path4).length < Path.common(next[1], _path4).length;
+                  }
+                }
+
+                if (_prev && !preferNext) {
+                  _point4.path = _prev[1];
+                  _point4.offset = _prev[0].text.length;
+                } else if (next) {
+                  _point4.path = next[1];
+                  _point4.offset = 0;
+                } else {
+                  selection = null;
+                }
+              }
+            }
+          } catch (err) {
+            _iterator5.e(err);
+          } finally {
+            _iterator5.f();
+          }
+        }
+
+        break;
+      }
+
+    case 'remove_text':
+      {
+        var _path5 = op.path,
+            _offset = op.offset,
+            _text = op.text;
+        if (_text.length === 0) break;
+
+        var _node4 = Node.leaf(editor, _path5);
+
+        var _before = _node4.text.slice(0, _offset);
+
+        var _after = _node4.text.slice(_offset + _text.length);
+
+        _node4.text = _before + _after;
+
+        if (selection) {
+          var _iterator7 = _createForOfIteratorHelper$l(Range.points(selection)),
+              _step7;
+
+          try {
+            for (_iterator7.s(); !(_step7 = _iterator7.n()).done;) {
+              var _step7$value = _slicedToArray(_step7.value, 2),
+                  _point5 = _step7$value[0],
+                  _key5 = _step7$value[1];
+
+              selection[_key5] = Point.transform(_point5, op);
+            }
+          } catch (err) {
+            _iterator7.e(err);
+          } finally {
+            _iterator7.f();
+          }
+        }
+
+        break;
+      }
+
+    case 'set_node':
+      {
+        var _path6 = op.path,
+            properties = op.properties,
+            newProperties = op.newProperties;
+
+        if (_path6.length === 0) {
+          throw new Error("Cannot set properties on the root node!");
+        }
+
+        var _node5 = Node.get(editor, _path6);
+
+        for (var _key6 in newProperties) {
+          if (_key6 === 'children' || _key6 === 'text') {
+            throw new Error("Cannot set the \"".concat(_key6, "\" property of nodes!"));
+          }
+
+          var value = newProperties[_key6];
+
+          if (value == null) {
+            delete _node5[_key6];
+          } else {
+            _node5[_key6] = value;
+          }
+        } // properties that were previously defined, but are now missing, must be deleted
+
+
+        for (var _key7 in properties) {
+          if (!newProperties.hasOwnProperty(_key7)) {
+            delete _node5[_key7];
+          }
+        }
+
+        break;
+      }
+
+    case 'set_selection':
+      {
+        var _newProperties = op.newProperties;
+
+        if (_newProperties == null) {
+          selection = _newProperties;
+        } else {
+          if (selection == null) {
+            if (!Range.isRange(_newProperties)) {
+              throw new Error("Cannot apply an incomplete \"set_selection\" operation properties ".concat(Scrubber.stringify(_newProperties), " when there is no current selection."));
+            }
+
+            selection = _objectSpread$e({}, _newProperties);
+          }
+
+          for (var _key8 in _newProperties) {
+            var _value = _newProperties[_key8];
+
+            if (_value == null) {
+              if (_key8 === 'anchor' || _key8 === 'focus') {
+                throw new Error("Cannot remove the \"".concat(_key8, "\" selection property"));
+              }
+
+              delete selection[_key8];
+            } else {
+              selection[_key8] = _value;
+            }
+          }
+        }
+
+        break;
       }
 
     case 'split_node':
       {
-        var {
-          path: _path6
-        } = op;
+        var _path7 = op.path,
+            position = op.position,
+            _properties = op.properties;
 
-        var _levels = Path.levels(_path6);
+        if (_path7.length === 0) {
+          throw new Error("Cannot apply a \"split_node\" operation at path [".concat(_path7, "] because the root node cannot be split."));
+        }
 
-        var nextPath = Path.next(_path6);
-        return [..._levels, nextPath];
+        var _node6 = Node.get(editor, _path7);
+
+        var _parent4 = Node.parent(editor, _path7);
+
+        var _index4 = _path7[_path7.length - 1];
+        var newNode;
+
+        if (Text.isText(_node6)) {
+          var _before2 = _node6.text.slice(0, position);
+
+          var _after2 = _node6.text.slice(position);
+
+          _node6.text = _before2;
+          newNode = _objectSpread$e(_objectSpread$e({}, _properties), {}, {
+            text: _after2
+          });
+        } else {
+          var _before3 = _node6.children.slice(0, position);
+
+          var _after3 = _node6.children.slice(position);
+
+          _node6.children = _before3;
+          newNode = _objectSpread$e(_objectSpread$e({}, _properties), {}, {
+            children: _after3
+          });
+        }
+
+        _parent4.children.splice(_index4 + 1, 0, newNode);
+
+        if (selection) {
+          var _iterator8 = _createForOfIteratorHelper$l(Range.points(selection)),
+              _step8;
+
+          try {
+            for (_iterator8.s(); !(_step8 = _iterator8.n()).done;) {
+              var _step8$value = _slicedToArray(_step8.value, 2),
+                  _point6 = _step8$value[0],
+                  _key9 = _step8$value[1];
+
+              selection[_key9] = Point.transform(_point6, op);
+            }
+          } catch (err) {
+            _iterator8.e(err);
+          } finally {
+            _iterator8.f();
+          }
+        }
+
+        break;
       }
+  }
 
-    default:
-      {
-        return [];
+  return selection;
+}; // eslint-disable-next-line no-redeclare
+
+
+var GeneralTransforms = {
+  transform: function transform(editor, op) {
+    editor.children = immer.createDraft(editor.children);
+    var selection = editor.selection && immer.createDraft(editor.selection);
+
+    try {
+      selection = applyToDraft(editor, selection, op);
+    } finally {
+      editor.children = immer.finishDraft(editor.children);
+
+      if (selection) {
+        editor.selection = immer.isDraft(selection) ? immer.finishDraft(selection) : selection;
+      } else {
+        editor.selection = null;
       }
+    }
   }
 };
 
+// eslint-disable-next-line no-redeclare
+var NodeTransforms = {
+  insertNodes: function insertNodes(editor, nodes, options) {
+    editor.insertNodes(nodes, options);
+  },
+  liftNodes: function liftNodes(editor, options) {
+    editor.liftNodes(options);
+  },
+  mergeNodes: function mergeNodes(editor, options) {
+    editor.mergeNodes(options);
+  },
+  moveNodes: function moveNodes(editor, options) {
+    editor.moveNodes(options);
+  },
+  removeNodes: function removeNodes(editor, options) {
+    editor.removeNodes(options);
+  },
+  setNodes: function setNodes(editor, props, options) {
+    editor.setNodes(props, options);
+  },
+  splitNodes: function splitNodes(editor, options) {
+    editor.splitNodes(options);
+  },
+  unsetNodes: function unsetNodes(editor, props, options) {
+    editor.unsetNodes(props, options);
+  },
+  unwrapNodes: function unwrapNodes(editor, options) {
+    editor.unwrapNodes(options);
+  },
+  wrapNodes: function wrapNodes(editor, element, options) {
+    editor.wrapNodes(element, options);
+  }
+};
+
+// eslint-disable-next-line no-redeclare
+var SelectionTransforms = {
+  collapse: function collapse(editor, options) {
+    editor.collapse(options);
+  },
+  deselect: function deselect(editor) {
+    editor.deselect();
+  },
+  move: function move(editor, options) {
+    editor.move(options);
+  },
+  select: function select(editor, target) {
+    editor.select(target);
+  },
+  setPoint: function setPoint(editor, props, options) {
+    editor.setPoint(props, options);
+  },
+  setSelection: function setSelection(editor, props) {
+    editor.setSelection(props);
+  }
+};
+
+/*
+  Custom deep equal comparison for Slate nodes.
+
+  We don't need general purpose deep equality;
+  Slate only supports plain values, Arrays, and nested objects.
+  Complex values nested inside Arrays are not supported.
+
+  Slate objects are designed to be serialised, so
+  missing keys are deliberately normalised to undefined.
+ */
+
+var isDeepEqual = function isDeepEqual(node, another) {
+  for (var key in node) {
+    var a = node[key];
+    var b = another[key];
+
+    if (isPlainObject.isPlainObject(a) && isPlainObject.isPlainObject(b)) {
+      if (!isDeepEqual(a, b)) return false;
+    } else if (Array.isArray(a) && Array.isArray(b)) {
+      if (a.length !== b.length) return false;
+
+      for (var i = 0; i < a.length; i++) {
+        if (a[i] !== b[i]) return false;
+      }
+    } else if (a !== b) {
+      return false;
+    }
+  }
+  /*
+    Deep object equality is only necessary in one direction; in the reverse direction
+    we are only looking for keys that are missing.
+    As above, undefined keys are normalised to missing.
+  */
+
+
+  for (var _key in another) {
+    if (node[_key] === undefined && another[_key] !== undefined) {
+      return false;
+    }
+  }
+
+  return true;
+};
+
+var objectWithoutPropertiesLoose = createCommonjsModule(function (module) {
 function _objectWithoutPropertiesLoose(source, excluded) {
   if (source == null) return {};
   var target = {};
@@ -40291,9 +46346,16 @@ function _objectWithoutPropertiesLoose(source, excluded) {
   return target;
 }
 
+module.exports = _objectWithoutPropertiesLoose;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+unwrapExports(objectWithoutPropertiesLoose);
+
+var objectWithoutProperties = createCommonjsModule(function (module) {
 function _objectWithoutProperties(source, excluded) {
   if (source == null) return {};
-  var target = _objectWithoutPropertiesLoose(source, excluded);
+  var target = objectWithoutPropertiesLoose(source, excluded);
   var key, i;
 
   if (Object.getOwnPropertySymbols) {
@@ -40310,1719 +46372,213 @@ function _objectWithoutProperties(source, excluded) {
   return target;
 }
 
-/**
- * Constants for string distance checking.
- */
-var SPACE = /\s/;
-var PUNCTUATION = /[\u0021-\u0023\u0025-\u002A\u002C-\u002F\u003A\u003B\u003F\u0040\u005B-\u005D\u005F\u007B\u007D\u00A1\u00A7\u00AB\u00B6\u00B7\u00BB\u00BF\u037E\u0387\u055A-\u055F\u0589\u058A\u05BE\u05C0\u05C3\u05C6\u05F3\u05F4\u0609\u060A\u060C\u060D\u061B\u061E\u061F\u066A-\u066D\u06D4\u0700-\u070D\u07F7-\u07F9\u0830-\u083E\u085E\u0964\u0965\u0970\u0AF0\u0DF4\u0E4F\u0E5A\u0E5B\u0F04-\u0F12\u0F14\u0F3A-\u0F3D\u0F85\u0FD0-\u0FD4\u0FD9\u0FDA\u104A-\u104F\u10FB\u1360-\u1368\u1400\u166D\u166E\u169B\u169C\u16EB-\u16ED\u1735\u1736\u17D4-\u17D6\u17D8-\u17DA\u1800-\u180A\u1944\u1945\u1A1E\u1A1F\u1AA0-\u1AA6\u1AA8-\u1AAD\u1B5A-\u1B60\u1BFC-\u1BFF\u1C3B-\u1C3F\u1C7E\u1C7F\u1CC0-\u1CC7\u1CD3\u2010-\u2027\u2030-\u2043\u2045-\u2051\u2053-\u205E\u207D\u207E\u208D\u208E\u2329\u232A\u2768-\u2775\u27C5\u27C6\u27E6-\u27EF\u2983-\u2998\u29D8-\u29DB\u29FC\u29FD\u2CF9-\u2CFC\u2CFE\u2CFF\u2D70\u2E00-\u2E2E\u2E30-\u2E3B\u3001-\u3003\u3008-\u3011\u3014-\u301F\u3030\u303D\u30A0\u30FB\uA4FE\uA4FF\uA60D-\uA60F\uA673\uA67E\uA6F2-\uA6F7\uA874-\uA877\uA8CE\uA8CF\uA8F8-\uA8FA\uA92E\uA92F\uA95F\uA9C1-\uA9CD\uA9DE\uA9DF\uAA5C-\uAA5F\uAADE\uAADF\uAAF0\uAAF1\uABEB\uFD3E\uFD3F\uFE10-\uFE19\uFE30-\uFE52\uFE54-\uFE61\uFE63\uFE68\uFE6A\uFE6B\uFF01-\uFF03\uFF05-\uFF0A\uFF0C-\uFF0F\uFF1A\uFF1B\uFF1F\uFF20\uFF3B-\uFF3D\uFF3F\uFF5B\uFF5D\uFF5F-\uFF65]/;
-var CHAMELEON = /['\u2018\u2019]/;
-var SURROGATE_START = 0xd800;
-var SURROGATE_END = 0xdfff;
-var ZERO_WIDTH_JOINER = 0x200d;
-/**
- * Get the distance to the end of the first character in a string of text.
- */
+module.exports = _objectWithoutProperties;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
 
-var getCharacterDistance = text => {
-  var offset = 0; // prev types:
-  // SURR: surrogate pair
-  // MOD: modifier (technically also surrogate pair)
-  // ZWJ: zero width joiner
-  // VAR: variation selector
-  // BMP: sequenceable character from basic multilingual plane
+var _objectWithoutProperties = unwrapExports(objectWithoutProperties);
 
-  var prev = null;
-  var charCode = text.charCodeAt(0);
+var _excluded$4 = ["anchor", "focus"];
 
-  while (charCode) {
-    if (isSurrogate(charCode)) {
-      var modifier = isModifier(charCode, text, offset); // Early returns are the heart of this function, where we decide if previous and current
-      // codepoints should form a single character (in terms of how many of them should selection
-      // jump over).
+function ownKeys$d(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-      if (prev === 'SURR' || prev === 'BMP') {
-        break;
+function _objectSpread$d(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$d(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$d(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+var Range = {
+  edges: function edges(range) {
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    var _options$reverse = options.reverse,
+        reverse = _options$reverse === void 0 ? false : _options$reverse;
+    var anchor = range.anchor,
+        focus = range.focus;
+    return Range.isBackward(range) === reverse ? [anchor, focus] : [focus, anchor];
+  },
+  end: function end(range) {
+    var _Range$edges = Range.edges(range),
+        _Range$edges2 = _slicedToArray(_Range$edges, 2),
+        end = _Range$edges2[1];
+
+    return end;
+  },
+  equals: function equals(range, another) {
+    return Point.equals(range.anchor, another.anchor) && Point.equals(range.focus, another.focus);
+  },
+  includes: function includes(range, target) {
+    if (Range.isRange(target)) {
+      if (Range.includes(range, target.anchor) || Range.includes(range, target.focus)) {
+        return true;
       }
 
-      offset += 2;
-      prev = modifier ? 'MOD' : 'SURR';
-      charCode = text.charCodeAt(offset); // Absolutely fine to `continue` without any checks because if `charCode` is NaN (which
-      // is the case when out of `text` range), next `while` loop won"t execute and we"re done.
+      var _Range$edges3 = Range.edges(range),
+          _Range$edges4 = _slicedToArray(_Range$edges3, 2),
+          rs = _Range$edges4[0],
+          re = _Range$edges4[1];
 
-      continue;
+      var _Range$edges5 = Range.edges(target),
+          _Range$edges6 = _slicedToArray(_Range$edges5, 2),
+          ts = _Range$edges6[0],
+          te = _Range$edges6[1];
+
+      return Point.isBefore(rs, ts) && Point.isAfter(re, te);
     }
 
-    if (charCode === ZERO_WIDTH_JOINER) {
-      offset += 1;
-      prev = 'ZWJ';
-      charCode = text.charCodeAt(offset);
-      continue;
-    }
+    var _Range$edges7 = Range.edges(range),
+        _Range$edges8 = _slicedToArray(_Range$edges7, 2),
+        start = _Range$edges8[0],
+        end = _Range$edges8[1];
 
-    if (isBMPEmoji(charCode)) {
-      if (prev && prev !== 'ZWJ' && prev !== 'VAR') {
-        break;
-      }
+    var isAfterStart = false;
+    var isBeforeEnd = false;
 
-      offset += 1;
-      prev = 'BMP';
-      charCode = text.charCodeAt(offset);
-      continue;
-    }
-
-    if (isVariationSelector(charCode)) {
-      if (prev && prev !== 'ZWJ') {
-        break;
-      }
-
-      offset += 1;
-      prev = 'VAR';
-      charCode = text.charCodeAt(offset);
-      continue;
-    } // Modifier 'groups up' with what ever character is before that (even whitespace), need to
-    // look ahead.
-
-
-    if (prev === 'MOD') {
-      offset += 1;
-      break;
-    } // If while loop ever gets here, we're done (e.g latin chars).
-
-
-    break;
-  }
-
-  return offset || 1;
-};
-/**
- * Get the distance to the end of the first word in a string of text.
- */
-
-var getWordDistance = text => {
-  var length = 0;
-  var i = 0;
-  var started = false;
-  var char;
-
-  while (char = text.charAt(i)) {
-    var l = getCharacterDistance(char);
-    char = text.slice(i, i + l);
-    var rest = text.slice(i + l);
-
-    if (isWordCharacter(char, rest)) {
-      started = true;
-      length += l;
-    } else if (!started) {
-      length += l;
+    if (Point.isPoint(target)) {
+      isAfterStart = Point.compare(target, start) >= 0;
+      isBeforeEnd = Point.compare(target, end) <= 0;
     } else {
-      break;
+      isAfterStart = Path.compare(target, start.path) >= 0;
+      isBeforeEnd = Path.compare(target, end.path) <= 0;
     }
 
-    i += l;
-  }
-
-  return length;
-};
-/**
- * Check if a character is a word character. The `remaining` argument is used
- * because sometimes you must read subsequent characters to truly determine it.
- */
-
-var isWordCharacter = (char, remaining) => {
-  if (SPACE.test(char)) {
-    return false;
-  } // Chameleons count as word characters as long as they're in a word, so
-  // recurse to see if the next one is a word character or not.
-
-
-  if (CHAMELEON.test(char)) {
-    var next = remaining.charAt(0);
-    var length = getCharacterDistance(next);
-    next = remaining.slice(0, length);
-    var rest = remaining.slice(length);
-
-    if (isWordCharacter(next, rest)) {
-      return true;
-    }
-  }
-
-  if (PUNCTUATION.test(char)) {
-    return false;
-  }
-
-  return true;
-};
-/**
- * Determines if `code` is a surrogate
- */
-
-
-var isSurrogate = code => SURROGATE_START <= code && code <= SURROGATE_END;
-/**
- * Does `code` form Modifier with next one.
- *
- * https://emojipedia.org/modifiers/
- */
-
-
-var isModifier = (code, text, offset) => {
-  if (code === 0xd83c) {
-    var next = text.charCodeAt(offset + 1);
-    return next <= 0xdfff && next >= 0xdffb;
-  }
-
-  return false;
-};
-/**
- * Is `code` a Variation Selector.
- *
- * https://codepoints.net/variation_selectors
- */
-
-
-var isVariationSelector = code => {
-  return code <= 0xfe0f && code >= 0xfe00;
-};
-/**
- * Is `code` one of the BMP codes used in emoji sequences.
- *
- * https://emojipedia.org/emoji-zwj-sequences/
- */
-
-
-var isBMPEmoji = code => {
-  // This requires tiny bit of maintanance, better ideas?
-  // Fortunately it only happens if new Unicode Standard
-  // is released. Fails gracefully if upkeep lags behind,
-  // same way Slate previously behaved with all emojis.
-  return code === 0x2764 || // heart (❤)
-  code === 0x2642 || // male (♂)
-  code === 0x2640 || // female (♀)
-  code === 0x2620 || // scull (☠)
-  code === 0x2695 || // medical (⚕)
-  code === 0x2708 || // plane (✈️)
-  code === 0x25ef // large circle (◯)
-  ;
-};
-
-function ownKeys$1(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread$1(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$1(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$1(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-var Editor = {
-  /**
-   * Get the ancestor above a location in the document.
-   */
-  above(editor) {
-    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    var {
-      voids = false,
-      mode = 'lowest',
-      at = editor.selection,
-      match
-    } = options;
-
-    if (!at) {
-      return;
-    }
-
-    var path = Editor.path(editor, at);
-    var reverse = mode === 'lowest';
-
-    for (var [n, p] of Editor.levels(editor, {
-      at: path,
-      voids,
-      match,
-      reverse
-    })) {
-      if (!Text.isText(n) && !Path.equals(path, p)) {
-        return [n, p];
-      }
-    }
+    return isAfterStart && isBeforeEnd;
   },
+  intersection: function intersection(range, another) {
+    range.anchor;
+        range.focus;
+        var rest = _objectWithoutProperties(range, _excluded$4);
 
-  /**
-   * Add a custom property to the leaf text nodes in the current selection.
-   *
-   * If the selection is currently collapsed, the marks will be added to the
-   * `editor.marks` property instead, and applied when text is inserted next.
-   */
-  addMark(editor, key, value) {
-    editor.addMark(key, value);
-  },
+    var _Range$edges9 = Range.edges(range),
+        _Range$edges10 = _slicedToArray(_Range$edges9, 2),
+        s1 = _Range$edges10[0],
+        e1 = _Range$edges10[1];
 
-  /**
-   * Get the point after a location.
-   */
-  after(editor, at) {
-    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-    var anchor = Editor.point(editor, at, {
-      edge: 'end'
-    });
-    var focus = Editor.end(editor, []);
-    var range = {
-      anchor,
-      focus
-    };
-    var {
-      distance = 1
-    } = options;
-    var d = 0;
-    var target;
+    var _Range$edges11 = Range.edges(another),
+        _Range$edges12 = _slicedToArray(_Range$edges11, 2),
+        s2 = _Range$edges12[0],
+        e2 = _Range$edges12[1];
 
-    for (var p of Editor.positions(editor, _objectSpread$1({}, options, {
-      at: range
-    }))) {
-      if (d > distance) {
-        break;
-      }
+    var start = Point.isBefore(s1, s2) ? s2 : s1;
+    var end = Point.isBefore(e1, e2) ? e1 : e2;
 
-      if (d !== 0) {
-        target = p;
-      }
-
-      d++;
-    }
-
-    return target;
-  },
-
-  /**
-   * Get the point before a location.
-   */
-  before(editor, at) {
-    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-    var anchor = Editor.start(editor, []);
-    var focus = Editor.point(editor, at, {
-      edge: 'start'
-    });
-    var range = {
-      anchor,
-      focus
-    };
-    var {
-      distance = 1
-    } = options;
-    var d = 0;
-    var target;
-
-    for (var p of Editor.positions(editor, _objectSpread$1({}, options, {
-      at: range,
-      reverse: true
-    }))) {
-      if (d > distance) {
-        break;
-      }
-
-      if (d !== 0) {
-        target = p;
-      }
-
-      d++;
-    }
-
-    return target;
-  },
-
-  /**
-   * Delete content in the editor backward from the current selection.
-   */
-  deleteBackward(editor) {
-    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    var {
-      unit = 'character'
-    } = options;
-    editor.deleteBackward(unit);
-  },
-
-  /**
-   * Delete content in the editor forward from the current selection.
-   */
-  deleteForward(editor) {
-    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    var {
-      unit = 'character'
-    } = options;
-    editor.deleteForward(unit);
-  },
-
-  /**
-   * Delete the content in the current selection.
-   */
-  deleteFragment(editor) {
-    editor.deleteFragment();
-  },
-
-  /**
-   * Get the start and end points of a location.
-   */
-  edges(editor, at) {
-    return [Editor.start(editor, at), Editor.end(editor, at)];
-  },
-
-  /**
-   * Get the end point of a location.
-   */
-  end(editor, at) {
-    return Editor.point(editor, at, {
-      edge: 'end'
-    });
-  },
-
-  /**
-   * Get the first node at a location.
-   */
-  first(editor, at) {
-    var path = Editor.path(editor, at, {
-      edge: 'start'
-    });
-    return Editor.node(editor, path);
-  },
-
-  /**
-   * Get the fragment at a location.
-   */
-  fragment(editor, at) {
-    var range = Editor.range(editor, at);
-    var fragment = Node.fragment(editor, range);
-    return fragment;
-  },
-
-  /**
-   * Check if a node has block children.
-   */
-  hasBlocks(editor, element) {
-    return element.children.some(n => Editor.isBlock(editor, n));
-  },
-
-  /**
-   * Check if a node has inline and text children.
-   */
-  hasInlines(editor, element) {
-    return element.children.some(n => Text.isText(n) || Editor.isInline(editor, n));
-  },
-
-  /**
-   * Check if a node has text children.
-   */
-  hasTexts(editor, element) {
-    return element.children.every(n => Text.isText(n));
-  },
-
-  /**
-   * Insert a block break at the current selection.
-   *
-   * If the selection is currently expanded, it will be deleted first.
-   */
-  insertBreak(editor) {
-    editor.insertBreak();
-  },
-
-  /**
-   * Insert a fragment at the current selection.
-   *
-   * If the selection is currently expanded, it will be deleted first.
-   */
-  insertFragment(editor, fragment) {
-    editor.insertFragment(fragment);
-  },
-
-  /**
-   * Insert a node at the current selection.
-   *
-   * If the selection is currently expanded, it will be deleted first.
-   */
-  insertNode(editor, node) {
-    editor.insertNode(node);
-  },
-
-  /**
-   * Insert text at the current selection.
-   *
-   * If the selection is currently expanded, it will be deleted first.
-   */
-  insertText(editor, text) {
-    editor.insertText(text);
-  },
-
-  /**
-   * Check if a value is a block `Element` object.
-   */
-  isBlock(editor, value) {
-    return Element.isElement(value) && !editor.isInline(value);
-  },
-
-  /**
-   * Check if a value is an `Editor` object.
-   */
-  isEditor(value) {
-    return isPlainObject(value) && typeof value.addMark === 'function' && typeof value.apply === 'function' && typeof value.deleteBackward === 'function' && typeof value.deleteForward === 'function' && typeof value.deleteFragment === 'function' && typeof value.insertBreak === 'function' && typeof value.insertFragment === 'function' && typeof value.insertNode === 'function' && typeof value.insertText === 'function' && typeof value.isInline === 'function' && typeof value.isVoid === 'function' && typeof value.normalizeNode === 'function' && typeof value.onChange === 'function' && typeof value.removeMark === 'function' && (value.marks === null || isPlainObject(value.marks)) && (value.selection === null || Range.isRange(value.selection)) && Node.isNodeList(value.children) && Operation.isOperationList(value.operations);
-  },
-
-  /**
-   * Check if a point is the end point of a location.
-   */
-  isEnd(editor, point, at) {
-    var end = Editor.end(editor, at);
-    return Point.equals(point, end);
-  },
-
-  /**
-   * Check if a point is an edge of a location.
-   */
-  isEdge(editor, point, at) {
-    return Editor.isStart(editor, point, at) || Editor.isEnd(editor, point, at);
-  },
-
-  /**
-   * Check if an element is empty, accounting for void nodes.
-   */
-  isEmpty(editor, element) {
-    var {
-      children
-    } = element;
-    var [first] = children;
-    return children.length === 0 || children.length === 1 && Text.isText(first) && first.text === '' && !editor.isVoid(element);
-  },
-
-  /**
-   * Check if a value is an inline `Element` object.
-   */
-  isInline(editor, value) {
-    return Element.isElement(value) && editor.isInline(value);
-  },
-
-  /**
-   * Check if the editor is currently normalizing after each operation.
-   */
-  isNormalizing(editor) {
-    var isNormalizing = NORMALIZING.get(editor);
-    return isNormalizing === undefined ? true : isNormalizing;
-  },
-
-  /**
-   * Check if a point is the start point of a location.
-   */
-  isStart(editor, point, at) {
-    // PERF: If the offset isn't `0` we know it's not the start.
-    if (point.offset !== 0) {
-      return false;
-    }
-
-    var start = Editor.start(editor, at);
-    return Point.equals(point, start);
-  },
-
-  /**
-   * Check if a value is a void `Element` object.
-   */
-  isVoid(editor, value) {
-    return Element.isElement(value) && editor.isVoid(value);
-  },
-
-  /**
-   * Get the last node at a location.
-   */
-  last(editor, at) {
-    var path = Editor.path(editor, at, {
-      edge: 'end'
-    });
-    return Editor.node(editor, path);
-  },
-
-  /**
-   * Get the leaf text node at a location.
-   */
-  leaf(editor, at) {
-    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-    var path = Editor.path(editor, at, options);
-    var node = Node.leaf(editor, path);
-    return [node, path];
-  },
-
-  /**
-   * Iterate through all of the levels at a location.
-   */
-  *levels(editor) {
-    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    var {
-      at = editor.selection,
-      reverse = false,
-      voids = false
-    } = options;
-    var {
-      match
-    } = options;
-
-    if (match == null) {
-      match = () => true;
-    }
-
-    if (!at) {
-      return;
-    }
-
-    var levels = [];
-    var path = Editor.path(editor, at);
-
-    for (var [n, p] of Node.levels(editor, path)) {
-      if (!match(n)) {
-        continue;
-      }
-
-      levels.push([n, p]);
-
-      if (!voids && Editor.isVoid(editor, n)) {
-        break;
-      }
-    }
-
-    if (reverse) {
-      levels.reverse();
-    }
-
-    yield* levels;
-  },
-
-  /**
-   * Get the marks that would be added to text at the current selection.
-   */
-  marks(editor) {
-    var {
-      marks,
-      selection
-    } = editor;
-
-    if (!selection) {
+    if (Point.isBefore(end, start)) {
       return null;
-    }
-
-    if (marks) {
-      return marks;
-    }
-
-    if (Range.isExpanded(selection)) {
-      var [match] = Editor.nodes(editor, {
-        match: Text.isText
-      });
-
-      if (match) {
-        var [_node] = match;
-
-        var _rest = _objectWithoutProperties(_node, ["text"]);
-
-        return _rest;
-      } else {
-        return {};
-      }
-    }
-
-    var {
-      anchor
-    } = selection;
-    var {
-      path
-    } = anchor;
-    var [node] = Editor.leaf(editor, path);
-
-    if (anchor.offset === 0) {
-      var prev = Editor.previous(editor, {
-        at: path,
-        match: Text.isText
-      });
-      var block = Editor.above(editor, {
-        match: n => Editor.isBlock(editor, n)
-      });
-
-      if (prev && block) {
-        var [prevNode, prevPath] = prev;
-        var [, blockPath] = block;
-
-        if (Path.isAncestor(blockPath, prevPath)) {
-          node = prevNode;
-        }
-      }
-    }
-
-    var rest = _objectWithoutProperties(node, ["text"]);
-
-    return rest;
-  },
-
-  /**
-   * Get the matching node in the branch of the document after a location.
-   */
-  next(editor) {
-    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    var {
-      mode = 'lowest',
-      voids = false
-    } = options;
-    var {
-      match,
-      at = editor.selection
-    } = options;
-
-    if (!at) {
-      return;
-    }
-
-    var [, from] = Editor.last(editor, at);
-    var [, to] = Editor.last(editor, []);
-    var span = [from, to];
-
-    if (Path.isPath(at) && at.length === 0) {
-      throw new Error("Cannot get the next node from the root node!");
-    }
-
-    if (match == null) {
-      if (Path.isPath(at)) {
-        var [parent] = Editor.parent(editor, at);
-
-        match = n => parent.children.includes(n);
-      } else {
-        match = () => true;
-      }
-    }
-
-    var [, next] = Editor.nodes(editor, {
-      at: span,
-      match,
-      mode,
-      voids
-    });
-    return next;
-  },
-
-  /**
-   * Get the node at a location.
-   */
-  node(editor, at) {
-    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-    var path = Editor.path(editor, at, options);
-    var node = Node.get(editor, path);
-    return [node, path];
-  },
-
-  /**
-   * Iterate through all of the nodes in the Editor.
-   */
-  *nodes(editor) {
-    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    var {
-      at = editor.selection,
-      mode = 'all',
-      universal = false,
-      reverse = false,
-      voids = false
-    } = options;
-    var {
-      match
-    } = options;
-
-    if (!match) {
-      match = () => true;
-    }
-
-    if (!at) {
-      return;
-    }
-
-    var from;
-    var to;
-
-    if (Span.isSpan(at)) {
-      from = at[0];
-      to = at[1];
     } else {
-      var first = Editor.path(editor, at, {
-        edge: 'start'
-      });
-      var last = Editor.path(editor, at, {
-        edge: 'end'
-      });
-      from = reverse ? last : first;
-      to = reverse ? first : last;
+      return _objectSpread$d({
+        anchor: start,
+        focus: end
+      }, rest);
     }
+  },
+  isBackward: function isBackward(range) {
+    var anchor = range.anchor,
+        focus = range.focus;
+    return Point.isAfter(anchor, focus);
+  },
+  isCollapsed: function isCollapsed(range) {
+    var anchor = range.anchor,
+        focus = range.focus;
+    return Point.equals(anchor, focus);
+  },
+  isExpanded: function isExpanded(range) {
+    return !Range.isCollapsed(range);
+  },
+  isForward: function isForward(range) {
+    return !Range.isBackward(range);
+  },
+  isRange: function isRange(value) {
+    return isPlainObject.isPlainObject(value) && Point.isPoint(value.anchor) && Point.isPoint(value.focus);
+  },
+  points: function* points(range) {
+    yield [range.anchor, 'anchor'];
+    yield [range.focus, 'focus'];
+  },
+  start: function start(range) {
+    var _Range$edges13 = Range.edges(range),
+        _Range$edges14 = _slicedToArray(_Range$edges13, 1),
+        start = _Range$edges14[0];
 
-    var iterable = Node.nodes(editor, {
-      reverse,
-      from,
-      to,
-      pass: (_ref) => {
-        var [n] = _ref;
-        return voids ? false : Editor.isVoid(editor, n);
+    return start;
+  },
+  transform: function transform(range, op) {
+    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+    return immer.produce(range, function (r) {
+      if (r === null) {
+        return null;
       }
-    });
-    var matches = [];
-    var hit;
 
-    for (var [node, path] of iterable) {
-      var isLower = hit && Path.compare(path, hit[1]) === 0; // In highest mode any node lower than the last hit is not a match.
+      var _options$affinity = options.affinity,
+          affinity = _options$affinity === void 0 ? 'inward' : _options$affinity;
+      var affinityAnchor;
+      var affinityFocus;
 
-      if (mode === 'highest' && isLower) {
-        continue;
-      }
+      if (affinity === 'inward') {
+        // If the range is collapsed, make sure to use the same affinity to
+        // avoid the two points passing each other and expanding in the opposite
+        // direction
+        var isCollapsed = Range.isCollapsed(r);
 
-      if (!match(node)) {
-        // If we've arrived at a leaf text node that is not lower than the last
-        // hit, then we've found a branch that doesn't include a match, which
-        // means the match is not universal.
-        if (universal && !isLower && Text.isText(node)) {
-          return;
+        if (Range.isForward(r)) {
+          affinityAnchor = 'forward';
+          affinityFocus = isCollapsed ? affinityAnchor : 'backward';
         } else {
-          continue;
+          affinityAnchor = 'backward';
+          affinityFocus = isCollapsed ? affinityAnchor : 'forward';
         }
-      } // If there's a match and it's lower than the last, update the hit.
-
-
-      if (mode === 'lowest' && isLower) {
-        hit = [node, path];
-        continue;
-      } // In lowest mode we emit the last hit, once it's guaranteed lowest.
-
-
-      var emit = mode === 'lowest' ? hit : [node, path];
-
-      if (emit) {
-        if (universal) {
-          matches.push(emit);
+      } else if (affinity === 'outward') {
+        if (Range.isForward(r)) {
+          affinityAnchor = 'backward';
+          affinityFocus = 'forward';
         } else {
-          yield emit;
+          affinityAnchor = 'forward';
+          affinityFocus = 'backward';
         }
-      }
-
-      hit = [node, path];
-    } // Since lowest is always emitting one behind, catch up at the end.
-
-
-    if (mode === 'lowest' && hit) {
-      if (universal) {
-        matches.push(hit);
       } else {
-        yield hit;
+        affinityAnchor = affinity;
+        affinityFocus = affinity;
       }
-    } // Universal defers to ensure that the match occurs in every branch, so we
-    // yield all of the matches after iterating.
 
-
-    if (universal) {
-      yield* matches;
-    }
-  },
-
-  /**
-   * Normalize any dirty objects in the editor.
-   */
-  normalize(editor) {
-    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    var {
-      force = false
-    } = options;
-
-    var getDirtyPaths = editor => {
-      return DIRTY_PATHS.get(editor) || [];
-    };
-
-    if (!Editor.isNormalizing(editor)) {
-      return;
-    }
-
-    if (force) {
-      var allPaths = Array.from(Node.nodes(editor), (_ref2) => {
-        var [, p] = _ref2;
-        return p;
+      var anchor = Point.transform(r.anchor, op, {
+        affinity: affinityAnchor
       });
-      DIRTY_PATHS.set(editor, allPaths);
-    }
+      var focus = Point.transform(r.focus, op, {
+        affinity: affinityFocus
+      });
 
-    if (getDirtyPaths(editor).length === 0) {
-      return;
-    }
-
-    Editor.withoutNormalizing(editor, () => {
-      var max = getDirtyPaths(editor).length * 42; // HACK: better way?
-
-      var m = 0;
-
-      while (getDirtyPaths(editor).length !== 0) {
-        if (m > max) {
-          throw new Error("\n            Could not completely normalize the editor after ".concat(max, " iterations! This is usually due to incorrect normalization logic that leaves a node in an invalid state.\n          "));
-        }
-
-        var path = getDirtyPaths(editor).pop();
-        var entry = Editor.node(editor, path);
-        editor.normalizeNode(entry);
-        m++;
+      if (!anchor || !focus) {
+        return null;
       }
+
+      r.anchor = anchor;
+      r.focus = focus;
     });
-  },
-
-  /**
-   * Get the parent node of a location.
-   */
-  parent(editor, at) {
-    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-    var path = Editor.path(editor, at, options);
-    var parentPath = Path.parent(path);
-    var entry = Editor.node(editor, parentPath);
-    return entry;
-  },
-
-  /**
-   * Get the path of a location.
-   */
-  path(editor, at) {
-    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-    var {
-      depth,
-      edge
-    } = options;
-
-    if (Path.isPath(at)) {
-      if (edge === 'start') {
-        var [, firstPath] = Node.first(editor, at);
-        at = firstPath;
-      } else if (edge === 'end') {
-        var [, lastPath] = Node.last(editor, at);
-        at = lastPath;
-      }
-    }
-
-    if (Range.isRange(at)) {
-      if (edge === 'start') {
-        at = Range.start(at);
-      } else if (edge === 'end') {
-        at = Range.end(at);
-      } else {
-        at = Path.common(at.anchor.path, at.focus.path);
-      }
-    }
-
-    if (Point.isPoint(at)) {
-      at = at.path;
-    }
-
-    if (depth != null) {
-      at = at.slice(0, depth);
-    }
-
-    return at;
-  },
-
-  /**
-   * Create a mutable ref for a `Path` object, which will stay in sync as new
-   * operations are applied to the editor.
-   */
-  pathRef(editor, path) {
-    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-    var {
-      affinity = 'forward'
-    } = options;
-    var ref = {
-      current: path,
-      affinity,
-
-      unref() {
-        var {
-          current
-        } = ref;
-        var pathRefs = Editor.pathRefs(editor);
-        pathRefs.delete(ref);
-        ref.current = null;
-        return current;
-      }
-
-    };
-    var refs = Editor.pathRefs(editor);
-    refs.add(ref);
-    return ref;
-  },
-
-  /**
-   * Get the set of currently tracked path refs of the editor.
-   */
-  pathRefs(editor) {
-    var refs = PATH_REFS.get(editor);
-
-    if (!refs) {
-      refs = new Set();
-      PATH_REFS.set(editor, refs);
-    }
-
-    return refs;
-  },
-
-  /**
-   * Get the start or end point of a location.
-   */
-  point(editor, at) {
-    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-    var {
-      edge = 'start'
-    } = options;
-
-    if (Path.isPath(at)) {
-      var path;
-
-      if (edge === 'end') {
-        var [, lastPath] = Node.last(editor, at);
-        path = lastPath;
-      } else {
-        var [, firstPath] = Node.first(editor, at);
-        path = firstPath;
-      }
-
-      var node = Node.get(editor, path);
-
-      if (!Text.isText(node)) {
-        throw new Error("Cannot get the ".concat(edge, " point in the node at path [").concat(at, "] because it has no ").concat(edge, " text node."));
-      }
-
-      return {
-        path,
-        offset: edge === 'end' ? node.text.length : 0
-      };
-    }
-
-    if (Range.isRange(at)) {
-      var [start, end] = Range.edges(at);
-      return edge === 'start' ? start : end;
-    }
-
-    return at;
-  },
-
-  /**
-   * Create a mutable ref for a `Point` object, which will stay in sync as new
-   * operations are applied to the editor.
-   */
-  pointRef(editor, point) {
-    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-    var {
-      affinity = 'forward'
-    } = options;
-    var ref = {
-      current: point,
-      affinity,
-
-      unref() {
-        var {
-          current
-        } = ref;
-        var pointRefs = Editor.pointRefs(editor);
-        pointRefs.delete(ref);
-        ref.current = null;
-        return current;
-      }
-
-    };
-    var refs = Editor.pointRefs(editor);
-    refs.add(ref);
-    return ref;
-  },
-
-  /**
-   * Get the set of currently tracked point refs of the editor.
-   */
-  pointRefs(editor) {
-    var refs = POINT_REFS.get(editor);
-
-    if (!refs) {
-      refs = new Set();
-      POINT_REFS.set(editor, refs);
-    }
-
-    return refs;
-  },
-
-  /**
-   * Iterate through all of the positions in the document where a `Point` can be
-   * placed.
-   *
-   * By default it will move forward by individual offsets at a time,  but you
-   * can pass the `unit: 'character'` option to moved forward one character, word,
-   * or line at at time.
-   *
-   * Note: void nodes are treated as a single point, and iteration will not
-   * happen inside their content.
-   */
-  *positions(editor) {
-    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    var {
-      at = editor.selection,
-      unit = 'offset',
-      reverse = false
-    } = options;
-
-    if (!at) {
-      return;
-    }
-
-    var range = Editor.range(editor, at);
-    var [start, end] = Range.edges(range);
-    var first = reverse ? end : start;
-    var string = '';
-    var available = 0;
-    var offset = 0;
-    var distance = null;
-    var isNewBlock = false;
-
-    var advance = () => {
-      if (distance == null) {
-        if (unit === 'character') {
-          distance = getCharacterDistance(string);
-        } else if (unit === 'word') {
-          distance = getWordDistance(string);
-        } else if (unit === 'line' || unit === 'block') {
-          distance = string.length;
-        } else {
-          distance = 1;
-        }
-
-        string = string.slice(distance);
-      } // Add or substract the offset.
-
-
-      offset = reverse ? offset - distance : offset + distance; // Subtract the distance traveled from the available text.
-
-      available = available - distance; // If the available had room to spare, reset the distance so that it will
-      // advance again next time. Otherwise, set it to the overflow amount.
-
-      distance = available >= 0 ? null : 0 - available;
-    };
-
-    for (var [node, path] of Editor.nodes(editor, {
-      at,
-      reverse
-    })) {
-      if (Element.isElement(node)) {
-        // Void nodes are a special case, since we don't want to iterate over
-        // their content. We instead always just yield their first point.
-        if (editor.isVoid(node)) {
-          yield Editor.start(editor, path);
-          continue;
-        }
-
-        if (editor.isInline(node)) {
-          continue;
-        }
-
-        if (Editor.hasInlines(editor, node)) {
-          var e = Path.isAncestor(path, end.path) ? end : Editor.end(editor, path);
-          var s = Path.isAncestor(path, start.path) ? start : Editor.start(editor, path);
-          var text = Editor.string(editor, {
-            anchor: s,
-            focus: e
-          });
-          string = reverse ? esrever.reverse(text) : text;
-          isNewBlock = true;
-        }
-      }
-
-      if (Text.isText(node)) {
-        var isFirst = Path.equals(path, first.path);
-        available = node.text.length;
-        offset = reverse ? available : 0;
-
-        if (isFirst) {
-          available = reverse ? first.offset : available - first.offset;
-          offset = first.offset;
-        }
-
-        if (isFirst || isNewBlock || unit === 'offset') {
-          yield {
-            path,
-            offset
-          };
-        }
-
-        while (true) {
-          // If there's no more string, continue to the next block.
-          if (string === '') {
-            break;
-          } else {
-            advance();
-          } // If the available space hasn't overflow, we have another point to
-          // yield in the current text node.
-
-
-          if (available >= 0) {
-            yield {
-              path,
-              offset
-            };
-          } else {
-            break;
-          }
-        }
-
-        isNewBlock = false;
-      }
-    }
-  },
-
-  /**
-   * Get the matching node in the branch of the document before a location.
-   */
-  previous(editor) {
-    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    var {
-      mode = 'lowest',
-      voids = false
-    } = options;
-    var {
-      match,
-      at = editor.selection
-    } = options;
-
-    if (!at) {
-      return;
-    }
-
-    var [, from] = Editor.first(editor, at);
-    var [, to] = Editor.first(editor, []);
-    var span = [from, to];
-
-    if (Path.isPath(at) && at.length === 0) {
-      throw new Error("Cannot get the previous node from the root node!");
-    }
-
-    if (match == null) {
-      if (Path.isPath(at)) {
-        var [parent] = Editor.parent(editor, at);
-
-        match = n => parent.children.includes(n);
-      } else {
-        match = () => true;
-      }
-    }
-
-    var [, previous] = Editor.nodes(editor, {
-      reverse: true,
-      at: span,
-      match,
-      mode,
-      voids
-    });
-    return previous;
-  },
-
-  /**
-   * Get a range of a location.
-   */
-  range(editor, at, to) {
-    if (Range.isRange(at) && !to) {
-      return at;
-    }
-
-    var start = Editor.start(editor, at);
-    var end = Editor.end(editor, to || at);
-    return {
-      anchor: start,
-      focus: end
-    };
-  },
-
-  /**
-   * Create a mutable ref for a `Range` object, which will stay in sync as new
-   * operations are applied to the editor.
-   */
-  rangeRef(editor, range) {
-    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-    var {
-      affinity = 'forward'
-    } = options;
-    var ref = {
-      current: range,
-      affinity,
-
-      unref() {
-        var {
-          current
-        } = ref;
-        var rangeRefs = Editor.rangeRefs(editor);
-        rangeRefs.delete(ref);
-        ref.current = null;
-        return current;
-      }
-
-    };
-    var refs = Editor.rangeRefs(editor);
-    refs.add(ref);
-    return ref;
-  },
-
-  /**
-   * Get the set of currently tracked range refs of the editor.
-   */
-  rangeRefs(editor) {
-    var refs = RANGE_REFS.get(editor);
-
-    if (!refs) {
-      refs = new Set();
-      RANGE_REFS.set(editor, refs);
-    }
-
-    return refs;
-  },
-
-  /**
-   * Remove a custom property from all of the leaf text nodes in the current
-   * selection.
-   *
-   * If the selection is currently collapsed, the removal will be stored on
-   * `editor.marks` and applied to the text inserted next.
-   */
-  removeMark(editor, key) {
-    editor.removeMark(key);
-  },
-
-  /**
-   * Get the start point of a location.
-   */
-  start(editor, at) {
-    return Editor.point(editor, at, {
-      edge: 'start'
-    });
-  },
-
-  /**
-   * Get the text string content of a location.
-   *
-   * Note: the text of void nodes is presumed to be an empty string, regardless
-   * of what their actual content is.
-   */
-  string(editor, at) {
-    var range = Editor.range(editor, at);
-    var [start, end] = Range.edges(range);
-    var text = '';
-
-    for (var [node, path] of Editor.nodes(editor, {
-      at: range,
-      match: Text.isText
-    })) {
-      var t = node.text;
-
-      if (Path.equals(path, end.path)) {
-        t = t.slice(0, end.offset);
-      }
-
-      if (Path.equals(path, start.path)) {
-        t = t.slice(start.offset);
-      }
-
-      text += t;
-    }
-
-    return text;
-  },
-
-  /**
-   * Transform the editor by an operation.
-   */
-  transform(editor, op) {
-    editor.children = immer.createDraft(editor.children);
-    var selection = editor.selection && immer.createDraft(editor.selection);
-
-    switch (op.type) {
-      case 'insert_node':
-        {
-          var {
-            path,
-            node
-          } = op;
-          var parent = Node.parent(editor, path);
-          var index = path[path.length - 1];
-          parent.children.splice(index, 0, node);
-
-          if (selection) {
-            for (var [point, key] of Range.points(selection)) {
-              selection[key] = Point.transform(point, op);
-            }
-          }
-
-          break;
-        }
-
-      case 'insert_text':
-        {
-          var {
-            path: _path,
-            offset,
-            text
-          } = op;
-
-          var _node2 = Node.leaf(editor, _path);
-
-          var before = _node2.text.slice(0, offset);
-
-          var after = _node2.text.slice(offset);
-
-          _node2.text = before + text + after;
-
-          if (selection) {
-            for (var [_point, _key] of Range.points(selection)) {
-              selection[_key] = Point.transform(_point, op);
-            }
-          }
-
-          break;
-        }
-
-      case 'merge_node':
-        {
-          var {
-            path: _path2
-          } = op;
-
-          var _node3 = Node.get(editor, _path2);
-
-          var prevPath = Path.previous(_path2);
-          var prev = Node.get(editor, prevPath);
-
-          var _parent = Node.parent(editor, _path2);
-
-          var _index = _path2[_path2.length - 1];
-
-          if (Text.isText(_node3) && Text.isText(prev)) {
-            prev.text += _node3.text;
-          } else if (!Text.isText(_node3) && !Text.isText(prev)) {
-            prev.children.push(..._node3.children);
-          } else {
-            throw new Error("Cannot apply a \"merge_node\" operation at path [".concat(_path2, "] to nodes of different interaces: ").concat(_node3, " ").concat(prev));
-          }
-
-          _parent.children.splice(_index, 1);
-
-          if (selection) {
-            for (var [_point2, _key2] of Range.points(selection)) {
-              selection[_key2] = Point.transform(_point2, op);
-            }
-          }
-
-          break;
-        }
-
-      case 'move_node':
-        {
-          var {
-            path: _path3,
-            newPath
-          } = op;
-
-          if (Path.isAncestor(_path3, newPath)) {
-            throw new Error("Cannot move a path [".concat(_path3, "] to new path [").concat(newPath, "] because the destination is inside itself."));
-          }
-
-          var _node4 = Node.get(editor, _path3);
-
-          var _parent2 = Node.parent(editor, _path3);
-
-          var _index2 = _path3[_path3.length - 1]; // This is tricky, but since the `path` and `newPath` both refer to
-          // the same snapshot in time, there's a mismatch. After either
-          // removing the original position, the second step's path can be out
-          // of date. So instead of using the `op.newPath` directly, we
-          // transform `op.path` to ascertain what the `newPath` would be after
-          // the operation was applied.
-
-          _parent2.children.splice(_index2, 1);
-
-          var truePath = Path.transform(_path3, op);
-          var newParent = Node.get(editor, Path.parent(truePath));
-          var newIndex = truePath[truePath.length - 1];
-          newParent.children.splice(newIndex, 0, _node4);
-
-          if (selection) {
-            for (var [_point3, _key3] of Range.points(selection)) {
-              selection[_key3] = Point.transform(_point3, op);
-            }
-          }
-
-          break;
-        }
-
-      case 'remove_node':
-        {
-          var {
-            path: _path4
-          } = op;
-          var _index3 = _path4[_path4.length - 1];
-
-          var _parent3 = Node.parent(editor, _path4);
-
-          _parent3.children.splice(_index3, 1); // Transform all of the points in the value, but if the point was in the
-          // node that was removed we need to update the range or remove it.
-
-
-          if (selection) {
-            for (var [_point4, _key4] of Range.points(selection)) {
-              var result = Point.transform(_point4, op);
-
-              if (selection != null && result != null) {
-                selection[_key4] = result;
-              } else {
-                var _prev = void 0;
-
-                var next = void 0;
-
-                for (var [n, p] of Node.texts(editor)) {
-                  if (Path.compare(p, _path4) === -1) {
-                    _prev = [n, p];
-                  } else {
-                    next = [n, p];
-                    break;
-                  }
-                }
-
-                if (_prev) {
-                  _point4.path = _prev[1];
-                  _point4.offset = _prev[0].text.length;
-                } else if (next) {
-                  _point4.path = next[1];
-                  _point4.offset = 0;
-                } else {
-                  selection = null;
-                }
-              }
-            }
-          }
-
-          break;
-        }
-
-      case 'remove_text':
-        {
-          var {
-            path: _path5,
-            offset: _offset,
-            text: _text2
-          } = op;
-
-          var _node5 = Node.leaf(editor, _path5);
-
-          var _before = _node5.text.slice(0, _offset);
-
-          var _after = _node5.text.slice(_offset + _text2.length);
-
-          _node5.text = _before + _after;
-
-          if (selection) {
-            for (var [_point5, _key5] of Range.points(selection)) {
-              selection[_key5] = Point.transform(_point5, op);
-            }
-          }
-
-          break;
-        }
-
-      case 'set_node':
-        {
-          var {
-            path: _path6,
-            newProperties
-          } = op;
-
-          if (_path6.length === 0) {
-            throw new Error("Cannot set properties on the root node!");
-          }
-
-          var _node6 = Node.get(editor, _path6);
-
-          for (var _key6 in newProperties) {
-            if (_key6 === 'children' || _key6 === 'text') {
-              throw new Error("Cannot set the \"".concat(_key6, "\" property of nodes!"));
-            }
-
-            var value = newProperties[_key6];
-
-            if (value == null) {
-              delete _node6[_key6];
-            } else {
-              _node6[_key6] = value;
-            }
-          }
-
-          break;
-        }
-
-      case 'set_selection':
-        {
-          var {
-            newProperties: _newProperties
-          } = op;
-
-          if (_newProperties == null) {
-            selection = _newProperties;
-          } else if (selection == null) {
-            if (!Range.isRange(_newProperties)) {
-              throw new Error("Cannot apply an incomplete \"set_selection\" operation properties ".concat(JSON.stringify(_newProperties), " when there is no current selection."));
-            }
-
-            selection = _newProperties;
-          } else {
-            Object.assign(selection, _newProperties);
-          }
-
-          break;
-        }
-
-      case 'split_node':
-        {
-          var {
-            path: _path7,
-            position,
-            properties
-          } = op;
-
-          if (_path7.length === 0) {
-            throw new Error("Cannot apply a \"split_node\" operation at path [".concat(_path7, "] because the root node cannot be split."));
-          }
-
-          var _node7 = Node.get(editor, _path7);
-
-          var _parent4 = Node.parent(editor, _path7);
-
-          var _index4 = _path7[_path7.length - 1];
-          var newNode;
-
-          if (Text.isText(_node7)) {
-            var _before2 = _node7.text.slice(0, position);
-
-            var _after2 = _node7.text.slice(position);
-
-            _node7.text = _before2;
-            newNode = _objectSpread$1({}, _node7, {}, properties, {
-              text: _after2
-            });
-          } else {
-            var _before3 = _node7.children.slice(0, position);
-
-            var _after3 = _node7.children.slice(position);
-
-            _node7.children = _before3;
-            newNode = _objectSpread$1({}, _node7, {}, properties, {
-              children: _after3
-            });
-          }
-
-          _parent4.children.splice(_index4 + 1, 0, newNode);
-
-          if (selection) {
-            for (var [_point6, _key7] of Range.points(selection)) {
-              selection[_key7] = Point.transform(_point6, op);
-            }
-          }
-
-          break;
-        }
-    }
-
-    editor.children = immer.finishDraft(editor.children);
-
-    if (selection) {
-      editor.selection = immer.isDraft(selection) ? immer.finishDraft(selection) : selection;
-    } else {
-      editor.selection = null;
-    }
-  },
-
-  /**
-   * Convert a range into a non-hanging one.
-   */
-  unhangRange(editor, range) {
-    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-    var {
-      voids = false
-    } = options;
-    var [start, end] = Range.edges(range); // PERF: exit early if we can guarantee that the range isn't hanging.
-
-    if (start.offset !== 0 || end.offset !== 0 || Range.isCollapsed(range)) {
-      return range;
-    }
-
-    var endBlock = Editor.above(editor, {
-      at: end,
-      match: n => Editor.isBlock(editor, n)
-    });
-    var blockPath = endBlock ? endBlock[1] : [];
-    var first = Editor.start(editor, []);
-    var before = {
-      anchor: first,
-      focus: end
-    };
-    var skip = true;
-
-    for (var [node, path] of Editor.nodes(editor, {
-      at: before,
-      match: Text.isText,
-      reverse: true,
-      voids
-    })) {
-      if (skip) {
-        skip = false;
-        continue;
-      }
-
-      if (node.text !== '' || Path.isBefore(path, blockPath)) {
-        end = {
-          path,
-          offset: node.text.length
-        };
-        break;
-      }
-    }
-
-    return {
-      anchor: start,
-      focus: end
-    };
-  },
-
-  /**
-   * Match a void node in the current branch of the editor.
-   */
-  void(editor) {
-    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    return Editor.above(editor, _objectSpread$1({}, options, {
-      match: n => Editor.isVoid(editor, n)
-    }));
-  },
-
-  /**
-   * Call a function, deferring normalization until after it completes.
-   */
-  withoutNormalizing(editor, fn) {
-    var value = Editor.isNormalizing(editor);
-    NORMALIZING.set(editor, false);
-    fn();
-    NORMALIZING.set(editor, value);
-    Editor.normalize(editor);
   }
-
 };
+
+/**
+ * Shared the function with isElementType utility
+ */
+
+var isElement = function isElement(value) {
+  return isPlainObject.isPlainObject(value) && Node.isNodeList(value.children) && !Editor.isEditor(value);
+}; // eslint-disable-next-line no-redeclare
+
 
 var Element = {
-  /**
-   * Check if a value implements the `Element` interface.
-   */
-  isElement(value) {
-    return isPlainObject(value) && Node.isNodeList(value.children) && !Editor.isEditor(value);
+  isAncestor: function isAncestor(value) {
+    return isPlainObject.isPlainObject(value) && Node.isNodeList(value.children);
   },
-
-  /**
-   * Check if a value is an array of `Element` objects.
-   */
-  isElementList(value) {
-    return Array.isArray(value) && (value.length === 0 || Element.isElement(value[0]));
+  isElement: isElement,
+  isElementList: function isElementList(value) {
+    return Array.isArray(value) && value.every(function (val) {
+      return Element.isElement(val);
+    });
   },
-
-  /**
-   * Check if an element matches set of properties.
-   *
-   * Note: this checks custom properties, and it does not ensure that any
-   * children are equivalent.
-   */
-  matches(element, props) {
+  isElementProps: function isElementProps(props) {
+    return props.children !== undefined;
+  },
+  isElementType: function isElementType(value, elementVal) {
+    var elementKey = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'type';
+    return isElement(value) && value[elementKey] === elementVal;
+  },
+  matches: function matches(element, props) {
     for (var key in props) {
       if (key === 'children') {
         continue;
@@ -42035,87 +46591,66 @@ var Element = {
 
     return true;
   }
-
 };
 
-var Location = {
-  /**
-   * Check if a value implements the `Location` interface.
-   */
-  isLocation(value) {
-    return Path.isPath(value) || Point.isPoint(value) || Range.isRange(value);
-  }
+var _excluded$3 = ["children"],
+    _excluded2$3 = ["text"];
 
-};
-var Span = {
-  /**
-   * Check if a value implements the `Span` interface.
-   */
-  isSpan(value) {
-    return Array.isArray(value) && value.length === 2 && value.every(Path.isPath);
-  }
+function _createForOfIteratorHelper$k(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray$k(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
-};
+function _unsupportedIterableToArray$k(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$k(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$k(o, minLen); }
+
+function _arrayLikeToArray$k(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+var IS_NODE_LIST_CACHE = new WeakMap(); // eslint-disable-next-line no-redeclare
 
 var Node = {
-  /**
-   * Get the node at a specific path, asserting that it's an ancestor node.
-   */
-  ancestor(root, path) {
+  ancestor: function ancestor(root, path) {
     var node = Node.get(root, path);
 
     if (Text.isText(node)) {
-      throw new Error("Cannot get the ancestor node at path [".concat(path, "] because it refers to a text node instead: ").concat(node));
+      throw new Error("Cannot get the ancestor node at path [".concat(path, "] because it refers to a text node instead: ").concat(Scrubber.stringify(node)));
     }
 
     return node;
   },
-
-  /**
-   * Return an iterable of all the ancestor nodes above a specific path.
-   *
-   * By default the order is bottom-up, from lowest to highest ancestor in
-   * the tree, but you can pass the `reverse: true` option to go top-down.
-   */
-  *ancestors(root, path) {
+  ancestors: function* ancestors(root, path) {
     var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
-    for (var p of Path.ancestors(path, options)) {
-      var n = Node.ancestor(root, p);
-      var entry = [n, p];
-      yield entry;
+    var _iterator = _createForOfIteratorHelper$k(Path.ancestors(path, options)),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var p = _step.value;
+        var n = Node.ancestor(root, p);
+        var entry = [n, p];
+        yield entry;
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
     }
   },
-
-  /**
-   * Get the child of a node at a specific index.
-   */
-  child(root, index) {
+  child: function child(root, index) {
     if (Text.isText(root)) {
-      throw new Error("Cannot get the child of a text node: ".concat(JSON.stringify(root)));
+      throw new Error("Cannot get the child of a text node: ".concat(Scrubber.stringify(root)));
     }
 
     var c = root.children[index];
 
     if (c == null) {
-      throw new Error("Cannot get child at index `".concat(index, "` in node: ").concat(JSON.stringify(root)));
+      throw new Error("Cannot get child at index `".concat(index, "` in node: ").concat(Scrubber.stringify(root)));
     }
 
     return c;
   },
-
-  /**
-   * Iterate over the children of a node at a specific path.
-   */
-  *children(root, path) {
+  children: function* children(root, path) {
     var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-    var {
-      reverse = false
-    } = options;
+    var _options$reverse = options.reverse,
+        reverse = _options$reverse === void 0 ? false : _options$reverse;
     var ancestor = Node.ancestor(root, path);
-    var {
-      children
-    } = ancestor;
+    var children = ancestor.children;
     var index = reverse ? children.length - 1 : 0;
 
     while (reverse ? index >= 0 : index < children.length) {
@@ -42125,63 +46660,80 @@ var Node = {
       index = reverse ? index - 1 : index + 1;
     }
   },
-
-  /**
-   * Get an entry for the common ancesetor node of two paths.
-   */
-  common(root, path, another) {
+  common: function common(root, path, another) {
     var p = Path.common(path, another);
     var n = Node.get(root, p);
     return [n, p];
   },
-
-  /**
-   * Get the node at a specific path, asserting that it's a descendant node.
-   */
-  descendant(root, path) {
+  descendant: function descendant(root, path) {
     var node = Node.get(root, path);
 
     if (Editor.isEditor(node)) {
-      throw new Error("Cannot get the descendant node at path [".concat(path, "] because it refers to the root editor node instead: ").concat(node));
+      throw new Error("Cannot get the descendant node at path [".concat(path, "] because it refers to the root editor node instead: ").concat(Scrubber.stringify(node)));
     }
 
     return node;
   },
-
-  /**
-   * Return an iterable of all the descendant node entries inside a root node.
-   */
-  *descendants(root) {
+  descendants: function* descendants(root) {
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-    for (var [node, path] of Node.nodes(root, options)) {
-      if (path.length !== 0) {
-        // NOTE: we have to coerce here because checking the path's length does
-        // guarantee that `node` is not a `Editor`, but TypeScript doesn't know.
-        yield [node, path];
+    var _iterator2 = _createForOfIteratorHelper$k(Node.nodes(root, options)),
+        _step2;
+
+    try {
+      for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+        var _step2$value = _slicedToArray(_step2.value, 2),
+            node = _step2$value[0],
+            path = _step2$value[1];
+
+        if (path.length !== 0) {
+          // NOTE: we have to coerce here because checking the path's length does
+          // guarantee that `node` is not a `Editor`, but TypeScript doesn't know.
+          yield [node, path];
+        }
       }
+    } catch (err) {
+      _iterator2.e(err);
+    } finally {
+      _iterator2.f();
     }
   },
-
-  /**
-   * Return an iterable of all the element nodes inside a root node. Each iteration
-   * will return an `ElementEntry` tuple consisting of `[Element, Path]`. If the
-   * root node is an element it will be included in the iteration as well.
-   */
-  *elements(root) {
+  elements: function* elements(root) {
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-    for (var [node, path] of Node.nodes(root, options)) {
-      if (Element.isElement(node)) {
-        yield [node, path];
+    var _iterator3 = _createForOfIteratorHelper$k(Node.nodes(root, options)),
+        _step3;
+
+    try {
+      for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+        var _step3$value = _slicedToArray(_step3.value, 2),
+            node = _step3$value[0],
+            path = _step3$value[1];
+
+        if (Element.isElement(node)) {
+          yield [node, path];
+        }
       }
+    } catch (err) {
+      _iterator3.e(err);
+    } finally {
+      _iterator3.f();
     }
   },
+  extractProps: function extractProps(node) {
+    if (Element.isAncestor(node)) {
+      node.children;
+          var properties = _objectWithoutProperties(node, _excluded$3);
 
-  /**
-   * Get the first node entry in a root node from a path.
-   */
-  first(root, path) {
+      return properties;
+    } else {
+      node.text;
+          var _properties = _objectWithoutProperties(node, _excluded2$3);
+
+      return _properties;
+    }
+  },
+  first: function first(root, path) {
     var p = path.slice();
     var n = Node.get(root, p);
 
@@ -42196,61 +46748,74 @@ var Node = {
 
     return [n, p];
   },
-
-  /**
-   * Get the sliced fragment represented by a range inside a root node.
-   */
-  fragment(root, range) {
+  fragment: function fragment(root, range) {
     if (Text.isText(root)) {
-      throw new Error("Cannot get a fragment starting from a root text node: ".concat(JSON.stringify(root)));
+      throw new Error("Cannot get a fragment starting from a root text node: ".concat(Scrubber.stringify(root)));
     }
 
-    var newRoot = immer.produce(root, r => {
-      var [start, end] = Range.edges(range);
-      var iterable = Node.nodes(r, {
+    var newRoot = immer.produce({
+      children: root.children
+    }, function (r) {
+      var _Range$edges = Range.edges(range),
+          _Range$edges2 = _slicedToArray(_Range$edges, 2),
+          start = _Range$edges2[0],
+          end = _Range$edges2[1];
+
+      var nodeEntries = Node.nodes(r, {
         reverse: true,
-        pass: (_ref) => {
-          var [, path] = _ref;
+        pass: function pass(_ref) {
+          var _ref2 = _slicedToArray(_ref, 2),
+              path = _ref2[1];
+
           return !Range.includes(range, path);
         }
       });
 
-      for (var [, path] of iterable) {
-        if (!Range.includes(range, path)) {
-          var parent = Node.parent(r, path);
-          var index = path[path.length - 1];
-          parent.children.splice(index, 1);
-        }
+      var _iterator4 = _createForOfIteratorHelper$k(nodeEntries),
+          _step4;
 
-        if (Path.equals(path, end.path)) {
-          var leaf = Node.leaf(r, path);
-          leaf.text = leaf.text.slice(0, end.offset);
-        }
+      try {
+        for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+          var _step4$value = _slicedToArray(_step4.value, 2),
+              path = _step4$value[1];
 
-        if (Path.equals(path, start.path)) {
-          var _leaf = Node.leaf(r, path);
+          if (!Range.includes(range, path)) {
+            var parent = Node.parent(r, path);
+            var index = path[path.length - 1];
+            parent.children.splice(index, 1);
+          }
 
-          _leaf.text = _leaf.text.slice(start.offset);
+          if (Path.equals(path, end.path)) {
+            var leaf = Node.leaf(r, path);
+            leaf.text = leaf.text.slice(0, end.offset);
+          }
+
+          if (Path.equals(path, start.path)) {
+            var _leaf = Node.leaf(r, path);
+
+            _leaf.text = _leaf.text.slice(start.offset);
+          }
         }
+      } catch (err) {
+        _iterator4.e(err);
+      } finally {
+        _iterator4.f();
       }
 
-      delete r.selection;
+      if (Editor.isEditor(r)) {
+        r.selection = null;
+      }
     });
     return newRoot.children;
   },
-
-  /**
-   * Get the descendant node referred to by a specific path. If the path is an
-   * empty array, it refers to the root node itself.
-   */
-  get(root, path) {
+  get: function get(root, path) {
     var node = root;
 
     for (var i = 0; i < path.length; i++) {
       var p = path[i];
 
       if (Text.isText(node) || !node.children[p]) {
-        throw new Error("Cannot find a descendant at path [".concat(path, "] in node: ").concat(JSON.stringify(root)));
+        throw new Error("Cannot find a descendant at path [".concat(path, "] in node: ").concat(Scrubber.stringify(root)));
       }
 
       node = node.children[p];
@@ -42258,11 +46823,7 @@ var Node = {
 
     return node;
   },
-
-  /**
-   * Check if a descendant node exists at a specific path.
-   */
-  has(root, path) {
+  has: function has(root, path) {
     var node = root;
 
     for (var i = 0; i < path.length; i++) {
@@ -42277,25 +46838,27 @@ var Node = {
 
     return true;
   },
-
-  /**
-   * Check if a value implements the `Node` interface.
-   */
-  isNode(value) {
+  isNode: function isNode(value) {
     return Text.isText(value) || Element.isElement(value) || Editor.isEditor(value);
   },
+  isNodeList: function isNodeList(value) {
+    if (!Array.isArray(value)) {
+      return false;
+    }
 
-  /**
-   * Check if a value is a list of `Node` objects.
-   */
-  isNodeList(value) {
-    return Array.isArray(value) && (value.length === 0 || Node.isNode(value[0]));
+    var cachedResult = IS_NODE_LIST_CACHE.get(value);
+
+    if (cachedResult !== undefined) {
+      return cachedResult;
+    }
+
+    var isNodeList = value.every(function (val) {
+      return Node.isNode(val);
+    });
+    IS_NODE_LIST_CACHE.set(value, isNodeList);
+    return isNodeList;
   },
-
-  /**
-   * Get the lash node entry in a root node from a path.
-   */
-  last(root, path) {
+  last: function last(root, path) {
     var p = path.slice();
     var n = Node.get(root, p);
 
@@ -42311,57 +46874,44 @@ var Node = {
 
     return [n, p];
   },
-
-  /**
-   * Get the node at a specific path, ensuring it's a leaf text node.
-   */
-  leaf(root, path) {
+  leaf: function leaf(root, path) {
     var node = Node.get(root, path);
 
     if (!Text.isText(node)) {
-      throw new Error("Cannot get the leaf node at path [".concat(path, "] because it refers to a non-leaf node: ").concat(node));
+      throw new Error("Cannot get the leaf node at path [".concat(path, "] because it refers to a non-leaf node: ").concat(Scrubber.stringify(node)));
     }
 
     return node;
   },
-
-  /**
-   * Return an iterable of the in a branch of the tree, from a specific path.
-   *
-   * By default the order is top-down, from lowest to highest node in the tree,
-   * but you can pass the `reverse: true` option to go bottom-up.
-   */
-  *levels(root, path) {
+  levels: function* levels(root, path) {
     var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
-    for (var p of Path.levels(path, options)) {
-      var n = Node.get(root, p);
-      yield [n, p];
+    var _iterator5 = _createForOfIteratorHelper$k(Path.levels(path, options)),
+        _step5;
+
+    try {
+      for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
+        var p = _step5.value;
+        var n = Node.get(root, p);
+        yield [n, p];
+      }
+    } catch (err) {
+      _iterator5.e(err);
+    } finally {
+      _iterator5.f();
     }
   },
-
-  /**
-   * Check if a node matches a set of props.
-   */
-  matches(node, props) {
-    return Element.isElement(node) && Element.matches(node, props) || Text.isText(node) && Text.matches(node, props);
+  matches: function matches(node, props) {
+    return Element.isElement(node) && Element.isElementProps(props) && Element.matches(node, props) || Text.isText(node) && Text.isTextProps(props) && Text.matches(node, props);
   },
-
-  /**
-   * Return an iterable of all the node entries of a root node. Each entry is
-   * returned as a `[Node, Path]` tuple, with the path referring to the node's
-   * position inside the root node.
-   */
-  *nodes(root) {
+  nodes: function* nodes(root) {
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    var {
-      pass,
-      reverse = false
-    } = options;
-    var {
-      from = [],
-      to
-    } = options;
+    var pass = options.pass,
+        _options$reverse2 = options.reverse,
+        reverse = _options$reverse2 === void 0 ? false : _options$reverse2;
+    var _options$from = options.from,
+        from = _options$from === void 0 ? [] : _options$from,
+        to = options.to;
     var visited = new Set();
     var p = [];
     var n = root;
@@ -42373,7 +46923,7 @@ var Node = {
 
       if (!visited.has(n)) {
         yield [n, p];
-      } // If we're allowed to go downward and we haven't decsended yet, do.
+      } // If we're allowed to go downward and we haven't descended yet, do.
 
 
       if (!visited.has(n) && !Text.isText(n) && n.children.length !== 0 && (pass == null || pass([n, p]) === false)) {
@@ -42420,11 +46970,7 @@ var Node = {
       visited.add(n);
     }
   },
-
-  /**
-   * Get the parent of a node at a specific path.
-   */
-  parent(root, path) {
+  parent: function parent(root, path) {
     var parentPath = Path.parent(path);
     var p = Node.get(root, parentPath);
 
@@ -42434,53 +46980,47 @@ var Node = {
 
     return p;
   },
-
-  /**
-   * Get the concatenated text string of a node's content.
-   *
-   * Note that this will not include spaces or line breaks between block nodes.
-   * It is not a user-facing string, but a string for performing offset-related
-   * computations for a node.
-   */
-  string(node) {
+  string: function string(node) {
     if (Text.isText(node)) {
       return node.text;
     } else {
       return node.children.map(Node.string).join('');
     }
   },
-
-  /**
-   * Return an iterable of all leaf text nodes in a root node.
-   */
-  *texts(root) {
+  texts: function* texts(root) {
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-    for (var [node, path] of Node.nodes(root, options)) {
-      if (Text.isText(node)) {
-        yield [node, path];
+    var _iterator6 = _createForOfIteratorHelper$k(Node.nodes(root, options)),
+        _step6;
+
+    try {
+      for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
+        var _step6$value = _slicedToArray(_step6.value, 2),
+            node = _step6$value[0],
+            path = _step6$value[1];
+
+        if (Text.isText(node)) {
+          yield [node, path];
+        }
       }
+    } catch (err) {
+      _iterator6.e(err);
+    } finally {
+      _iterator6.f();
     }
   }
-
 };
 
-function ownKeys$2(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$c(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$2(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$2(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$2(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$c(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$c(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$c(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
 var Operation = {
-  /**
-   * Check of a value is a `NodeOperation` object.
-   */
-  isNodeOperation(value) {
+  isNodeOperation: function isNodeOperation(value) {
     return Operation.isOperation(value) && value.type.endsWith('_node');
   },
-
-  /**
-   * Check of a value is an `Operation` object.
-   */
-  isOperation(value) {
-    if (!isPlainObject(value)) {
+  isOperation: function isOperation(value) {
+    if (!isPlainObject.isPlainObject(value)) {
       return false;
     }
 
@@ -42492,7 +47032,7 @@ var Operation = {
         return typeof value.offset === 'number' && typeof value.text === 'string' && Path.isPath(value.path);
 
       case 'merge_node':
-        return typeof value.position === 'number' && (typeof value.target === 'number' || value.target === null) && Path.isPath(value.path) && isPlainObject(value.properties);
+        return typeof value.position === 'number' && Path.isPath(value.path) && isPlainObject.isPlainObject(value.properties);
 
       case 'move_node':
         return Path.isPath(value.path) && Path.isPath(value.newPath);
@@ -42504,63 +47044,48 @@ var Operation = {
         return typeof value.offset === 'number' && typeof value.text === 'string' && Path.isPath(value.path);
 
       case 'set_node':
-        return Path.isPath(value.path) && isPlainObject(value.properties) && isPlainObject(value.newProperties);
+        return Path.isPath(value.path) && isPlainObject.isPlainObject(value.properties) && isPlainObject.isPlainObject(value.newProperties);
 
       case 'set_selection':
-        return value.properties === null && Range.isRange(value.newProperties) || value.newProperties === null && Range.isRange(value.properties) || isPlainObject(value.properties) && isPlainObject(value.newProperties);
+        return value.properties === null && Range.isRange(value.newProperties) || value.newProperties === null && Range.isRange(value.properties) || isPlainObject.isPlainObject(value.properties) && isPlainObject.isPlainObject(value.newProperties);
 
       case 'split_node':
-        return Path.isPath(value.path) && typeof value.position === 'number' && (typeof value.target === 'number' || value.target === null) && isPlainObject(value.properties);
+        return Path.isPath(value.path) && typeof value.position === 'number' && isPlainObject.isPlainObject(value.properties);
 
       default:
         return false;
     }
   },
-
-  /**
-   * Check if a value is a list of `Operation` objects.
-   */
-  isOperationList(value) {
-    return Array.isArray(value) && (value.length === 0 || Operation.isOperation(value[0]));
+  isOperationList: function isOperationList(value) {
+    return Array.isArray(value) && value.every(function (val) {
+      return Operation.isOperation(val);
+    });
   },
-
-  /**
-   * Check of a value is a `SelectionOperation` object.
-   */
-  isSelectionOperation(value) {
+  isSelectionOperation: function isSelectionOperation(value) {
     return Operation.isOperation(value) && value.type.endsWith('_selection');
   },
-
-  /**
-   * Check of a value is a `TextOperation` object.
-   */
-  isTextOperation(value) {
+  isTextOperation: function isTextOperation(value) {
     return Operation.isOperation(value) && value.type.endsWith('_text');
   },
-
-  /**
-   * Invert an operation, returning a new operation that will exactly undo the
-   * original when applied.
-   */
-  inverse(op) {
+  inverse: function inverse(op) {
     switch (op.type) {
       case 'insert_node':
         {
-          return _objectSpread$2({}, op, {
+          return _objectSpread$c(_objectSpread$c({}, op), {}, {
             type: 'remove_node'
           });
         }
 
       case 'insert_text':
         {
-          return _objectSpread$2({}, op, {
+          return _objectSpread$c(_objectSpread$c({}, op), {}, {
             type: 'remove_text'
           });
         }
 
       case 'merge_node':
         {
-          return _objectSpread$2({}, op, {
+          return _objectSpread$c(_objectSpread$c({}, op), {}, {
             type: 'split_node',
             path: Path.previous(op.path)
           });
@@ -42568,21 +47093,31 @@ var Operation = {
 
       case 'move_node':
         {
-          var {
-            newPath,
-            path
-          } = op; // PERF: in this case the move operation is a no-op anyways.
+          var newPath = op.newPath,
+              path = op.path; // PERF: in this case the move operation is a no-op anyways.
 
           if (Path.equals(newPath, path)) {
             return op;
-          } // We need to get the original path here, but sometimes the `newPath`
-          // is a younger sibling of (or ends before) the original, and this
-          // accounts for it.
+          } // If the move happens completely within a single parent the path and
+          // newPath are stable with respect to each other.
+
+
+          if (Path.isSibling(path, newPath)) {
+            return _objectSpread$c(_objectSpread$c({}, op), {}, {
+              path: newPath,
+              newPath: path
+            });
+          } // If the move does not happen within a single parent it is possible
+          // for the move to impact the true path to the location where the node
+          // was removed from and where it was inserted. We have to adjust for this
+          // and find the original path. We can accomplish this (only in non-sibling)
+          // moves by looking at the impact of the move operation on the node
+          // after the original move path.
 
 
           var inversePath = Path.transform(path, op);
           var inverseNewPath = Path.transform(Path.next(path), op);
-          return _objectSpread$2({}, op, {
+          return _objectSpread$c(_objectSpread$c({}, op), {}, {
             path: inversePath,
             newPath: inverseNewPath
           });
@@ -42590,25 +47125,23 @@ var Operation = {
 
       case 'remove_node':
         {
-          return _objectSpread$2({}, op, {
+          return _objectSpread$c(_objectSpread$c({}, op), {}, {
             type: 'insert_node'
           });
         }
 
       case 'remove_text':
         {
-          return _objectSpread$2({}, op, {
+          return _objectSpread$c(_objectSpread$c({}, op), {}, {
             type: 'insert_text'
           });
         }
 
       case 'set_node':
         {
-          var {
-            properties,
-            newProperties
-          } = op;
-          return _objectSpread$2({}, op, {
+          var properties = op.properties,
+              newProperties = op.newProperties;
+          return _objectSpread$c(_objectSpread$c({}, op), {}, {
             properties: newProperties,
             newProperties: properties
           });
@@ -42616,23 +47149,21 @@ var Operation = {
 
       case 'set_selection':
         {
-          var {
-            properties: _properties,
-            newProperties: _newProperties
-          } = op;
+          var _properties = op.properties,
+              _newProperties = op.newProperties;
 
           if (_properties == null) {
-            return _objectSpread$2({}, op, {
+            return _objectSpread$c(_objectSpread$c({}, op), {}, {
               properties: _newProperties,
               newProperties: null
             });
           } else if (_newProperties == null) {
-            return _objectSpread$2({}, op, {
+            return _objectSpread$c(_objectSpread$c({}, op), {}, {
               properties: null,
               newProperties: _properties
             });
           } else {
-            return _objectSpread$2({}, op, {
+            return _objectSpread$c(_objectSpread$c({}, op), {}, {
               properties: _newProperties,
               newProperties: _properties
             });
@@ -42641,426 +47172,237 @@ var Operation = {
 
       case 'split_node':
         {
-          return _objectSpread$2({}, op, {
+          return _objectSpread$c(_objectSpread$c({}, op), {}, {
             type: 'merge_node',
             path: Path.next(op.path)
           });
         }
     }
   }
-
 };
 
-var Path = {
-  /**
-   * Get a list of ancestor paths for a given path.
-   *
-   * The paths are sorted from deepest to shallowest ancestor. However, if the
-   * `reverse: true` option is passed, they are reversed.
-   */
-  ancestors(path) {
-    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    var {
-      reverse = false
-    } = options;
-    var paths = Path.levels(path, options);
+var IS_EDITOR_CACHE = new WeakMap();
+var isEditor = function isEditor(value) {
+  var cachedIsEditor = IS_EDITOR_CACHE.get(value);
 
-    if (reverse) {
-      paths = paths.slice(1);
-    } else {
-      paths = paths.slice(0, -1);
-    }
-
-    return paths;
-  },
-
-  /**
-   * Get the common ancestor path of two paths.
-   */
-  common(path, another) {
-    var common = [];
-
-    for (var i = 0; i < path.length && i < another.length; i++) {
-      var av = path[i];
-      var bv = another[i];
-
-      if (av !== bv) {
-        break;
-      }
-
-      common.push(av);
-    }
-
-    return common;
-  },
-
-  /**
-   * Compare a path to another, returning an integer indicating whether the path
-   * was before, at, or after the other.
-   *
-   * Note: Two paths of unequal length can still receive a `0` result if one is
-   * directly above or below the other. If you want exact matching, use
-   * [[Path.equals]] instead.
-   */
-  compare(path, another) {
-    var min = Math.min(path.length, another.length);
-
-    for (var i = 0; i < min; i++) {
-      if (path[i] < another[i]) return -1;
-      if (path[i] > another[i]) return 1;
-    }
-
-    return 0;
-  },
-
-  /**
-   * Check if a path ends after one of the indexes in another.
-   */
-  endsAfter(path, another) {
-    var i = path.length - 1;
-    var as = path.slice(0, i);
-    var bs = another.slice(0, i);
-    var av = path[i];
-    var bv = another[i];
-    return Path.equals(as, bs) && av > bv;
-  },
-
-  /**
-   * Check if a path ends at one of the indexes in another.
-   */
-  endsAt(path, another) {
-    var i = path.length;
-    var as = path.slice(0, i);
-    var bs = another.slice(0, i);
-    return Path.equals(as, bs);
-  },
-
-  /**
-   * Check if a path ends before one of the indexes in another.
-   */
-  endsBefore(path, another) {
-    var i = path.length - 1;
-    var as = path.slice(0, i);
-    var bs = another.slice(0, i);
-    var av = path[i];
-    var bv = another[i];
-    return Path.equals(as, bs) && av < bv;
-  },
-
-  /**
-   * Check if a path is exactly equal to another.
-   */
-  equals(path, another) {
-    return path.length === another.length && path.every((n, i) => n === another[i]);
-  },
-
-  /**
-   * Check if a path is after another.
-   */
-  isAfter(path, another) {
-    return Path.compare(path, another) === 1;
-  },
-
-  /**
-   * Check if a path is an ancestor of another.
-   */
-  isAncestor(path, another) {
-    return path.length < another.length && Path.compare(path, another) === 0;
-  },
-
-  /**
-   * Check if a path is before another.
-   */
-  isBefore(path, another) {
-    return Path.compare(path, another) === -1;
-  },
-
-  /**
-   * Check if a path is a child of another.
-   */
-  isChild(path, another) {
-    return path.length === another.length + 1 && Path.compare(path, another) === 0;
-  },
-
-  /**
-   * Check if a path is equal to or an ancestor of another.
-   */
-  isCommon(path, another) {
-    return path.length <= another.length && Path.compare(path, another) === 0;
-  },
-
-  /**
-   * Check if a path is a descendant of another.
-   */
-  isDescendant(path, another) {
-    return path.length > another.length && Path.compare(path, another) === 0;
-  },
-
-  /**
-   * Check if a path is the parent of another.
-   */
-  isParent(path, another) {
-    return path.length + 1 === another.length && Path.compare(path, another) === 0;
-  },
-
-  /**
-   * Check is a value implements the `Path` interface.
-   */
-  isPath(value) {
-    return Array.isArray(value) && (value.length === 0 || typeof value[0] === 'number');
-  },
-
-  /**
-   * Check if a path is a sibling of another.
-   */
-  isSibling(path, another) {
-    if (path.length !== another.length) {
-      return false;
-    }
-
-    var as = path.slice(0, -1);
-    var bs = another.slice(0, -1);
-    var al = path[path.length - 1];
-    var bl = another[another.length - 1];
-    return al !== bl && Path.equals(as, bs);
-  },
-
-  /**
-   * Get a list of paths at every level down to a path. Note: this is the same
-   * as `Path.ancestors`, but including the path itself.
-   *
-   * The paths are sorted from shallowest to deepest. However, if the `reverse:
-   * true` option is passed, they are reversed.
-   */
-  levels(path) {
-    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    var {
-      reverse = false
-    } = options;
-    var list = [];
-
-    for (var i = 0; i <= path.length; i++) {
-      list.push(path.slice(0, i));
-    }
-
-    if (reverse) {
-      list.reverse();
-    }
-
-    return list;
-  },
-
-  /**
-   * Given a path, get the path to the next sibling node.
-   */
-  next(path) {
-    if (path.length === 0) {
-      throw new Error("Cannot get the next path of a root path [".concat(path, "], because it has no next index."));
-    }
-
-    var last = path[path.length - 1];
-    return path.slice(0, -1).concat(last + 1);
-  },
-
-  /**
-   * Given a path, return a new path referring to the parent node above it.
-   */
-  parent(path) {
-    if (path.length === 0) {
-      throw new Error("Cannot get the parent path of the root path [".concat(path, "]."));
-    }
-
-    return path.slice(0, -1);
-  },
-
-  /**
-   * Given a path, get the path to the previous sibling node.
-   */
-  previous(path) {
-    if (path.length === 0) {
-      throw new Error("Cannot get the previous path of a root path [".concat(path, "], because it has no previous index."));
-    }
-
-    var last = path[path.length - 1];
-
-    if (last <= 0) {
-      throw new Error("Cannot get the previous path of a first child path [".concat(path, "] because it would result in a negative index."));
-    }
-
-    return path.slice(0, -1).concat(last - 1);
-  },
-
-  /**
-   * Get a path relative to an ancestor.
-   */
-  relative(path, ancestor) {
-    if (!Path.isAncestor(ancestor, path) && !Path.equals(path, ancestor)) {
-      throw new Error("Cannot get the relative path of [".concat(path, "] inside ancestor [").concat(ancestor, "], because it is not above or equal to the path."));
-    }
-
-    return path.slice(ancestor.length);
-  },
-
-  /**
-   * Transform a path by an operation.
-   */
-  transform(path, operation) {
-    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-    return immer.produce(path, p => {
-      var {
-        affinity = 'forward'
-      } = options; // PERF: Exit early if the operation is guaranteed not to have an effect.
-
-      if (path.length === 0) {
-        return;
-      }
-
-      switch (operation.type) {
-        case 'insert_node':
-          {
-            var {
-              path: op
-            } = operation;
-
-            if (Path.equals(op, p) || Path.endsBefore(op, p) || Path.isAncestor(op, p)) {
-              p[op.length - 1] += 1;
-            }
-
-            break;
-          }
-
-        case 'remove_node':
-          {
-            var {
-              path: _op
-            } = operation;
-
-            if (Path.equals(_op, p) || Path.isAncestor(_op, p)) {
-              return null;
-            } else if (Path.endsBefore(_op, p)) {
-              p[_op.length - 1] -= 1;
-            }
-
-            break;
-          }
-
-        case 'merge_node':
-          {
-            var {
-              path: _op2,
-              position
-            } = operation;
-
-            if (Path.equals(_op2, p) || Path.endsBefore(_op2, p)) {
-              p[_op2.length - 1] -= 1;
-            } else if (Path.isAncestor(_op2, p)) {
-              p[_op2.length - 1] -= 1;
-              p[_op2.length] += position;
-            }
-
-            break;
-          }
-
-        case 'split_node':
-          {
-            var {
-              path: _op3,
-              position: _position
-            } = operation;
-
-            if (Path.equals(_op3, p)) {
-              if (affinity === 'forward') {
-                p[p.length - 1] += 1;
-              } else if (affinity === 'backward') ; else {
-                return null;
-              }
-            } else if (Path.endsBefore(_op3, p)) {
-              p[_op3.length - 1] += 1;
-            } else if (Path.isAncestor(_op3, p) && path[_op3.length] >= _position) {
-              p[_op3.length - 1] += 1;
-              p[_op3.length] -= _position;
-            }
-
-            break;
-          }
-
-        case 'move_node':
-          {
-            var {
-              path: _op4,
-              newPath: onp
-            } = operation; // If the old and new path are the same, it's a no-op.
-
-            if (Path.equals(_op4, onp)) {
-              return;
-            }
-
-            if (Path.isAncestor(_op4, p) || Path.equals(_op4, p)) {
-              var copy = onp.slice();
-
-              if (Path.endsBefore(_op4, onp) && _op4.length < onp.length) {
-                var i = Math.min(onp.length, _op4.length) - 1;
-                copy[i] -= 1;
-              }
-
-              return copy.concat(p.slice(_op4.length));
-            } else if (Path.endsBefore(onp, p) || Path.equals(onp, p) || Path.isAncestor(onp, p)) {
-              if (Path.endsBefore(_op4, p)) {
-                p[_op4.length - 1] -= 1;
-              }
-
-              p[onp.length - 1] += 1;
-            } else if (Path.endsBefore(_op4, p)) {
-              if (Path.equals(onp, p)) {
-                p[onp.length - 1] += 1;
-              }
-
-              p[_op4.length - 1] -= 1;
-            }
-
-            break;
-          }
-      }
-    });
+  if (cachedIsEditor !== undefined) {
+    return cachedIsEditor;
   }
 
-};
-
-var PathRef = {
-  /**
-   * Transform the path ref's current value by an operation.
-   */
-  transform(ref, op) {
-    var {
-      current,
-      affinity
-    } = ref;
-
-    if (current == null) {
-      return;
-    }
-
-    var path = Path.transform(current, op, {
-      affinity
-    });
-    ref.current = path;
-
-    if (path == null) {
-      ref.unref();
-    }
+  if (!isPlainObject.isPlainObject(value)) {
+    return false;
   }
 
+  var isEditor = typeof value.addMark === 'function' && typeof value.apply === 'function' && typeof value.deleteFragment === 'function' && typeof value.insertBreak === 'function' && typeof value.insertSoftBreak === 'function' && typeof value.insertFragment === 'function' && typeof value.insertNode === 'function' && typeof value.insertText === 'function' && typeof value.isElementReadOnly === 'function' && typeof value.isInline === 'function' && typeof value.isSelectable === 'function' && typeof value.isVoid === 'function' && typeof value.normalizeNode === 'function' && typeof value.onChange === 'function' && typeof value.removeMark === 'function' && typeof value.getDirtyPaths === 'function' && (value.marks === null || isPlainObject.isPlainObject(value.marks)) && (value.selection === null || Range.isRange(value.selection)) && Node.isNodeList(value.children) && Operation.isOperationList(value.operations);
+  IS_EDITOR_CACHE.set(value, isEditor);
+  return isEditor;
 };
 
-function ownKeys$3(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+var Editor = {
+  above: function above(editor, options) {
+    return editor.above(options);
+  },
+  addMark: function addMark(editor, key, value) {
+    editor.addMark(key, value);
+  },
+  after: function after(editor, at, options) {
+    return editor.after(at, options);
+  },
+  before: function before(editor, at, options) {
+    return editor.before(at, options);
+  },
+  deleteBackward: function deleteBackward(editor) {
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    var _options$unit = options.unit,
+        unit = _options$unit === void 0 ? 'character' : _options$unit;
+    editor.deleteBackward(unit);
+  },
+  deleteForward: function deleteForward(editor) {
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    var _options$unit2 = options.unit,
+        unit = _options$unit2 === void 0 ? 'character' : _options$unit2;
+    editor.deleteForward(unit);
+  },
+  deleteFragment: function deleteFragment(editor, options) {
+    editor.deleteFragment(options);
+  },
+  edges: function edges(editor, at) {
+    return editor.edges(at);
+  },
+  elementReadOnly: function elementReadOnly(editor) {
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    return editor.elementReadOnly(options);
+  },
+  end: function end(editor, at) {
+    return editor.end(at);
+  },
+  first: function first(editor, at) {
+    return editor.first(at);
+  },
+  fragment: function fragment(editor, at) {
+    return editor.fragment(at);
+  },
+  hasBlocks: function hasBlocks(editor, element) {
+    return editor.hasBlocks(element);
+  },
+  hasInlines: function hasInlines(editor, element) {
+    return editor.hasInlines(element);
+  },
+  hasPath: function hasPath(editor, path) {
+    return editor.hasPath(path);
+  },
+  hasTexts: function hasTexts(editor, element) {
+    return editor.hasTexts(element);
+  },
+  insertBreak: function insertBreak(editor) {
+    editor.insertBreak();
+  },
+  insertFragment: function insertFragment(editor, fragment, options) {
+    editor.insertFragment(fragment, options);
+  },
+  insertNode: function insertNode(editor, node) {
+    editor.insertNode(node);
+  },
+  insertSoftBreak: function insertSoftBreak(editor) {
+    editor.insertSoftBreak();
+  },
+  insertText: function insertText(editor, text) {
+    editor.insertText(text);
+  },
+  isBlock: function isBlock(editor, value) {
+    return editor.isBlock(value);
+  },
+  isEdge: function isEdge(editor, point, at) {
+    return editor.isEdge(point, at);
+  },
+  isEditor: function isEditor$1(value) {
+    return isEditor(value);
+  },
+  isElementReadOnly: function isElementReadOnly(editor, element) {
+    return editor.isElementReadOnly(element);
+  },
+  isEmpty: function isEmpty(editor, element) {
+    return editor.isEmpty(element);
+  },
+  isEnd: function isEnd(editor, point, at) {
+    return editor.isEnd(point, at);
+  },
+  isInline: function isInline(editor, value) {
+    return editor.isInline(value);
+  },
+  isNormalizing: function isNormalizing(editor) {
+    return editor.isNormalizing();
+  },
+  isSelectable: function isSelectable(editor, value) {
+    return editor.isSelectable(value);
+  },
+  isStart: function isStart(editor, point, at) {
+    return editor.isStart(point, at);
+  },
+  isVoid: function isVoid(editor, value) {
+    return editor.isVoid(value);
+  },
+  last: function last(editor, at) {
+    return editor.last(at);
+  },
+  leaf: function leaf(editor, at, options) {
+    return editor.leaf(at, options);
+  },
+  levels: function levels(editor, options) {
+    return editor.levels(options);
+  },
+  marks: function marks(editor) {
+    return editor.getMarks();
+  },
+  next: function next(editor, options) {
+    return editor.next(options);
+  },
+  node: function node(editor, at, options) {
+    return editor.node(at, options);
+  },
+  nodes: function nodes(editor, options) {
+    return editor.nodes(options);
+  },
+  normalize: function normalize(editor, options) {
+    editor.normalize(options);
+  },
+  parent: function parent(editor, at, options) {
+    return editor.parent(at, options);
+  },
+  path: function path(editor, at, options) {
+    return editor.path(at, options);
+  },
+  pathRef: function pathRef(editor, path, options) {
+    return editor.pathRef(path, options);
+  },
+  pathRefs: function pathRefs(editor) {
+    return editor.pathRefs();
+  },
+  point: function point(editor, at, options) {
+    return editor.point(at, options);
+  },
+  pointRef: function pointRef(editor, point, options) {
+    return editor.pointRef(point, options);
+  },
+  pointRefs: function pointRefs(editor) {
+    return editor.pointRefs();
+  },
+  positions: function positions(editor, options) {
+    return editor.positions(options);
+  },
+  previous: function previous(editor, options) {
+    return editor.previous(options);
+  },
+  range: function range(editor, at, to) {
+    return editor.range(at, to);
+  },
+  rangeRef: function rangeRef(editor, range, options) {
+    return editor.rangeRef(range, options);
+  },
+  rangeRefs: function rangeRefs(editor) {
+    return editor.rangeRefs();
+  },
+  removeMark: function removeMark(editor, key) {
+    editor.removeMark(key);
+  },
+  setNormalizing: function setNormalizing(editor, isNormalizing) {
+    editor.setNormalizing(isNormalizing);
+  },
+  start: function start(editor, at) {
+    return editor.start(at);
+  },
+  string: function string(editor, at, options) {
+    return editor.string(at, options);
+  },
+  unhangRange: function unhangRange(editor, range, options) {
+    return editor.unhangRange(range, options);
+  },
+  "void": function _void(editor, options) {
+    return editor["void"](options);
+  },
+  withoutNormalizing: function withoutNormalizing(editor, fn) {
+    editor.withoutNormalizing(fn);
+  }
+};
 
-function _objectSpread$3(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$3(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$3(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+var Location = {
+  isLocation: function isLocation(value) {
+    return Path.isPath(value) || Point.isPoint(value) || Range.isRange(value);
+  }
+}; // eslint-disable-next-line no-redeclare
+
+var Span = {
+  isSpan: function isSpan(value) {
+    return Array.isArray(value) && value.length === 2 && value.every(Path.isPath);
+  }
+};
+
+function ownKeys$b(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$b(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$b(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$b(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
 var Point = {
-  /**
-   * Compare a point to another, returning an integer indicating whether the
-   * point was before, at, or after the other.
-   */
-  compare(point, another) {
+  compare: function compare(point, another) {
     var result = Path.compare(point.path, another.path);
 
     if (result === 0) {
@@ -43071,49 +47413,30 @@ var Point = {
 
     return result;
   },
-
-  /**
-   * Check if a point is after another.
-   */
-  isAfter(point, another) {
+  isAfter: function isAfter(point, another) {
     return Point.compare(point, another) === 1;
   },
-
-  /**
-   * Check if a point is before another.
-   */
-  isBefore(point, another) {
+  isBefore: function isBefore(point, another) {
     return Point.compare(point, another) === -1;
   },
-
-  /**
-   * Check if a point is exactly equal to another.
-   */
-  equals(point, another) {
+  equals: function equals(point, another) {
     // PERF: ensure the offsets are equal first since they are cheaper to check.
     return point.offset === another.offset && Path.equals(point.path, another.path);
   },
-
-  /**
-   * Check if a value implements the `Point` interface.
-   */
-  isPoint(value) {
-    return isPlainObject(value) && typeof value.offset === 'number' && Path.isPath(value.path);
+  isPoint: function isPoint(value) {
+    return isPlainObject.isPlainObject(value) && typeof value.offset === 'number' && Path.isPath(value.path);
   },
-
-  /**
-   * Transform a point by an operation.
-   */
-  transform(point, op) {
+  transform: function transform(point, op) {
     var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-    return immer.produce(point, p => {
-      var {
-        affinity = 'forward'
-      } = options;
-      var {
-        path,
-        offset
-      } = p;
+    return immer.produce(point, function (p) {
+      if (p === null) {
+        return null;
+      }
+
+      var _options$affinity = options.affinity,
+          affinity = _options$affinity === void 0 ? 'forward' : _options$affinity;
+      var path = p.path,
+          offset = p.offset;
 
       switch (op.type) {
         case 'insert_node':
@@ -43125,7 +47448,7 @@ var Point = {
 
         case 'insert_text':
           {
-            if (Path.equals(op.path, path) && op.offset <= offset) {
+            if (Path.equals(op.path, path) && (op.offset < offset || op.offset === offset && affinity === 'forward')) {
               p.offset += op.text.length;
             }
 
@@ -43168,7 +47491,7 @@ var Point = {
                 return null;
               } else if (op.position < offset || op.position === offset && affinity === 'forward') {
                 p.offset -= op.position;
-                p.path = Path.transform(path, op, _objectSpread$3({}, options, {
+                p.path = Path.transform(path, op, _objectSpread$b(_objectSpread$b({}, options), {}, {
                   affinity: 'forward'
                 }));
               }
@@ -43181,838 +47504,3340 @@ var Point = {
       }
     });
   }
-
 };
 
-var PointRef = {
-  /**
-   * Transform the point ref's current value by an operation.
-   */
-  transform(ref, op) {
-    var {
-      current,
-      affinity
-    } = ref;
+var _scrubber = undefined;
+/**
+ * This interface implements a stringify() function, which is used by Slate
+ * internally when generating exceptions containing end user data. Developers
+ * using Slate may call Scrubber.setScrubber() to alter the behavior of this
+ * stringify() function.
+ *
+ * For example, to prevent the cleartext logging of 'text' fields within Nodes:
+ *
+ *    import { Scrubber } from 'slate';
+ *    Scrubber.setScrubber((key, val) => {
+ *      if (key === 'text') return '...scrubbed...'
+ *      return val
+ *    });
+ *
+ */
+// eslint-disable-next-line no-redeclare
 
-    if (current == null) {
-      return;
-    }
-
-    var point = Point.transform(current, op, {
-      affinity
-    });
-    ref.current = point;
-
-    if (point == null) {
-      ref.unref();
-    }
+var Scrubber = {
+  setScrubber: function setScrubber(scrubber) {
+    _scrubber = scrubber;
+  },
+  stringify: function stringify(value) {
+    return JSON.stringify(value, _scrubber);
   }
-
 };
 
-function ownKeys$4(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+var _excluded$2 = ["text"],
+    _excluded2$2 = ["anchor", "focus"];
 
-function _objectSpread$4(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$4(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$4(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-var Range = {
-  /**
-   * Get the start and end points of a range, in the order in which they appear
-   * in the document.
-   */
-  edges(range) {
-    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    var {
-      reverse = false
-    } = options;
-    var {
-      anchor,
-      focus
-    } = range;
-    return Range.isBackward(range) === reverse ? [anchor, focus] : [focus, anchor];
-  },
+function _createForOfIteratorHelper$j(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray$j(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
-  /**
-   * Get the end point of a range.
-   */
-  end(range) {
-    var [, end] = Range.edges(range);
-    return end;
-  },
+function _unsupportedIterableToArray$j(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$j(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$j(o, minLen); }
 
-  /**
-   * Check if a range is exactly equal to another.
-   */
-  equals(range, another) {
-    return Point.equals(range.anchor, another.anchor) && Point.equals(range.focus, another.focus);
-  },
+function _arrayLikeToArray$j(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-  /**
-   * Check if a range includes a path, a point or part of another range.
-   */
-  includes(range, target) {
-    if (Range.isRange(target)) {
-      if (Range.includes(range, target.anchor) || Range.includes(range, target.focus)) {
-        return true;
-      }
+function ownKeys$a(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-      var [rs, re] = Range.edges(range);
-      var [ts, te] = Range.edges(target);
-      return Point.isBefore(rs, ts) && Point.isAfter(re, te);
-    }
+function _objectSpread$a(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$a(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$a(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-    var [start, end] = Range.edges(range);
-    var isAfterStart = false;
-    var isBeforeEnd = false;
-
-    if (Point.isPoint(target)) {
-      isAfterStart = Point.compare(target, start) >= 0;
-      isBeforeEnd = Point.compare(target, end) <= 0;
-    } else {
-      isAfterStart = Path.compare(target, start.path) >= 0;
-      isBeforeEnd = Path.compare(target, end.path) <= 0;
-    }
-
-    return isAfterStart && isBeforeEnd;
-  },
-
-  /**
-   * Get the intersection of a range with another.
-   */
-  intersection(range, another) {
-    var rest = _objectWithoutProperties(range, ["anchor", "focus"]);
-
-    var [s1, e1] = Range.edges(range);
-    var [s2, e2] = Range.edges(another);
-    var start = Point.isBefore(s1, s2) ? s2 : s1;
-    var end = Point.isBefore(e1, e2) ? e1 : e2;
-
-    if (Point.isBefore(end, start)) {
-      return null;
-    } else {
-      return _objectSpread$4({
-        anchor: start,
-        focus: end
-      }, rest);
-    }
-  },
-
-  /**
-   * Check if a range is backward, meaning that its anchor point appears in the
-   * document _after_ its focus point.
-   */
-  isBackward(range) {
-    var {
-      anchor,
-      focus
-    } = range;
-    return Point.isAfter(anchor, focus);
-  },
-
-  /**
-   * Check if a range is collapsed, meaning that both its anchor and focus
-   * points refer to the exact same position in the document.
-   */
-  isCollapsed(range) {
-    var {
-      anchor,
-      focus
-    } = range;
-    return Point.equals(anchor, focus);
-  },
-
-  /**
-   * Check if a range is expanded.
-   *
-   * This is the opposite of [[Range.isCollapsed]] and is provided for legibility.
-   */
-  isExpanded(range) {
-    return !Range.isCollapsed(range);
-  },
-
-  /**
-   * Check if a range is forward.
-   *
-   * This is the opposite of [[Range.isBackward]] and is provided for legibility.
-   */
-  isForward(range) {
-    return !Range.isBackward(range);
-  },
-
-  /**
-   * Check if a value implements the [[Range]] interface.
-   */
-  isRange(value) {
-    return isPlainObject(value) && Point.isPoint(value.anchor) && Point.isPoint(value.focus);
-  },
-
-  /**
-   * Iterate through all of the point entries in a range.
-   */
-  *points(range) {
-    yield [range.anchor, 'anchor'];
-    yield [range.focus, 'focus'];
-  },
-
-  /**
-   * Get the start point of a range.
-   */
-  start(range) {
-    var [start] = Range.edges(range);
-    return start;
-  },
-
-  /**
-   * Transform a range by an operation.
-   */
-  transform(range, op, options) {
-    var {
-      affinity = 'inward'
-    } = options;
-    var affinityAnchor;
-    var affinityFocus;
-
-    if (affinity === 'inward') {
-      if (Range.isForward(range)) {
-        affinityAnchor = 'forward';
-        affinityFocus = 'backward';
-      } else {
-        affinityAnchor = 'backward';
-        affinityFocus = 'forward';
-      }
-    } else if (affinity === 'outward') {
-      if (Range.isForward(range)) {
-        affinityAnchor = 'backward';
-        affinityFocus = 'forward';
-      } else {
-        affinityAnchor = 'forward';
-        affinityFocus = 'backward';
-      }
-    } else {
-      affinityAnchor = affinity;
-      affinityFocus = affinity;
-    }
-
-    return immer.produce(range, r => {
-      var anchor = Point.transform(r.anchor, op, {
-        affinity: affinityAnchor
-      });
-      var focus = Point.transform(r.focus, op, {
-        affinity: affinityFocus
-      });
-
-      if (!anchor || !focus) {
-        return null;
-      }
-
-      r.anchor = anchor;
-      r.focus = focus;
-    });
-  }
-
-};
-
-var RangeRef = {
-  /**
-   * Transform the range ref's current value by an operation.
-   */
-  transform(ref, op) {
-    var {
-      current,
-      affinity
-    } = ref;
-
-    if (current == null) {
-      return;
-    }
-
-    var path = Range.transform(current, op, {
-      affinity
-    });
-    ref.current = path;
-
-    if (path == null) {
-      ref.unref();
-    }
-  }
-
-};
-
-function ownKeys$5(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread$5(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$5(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$5(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var Text = {
-  /**
-   * Check if two text nodes are equal.
-   */
-  equals(text, another) {
+  equals: function equals(text, another) {
     var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-    var {
-      loose = false
-    } = options;
+    var _options$loose = options.loose,
+        loose = _options$loose === void 0 ? false : _options$loose;
 
-    for (var key in text) {
-      if (loose && key === 'text') {
-        continue;
-      }
+    function omitText(obj) {
+      obj.text;
+          var rest = _objectWithoutProperties(obj, _excluded$2);
 
-      if (text[key] !== another[key]) {
-        return false;
-      }
+      return rest;
     }
 
-    for (var _key in another) {
-      if (loose && _key === 'text') {
-        continue;
-      }
-
-      if (text[_key] !== another[_key]) {
-        return false;
-      }
-    }
-
-    return true;
+    return isDeepEqual(loose ? omitText(text) : text, loose ? omitText(another) : another);
   },
-
-  /**
-   * Check if a value implements the `Text` interface.
-   */
-  isText(value) {
-    return isPlainObject(value) && typeof value.text === 'string';
+  isText: function isText(value) {
+    return isPlainObject.isPlainObject(value) && typeof value.text === 'string';
   },
-
-  /**
-   * Check if a value is a list of `Text` objects.
-   */
-  isTextList(value) {
-    return Array.isArray(value) && (value.length === 0 || Text.isText(value[0]));
+  isTextList: function isTextList(value) {
+    return Array.isArray(value) && value.every(function (val) {
+      return Text.isText(val);
+    });
   },
-
-  /**
-   * Check if an text matches set of properties.
-   *
-   * Note: this is for matching custom properties, and it does not ensure that
-   * the `text` property are two nodes equal.
-   */
-  matches(text, props) {
+  isTextProps: function isTextProps(props) {
+    return props.text !== undefined;
+  },
+  matches: function matches(text, props) {
     for (var key in props) {
       if (key === 'text') {
         continue;
       }
 
-      if (text[key] !== props[key]) {
+      if (!text.hasOwnProperty(key) || text[key] !== props[key]) {
         return false;
       }
     }
 
     return true;
   },
+  decorations: function decorations(node, _decorations) {
+    var leaves = [_objectSpread$a({}, node)];
 
-  /**
-   * Get the leaves for a text node given decorations.
-   */
-  decorations(node, decorations) {
-    var leaves = [_objectSpread$5({}, node)];
+    var _iterator = _createForOfIteratorHelper$j(_decorations),
+        _step;
 
-    for (var dec of decorations) {
-      var rest = _objectWithoutProperties(dec, ["anchor", "focus"]);
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var dec = _step.value;
 
-      var [start, end] = Range.edges(dec);
-      var next = [];
-      var o = 0;
+        var anchor = dec.anchor,
+            focus = dec.focus,
+            rest = _objectWithoutProperties(dec, _excluded2$2);
 
-      for (var leaf of leaves) {
-        var {
-          length
-        } = leaf.text;
-        var offset = o;
-        o += length; // If the range encompases the entire leaf, add the range.
+        var _Range$edges = Range.edges(dec),
+            _Range$edges2 = _slicedToArray(_Range$edges, 2),
+            start = _Range$edges2[0],
+            end = _Range$edges2[1];
 
-        if (start.offset <= offset && end.offset >= offset + length) {
-          Object.assign(leaf, rest);
-          next.push(leaf);
-          continue;
-        } // If the range starts after the leaf, or ends before it, continue.
+        var next = [];
+        var leafEnd = 0;
+        var decorationStart = start.offset;
+        var decorationEnd = end.offset;
+
+        var _iterator2 = _createForOfIteratorHelper$j(leaves),
+            _step2;
+
+        try {
+          for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+            var leaf = _step2.value;
+            var length = leaf.text.length;
+            var leafStart = leafEnd;
+            leafEnd += length; // If the range encompasses the entire leaf, add the range.
+
+            if (decorationStart <= leafStart && leafEnd <= decorationEnd) {
+              Object.assign(leaf, rest);
+              next.push(leaf);
+              continue;
+            } // If the range expanded and match the leaf, or starts after, or ends before it, continue.
 
 
-        if (start.offset > offset + length || end.offset < offset || end.offset === offset && offset !== 0) {
-          next.push(leaf);
-          continue;
-        } // Otherwise we need to split the leaf, at the start, end, or both,
-        // and add the range to the middle intersecting section. Do the end
-        // split first since we don't need to update the offset that way.
+            if (decorationStart !== decorationEnd && (decorationStart === leafEnd || decorationEnd === leafStart) || decorationStart > leafEnd || decorationEnd < leafStart || decorationEnd === leafStart && leafStart !== 0) {
+              next.push(leaf);
+              continue;
+            } // Otherwise we need to split the leaf, at the start, end, or both,
+            // and add the range to the middle intersecting section. Do the end
+            // split first since we don't need to update the offset that way.
 
 
-        var middle = leaf;
-        var before = void 0;
-        var after = void 0;
+            var middle = leaf;
+            var before = void 0;
+            var after = void 0;
 
-        if (end.offset < offset + length) {
-          var off = end.offset - offset;
-          after = _objectSpread$5({}, middle, {
-            text: middle.text.slice(off)
-          });
-          middle = _objectSpread$5({}, middle, {
-            text: middle.text.slice(0, off)
-          });
+            if (decorationEnd < leafEnd) {
+              var off = decorationEnd - leafStart;
+              after = _objectSpread$a(_objectSpread$a({}, middle), {}, {
+                text: middle.text.slice(off)
+              });
+              middle = _objectSpread$a(_objectSpread$a({}, middle), {}, {
+                text: middle.text.slice(0, off)
+              });
+            }
+
+            if (decorationStart > leafStart) {
+              var _off = decorationStart - leafStart;
+
+              before = _objectSpread$a(_objectSpread$a({}, middle), {}, {
+                text: middle.text.slice(0, _off)
+              });
+              middle = _objectSpread$a(_objectSpread$a({}, middle), {}, {
+                text: middle.text.slice(_off)
+              });
+            }
+
+            Object.assign(middle, rest);
+
+            if (before) {
+              next.push(before);
+            }
+
+            next.push(middle);
+
+            if (after) {
+              next.push(after);
+            }
+          }
+        } catch (err) {
+          _iterator2.e(err);
+        } finally {
+          _iterator2.f();
         }
 
-        if (start.offset > offset) {
-          var _off = start.offset - offset;
-
-          before = _objectSpread$5({}, middle, {
-            text: middle.text.slice(0, _off)
-          });
-          middle = _objectSpread$5({}, middle, {
-            text: middle.text.slice(_off)
-          });
-        }
-
-        Object.assign(middle, rest);
-
-        if (before) {
-          next.push(before);
-        }
-
-        next.push(middle);
-
-        if (after) {
-          next.push(after);
-        }
+        leaves = next;
       }
-
-      leaves = next;
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
     }
 
     return leaves;
   }
-
 };
 
-function ownKeys$6(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+/**
+ * Get the default location to insert content into the editor.
+ * By default, use the selection as the target location. But if there is
+ * no selection, insert at the end of the document since that is such a
+ * common use case when inserting from a non-selected state.
+ */
 
-function _objectSpread$6(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$6(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$6(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-var GeneralTransforms = {
-  /**
-   * Transform the editor by an operation.
-   */
-  transform(editor, op) {
-    editor.children = immer.createDraft(editor.children);
-    var selection = editor.selection && immer.createDraft(editor.selection);
+var getDefaultInsertLocation = function getDefaultInsertLocation(editor) {
+  if (editor.selection) {
+    return editor.selection;
+  } else if (editor.children.length > 0) {
+    return Editor.end(editor, []);
+  } else {
+    return [0];
+  }
+};
 
-    switch (op.type) {
-      case 'insert_node':
-        {
-          var {
-            path,
-            node
-          } = op;
-          var parent = Node.parent(editor, path);
-          var index = path[path.length - 1];
-          parent.children.splice(index, 0, node);
+var matchPath = function matchPath(editor, path) {
+  var _Editor$node = Editor.node(editor, path),
+      _Editor$node2 = _slicedToArray(_Editor$node, 1),
+      node = _Editor$node2[0];
 
-          if (selection) {
-            for (var [point, key] of Range.points(selection)) {
-              selection[key] = Point.transform(point, op);
-            }
-          }
+  return function (n) {
+    return n === node;
+  };
+};
 
-          break;
+function _createForOfIteratorHelper$i(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray$i(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray$i(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$i(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$i(o, minLen); }
+
+function _arrayLikeToArray$i(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+// Character (grapheme cluster) boundaries are determined according to
+// the default grapheme cluster boundary specification, extended grapheme clusters variant[1].
+//
+// References:
+//
+// [1] https://www.unicode.org/reports/tr29/#Default_Grapheme_Cluster_Table
+// [2] https://www.unicode.org/Public/UCD/latest/ucd/auxiliary/GraphemeBreakProperty.txt
+// [3] https://www.unicode.org/Public/UCD/latest/ucd/auxiliary/GraphemeBreakTest.html
+// [4] https://www.unicode.org/Public/UCD/latest/ucd/auxiliary/GraphemeBreakTest.txt
+
+/**
+ * Get the distance to the end of the first character in a string of text.
+ */
+var getCharacterDistance = function getCharacterDistance(str) {
+  var isRTL = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+  var isLTR = !isRTL;
+  var codepoints = isRTL ? codepointsIteratorRTL(str) : str;
+  var left = CodepointType.None;
+  var right = CodepointType.None;
+  var distance = 0; // Evaluation of these conditions are deferred.
+
+  var gb11 = null; // Is GB11 applicable?
+
+  var gb12Or13 = null; // Is GB12 or GB13 applicable?
+
+  var _iterator = _createForOfIteratorHelper$i(codepoints),
+      _step;
+
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var _char = _step.value;
+
+      var code = _char.codePointAt(0);
+
+      if (!code) break;
+      var type = getCodepointType(_char, code);
+
+      var _ref = isLTR ? [right, type] : [type, left];
+
+      var _ref2 = _slicedToArray(_ref, 2);
+
+      left = _ref2[0];
+      right = _ref2[1];
+
+      if (intersects(left, CodepointType.ZWJ) && intersects(right, CodepointType.ExtPict)) {
+        if (isLTR) {
+          gb11 = endsWithEmojiZWJ(str.substring(0, distance));
+        } else {
+          gb11 = endsWithEmojiZWJ(str.substring(0, str.length - distance));
         }
 
-      case 'insert_text':
-        {
-          var {
-            path: _path,
-            offset,
-            text
-          } = op;
+        if (!gb11) break;
+      }
 
-          var _node = Node.leaf(editor, _path);
-
-          var before = _node.text.slice(0, offset);
-
-          var after = _node.text.slice(offset);
-
-          _node.text = before + text + after;
-
-          if (selection) {
-            for (var [_point, _key] of Range.points(selection)) {
-              selection[_key] = Point.transform(_point, op);
-            }
-          }
-
-          break;
-        }
-
-      case 'merge_node':
-        {
-          var {
-            path: _path2
-          } = op;
-
-          var _node2 = Node.get(editor, _path2);
-
-          var prevPath = Path.previous(_path2);
-          var prev = Node.get(editor, prevPath);
-
-          var _parent = Node.parent(editor, _path2);
-
-          var _index = _path2[_path2.length - 1];
-
-          if (Text.isText(_node2) && Text.isText(prev)) {
-            prev.text += _node2.text;
-          } else if (!Text.isText(_node2) && !Text.isText(prev)) {
-            prev.children.push(..._node2.children);
+      if (intersects(left, CodepointType.RI) && intersects(right, CodepointType.RI)) {
+        if (gb12Or13 !== null) {
+          gb12Or13 = !gb12Or13;
+        } else {
+          if (isLTR) {
+            gb12Or13 = true;
           } else {
-            throw new Error("Cannot apply a \"merge_node\" operation at path [".concat(_path2, "] to nodes of different interaces: ").concat(_node2, " ").concat(prev));
+            gb12Or13 = endsWithOddNumberOfRIs(str.substring(0, str.length - distance));
           }
-
-          _parent.children.splice(_index, 1);
-
-          if (selection) {
-            for (var [_point2, _key2] of Range.points(selection)) {
-              selection[_key2] = Point.transform(_point2, op);
-            }
-          }
-
-          break;
         }
 
-      case 'move_node':
-        {
-          var {
-            path: _path3,
-            newPath
-          } = op;
+        if (!gb12Or13) break;
+      }
 
-          if (Path.isAncestor(_path3, newPath)) {
-            throw new Error("Cannot move a path [".concat(_path3, "] to new path [").concat(newPath, "] because the destination is inside itself."));
-          }
+      if (left !== CodepointType.None && right !== CodepointType.None && isBoundaryPair(left, right)) {
+        break;
+      }
 
-          var _node3 = Node.get(editor, _path3);
+      distance += _char.length;
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
 
-          var _parent2 = Node.parent(editor, _path3);
+  return distance || 1;
+};
+var SPACE = /\s/;
+var PUNCTUATION = /[\u0021-\u0023\u0025-\u002A\u002C-\u002F\u003A\u003B\u003F\u0040\u005B-\u005D\u005F\u007B\u007D\u00A1\u00A7\u00AB\u00B6\u00B7\u00BB\u00BF\u037E\u0387\u055A-\u055F\u0589\u058A\u05BE\u05C0\u05C3\u05C6\u05F3\u05F4\u0609\u060A\u060C\u060D\u061B\u061E\u061F\u066A-\u066D\u06D4\u0700-\u070D\u07F7-\u07F9\u0830-\u083E\u085E\u0964\u0965\u0970\u0AF0\u0DF4\u0E4F\u0E5A\u0E5B\u0F04-\u0F12\u0F14\u0F3A-\u0F3D\u0F85\u0FD0-\u0FD4\u0FD9\u0FDA\u104A-\u104F\u10FB\u1360-\u1368\u1400\u166D\u166E\u169B\u169C\u16EB-\u16ED\u1735\u1736\u17D4-\u17D6\u17D8-\u17DA\u1800-\u180A\u1944\u1945\u1A1E\u1A1F\u1AA0-\u1AA6\u1AA8-\u1AAD\u1B5A-\u1B60\u1BFC-\u1BFF\u1C3B-\u1C3F\u1C7E\u1C7F\u1CC0-\u1CC7\u1CD3\u2010-\u2027\u2030-\u2043\u2045-\u2051\u2053-\u205E\u207D\u207E\u208D\u208E\u2329\u232A\u2768-\u2775\u27C5\u27C6\u27E6-\u27EF\u2983-\u2998\u29D8-\u29DB\u29FC\u29FD\u2CF9-\u2CFC\u2CFE\u2CFF\u2D70\u2E00-\u2E2E\u2E30-\u2E3B\u3001-\u3003\u3008-\u3011\u3014-\u301F\u3030\u303D\u30A0\u30FB\uA4FE\uA4FF\uA60D-\uA60F\uA673\uA67E\uA6F2-\uA6F7\uA874-\uA877\uA8CE\uA8CF\uA8F8-\uA8FA\uA92E\uA92F\uA95F\uA9C1-\uA9CD\uA9DE\uA9DF\uAA5C-\uAA5F\uAADE\uAADF\uAAF0\uAAF1\uABEB\uFD3E\uFD3F\uFE10-\uFE19\uFE30-\uFE52\uFE54-\uFE61\uFE63\uFE68\uFE6A\uFE6B\uFF01-\uFF03\uFF05-\uFF0A\uFF0C-\uFF0F\uFF1A\uFF1B\uFF1F\uFF20\uFF3B-\uFF3D\uFF3F\uFF5B\uFF5D\uFF5F-\uFF65]/;
+var CHAMELEON = /['\u2018\u2019]/;
+/**
+ * Get the distance to the end of the first word in a string of text.
+ */
 
-          var _index2 = _path3[_path3.length - 1]; // This is tricky, but since the `path` and `newPath` both refer to
-          // the same snapshot in time, there's a mismatch. After either
-          // removing the original position, the second step's path can be out
-          // of date. So instead of using the `op.newPath` directly, we
-          // transform `op.path` to ascertain what the `newPath` would be after
-          // the operation was applied.
+var getWordDistance = function getWordDistance(text) {
+  var isRTL = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+  var dist = 0;
+  var started = false;
 
-          _parent2.children.splice(_index2, 1);
+  while (text.length > 0) {
+    var charDist = getCharacterDistance(text, isRTL);
 
-          var truePath = Path.transform(_path3, op);
-          var newParent = Node.get(editor, Path.parent(truePath));
-          var newIndex = truePath[truePath.length - 1];
-          newParent.children.splice(newIndex, 0, _node3);
+    var _splitByCharacterDist = splitByCharacterDistance(text, charDist, isRTL),
+        _splitByCharacterDist2 = _slicedToArray(_splitByCharacterDist, 2),
+        _char2 = _splitByCharacterDist2[0],
+        remaining = _splitByCharacterDist2[1];
 
-          if (selection) {
-            for (var [_point3, _key3] of Range.points(selection)) {
-              selection[_key3] = Point.transform(_point3, op);
-            }
-          }
-
-          break;
-        }
-
-      case 'remove_node':
-        {
-          var {
-            path: _path4
-          } = op;
-          var _index3 = _path4[_path4.length - 1];
-
-          var _parent3 = Node.parent(editor, _path4);
-
-          _parent3.children.splice(_index3, 1); // Transform all of the points in the value, but if the point was in the
-          // node that was removed we need to update the range or remove it.
-
-
-          if (selection) {
-            for (var [_point4, _key4] of Range.points(selection)) {
-              var result = Point.transform(_point4, op);
-
-              if (selection != null && result != null) {
-                selection[_key4] = result;
-              } else {
-                var _prev = void 0;
-
-                var next = void 0;
-
-                for (var [n, p] of Node.texts(editor)) {
-                  if (Path.compare(p, _path4) === -1) {
-                    _prev = [n, p];
-                  } else {
-                    next = [n, p];
-                    break;
-                  }
-                }
-
-                if (_prev) {
-                  _point4.path = _prev[1];
-                  _point4.offset = _prev[0].text.length;
-                } else if (next) {
-                  _point4.path = next[1];
-                  _point4.offset = 0;
-                } else {
-                  selection = null;
-                }
-              }
-            }
-          }
-
-          break;
-        }
-
-      case 'remove_text':
-        {
-          var {
-            path: _path5,
-            offset: _offset,
-            text: _text
-          } = op;
-
-          var _node4 = Node.leaf(editor, _path5);
-
-          var _before = _node4.text.slice(0, _offset);
-
-          var _after = _node4.text.slice(_offset + _text.length);
-
-          _node4.text = _before + _after;
-
-          if (selection) {
-            for (var [_point5, _key5] of Range.points(selection)) {
-              selection[_key5] = Point.transform(_point5, op);
-            }
-          }
-
-          break;
-        }
-
-      case 'set_node':
-        {
-          var {
-            path: _path6,
-            newProperties
-          } = op;
-
-          if (_path6.length === 0) {
-            throw new Error("Cannot set properties on the root node!");
-          }
-
-          var _node5 = Node.get(editor, _path6);
-
-          for (var _key6 in newProperties) {
-            if (_key6 === 'children' || _key6 === 'text') {
-              throw new Error("Cannot set the \"".concat(_key6, "\" property of nodes!"));
-            }
-
-            var value = newProperties[_key6];
-
-            if (value == null) {
-              delete _node5[_key6];
-            } else {
-              _node5[_key6] = value;
-            }
-          }
-
-          break;
-        }
-
-      case 'set_selection':
-        {
-          var {
-            newProperties: _newProperties
-          } = op;
-
-          if (_newProperties == null) {
-            selection = _newProperties;
-          } else if (selection == null) {
-            if (!Range.isRange(_newProperties)) {
-              throw new Error("Cannot apply an incomplete \"set_selection\" operation properties ".concat(JSON.stringify(_newProperties), " when there is no current selection."));
-            }
-
-            selection = _newProperties;
-          } else {
-            Object.assign(selection, _newProperties);
-          }
-
-          break;
-        }
-
-      case 'split_node':
-        {
-          var {
-            path: _path7,
-            position,
-            properties
-          } = op;
-
-          if (_path7.length === 0) {
-            throw new Error("Cannot apply a \"split_node\" operation at path [".concat(_path7, "] because the root node cannot be split."));
-          }
-
-          var _node6 = Node.get(editor, _path7);
-
-          var _parent4 = Node.parent(editor, _path7);
-
-          var _index4 = _path7[_path7.length - 1];
-          var newNode;
-
-          if (Text.isText(_node6)) {
-            var _before2 = _node6.text.slice(0, position);
-
-            var _after2 = _node6.text.slice(position);
-
-            _node6.text = _before2;
-            newNode = _objectSpread$6({}, _node6, {}, properties, {
-              text: _after2
-            });
-          } else {
-            var _before3 = _node6.children.slice(0, position);
-
-            var _after3 = _node6.children.slice(position);
-
-            _node6.children = _before3;
-            newNode = _objectSpread$6({}, _node6, {}, properties, {
-              children: _after3
-            });
-          }
-
-          _parent4.children.splice(_index4 + 1, 0, newNode);
-
-          if (selection) {
-            for (var [_point6, _key7] of Range.points(selection)) {
-              selection[_key7] = Point.transform(_point6, op);
-            }
-          }
-
-          break;
-        }
+    if (isWordCharacter(_char2, remaining, isRTL)) {
+      started = true;
+      dist += charDist;
+    } else if (!started) {
+      dist += charDist;
+    } else {
+      break;
     }
 
-    editor.children = immer.finishDraft(editor.children);
+    text = remaining;
+  }
 
-    if (selection) {
-      editor.selection = immer.isDraft(selection) ? immer.finishDraft(selection) : selection;
-    } else {
-      editor.selection = null;
+  return dist;
+};
+/**
+ * Split a string in two parts at a given distance starting from the end when
+ * `isRTL` is set to `true`.
+ */
+
+var splitByCharacterDistance = function splitByCharacterDistance(str, dist, isRTL) {
+  if (isRTL) {
+    var at = str.length - dist;
+    return [str.slice(at, str.length), str.slice(0, at)];
+  }
+
+  return [str.slice(0, dist), str.slice(dist)];
+};
+/**
+ * Check if a character is a word character. The `remaining` argument is used
+ * because sometimes you must read subsequent characters to truly determine it.
+ */
+
+var isWordCharacter = function isWordCharacter(_char3, remaining) {
+  var isRTL = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+
+  if (SPACE.test(_char3)) {
+    return false;
+  } // Chameleons count as word characters as long as they're in a word, so
+  // recurse to see if the next one is a word character or not.
+
+
+  if (CHAMELEON.test(_char3)) {
+    var charDist = getCharacterDistance(remaining, isRTL);
+
+    var _splitByCharacterDist3 = splitByCharacterDistance(remaining, charDist, isRTL),
+        _splitByCharacterDist4 = _slicedToArray(_splitByCharacterDist3, 2),
+        nextChar = _splitByCharacterDist4[0],
+        nextRemaining = _splitByCharacterDist4[1];
+
+    if (isWordCharacter(nextChar, nextRemaining, isRTL)) {
+      return true;
     }
   }
 
+  if (PUNCTUATION.test(_char3)) {
+    return false;
+  }
+
+  return true;
+};
+/**
+ * Iterate on codepoints from right to left.
+ */
+
+
+var codepointsIteratorRTL = function* codepointsIteratorRTL(str) {
+  var end = str.length - 1;
+
+  for (var i = 0; i < str.length; i++) {
+    var char1 = str.charAt(end - i);
+
+    if (isLowSurrogate(char1.charCodeAt(0))) {
+      var char2 = str.charAt(end - i - 1);
+
+      if (isHighSurrogate(char2.charCodeAt(0))) {
+        yield char2 + char1;
+        i++;
+        continue;
+      }
+    }
+
+    yield char1;
+  }
+};
+/**
+ * Is `charCode` a high surrogate.
+ *
+ * https://en.wikipedia.org/wiki/Universal_Character_Set_characters#Surrogates
+ */
+
+var isHighSurrogate = function isHighSurrogate(charCode) {
+  return charCode >= 0xd800 && charCode <= 0xdbff;
+};
+/**
+ * Is `charCode` a low surrogate.
+ *
+ * https://en.wikipedia.org/wiki/Universal_Character_Set_characters#Surrogates
+ */
+
+
+var isLowSurrogate = function isLowSurrogate(charCode) {
+  return charCode >= 0xdc00 && charCode <= 0xdfff;
 };
 
-function ownKeys$7(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+var CodepointType;
 
-function _objectSpread$7(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$7(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$7(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-var NodeTransforms = {
-  /**
-   * Insert nodes at a specific location in the Editor.
-   */
-  insertNodes(editor, nodes) {
+(function (CodepointType) {
+  CodepointType[CodepointType["None"] = 0] = "None";
+  CodepointType[CodepointType["Extend"] = 1] = "Extend";
+  CodepointType[CodepointType["ZWJ"] = 2] = "ZWJ";
+  CodepointType[CodepointType["RI"] = 4] = "RI";
+  CodepointType[CodepointType["Prepend"] = 8] = "Prepend";
+  CodepointType[CodepointType["SpacingMark"] = 16] = "SpacingMark";
+  CodepointType[CodepointType["L"] = 32] = "L";
+  CodepointType[CodepointType["V"] = 64] = "V";
+  CodepointType[CodepointType["T"] = 128] = "T";
+  CodepointType[CodepointType["LV"] = 256] = "LV";
+  CodepointType[CodepointType["LVT"] = 512] = "LVT";
+  CodepointType[CodepointType["ExtPict"] = 1024] = "ExtPict";
+  CodepointType[CodepointType["Any"] = 2048] = "Any";
+})(CodepointType || (CodepointType = {}));
+
+var reExtend = /^(?:[\u0300-\u036F\u0483-\u0489\u0591-\u05BD\u05BF\u05C1\u05C2\u05C4\u05C5\u05C7\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06DC\u06DF-\u06E4\u06E7\u06E8\u06EA-\u06ED\u0711\u0730-\u074A\u07A6-\u07B0\u07EB-\u07F3\u07FD\u0816-\u0819\u081B-\u0823\u0825-\u0827\u0829-\u082D\u0859-\u085B\u08D3-\u08E1\u08E3-\u0902\u093A\u093C\u0941-\u0948\u094D\u0951-\u0957\u0962\u0963\u0981\u09BC\u09BE\u09C1-\u09C4\u09CD\u09D7\u09E2\u09E3\u09FE\u0A01\u0A02\u0A3C\u0A41\u0A42\u0A47\u0A48\u0A4B-\u0A4D\u0A51\u0A70\u0A71\u0A75\u0A81\u0A82\u0ABC\u0AC1-\u0AC5\u0AC7\u0AC8\u0ACD\u0AE2\u0AE3\u0AFA-\u0AFF\u0B01\u0B3C\u0B3E\u0B3F\u0B41-\u0B44\u0B4D\u0B55-\u0B57\u0B62\u0B63\u0B82\u0BBE\u0BC0\u0BCD\u0BD7\u0C00\u0C04\u0C3E-\u0C40\u0C46-\u0C48\u0C4A-\u0C4D\u0C55\u0C56\u0C62\u0C63\u0C81\u0CBC\u0CBF\u0CC2\u0CC6\u0CCC\u0CCD\u0CD5\u0CD6\u0CE2\u0CE3\u0D00\u0D01\u0D3B\u0D3C\u0D3E\u0D41-\u0D44\u0D4D\u0D57\u0D62\u0D63\u0D81\u0DCA\u0DCF\u0DD2-\u0DD4\u0DD6\u0DDF\u0E31\u0E34-\u0E3A\u0E47-\u0E4E\u0EB1\u0EB4-\u0EBC\u0EC8-\u0ECD\u0F18\u0F19\u0F35\u0F37\u0F39\u0F71-\u0F7E\u0F80-\u0F84\u0F86\u0F87\u0F8D-\u0F97\u0F99-\u0FBC\u0FC6\u102D-\u1030\u1032-\u1037\u1039\u103A\u103D\u103E\u1058\u1059\u105E-\u1060\u1071-\u1074\u1082\u1085\u1086\u108D\u109D\u135D-\u135F\u1712-\u1714\u1732-\u1734\u1752\u1753\u1772\u1773\u17B4\u17B5\u17B7-\u17BD\u17C6\u17C9-\u17D3\u17DD\u180B-\u180D\u1885\u1886\u18A9\u1920-\u1922\u1927\u1928\u1932\u1939-\u193B\u1A17\u1A18\u1A1B\u1A56\u1A58-\u1A5E\u1A60\u1A62\u1A65-\u1A6C\u1A73-\u1A7C\u1A7F\u1AB0-\u1AC0\u1B00-\u1B03\u1B34-\u1B3A\u1B3C\u1B42\u1B6B-\u1B73\u1B80\u1B81\u1BA2-\u1BA5\u1BA8\u1BA9\u1BAB-\u1BAD\u1BE6\u1BE8\u1BE9\u1BED\u1BEF-\u1BF1\u1C2C-\u1C33\u1C36\u1C37\u1CD0-\u1CD2\u1CD4-\u1CE0\u1CE2-\u1CE8\u1CED\u1CF4\u1CF8\u1CF9\u1DC0-\u1DF9\u1DFB-\u1DFF\u200C\u20D0-\u20F0\u2CEF-\u2CF1\u2D7F\u2DE0-\u2DFF\u302A-\u302F\u3099\u309A\uA66F-\uA672\uA674-\uA67D\uA69E\uA69F\uA6F0\uA6F1\uA802\uA806\uA80B\uA825\uA826\uA82C\uA8C4\uA8C5\uA8E0-\uA8F1\uA8FF\uA926-\uA92D\uA947-\uA951\uA980-\uA982\uA9B3\uA9B6-\uA9B9\uA9BC\uA9BD\uA9E5\uAA29-\uAA2E\uAA31\uAA32\uAA35\uAA36\uAA43\uAA4C\uAA7C\uAAB0\uAAB2-\uAAB4\uAAB7\uAAB8\uAABE\uAABF\uAAC1\uAAEC\uAAED\uAAF6\uABE5\uABE8\uABED\uFB1E\uFE00-\uFE0F\uFE20-\uFE2F\uFF9E\uFF9F]|\uD800[\uDDFD\uDEE0\uDF76-\uDF7A]|\uD802[\uDE01-\uDE03\uDE05\uDE06\uDE0C-\uDE0F\uDE38-\uDE3A\uDE3F\uDEE5\uDEE6]|\uD803[\uDD24-\uDD27\uDEAB\uDEAC\uDF46-\uDF50]|\uD804[\uDC01\uDC38-\uDC46\uDC7F-\uDC81\uDCB3-\uDCB6\uDCB9\uDCBA\uDD00-\uDD02\uDD27-\uDD2B\uDD2D-\uDD34\uDD73\uDD80\uDD81\uDDB6-\uDDBE\uDDC9-\uDDCC\uDDCF\uDE2F-\uDE31\uDE34\uDE36\uDE37\uDE3E\uDEDF\uDEE3-\uDEEA\uDF00\uDF01\uDF3B\uDF3C\uDF3E\uDF40\uDF57\uDF66-\uDF6C\uDF70-\uDF74]|\uD805[\uDC38-\uDC3F\uDC42-\uDC44\uDC46\uDC5E\uDCB0\uDCB3-\uDCB8\uDCBA\uDCBD\uDCBF\uDCC0\uDCC2\uDCC3\uDDAF\uDDB2-\uDDB5\uDDBC\uDDBD\uDDBF\uDDC0\uDDDC\uDDDD\uDE33-\uDE3A\uDE3D\uDE3F\uDE40\uDEAB\uDEAD\uDEB0-\uDEB5\uDEB7\uDF1D-\uDF1F\uDF22-\uDF25\uDF27-\uDF2B]|\uD806[\uDC2F-\uDC37\uDC39\uDC3A\uDD30\uDD3B\uDD3C\uDD3E\uDD43\uDDD4-\uDDD7\uDDDA\uDDDB\uDDE0\uDE01-\uDE0A\uDE33-\uDE38\uDE3B-\uDE3E\uDE47\uDE51-\uDE56\uDE59-\uDE5B\uDE8A-\uDE96\uDE98\uDE99]|\uD807[\uDC30-\uDC36\uDC38-\uDC3D\uDC3F\uDC92-\uDCA7\uDCAA-\uDCB0\uDCB2\uDCB3\uDCB5\uDCB6\uDD31-\uDD36\uDD3A\uDD3C\uDD3D\uDD3F-\uDD45\uDD47\uDD90\uDD91\uDD95\uDD97\uDEF3\uDEF4]|\uD81A[\uDEF0-\uDEF4\uDF30-\uDF36]|\uD81B[\uDF4F\uDF8F-\uDF92\uDFE4]|\uD82F[\uDC9D\uDC9E]|\uD834[\uDD65\uDD67-\uDD69\uDD6E-\uDD72\uDD7B-\uDD82\uDD85-\uDD8B\uDDAA-\uDDAD\uDE42-\uDE44]|\uD836[\uDE00-\uDE36\uDE3B-\uDE6C\uDE75\uDE84\uDE9B-\uDE9F\uDEA1-\uDEAF]|\uD838[\uDC00-\uDC06\uDC08-\uDC18\uDC1B-\uDC21\uDC23\uDC24\uDC26-\uDC2A\uDD30-\uDD36\uDEEC-\uDEEF]|\uD83A[\uDCD0-\uDCD6\uDD44-\uDD4A]|\uD83C[\uDFFB-\uDFFF]|\uDB40[\uDC20-\uDC7F\uDD00-\uDDEF])$/;
+var rePrepend = /^(?:[\u0600-\u0605\u06DD\u070F\u0890\u0891\u08E2\u0D4E]|\uD804[\uDCBD\uDCCD\uDDC2\uDDC3]|\uD806[\uDD3F\uDD41\uDE3A\uDE84-\uDE89]|\uD807\uDD46)$/;
+var reSpacingMark = /^(?:[\u0903\u093B\u093E-\u0940\u0949-\u094C\u094E\u094F\u0982\u0983\u09BF\u09C0\u09C7\u09C8\u09CB\u09CC\u0A03\u0A3E-\u0A40\u0A83\u0ABE-\u0AC0\u0AC9\u0ACB\u0ACC\u0B02\u0B03\u0B40\u0B47\u0B48\u0B4B\u0B4C\u0BBF\u0BC1\u0BC2\u0BC6-\u0BC8\u0BCA-\u0BCC\u0C01-\u0C03\u0C41-\u0C44\u0C82\u0C83\u0CBE\u0CC0\u0CC1\u0CC3\u0CC4\u0CC7\u0CC8\u0CCA\u0CCB\u0D02\u0D03\u0D3F\u0D40\u0D46-\u0D48\u0D4A-\u0D4C\u0D82\u0D83\u0DD0\u0DD1\u0DD8-\u0DDE\u0DF2\u0DF3\u0E33\u0EB3\u0F3E\u0F3F\u0F7F\u1031\u103B\u103C\u1056\u1057\u1084\u1715\u1734\u17B6\u17BE-\u17C5\u17C7\u17C8\u1923-\u1926\u1929-\u192B\u1930\u1931\u1933-\u1938\u1A19\u1A1A\u1A55\u1A57\u1A6D-\u1A72\u1B04\u1B3B\u1B3D-\u1B41\u1B43\u1B44\u1B82\u1BA1\u1BA6\u1BA7\u1BAA\u1BE7\u1BEA-\u1BEC\u1BEE\u1BF2\u1BF3\u1C24-\u1C2B\u1C34\u1C35\u1CE1\u1CF7\uA823\uA824\uA827\uA880\uA881\uA8B4-\uA8C3\uA952\uA953\uA983\uA9B4\uA9B5\uA9BA\uA9BB\uA9BE-\uA9C0\uAA2F\uAA30\uAA33\uAA34\uAA4D\uAAEB\uAAEE\uAAEF\uAAF5\uABE3\uABE4\uABE6\uABE7\uABE9\uABEA\uABEC]|\uD804[\uDC00\uDC02\uDC82\uDCB0-\uDCB2\uDCB7\uDCB8\uDD2C\uDD45\uDD46\uDD82\uDDB3-\uDDB5\uDDBF\uDDC0\uDDCE\uDE2C-\uDE2E\uDE32\uDE33\uDE35\uDEE0-\uDEE2\uDF02\uDF03\uDF3F\uDF41-\uDF44\uDF47\uDF48\uDF4B-\uDF4D\uDF62\uDF63]|\uD805[\uDC35-\uDC37\uDC40\uDC41\uDC45\uDCB1\uDCB2\uDCB9\uDCBB\uDCBC\uDCBE\uDCC1\uDDB0\uDDB1\uDDB8-\uDDBB\uDDBE\uDE30-\uDE32\uDE3B\uDE3C\uDE3E\uDEAC\uDEAE\uDEAF\uDEB6\uDF26]|\uD806[\uDC2C-\uDC2E\uDC38\uDD31-\uDD35\uDD37\uDD38\uDD3D\uDD40\uDD42\uDDD1-\uDDD3\uDDDC-\uDDDF\uDDE4\uDE39\uDE57\uDE58\uDE97]|\uD807[\uDC2F\uDC3E\uDCA9\uDCB1\uDCB4\uDD8A-\uDD8E\uDD93\uDD94\uDD96\uDEF5\uDEF6]|\uD81B[\uDF51-\uDF87\uDFF0\uDFF1]|\uD834[\uDD66\uDD6D])$/;
+var reL = /^[\u1100-\u115F\uA960-\uA97C]$/;
+var reV = /^[\u1160-\u11A7\uD7B0-\uD7C6]$/;
+var reT = /^[\u11A8-\u11FF\uD7CB-\uD7FB]$/;
+var reLV = /^[\uAC00\uAC1C\uAC38\uAC54\uAC70\uAC8C\uACA8\uACC4\uACE0\uACFC\uAD18\uAD34\uAD50\uAD6C\uAD88\uADA4\uADC0\uADDC\uADF8\uAE14\uAE30\uAE4C\uAE68\uAE84\uAEA0\uAEBC\uAED8\uAEF4\uAF10\uAF2C\uAF48\uAF64\uAF80\uAF9C\uAFB8\uAFD4\uAFF0\uB00C\uB028\uB044\uB060\uB07C\uB098\uB0B4\uB0D0\uB0EC\uB108\uB124\uB140\uB15C\uB178\uB194\uB1B0\uB1CC\uB1E8\uB204\uB220\uB23C\uB258\uB274\uB290\uB2AC\uB2C8\uB2E4\uB300\uB31C\uB338\uB354\uB370\uB38C\uB3A8\uB3C4\uB3E0\uB3FC\uB418\uB434\uB450\uB46C\uB488\uB4A4\uB4C0\uB4DC\uB4F8\uB514\uB530\uB54C\uB568\uB584\uB5A0\uB5BC\uB5D8\uB5F4\uB610\uB62C\uB648\uB664\uB680\uB69C\uB6B8\uB6D4\uB6F0\uB70C\uB728\uB744\uB760\uB77C\uB798\uB7B4\uB7D0\uB7EC\uB808\uB824\uB840\uB85C\uB878\uB894\uB8B0\uB8CC\uB8E8\uB904\uB920\uB93C\uB958\uB974\uB990\uB9AC\uB9C8\uB9E4\uBA00\uBA1C\uBA38\uBA54\uBA70\uBA8C\uBAA8\uBAC4\uBAE0\uBAFC\uBB18\uBB34\uBB50\uBB6C\uBB88\uBBA4\uBBC0\uBBDC\uBBF8\uBC14\uBC30\uBC4C\uBC68\uBC84\uBCA0\uBCBC\uBCD8\uBCF4\uBD10\uBD2C\uBD48\uBD64\uBD80\uBD9C\uBDB8\uBDD4\uBDF0\uBE0C\uBE28\uBE44\uBE60\uBE7C\uBE98\uBEB4\uBED0\uBEEC\uBF08\uBF24\uBF40\uBF5C\uBF78\uBF94\uBFB0\uBFCC\uBFE8\uC004\uC020\uC03C\uC058\uC074\uC090\uC0AC\uC0C8\uC0E4\uC100\uC11C\uC138\uC154\uC170\uC18C\uC1A8\uC1C4\uC1E0\uC1FC\uC218\uC234\uC250\uC26C\uC288\uC2A4\uC2C0\uC2DC\uC2F8\uC314\uC330\uC34C\uC368\uC384\uC3A0\uC3BC\uC3D8\uC3F4\uC410\uC42C\uC448\uC464\uC480\uC49C\uC4B8\uC4D4\uC4F0\uC50C\uC528\uC544\uC560\uC57C\uC598\uC5B4\uC5D0\uC5EC\uC608\uC624\uC640\uC65C\uC678\uC694\uC6B0\uC6CC\uC6E8\uC704\uC720\uC73C\uC758\uC774\uC790\uC7AC\uC7C8\uC7E4\uC800\uC81C\uC838\uC854\uC870\uC88C\uC8A8\uC8C4\uC8E0\uC8FC\uC918\uC934\uC950\uC96C\uC988\uC9A4\uC9C0\uC9DC\uC9F8\uCA14\uCA30\uCA4C\uCA68\uCA84\uCAA0\uCABC\uCAD8\uCAF4\uCB10\uCB2C\uCB48\uCB64\uCB80\uCB9C\uCBB8\uCBD4\uCBF0\uCC0C\uCC28\uCC44\uCC60\uCC7C\uCC98\uCCB4\uCCD0\uCCEC\uCD08\uCD24\uCD40\uCD5C\uCD78\uCD94\uCDB0\uCDCC\uCDE8\uCE04\uCE20\uCE3C\uCE58\uCE74\uCE90\uCEAC\uCEC8\uCEE4\uCF00\uCF1C\uCF38\uCF54\uCF70\uCF8C\uCFA8\uCFC4\uCFE0\uCFFC\uD018\uD034\uD050\uD06C\uD088\uD0A4\uD0C0\uD0DC\uD0F8\uD114\uD130\uD14C\uD168\uD184\uD1A0\uD1BC\uD1D8\uD1F4\uD210\uD22C\uD248\uD264\uD280\uD29C\uD2B8\uD2D4\uD2F0\uD30C\uD328\uD344\uD360\uD37C\uD398\uD3B4\uD3D0\uD3EC\uD408\uD424\uD440\uD45C\uD478\uD494\uD4B0\uD4CC\uD4E8\uD504\uD520\uD53C\uD558\uD574\uD590\uD5AC\uD5C8\uD5E4\uD600\uD61C\uD638\uD654\uD670\uD68C\uD6A8\uD6C4\uD6E0\uD6FC\uD718\uD734\uD750\uD76C\uD788]$/;
+var reLVT = /^[\uAC01-\uAC1B\uAC1D-\uAC37\uAC39-\uAC53\uAC55-\uAC6F\uAC71-\uAC8B\uAC8D-\uACA7\uACA9-\uACC3\uACC5-\uACDF\uACE1-\uACFB\uACFD-\uAD17\uAD19-\uAD33\uAD35-\uAD4F\uAD51-\uAD6B\uAD6D-\uAD87\uAD89-\uADA3\uADA5-\uADBF\uADC1-\uADDB\uADDD-\uADF7\uADF9-\uAE13\uAE15-\uAE2F\uAE31-\uAE4B\uAE4D-\uAE67\uAE69-\uAE83\uAE85-\uAE9F\uAEA1-\uAEBB\uAEBD-\uAED7\uAED9-\uAEF3\uAEF5-\uAF0F\uAF11-\uAF2B\uAF2D-\uAF47\uAF49-\uAF63\uAF65-\uAF7F\uAF81-\uAF9B\uAF9D-\uAFB7\uAFB9-\uAFD3\uAFD5-\uAFEF\uAFF1-\uB00B\uB00D-\uB027\uB029-\uB043\uB045-\uB05F\uB061-\uB07B\uB07D-\uB097\uB099-\uB0B3\uB0B5-\uB0CF\uB0D1-\uB0EB\uB0ED-\uB107\uB109-\uB123\uB125-\uB13F\uB141-\uB15B\uB15D-\uB177\uB179-\uB193\uB195-\uB1AF\uB1B1-\uB1CB\uB1CD-\uB1E7\uB1E9-\uB203\uB205-\uB21F\uB221-\uB23B\uB23D-\uB257\uB259-\uB273\uB275-\uB28F\uB291-\uB2AB\uB2AD-\uB2C7\uB2C9-\uB2E3\uB2E5-\uB2FF\uB301-\uB31B\uB31D-\uB337\uB339-\uB353\uB355-\uB36F\uB371-\uB38B\uB38D-\uB3A7\uB3A9-\uB3C3\uB3C5-\uB3DF\uB3E1-\uB3FB\uB3FD-\uB417\uB419-\uB433\uB435-\uB44F\uB451-\uB46B\uB46D-\uB487\uB489-\uB4A3\uB4A5-\uB4BF\uB4C1-\uB4DB\uB4DD-\uB4F7\uB4F9-\uB513\uB515-\uB52F\uB531-\uB54B\uB54D-\uB567\uB569-\uB583\uB585-\uB59F\uB5A1-\uB5BB\uB5BD-\uB5D7\uB5D9-\uB5F3\uB5F5-\uB60F\uB611-\uB62B\uB62D-\uB647\uB649-\uB663\uB665-\uB67F\uB681-\uB69B\uB69D-\uB6B7\uB6B9-\uB6D3\uB6D5-\uB6EF\uB6F1-\uB70B\uB70D-\uB727\uB729-\uB743\uB745-\uB75F\uB761-\uB77B\uB77D-\uB797\uB799-\uB7B3\uB7B5-\uB7CF\uB7D1-\uB7EB\uB7ED-\uB807\uB809-\uB823\uB825-\uB83F\uB841-\uB85B\uB85D-\uB877\uB879-\uB893\uB895-\uB8AF\uB8B1-\uB8CB\uB8CD-\uB8E7\uB8E9-\uB903\uB905-\uB91F\uB921-\uB93B\uB93D-\uB957\uB959-\uB973\uB975-\uB98F\uB991-\uB9AB\uB9AD-\uB9C7\uB9C9-\uB9E3\uB9E5-\uB9FF\uBA01-\uBA1B\uBA1D-\uBA37\uBA39-\uBA53\uBA55-\uBA6F\uBA71-\uBA8B\uBA8D-\uBAA7\uBAA9-\uBAC3\uBAC5-\uBADF\uBAE1-\uBAFB\uBAFD-\uBB17\uBB19-\uBB33\uBB35-\uBB4F\uBB51-\uBB6B\uBB6D-\uBB87\uBB89-\uBBA3\uBBA5-\uBBBF\uBBC1-\uBBDB\uBBDD-\uBBF7\uBBF9-\uBC13\uBC15-\uBC2F\uBC31-\uBC4B\uBC4D-\uBC67\uBC69-\uBC83\uBC85-\uBC9F\uBCA1-\uBCBB\uBCBD-\uBCD7\uBCD9-\uBCF3\uBCF5-\uBD0F\uBD11-\uBD2B\uBD2D-\uBD47\uBD49-\uBD63\uBD65-\uBD7F\uBD81-\uBD9B\uBD9D-\uBDB7\uBDB9-\uBDD3\uBDD5-\uBDEF\uBDF1-\uBE0B\uBE0D-\uBE27\uBE29-\uBE43\uBE45-\uBE5F\uBE61-\uBE7B\uBE7D-\uBE97\uBE99-\uBEB3\uBEB5-\uBECF\uBED1-\uBEEB\uBEED-\uBF07\uBF09-\uBF23\uBF25-\uBF3F\uBF41-\uBF5B\uBF5D-\uBF77\uBF79-\uBF93\uBF95-\uBFAF\uBFB1-\uBFCB\uBFCD-\uBFE7\uBFE9-\uC003\uC005-\uC01F\uC021-\uC03B\uC03D-\uC057\uC059-\uC073\uC075-\uC08F\uC091-\uC0AB\uC0AD-\uC0C7\uC0C9-\uC0E3\uC0E5-\uC0FF\uC101-\uC11B\uC11D-\uC137\uC139-\uC153\uC155-\uC16F\uC171-\uC18B\uC18D-\uC1A7\uC1A9-\uC1C3\uC1C5-\uC1DF\uC1E1-\uC1FB\uC1FD-\uC217\uC219-\uC233\uC235-\uC24F\uC251-\uC26B\uC26D-\uC287\uC289-\uC2A3\uC2A5-\uC2BF\uC2C1-\uC2DB\uC2DD-\uC2F7\uC2F9-\uC313\uC315-\uC32F\uC331-\uC34B\uC34D-\uC367\uC369-\uC383\uC385-\uC39F\uC3A1-\uC3BB\uC3BD-\uC3D7\uC3D9-\uC3F3\uC3F5-\uC40F\uC411-\uC42B\uC42D-\uC447\uC449-\uC463\uC465-\uC47F\uC481-\uC49B\uC49D-\uC4B7\uC4B9-\uC4D3\uC4D5-\uC4EF\uC4F1-\uC50B\uC50D-\uC527\uC529-\uC543\uC545-\uC55F\uC561-\uC57B\uC57D-\uC597\uC599-\uC5B3\uC5B5-\uC5CF\uC5D1-\uC5EB\uC5ED-\uC607\uC609-\uC623\uC625-\uC63F\uC641-\uC65B\uC65D-\uC677\uC679-\uC693\uC695-\uC6AF\uC6B1-\uC6CB\uC6CD-\uC6E7\uC6E9-\uC703\uC705-\uC71F\uC721-\uC73B\uC73D-\uC757\uC759-\uC773\uC775-\uC78F\uC791-\uC7AB\uC7AD-\uC7C7\uC7C9-\uC7E3\uC7E5-\uC7FF\uC801-\uC81B\uC81D-\uC837\uC839-\uC853\uC855-\uC86F\uC871-\uC88B\uC88D-\uC8A7\uC8A9-\uC8C3\uC8C5-\uC8DF\uC8E1-\uC8FB\uC8FD-\uC917\uC919-\uC933\uC935-\uC94F\uC951-\uC96B\uC96D-\uC987\uC989-\uC9A3\uC9A5-\uC9BF\uC9C1-\uC9DB\uC9DD-\uC9F7\uC9F9-\uCA13\uCA15-\uCA2F\uCA31-\uCA4B\uCA4D-\uCA67\uCA69-\uCA83\uCA85-\uCA9F\uCAA1-\uCABB\uCABD-\uCAD7\uCAD9-\uCAF3\uCAF5-\uCB0F\uCB11-\uCB2B\uCB2D-\uCB47\uCB49-\uCB63\uCB65-\uCB7F\uCB81-\uCB9B\uCB9D-\uCBB7\uCBB9-\uCBD3\uCBD5-\uCBEF\uCBF1-\uCC0B\uCC0D-\uCC27\uCC29-\uCC43\uCC45-\uCC5F\uCC61-\uCC7B\uCC7D-\uCC97\uCC99-\uCCB3\uCCB5-\uCCCF\uCCD1-\uCCEB\uCCED-\uCD07\uCD09-\uCD23\uCD25-\uCD3F\uCD41-\uCD5B\uCD5D-\uCD77\uCD79-\uCD93\uCD95-\uCDAF\uCDB1-\uCDCB\uCDCD-\uCDE7\uCDE9-\uCE03\uCE05-\uCE1F\uCE21-\uCE3B\uCE3D-\uCE57\uCE59-\uCE73\uCE75-\uCE8F\uCE91-\uCEAB\uCEAD-\uCEC7\uCEC9-\uCEE3\uCEE5-\uCEFF\uCF01-\uCF1B\uCF1D-\uCF37\uCF39-\uCF53\uCF55-\uCF6F\uCF71-\uCF8B\uCF8D-\uCFA7\uCFA9-\uCFC3\uCFC5-\uCFDF\uCFE1-\uCFFB\uCFFD-\uD017\uD019-\uD033\uD035-\uD04F\uD051-\uD06B\uD06D-\uD087\uD089-\uD0A3\uD0A5-\uD0BF\uD0C1-\uD0DB\uD0DD-\uD0F7\uD0F9-\uD113\uD115-\uD12F\uD131-\uD14B\uD14D-\uD167\uD169-\uD183\uD185-\uD19F\uD1A1-\uD1BB\uD1BD-\uD1D7\uD1D9-\uD1F3\uD1F5-\uD20F\uD211-\uD22B\uD22D-\uD247\uD249-\uD263\uD265-\uD27F\uD281-\uD29B\uD29D-\uD2B7\uD2B9-\uD2D3\uD2D5-\uD2EF\uD2F1-\uD30B\uD30D-\uD327\uD329-\uD343\uD345-\uD35F\uD361-\uD37B\uD37D-\uD397\uD399-\uD3B3\uD3B5-\uD3CF\uD3D1-\uD3EB\uD3ED-\uD407\uD409-\uD423\uD425-\uD43F\uD441-\uD45B\uD45D-\uD477\uD479-\uD493\uD495-\uD4AF\uD4B1-\uD4CB\uD4CD-\uD4E7\uD4E9-\uD503\uD505-\uD51F\uD521-\uD53B\uD53D-\uD557\uD559-\uD573\uD575-\uD58F\uD591-\uD5AB\uD5AD-\uD5C7\uD5C9-\uD5E3\uD5E5-\uD5FF\uD601-\uD61B\uD61D-\uD637\uD639-\uD653\uD655-\uD66F\uD671-\uD68B\uD68D-\uD6A7\uD6A9-\uD6C3\uD6C5-\uD6DF\uD6E1-\uD6FB\uD6FD-\uD717\uD719-\uD733\uD735-\uD74F\uD751-\uD76B\uD76D-\uD787\uD789-\uD7A3]$/;
+var reExtPict = /^(?:[\xA9\xAE\u203C\u2049\u2122\u2139\u2194-\u2199\u21A9\u21AA\u231A\u231B\u2328\u2388\u23CF\u23E9-\u23F3\u23F8-\u23FA\u24C2\u25AA\u25AB\u25B6\u25C0\u25FB-\u25FE\u2600-\u2605\u2607-\u2612\u2614-\u2685\u2690-\u2705\u2708-\u2712\u2714\u2716\u271D\u2721\u2728\u2733\u2734\u2744\u2747\u274C\u274E\u2753-\u2755\u2757\u2763-\u2767\u2795-\u2797\u27A1\u27B0\u27BF\u2934\u2935\u2B05-\u2B07\u2B1B\u2B1C\u2B50\u2B55\u3030\u303D\u3297\u3299]|\uD83C[\uDC00-\uDCFF\uDD0D-\uDD0F\uDD2F\uDD6C-\uDD71\uDD7E\uDD7F\uDD8E\uDD91-\uDD9A\uDDAD-\uDDE5\uDE01-\uDE0F\uDE1A\uDE2F\uDE32-\uDE3A\uDE3C-\uDE3F\uDE49-\uDFFA]|\uD83D[\uDC00-\uDD3D\uDD46-\uDE4F\uDE80-\uDEFF\uDF74-\uDF7F\uDFD5-\uDFFF]|\uD83E[\uDC0C-\uDC0F\uDC48-\uDC4F\uDC5A-\uDC5F\uDC88-\uDC8F\uDCAE-\uDCFF\uDD0C-\uDD3A\uDD3C-\uDD45\uDD47-\uDEFF]|\uD83F[\uDC00-\uDFFD])$/;
+
+var getCodepointType = function getCodepointType(_char4, code) {
+  var type = CodepointType.Any;
+
+  if (_char4.search(reExtend) !== -1) {
+    type |= CodepointType.Extend;
+  }
+
+  if (code === 0x200d) {
+    type |= CodepointType.ZWJ;
+  }
+
+  if (code >= 0x1f1e6 && code <= 0x1f1ff) {
+    type |= CodepointType.RI;
+  }
+
+  if (_char4.search(rePrepend) !== -1) {
+    type |= CodepointType.Prepend;
+  }
+
+  if (_char4.search(reSpacingMark) !== -1) {
+    type |= CodepointType.SpacingMark;
+  }
+
+  if (_char4.search(reL) !== -1) {
+    type |= CodepointType.L;
+  }
+
+  if (_char4.search(reV) !== -1) {
+    type |= CodepointType.V;
+  }
+
+  if (_char4.search(reT) !== -1) {
+    type |= CodepointType.T;
+  }
+
+  if (_char4.search(reLV) !== -1) {
+    type |= CodepointType.LV;
+  }
+
+  if (_char4.search(reLVT) !== -1) {
+    type |= CodepointType.LVT;
+  }
+
+  if (_char4.search(reExtPict) !== -1) {
+    type |= CodepointType.ExtPict;
+  }
+
+  return type;
+};
+
+function intersects(x, y) {
+  return (x & y) !== 0;
+}
+
+var NonBoundaryPairs = [// GB6
+[CodepointType.L, CodepointType.L | CodepointType.V | CodepointType.LV | CodepointType.LVT], // GB7
+[CodepointType.LV | CodepointType.V, CodepointType.V | CodepointType.T], // GB8
+[CodepointType.LVT | CodepointType.T, CodepointType.T], // GB9
+[CodepointType.Any, CodepointType.Extend | CodepointType.ZWJ], // GB9a
+[CodepointType.Any, CodepointType.SpacingMark], // GB9b
+[CodepointType.Prepend, CodepointType.Any], // GB11
+[CodepointType.ZWJ, CodepointType.ExtPict], // GB12 and GB13
+[CodepointType.RI, CodepointType.RI]];
+
+function isBoundaryPair(left, right) {
+  return NonBoundaryPairs.findIndex(function (r) {
+    return intersects(left, r[0]) && intersects(right, r[1]);
+  }) === -1;
+}
+
+var endingEmojiZWJ = /(?:[\xA9\xAE\u203C\u2049\u2122\u2139\u2194-\u2199\u21A9\u21AA\u231A\u231B\u2328\u2388\u23CF\u23E9-\u23F3\u23F8-\u23FA\u24C2\u25AA\u25AB\u25B6\u25C0\u25FB-\u25FE\u2600-\u2605\u2607-\u2612\u2614-\u2685\u2690-\u2705\u2708-\u2712\u2714\u2716\u271D\u2721\u2728\u2733\u2734\u2744\u2747\u274C\u274E\u2753-\u2755\u2757\u2763-\u2767\u2795-\u2797\u27A1\u27B0\u27BF\u2934\u2935\u2B05-\u2B07\u2B1B\u2B1C\u2B50\u2B55\u3030\u303D\u3297\u3299]|\uD83C[\uDC00-\uDCFF\uDD0D-\uDD0F\uDD2F\uDD6C-\uDD71\uDD7E\uDD7F\uDD8E\uDD91-\uDD9A\uDDAD-\uDDE5\uDE01-\uDE0F\uDE1A\uDE2F\uDE32-\uDE3A\uDE3C-\uDE3F\uDE49-\uDFFA]|\uD83D[\uDC00-\uDD3D\uDD46-\uDE4F\uDE80-\uDEFF\uDF74-\uDF7F\uDFD5-\uDFFF]|\uD83E[\uDC0C-\uDC0F\uDC48-\uDC4F\uDC5A-\uDC5F\uDC88-\uDC8F\uDCAE-\uDCFF\uDD0C-\uDD3A\uDD3C-\uDD45\uDD47-\uDEFF]|\uD83F[\uDC00-\uDFFD])(?:[\u0300-\u036F\u0483-\u0489\u0591-\u05BD\u05BF\u05C1\u05C2\u05C4\u05C5\u05C7\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06DC\u06DF-\u06E4\u06E7\u06E8\u06EA-\u06ED\u0711\u0730-\u074A\u07A6-\u07B0\u07EB-\u07F3\u07FD\u0816-\u0819\u081B-\u0823\u0825-\u0827\u0829-\u082D\u0859-\u085B\u08D3-\u08E1\u08E3-\u0902\u093A\u093C\u0941-\u0948\u094D\u0951-\u0957\u0962\u0963\u0981\u09BC\u09BE\u09C1-\u09C4\u09CD\u09D7\u09E2\u09E3\u09FE\u0A01\u0A02\u0A3C\u0A41\u0A42\u0A47\u0A48\u0A4B-\u0A4D\u0A51\u0A70\u0A71\u0A75\u0A81\u0A82\u0ABC\u0AC1-\u0AC5\u0AC7\u0AC8\u0ACD\u0AE2\u0AE3\u0AFA-\u0AFF\u0B01\u0B3C\u0B3E\u0B3F\u0B41-\u0B44\u0B4D\u0B55-\u0B57\u0B62\u0B63\u0B82\u0BBE\u0BC0\u0BCD\u0BD7\u0C00\u0C04\u0C3E-\u0C40\u0C46-\u0C48\u0C4A-\u0C4D\u0C55\u0C56\u0C62\u0C63\u0C81\u0CBC\u0CBF\u0CC2\u0CC6\u0CCC\u0CCD\u0CD5\u0CD6\u0CE2\u0CE3\u0D00\u0D01\u0D3B\u0D3C\u0D3E\u0D41-\u0D44\u0D4D\u0D57\u0D62\u0D63\u0D81\u0DCA\u0DCF\u0DD2-\u0DD4\u0DD6\u0DDF\u0E31\u0E34-\u0E3A\u0E47-\u0E4E\u0EB1\u0EB4-\u0EBC\u0EC8-\u0ECD\u0F18\u0F19\u0F35\u0F37\u0F39\u0F71-\u0F7E\u0F80-\u0F84\u0F86\u0F87\u0F8D-\u0F97\u0F99-\u0FBC\u0FC6\u102D-\u1030\u1032-\u1037\u1039\u103A\u103D\u103E\u1058\u1059\u105E-\u1060\u1071-\u1074\u1082\u1085\u1086\u108D\u109D\u135D-\u135F\u1712-\u1714\u1732-\u1734\u1752\u1753\u1772\u1773\u17B4\u17B5\u17B7-\u17BD\u17C6\u17C9-\u17D3\u17DD\u180B-\u180D\u1885\u1886\u18A9\u1920-\u1922\u1927\u1928\u1932\u1939-\u193B\u1A17\u1A18\u1A1B\u1A56\u1A58-\u1A5E\u1A60\u1A62\u1A65-\u1A6C\u1A73-\u1A7C\u1A7F\u1AB0-\u1AC0\u1B00-\u1B03\u1B34-\u1B3A\u1B3C\u1B42\u1B6B-\u1B73\u1B80\u1B81\u1BA2-\u1BA5\u1BA8\u1BA9\u1BAB-\u1BAD\u1BE6\u1BE8\u1BE9\u1BED\u1BEF-\u1BF1\u1C2C-\u1C33\u1C36\u1C37\u1CD0-\u1CD2\u1CD4-\u1CE0\u1CE2-\u1CE8\u1CED\u1CF4\u1CF8\u1CF9\u1DC0-\u1DF9\u1DFB-\u1DFF\u200C\u20D0-\u20F0\u2CEF-\u2CF1\u2D7F\u2DE0-\u2DFF\u302A-\u302F\u3099\u309A\uA66F-\uA672\uA674-\uA67D\uA69E\uA69F\uA6F0\uA6F1\uA802\uA806\uA80B\uA825\uA826\uA82C\uA8C4\uA8C5\uA8E0-\uA8F1\uA8FF\uA926-\uA92D\uA947-\uA951\uA980-\uA982\uA9B3\uA9B6-\uA9B9\uA9BC\uA9BD\uA9E5\uAA29-\uAA2E\uAA31\uAA32\uAA35\uAA36\uAA43\uAA4C\uAA7C\uAAB0\uAAB2-\uAAB4\uAAB7\uAAB8\uAABE\uAABF\uAAC1\uAAEC\uAAED\uAAF6\uABE5\uABE8\uABED\uFB1E\uFE00-\uFE0F\uFE20-\uFE2F\uFF9E\uFF9F]|\uD800[\uDDFD\uDEE0\uDF76-\uDF7A]|\uD802[\uDE01-\uDE03\uDE05\uDE06\uDE0C-\uDE0F\uDE38-\uDE3A\uDE3F\uDEE5\uDEE6]|\uD803[\uDD24-\uDD27\uDEAB\uDEAC\uDF46-\uDF50]|\uD804[\uDC01\uDC38-\uDC46\uDC7F-\uDC81\uDCB3-\uDCB6\uDCB9\uDCBA\uDD00-\uDD02\uDD27-\uDD2B\uDD2D-\uDD34\uDD73\uDD80\uDD81\uDDB6-\uDDBE\uDDC9-\uDDCC\uDDCF\uDE2F-\uDE31\uDE34\uDE36\uDE37\uDE3E\uDEDF\uDEE3-\uDEEA\uDF00\uDF01\uDF3B\uDF3C\uDF3E\uDF40\uDF57\uDF66-\uDF6C\uDF70-\uDF74]|\uD805[\uDC38-\uDC3F\uDC42-\uDC44\uDC46\uDC5E\uDCB0\uDCB3-\uDCB8\uDCBA\uDCBD\uDCBF\uDCC0\uDCC2\uDCC3\uDDAF\uDDB2-\uDDB5\uDDBC\uDDBD\uDDBF\uDDC0\uDDDC\uDDDD\uDE33-\uDE3A\uDE3D\uDE3F\uDE40\uDEAB\uDEAD\uDEB0-\uDEB5\uDEB7\uDF1D-\uDF1F\uDF22-\uDF25\uDF27-\uDF2B]|\uD806[\uDC2F-\uDC37\uDC39\uDC3A\uDD30\uDD3B\uDD3C\uDD3E\uDD43\uDDD4-\uDDD7\uDDDA\uDDDB\uDDE0\uDE01-\uDE0A\uDE33-\uDE38\uDE3B-\uDE3E\uDE47\uDE51-\uDE56\uDE59-\uDE5B\uDE8A-\uDE96\uDE98\uDE99]|\uD807[\uDC30-\uDC36\uDC38-\uDC3D\uDC3F\uDC92-\uDCA7\uDCAA-\uDCB0\uDCB2\uDCB3\uDCB5\uDCB6\uDD31-\uDD36\uDD3A\uDD3C\uDD3D\uDD3F-\uDD45\uDD47\uDD90\uDD91\uDD95\uDD97\uDEF3\uDEF4]|\uD81A[\uDEF0-\uDEF4\uDF30-\uDF36]|\uD81B[\uDF4F\uDF8F-\uDF92\uDFE4]|\uD82F[\uDC9D\uDC9E]|\uD834[\uDD65\uDD67-\uDD69\uDD6E-\uDD72\uDD7B-\uDD82\uDD85-\uDD8B\uDDAA-\uDDAD\uDE42-\uDE44]|\uD836[\uDE00-\uDE36\uDE3B-\uDE6C\uDE75\uDE84\uDE9B-\uDE9F\uDEA1-\uDEAF]|\uD838[\uDC00-\uDC06\uDC08-\uDC18\uDC1B-\uDC21\uDC23\uDC24\uDC26-\uDC2A\uDD30-\uDD36\uDEEC-\uDEEF]|\uD83A[\uDCD0-\uDCD6\uDD44-\uDD4A]|\uD83C[\uDFFB-\uDFFF]|\uDB40[\uDC20-\uDC7F\uDD00-\uDDEF])*\u200D$/;
+
+var endsWithEmojiZWJ = function endsWithEmojiZWJ(str) {
+  return str.search(endingEmojiZWJ) !== -1;
+};
+
+var endingRIs = /(?:\uD83C[\uDDE6-\uDDFF])+$/g;
+
+var endsWithOddNumberOfRIs = function endsWithOddNumberOfRIs(str) {
+  var match = str.match(endingRIs);
+
+  if (match === null) {
+    return false;
+  } else {
+    // A RI is represented by a surrogate pair.
+    var numRIs = match[0].length / 2;
+    return numRIs % 2 === 1;
+  }
+};
+
+var TextTransforms = {
+  "delete": function _delete(editor, options) {
+    editor["delete"](options);
+  },
+  insertFragment: function insertFragment(editor, fragment, options) {
+    editor.insertFragment(fragment, options);
+  },
+  insertText: function insertText(editor, text) {
     var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-    Editor.withoutNormalizing(editor, () => {
-      var {
-        hanging = false,
-        voids = false,
-        mode = 'lowest'
-      } = options;
-      var {
-        at,
-        match,
-        select
-      } = options;
+    Editor.withoutNormalizing(editor, function () {
+      var _options$voids = options.voids,
+          voids = _options$voids === void 0 ? false : _options$voids;
+      var _options$at = options.at,
+          at = _options$at === void 0 ? getDefaultInsertLocation(editor) : _options$at;
 
-      if (Node.isNode(nodes)) {
-        nodes = [nodes];
-      }
-
-      if (nodes.length === 0) {
-        return;
-      }
-
-      var [node] = nodes; // By default, use the selection as the target location. But if there is
-      // no selection, insert at the end of the document since that is such a
-      // common use case when inserting from a non-selected state.
-
-      if (!at) {
-        if (editor.selection) {
-          at = editor.selection;
-        } else if (editor.children.length > 0) {
-          at = Editor.end(editor, []);
-        } else {
-          at = [0];
-        }
-
-        select = true;
-      }
-
-      if (select == null) {
-        select = false;
+      if (Path.isPath(at)) {
+        at = Editor.range(editor, at);
       }
 
       if (Range.isRange(at)) {
-        if (!hanging) {
-          at = Editor.unhangRange(editor, at);
-        }
-
         if (Range.isCollapsed(at)) {
           at = at.anchor;
         } else {
-          var [, end] = Range.edges(at);
-          var pointRef = Editor.pointRef(editor, end);
-          Transforms.delete(editor, {
-            at
-          });
-          at = pointRef.unref();
-        }
-      }
+          var end = Range.end(at);
 
-      if (Point.isPoint(at)) {
-        if (match == null) {
-          if (Text.isText(node)) {
-            match = n => Text.isText(n);
-          } else if (editor.isInline(node)) {
-            match = n => Text.isText(n) || Editor.isInline(editor, n);
-          } else {
-            match = n => Editor.isBlock(editor, n);
+          if (!voids && Editor["void"](editor, {
+            at: end
+          })) {
+            return;
           }
-        }
 
-        var [entry] = Editor.nodes(editor, {
-          at: at.path,
-          match,
-          mode,
-          voids
-        });
-
-        if (entry) {
-          var [, _matchPath] = entry;
-          var pathRef = Editor.pathRef(editor, _matchPath);
-          var isAtEnd = Editor.isEnd(editor, at, _matchPath);
-          Transforms.splitNodes(editor, {
-            at,
-            match,
-            mode,
-            voids
+          var start = Range.start(at);
+          var startRef = Editor.pointRef(editor, start);
+          var endRef = Editor.pointRef(editor, end);
+          Transforms["delete"](editor, {
+            at: at,
+            voids: voids
           });
-          var path = pathRef.unref();
-          at = isAtEnd ? Path.next(path) : path;
-        } else {
-          return;
+          var startPoint = startRef.unref();
+          var endPoint = endRef.unref();
+          at = startPoint || endPoint;
+          Transforms.setSelection(editor, {
+            anchor: at,
+            focus: at
+          });
         }
       }
 
-      var parentPath = Path.parent(at);
-      var index = at[at.length - 1];
-
-      if (!voids && Editor.void(editor, {
-        at: parentPath
+      if (!voids && Editor["void"](editor, {
+        at: at
+      }) || Editor.elementReadOnly(editor, {
+        at: at
       })) {
         return;
       }
 
-      for (var _node of nodes) {
+      var _at = at,
+          path = _at.path,
+          offset = _at.offset;
+      if (text.length > 0) editor.apply({
+        type: 'insert_text',
+        path: path,
+        offset: offset,
+        text: text
+      });
+    });
+  }
+};
+
+function ownKeys$9(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$9(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$9(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$9(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+var Transforms = _objectSpread$9(_objectSpread$9(_objectSpread$9(_objectSpread$9({}, GeneralTransforms), NodeTransforms), SelectionTransforms), TextTransforms);
+
+function _createForOfIteratorHelper$h(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray$h(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray$h(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$h(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$h(o, minLen); }
+
+function _arrayLikeToArray$h(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+var apply = function apply(editor, op) {
+  var _iterator = _createForOfIteratorHelper$h(Editor.pathRefs(editor)),
+      _step;
+
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var ref = _step.value;
+      PathRef.transform(ref, op);
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+
+  var _iterator2 = _createForOfIteratorHelper$h(Editor.pointRefs(editor)),
+      _step2;
+
+  try {
+    for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+      var _ref = _step2.value;
+      PointRef.transform(_ref, op);
+    }
+  } catch (err) {
+    _iterator2.e(err);
+  } finally {
+    _iterator2.f();
+  }
+
+  var _iterator3 = _createForOfIteratorHelper$h(Editor.rangeRefs(editor)),
+      _step3;
+
+  try {
+    for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+      var _ref2 = _step3.value;
+      RangeRef.transform(_ref2, op);
+    }
+  } catch (err) {
+    _iterator3.e(err);
+  } finally {
+    _iterator3.f();
+  }
+
+  var oldDirtyPaths = DIRTY_PATHS.get(editor) || [];
+  var oldDirtyPathKeys = DIRTY_PATH_KEYS.get(editor) || new Set();
+  var dirtyPaths;
+  var dirtyPathKeys;
+
+  var add = function add(path) {
+    if (path) {
+      var key = path.join(',');
+
+      if (!dirtyPathKeys.has(key)) {
+        dirtyPathKeys.add(key);
+        dirtyPaths.push(path);
+      }
+    }
+  };
+
+  if (Path.operationCanTransformPath(op)) {
+    dirtyPaths = [];
+    dirtyPathKeys = new Set();
+
+    var _iterator4 = _createForOfIteratorHelper$h(oldDirtyPaths),
+        _step4;
+
+    try {
+      for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+        var path = _step4.value;
+        var newPath = Path.transform(path, op);
+        add(newPath);
+      }
+    } catch (err) {
+      _iterator4.e(err);
+    } finally {
+      _iterator4.f();
+    }
+  } else {
+    dirtyPaths = oldDirtyPaths;
+    dirtyPathKeys = oldDirtyPathKeys;
+  }
+
+  var newDirtyPaths = editor.getDirtyPaths(op);
+
+  var _iterator5 = _createForOfIteratorHelper$h(newDirtyPaths),
+      _step5;
+
+  try {
+    for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
+      var _path = _step5.value;
+      add(_path);
+    }
+  } catch (err) {
+    _iterator5.e(err);
+  } finally {
+    _iterator5.f();
+  }
+
+  DIRTY_PATHS.set(editor, dirtyPaths);
+  DIRTY_PATH_KEYS.set(editor, dirtyPathKeys);
+  Transforms.transform(editor, op);
+  editor.operations.push(op);
+  Editor.normalize(editor, {
+    operation: op
+  }); // Clear any formats applied to the cursor if the selection changes.
+
+  if (op.type === 'set_selection') {
+    editor.marks = null;
+  }
+
+  if (!FLUSHING.get(editor)) {
+    FLUSHING.set(editor, true);
+    Promise.resolve().then(function () {
+      FLUSHING.set(editor, false);
+      editor.onChange({
+        operation: op
+      });
+      editor.operations = [];
+    });
+  }
+};
+
+function _createForOfIteratorHelper$g(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray$g(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray$g(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$g(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$g(o, minLen); }
+
+function _arrayLikeToArray$g(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+/**
+ * Get the "dirty" paths generated from an operation.
+ */
+
+var getDirtyPaths = function getDirtyPaths(editor, op) {
+  switch (op.type) {
+    case 'insert_text':
+    case 'remove_text':
+    case 'set_node':
+      {
+        var path = op.path;
+        return Path.levels(path);
+      }
+
+    case 'insert_node':
+      {
+        var node = op.node,
+            _path = op.path;
+        var levels = Path.levels(_path);
+        var descendants = Text.isText(node) ? [] : Array.from(Node.nodes(node), function (_ref) {
+          var _ref2 = _slicedToArray(_ref, 2),
+              p = _ref2[1];
+
+          return _path.concat(p);
+        });
+        return [].concat(_toConsumableArray(levels), _toConsumableArray(descendants));
+      }
+
+    case 'merge_node':
+      {
+        var _path2 = op.path;
+        var ancestors = Path.ancestors(_path2);
+        var previousPath = Path.previous(_path2);
+        return [].concat(_toConsumableArray(ancestors), [previousPath]);
+      }
+
+    case 'move_node':
+      {
+        var _path3 = op.path,
+            newPath = op.newPath;
+
+        if (Path.equals(_path3, newPath)) {
+          return [];
+        }
+
+        var oldAncestors = [];
+        var newAncestors = [];
+
+        var _iterator = _createForOfIteratorHelper$g(Path.ancestors(_path3)),
+            _step;
+
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var ancestor = _step.value;
+            var p = Path.transform(ancestor, op);
+            oldAncestors.push(p);
+          }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
+
+        var _iterator2 = _createForOfIteratorHelper$g(Path.ancestors(newPath)),
+            _step2;
+
+        try {
+          for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+            var _ancestor = _step2.value;
+
+            var _p = Path.transform(_ancestor, op);
+
+            newAncestors.push(_p);
+          }
+        } catch (err) {
+          _iterator2.e(err);
+        } finally {
+          _iterator2.f();
+        }
+
+        var newParent = newAncestors[newAncestors.length - 1];
+        var newIndex = newPath[newPath.length - 1];
+        var resultPath = newParent.concat(newIndex);
+        return [].concat(oldAncestors, newAncestors, [resultPath]);
+      }
+
+    case 'remove_node':
+      {
+        var _path4 = op.path;
+
+        var _ancestors = Path.ancestors(_path4);
+
+        return _toConsumableArray(_ancestors);
+      }
+
+    case 'split_node':
+      {
+        var _path5 = op.path;
+
+        var _levels = Path.levels(_path5);
+
+        var nextPath = Path.next(_path5);
+        return [].concat(_toConsumableArray(_levels), [nextPath]);
+      }
+
+    default:
+      {
+        return [];
+      }
+  }
+};
+
+var getFragment = function getFragment(editor) {
+  var selection = editor.selection;
+
+  if (selection) {
+    return Node.fragment(editor, selection);
+  }
+
+  return [];
+};
+
+var normalizeNode = function normalizeNode(editor, entry) {
+  var _entry = _slicedToArray(entry, 2),
+      node = _entry[0],
+      path = _entry[1]; // There are no core normalizations for text nodes.
+
+
+  if (Text.isText(node)) {
+    return;
+  } // Ensure that block and inline nodes have at least one text child.
+
+
+  if (Element.isElement(node) && node.children.length === 0) {
+    var child = {
+      text: ''
+    };
+    Transforms.insertNodes(editor, child, {
+      at: path.concat(0),
+      voids: true
+    });
+    return;
+  } // Determine whether the node should have block or inline children.
+
+
+  var shouldHaveInlines = Editor.isEditor(node) ? false : Element.isElement(node) && (editor.isInline(node) || node.children.length === 0 || Text.isText(node.children[0]) || editor.isInline(node.children[0])); // Since we'll be applying operations while iterating, keep track of an
+  // index that accounts for any added/removed nodes.
+
+  var n = 0;
+
+  for (var i = 0; i < node.children.length; i++, n++) {
+    var currentNode = Node.get(editor, path);
+    if (Text.isText(currentNode)) continue;
+    var _child = currentNode.children[n];
+    var prev = currentNode.children[n - 1];
+    var isLast = i === node.children.length - 1;
+    var isInlineOrText = Text.isText(_child) || Element.isElement(_child) && editor.isInline(_child); // Only allow block nodes in the top-level children and parent blocks
+    // that only contain block nodes. Similarly, only allow inline nodes in
+    // other inline nodes, or parent blocks that only contain inlines and
+    // text.
+
+    if (isInlineOrText !== shouldHaveInlines) {
+      Transforms.removeNodes(editor, {
+        at: path.concat(n),
+        voids: true
+      });
+      n--;
+    } else if (Element.isElement(_child)) {
+      // Ensure that inline nodes are surrounded by text nodes.
+      if (editor.isInline(_child)) {
+        if (prev == null || !Text.isText(prev)) {
+          var newChild = {
+            text: ''
+          };
+          Transforms.insertNodes(editor, newChild, {
+            at: path.concat(n),
+            voids: true
+          });
+          n++;
+        } else if (isLast) {
+          var _newChild = {
+            text: ''
+          };
+          Transforms.insertNodes(editor, _newChild, {
+            at: path.concat(n + 1),
+            voids: true
+          });
+          n++;
+        }
+      }
+    } else {
+      // Merge adjacent text nodes that are empty or match.
+      if (prev != null && Text.isText(prev)) {
+        if (Text.equals(_child, prev, {
+          loose: true
+        })) {
+          Transforms.mergeNodes(editor, {
+            at: path.concat(n),
+            voids: true
+          });
+          n--;
+        } else if (prev.text === '') {
+          Transforms.removeNodes(editor, {
+            at: path.concat(n - 1),
+            voids: true
+          });
+          n--;
+        } else if (_child.text === '') {
+          Transforms.removeNodes(editor, {
+            at: path.concat(n),
+            voids: true
+          });
+          n--;
+        }
+      }
+    }
+  }
+};
+
+var shouldNormalize = function shouldNormalize(editor, _ref) {
+  var iteration = _ref.iteration,
+      initialDirtyPathsLength = _ref.initialDirtyPathsLength;
+  var maxIterations = initialDirtyPathsLength * 42; // HACK: better way?
+
+  if (iteration > maxIterations) {
+    throw new Error("Could not completely normalize the editor after ".concat(maxIterations, " iterations! This is usually due to incorrect normalization logic that leaves a node in an invalid state."));
+  }
+
+  return true;
+};
+
+function _createForOfIteratorHelper$f(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray$f(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray$f(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$f(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$f(o, minLen); }
+
+function _arrayLikeToArray$f(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+var above = function above(editor) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var _options$voids = options.voids,
+      voids = _options$voids === void 0 ? false : _options$voids,
+      _options$mode = options.mode,
+      mode = _options$mode === void 0 ? 'lowest' : _options$mode,
+      _options$at = options.at,
+      at = _options$at === void 0 ? editor.selection : _options$at,
+      match = options.match;
+
+  if (!at) {
+    return;
+  }
+
+  var path = Editor.path(editor, at);
+  var reverse = mode === 'lowest';
+
+  var _iterator = _createForOfIteratorHelper$f(Editor.levels(editor, {
+    at: path,
+    voids: voids,
+    match: match,
+    reverse: reverse
+  })),
+      _step;
+
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var _step$value = _slicedToArray(_step.value, 2),
+          n = _step$value[0],
+          p = _step$value[1];
+
+      if (Text.isText(n)) continue;
+
+      if (Range.isRange(at)) {
+        if (Path.isAncestor(p, at.anchor.path) && Path.isAncestor(p, at.focus.path)) {
+          return [n, p];
+        }
+      } else {
+        if (!Path.equals(path, p)) {
+          return [n, p];
+        }
+      }
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+};
+
+function ownKeys$8(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$8(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$8(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$8(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+var addMark = function addMark(editor, key, value) {
+  var selection = editor.selection;
+
+  if (selection) {
+    var match = function match(node, path) {
+      if (!Text.isText(node)) {
+        return false; // marks can only be applied to text
+      }
+
+      var _Editor$parent = Editor.parent(editor, path),
+          _Editor$parent2 = _slicedToArray(_Editor$parent, 2),
+          parentNode = _Editor$parent2[0];
+          _Editor$parent2[1];
+
+      return !editor.isVoid(parentNode) || editor.markableVoid(parentNode);
+    };
+
+    var expandedSelection = Range.isExpanded(selection);
+    var markAcceptingVoidSelected = false;
+
+    if (!expandedSelection) {
+      var _Editor$node = Editor.node(editor, selection),
+          _Editor$node2 = _slicedToArray(_Editor$node, 2),
+          selectedNode = _Editor$node2[0],
+          selectedPath = _Editor$node2[1];
+
+      if (selectedNode && match(selectedNode, selectedPath)) {
+        var _Editor$parent3 = Editor.parent(editor, selectedPath),
+            _Editor$parent4 = _slicedToArray(_Editor$parent3, 1),
+            parentNode = _Editor$parent4[0];
+
+        markAcceptingVoidSelected = parentNode && editor.markableVoid(parentNode);
+      }
+    }
+
+    if (expandedSelection || markAcceptingVoidSelected) {
+      Transforms.setNodes(editor, _defineProperty({}, key, value), {
+        match: match,
+        split: true,
+        voids: true
+      });
+    } else {
+      var marks = _objectSpread$8(_objectSpread$8({}, Editor.marks(editor) || {}), {}, _defineProperty({}, key, value));
+
+      editor.marks = marks;
+
+      if (!FLUSHING.get(editor)) {
+        editor.onChange();
+      }
+    }
+  }
+};
+
+function ownKeys$7(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$7(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$7(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$7(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _createForOfIteratorHelper$e(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray$e(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray$e(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$e(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$e(o, minLen); }
+
+function _arrayLikeToArray$e(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+var after = function after(editor, at) {
+  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  var anchor = Editor.point(editor, at, {
+    edge: 'end'
+  });
+  var focus = Editor.end(editor, []);
+  var range = {
+    anchor: anchor,
+    focus: focus
+  };
+  var _options$distance = options.distance,
+      distance = _options$distance === void 0 ? 1 : _options$distance;
+  var d = 0;
+  var target;
+
+  var _iterator = _createForOfIteratorHelper$e(Editor.positions(editor, _objectSpread$7(_objectSpread$7({}, options), {}, {
+    at: range
+  }))),
+      _step;
+
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var p = _step.value;
+
+      if (d > distance) {
+        break;
+      }
+
+      if (d !== 0) {
+        target = p;
+      }
+
+      d++;
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+
+  return target;
+};
+
+function ownKeys$6(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$6(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$6(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$6(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _createForOfIteratorHelper$d(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray$d(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray$d(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$d(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$d(o, minLen); }
+
+function _arrayLikeToArray$d(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+var before = function before(editor, at) {
+  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  var anchor = Editor.start(editor, []);
+  var focus = Editor.point(editor, at, {
+    edge: 'start'
+  });
+  var range = {
+    anchor: anchor,
+    focus: focus
+  };
+  var _options$distance = options.distance,
+      distance = _options$distance === void 0 ? 1 : _options$distance;
+  var d = 0;
+  var target;
+
+  var _iterator = _createForOfIteratorHelper$d(Editor.positions(editor, _objectSpread$6(_objectSpread$6({}, options), {}, {
+    at: range,
+    reverse: true
+  }))),
+      _step;
+
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var p = _step.value;
+
+      if (d > distance) {
+        break;
+      }
+
+      if (d !== 0) {
+        target = p;
+      }
+
+      d++;
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+
+  return target;
+};
+
+var deleteBackward = function deleteBackward(editor, unit) {
+  var selection = editor.selection;
+
+  if (selection && Range.isCollapsed(selection)) {
+    Transforms["delete"](editor, {
+      unit: unit,
+      reverse: true
+    });
+  }
+};
+
+var deleteForward = function deleteForward(editor, unit) {
+  var selection = editor.selection;
+
+  if (selection && Range.isCollapsed(selection)) {
+    Transforms["delete"](editor, {
+      unit: unit
+    });
+  }
+};
+
+var deleteFragment = function deleteFragment(editor) {
+  var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+      _ref$direction = _ref.direction,
+      direction = _ref$direction === void 0 ? 'forward' : _ref$direction;
+
+  var selection = editor.selection;
+
+  if (selection && Range.isExpanded(selection)) {
+    Transforms["delete"](editor, {
+      reverse: direction === 'backward'
+    });
+  }
+};
+
+var edges = function edges(editor, at) {
+  return [Editor.start(editor, at), Editor.end(editor, at)];
+};
+
+function ownKeys$5(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$5(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$5(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$5(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+var elementReadOnly = function elementReadOnly(editor) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  return Editor.above(editor, _objectSpread$5(_objectSpread$5({}, options), {}, {
+    match: function match(n) {
+      return Element.isElement(n) && Editor.isElementReadOnly(editor, n);
+    }
+  }));
+};
+
+var end = function end(editor, at) {
+  return Editor.point(editor, at, {
+    edge: 'end'
+  });
+};
+
+var first = function first(editor, at) {
+  var path = Editor.path(editor, at, {
+    edge: 'start'
+  });
+  return Editor.node(editor, path);
+};
+
+var fragment = function fragment(editor, at) {
+  var range = Editor.range(editor, at);
+  return Node.fragment(editor, range);
+};
+
+function ownKeys$4(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$4(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$4(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$4(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+var getVoid = function getVoid(editor) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  return Editor.above(editor, _objectSpread$4(_objectSpread$4({}, options), {}, {
+    match: function match(n) {
+      return Element.isElement(n) && Editor.isVoid(editor, n);
+    }
+  }));
+};
+
+var hasBlocks = function hasBlocks(editor, element) {
+  return element.children.some(function (n) {
+    return Element.isElement(n) && Editor.isBlock(editor, n);
+  });
+};
+
+var hasInlines = function hasInlines(editor, element) {
+  return element.children.some(function (n) {
+    return Text.isText(n) || Editor.isInline(editor, n);
+  });
+};
+
+var hasPath = function hasPath(editor, path) {
+  return Node.has(editor, path);
+};
+
+var hasTexts = function hasTexts(editor, element) {
+  return element.children.every(function (n) {
+    return Text.isText(n);
+  });
+};
+
+var insertBreak = function insertBreak(editor) {
+  Transforms.splitNodes(editor, {
+    always: true
+  });
+};
+
+var insertNode = function insertNode(editor, node, options) {
+  Transforms.insertNodes(editor, node, options);
+};
+
+var insertSoftBreak = function insertSoftBreak(editor) {
+  Transforms.splitNodes(editor, {
+    always: true
+  });
+};
+
+function ownKeys$3(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$3(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$3(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$3(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+var insertText = function insertText(editor, text) {
+  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  var selection = editor.selection,
+      marks = editor.marks;
+
+  if (selection) {
+    if (marks) {
+      var node = _objectSpread$3({
+        text: text
+      }, marks);
+
+      Transforms.insertNodes(editor, node, {
+        at: options.at,
+        voids: options.voids
+      });
+    } else {
+      Transforms.insertText(editor, text, options);
+    }
+
+    editor.marks = null;
+  }
+};
+
+var isBlock = function isBlock(editor, value) {
+  return !editor.isInline(value);
+};
+
+var isEdge = function isEdge(editor, point, at) {
+  return Editor.isStart(editor, point, at) || Editor.isEnd(editor, point, at);
+};
+
+var isEmpty = function isEmpty(editor, element) {
+  var children = element.children;
+
+  var _children = _slicedToArray(children, 1),
+      first = _children[0];
+
+  return children.length === 0 || children.length === 1 && Text.isText(first) && first.text === '' && !editor.isVoid(element);
+};
+
+var isEnd = function isEnd(editor, point, at) {
+  var end = Editor.end(editor, at);
+  return Point.equals(point, end);
+};
+
+var isNormalizing = function isNormalizing(editor) {
+  var isNormalizing = NORMALIZING.get(editor);
+  return isNormalizing === undefined ? true : isNormalizing;
+};
+
+var isStart = function isStart(editor, point, at) {
+  // PERF: If the offset isn't `0` we know it's not the start.
+  if (point.offset !== 0) {
+    return false;
+  }
+
+  var start = Editor.start(editor, at);
+  return Point.equals(point, start);
+};
+
+var last = function last(editor, at) {
+  var path = Editor.path(editor, at, {
+    edge: 'end'
+  });
+  return Editor.node(editor, path);
+};
+
+var leaf = function leaf(editor, at) {
+  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  var path = Editor.path(editor, at, options);
+  var node = Node.leaf(editor, path);
+  return [node, path];
+};
+
+function _createForOfIteratorHelper$c(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray$c(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray$c(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$c(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$c(o, minLen); }
+
+function _arrayLikeToArray$c(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function* levels(editor) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var _options$at = options.at,
+      at = _options$at === void 0 ? editor.selection : _options$at,
+      _options$reverse = options.reverse,
+      reverse = _options$reverse === void 0 ? false : _options$reverse,
+      _options$voids = options.voids,
+      voids = _options$voids === void 0 ? false : _options$voids;
+  var match = options.match;
+
+  if (match == null) {
+    match = function match() {
+      return true;
+    };
+  }
+
+  if (!at) {
+    return;
+  }
+
+  var levels = [];
+  var path = Editor.path(editor, at);
+
+  var _iterator = _createForOfIteratorHelper$c(Node.levels(editor, path)),
+      _step;
+
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var _step$value = _slicedToArray(_step.value, 2),
+          n = _step$value[0],
+          p = _step$value[1];
+
+      if (!match(n, p)) {
+        continue;
+      }
+
+      levels.push([n, p]);
+
+      if (!voids && Element.isElement(n) && Editor.isVoid(editor, n)) {
+        break;
+      }
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+
+  if (reverse) {
+    levels.reverse();
+  }
+
+  yield* levels;
+}
+
+var _excluded$1 = ["text"],
+    _excluded2$1 = ["text"];
+var marks = function marks(editor) {
+  var marks = editor.marks,
+      selection = editor.selection;
+
+  if (!selection) {
+    return null;
+  }
+
+  if (marks) {
+    return marks;
+  }
+
+  if (Range.isExpanded(selection)) {
+    var _Editor$nodes = Editor.nodes(editor, {
+      match: Text.isText
+    }),
+        _Editor$nodes2 = _slicedToArray(_Editor$nodes, 1),
+        match = _Editor$nodes2[0];
+
+    if (match) {
+      var _match = _slicedToArray(match, 1),
+          _node = _match[0];
+
+      _node.text;
+          var _rest = _objectWithoutProperties(_node, _excluded$1);
+
+      return _rest;
+    } else {
+      return {};
+    }
+  }
+
+  var anchor = selection.anchor;
+  var path = anchor.path;
+
+  var _Editor$leaf = Editor.leaf(editor, path),
+      _Editor$leaf2 = _slicedToArray(_Editor$leaf, 1),
+      node = _Editor$leaf2[0];
+
+  if (anchor.offset === 0) {
+    var prev = Editor.previous(editor, {
+      at: path,
+      match: Text.isText
+    });
+    var markedVoid = Editor.above(editor, {
+      match: function match(n) {
+        return Element.isElement(n) && Editor.isVoid(editor, n) && editor.markableVoid(n);
+      }
+    });
+
+    if (!markedVoid) {
+      var block = Editor.above(editor, {
+        match: function match(n) {
+          return Element.isElement(n) && Editor.isBlock(editor, n);
+        }
+      });
+
+      if (prev && block) {
+        var _prev = _slicedToArray(prev, 2),
+            prevNode = _prev[0],
+            prevPath = _prev[1];
+
+        var _block = _slicedToArray(block, 2),
+            blockPath = _block[1];
+
+        if (Path.isAncestor(blockPath, prevPath)) {
+          node = prevNode;
+        }
+      }
+    }
+  }
+
+  var _node2 = node;
+      _node2.text;
+      var rest = _objectWithoutProperties(_node2, _excluded2$1);
+
+  return rest;
+};
+
+var next = function next(editor) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var _options$mode = options.mode,
+      mode = _options$mode === void 0 ? 'lowest' : _options$mode,
+      _options$voids = options.voids,
+      voids = _options$voids === void 0 ? false : _options$voids;
+  var match = options.match,
+      _options$at = options.at,
+      at = _options$at === void 0 ? editor.selection : _options$at;
+
+  if (!at) {
+    return;
+  }
+
+  var pointAfterLocation = Editor.after(editor, at, {
+    voids: voids
+  });
+  if (!pointAfterLocation) return;
+
+  var _Editor$last = Editor.last(editor, []),
+      _Editor$last2 = _slicedToArray(_Editor$last, 2),
+      to = _Editor$last2[1];
+
+  var span = [pointAfterLocation.path, to];
+
+  if (Path.isPath(at) && at.length === 0) {
+    throw new Error("Cannot get the next node from the root node!");
+  }
+
+  if (match == null) {
+    if (Path.isPath(at)) {
+      var _Editor$parent = Editor.parent(editor, at),
+          _Editor$parent2 = _slicedToArray(_Editor$parent, 1),
+          parent = _Editor$parent2[0];
+
+      match = function match(n) {
+        return parent.children.includes(n);
+      };
+    } else {
+      match = function match() {
+        return true;
+      };
+    }
+  }
+
+  var _Editor$nodes = Editor.nodes(editor, {
+    at: span,
+    match: match,
+    mode: mode,
+    voids: voids
+  }),
+      _Editor$nodes2 = _slicedToArray(_Editor$nodes, 1),
+      next = _Editor$nodes2[0];
+
+  return next;
+};
+
+var node = function node(editor, at) {
+  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  var path = Editor.path(editor, at, options);
+  var node = Node.get(editor, path);
+  return [node, path];
+};
+
+function _createForOfIteratorHelper$b(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray$b(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray$b(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$b(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$b(o, minLen); }
+
+function _arrayLikeToArray$b(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function* nodes(editor) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var _options$at = options.at,
+      at = _options$at === void 0 ? editor.selection : _options$at,
+      _options$mode = options.mode,
+      mode = _options$mode === void 0 ? 'all' : _options$mode,
+      _options$universal = options.universal,
+      universal = _options$universal === void 0 ? false : _options$universal,
+      _options$reverse = options.reverse,
+      reverse = _options$reverse === void 0 ? false : _options$reverse,
+      _options$voids = options.voids,
+      voids = _options$voids === void 0 ? false : _options$voids,
+      _options$ignoreNonSel = options.ignoreNonSelectable,
+      ignoreNonSelectable = _options$ignoreNonSel === void 0 ? false : _options$ignoreNonSel;
+  var match = options.match;
+
+  if (!match) {
+    match = function match() {
+      return true;
+    };
+  }
+
+  if (!at) {
+    return;
+  }
+
+  var from;
+  var to;
+
+  if (Span.isSpan(at)) {
+    from = at[0];
+    to = at[1];
+  } else {
+    var first = Editor.path(editor, at, {
+      edge: 'start'
+    });
+    var last = Editor.path(editor, at, {
+      edge: 'end'
+    });
+    from = reverse ? last : first;
+    to = reverse ? first : last;
+  }
+
+  var nodeEntries = Node.nodes(editor, {
+    reverse: reverse,
+    from: from,
+    to: to,
+    pass: function pass(_ref) {
+      var _ref2 = _slicedToArray(_ref, 1),
+          node = _ref2[0];
+
+      if (!Element.isElement(node)) return false;
+      if (!voids && (Editor.isVoid(editor, node) || Editor.isElementReadOnly(editor, node))) return true;
+      if (ignoreNonSelectable && !Editor.isSelectable(editor, node)) return true;
+      return false;
+    }
+  });
+  var matches = [];
+  var hit;
+
+  var _iterator = _createForOfIteratorHelper$b(nodeEntries),
+      _step;
+
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var _step$value = _slicedToArray(_step.value, 2),
+          node = _step$value[0],
+          path = _step$value[1];
+
+      if (ignoreNonSelectable && Element.isElement(node) && !Editor.isSelectable(editor, node)) {
+        continue;
+      }
+
+      var isLower = hit && Path.compare(path, hit[1]) === 0; // In highest mode any node lower than the last hit is not a match.
+
+      if (mode === 'highest' && isLower) {
+        continue;
+      }
+
+      if (!match(node, path)) {
+        // If we've arrived at a leaf text node that is not lower than the last
+        // hit, then we've found a branch that doesn't include a match, which
+        // means the match is not universal.
+        if (universal && !isLower && Text.isText(node)) {
+          return;
+        } else {
+          continue;
+        }
+      } // If there's a match and it's lower than the last, update the hit.
+
+
+      if (mode === 'lowest' && isLower) {
+        hit = [node, path];
+        continue;
+      } // In lowest mode we emit the last hit, once it's guaranteed lowest.
+
+
+      var emit = mode === 'lowest' ? hit : [node, path];
+
+      if (emit) {
+        if (universal) {
+          matches.push(emit);
+        } else {
+          yield emit;
+        }
+      }
+
+      hit = [node, path];
+    } // Since lowest is always emitting one behind, catch up at the end.
+
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+
+  if (mode === 'lowest' && hit) {
+    if (universal) {
+      matches.push(hit);
+    } else {
+      yield hit;
+    }
+  } // Universal defers to ensure that the match occurs in every branch, so we
+  // yield all of the matches after iterating.
+
+
+  if (universal) {
+    yield* matches;
+  }
+}
+
+function _createForOfIteratorHelper$a(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray$a(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray$a(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$a(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$a(o, minLen); }
+
+function _arrayLikeToArray$a(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+var normalize = function normalize(editor) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var _options$force = options.force,
+      force = _options$force === void 0 ? false : _options$force,
+      operation = options.operation;
+
+  var getDirtyPaths = function getDirtyPaths(editor) {
+    return DIRTY_PATHS.get(editor) || [];
+  };
+
+  var getDirtyPathKeys = function getDirtyPathKeys(editor) {
+    return DIRTY_PATH_KEYS.get(editor) || new Set();
+  };
+
+  var popDirtyPath = function popDirtyPath(editor) {
+    var path = getDirtyPaths(editor).pop();
+    var key = path.join(',');
+    getDirtyPathKeys(editor)["delete"](key);
+    return path;
+  };
+
+  if (!Editor.isNormalizing(editor)) {
+    return;
+  }
+
+  if (force) {
+    var allPaths = Array.from(Node.nodes(editor), function (_ref) {
+      var _ref2 = _slicedToArray(_ref, 2),
+          p = _ref2[1];
+
+      return p;
+    });
+    var allPathKeys = new Set(allPaths.map(function (p) {
+      return p.join(',');
+    }));
+    DIRTY_PATHS.set(editor, allPaths);
+    DIRTY_PATH_KEYS.set(editor, allPathKeys);
+  }
+
+  if (getDirtyPaths(editor).length === 0) {
+    return;
+  }
+
+  Editor.withoutNormalizing(editor, function () {
+    /*
+      Fix dirty elements with no children.
+      editor.normalizeNode() does fix this, but some normalization fixes also require it to work.
+      Running an initial pass avoids the catch-22 race condition.
+    */
+    var _iterator = _createForOfIteratorHelper$a(getDirtyPaths(editor)),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var _dirtyPath = _step.value;
+
+        if (Node.has(editor, _dirtyPath)) {
+          var _entry = Editor.node(editor, _dirtyPath);
+
+          var _entry2 = _slicedToArray(_entry, 2),
+              node = _entry2[0],
+              _ = _entry2[1];
+          /*
+            The default normalizer inserts an empty text node in this scenario, but it can be customised.
+            So there is some risk here.
+                     As long as the normalizer only inserts child nodes for this case it is safe to do in any order;
+            by definition adding children to an empty node can't cause other paths to change.
+          */
+
+
+          if (Element.isElement(node) && node.children.length === 0) {
+            editor.normalizeNode(_entry, {
+              operation: operation
+            });
+          }
+        }
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    var dirtyPaths = getDirtyPaths(editor);
+    var initialDirtyPathsLength = dirtyPaths.length;
+    var iteration = 0;
+
+    while (dirtyPaths.length !== 0) {
+      if (!editor.shouldNormalize({
+        dirtyPaths: dirtyPaths,
+        iteration: iteration,
+        initialDirtyPathsLength: initialDirtyPathsLength,
+        operation: operation
+      })) {
+        return;
+      }
+
+      var dirtyPath = popDirtyPath(editor); // If the node doesn't exist in the tree, it does not need to be normalized.
+
+      if (Node.has(editor, dirtyPath)) {
+        var entry = Editor.node(editor, dirtyPath);
+        editor.normalizeNode(entry, {
+          operation: operation
+        });
+      }
+
+      iteration++;
+      dirtyPaths = getDirtyPaths(editor);
+    }
+  });
+};
+
+var parent = function parent(editor, at) {
+  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  var path = Editor.path(editor, at, options);
+  var parentPath = Path.parent(path);
+  var entry = Editor.node(editor, parentPath);
+  return entry;
+};
+
+var pathRef = function pathRef(editor, path) {
+  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  var _options$affinity = options.affinity,
+      affinity = _options$affinity === void 0 ? 'forward' : _options$affinity;
+  var ref = {
+    current: path,
+    affinity: affinity,
+    unref: function unref() {
+      var current = ref.current;
+      var pathRefs = Editor.pathRefs(editor);
+      pathRefs["delete"](ref);
+      ref.current = null;
+      return current;
+    }
+  };
+  var refs = Editor.pathRefs(editor);
+  refs.add(ref);
+  return ref;
+};
+
+var pathRefs = function pathRefs(editor) {
+  var refs = PATH_REFS.get(editor);
+
+  if (!refs) {
+    refs = new Set();
+    PATH_REFS.set(editor, refs);
+  }
+
+  return refs;
+};
+
+var path = function path(editor, at) {
+  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  var depth = options.depth,
+      edge = options.edge;
+
+  if (Path.isPath(at)) {
+    if (edge === 'start') {
+      var _Node$first = Node.first(editor, at),
+          _Node$first2 = _slicedToArray(_Node$first, 2),
+          firstPath = _Node$first2[1];
+
+      at = firstPath;
+    } else if (edge === 'end') {
+      var _Node$last = Node.last(editor, at),
+          _Node$last2 = _slicedToArray(_Node$last, 2),
+          lastPath = _Node$last2[1];
+
+      at = lastPath;
+    }
+  }
+
+  if (Range.isRange(at)) {
+    if (edge === 'start') {
+      at = Range.start(at);
+    } else if (edge === 'end') {
+      at = Range.end(at);
+    } else {
+      at = Path.common(at.anchor.path, at.focus.path);
+    }
+  }
+
+  if (Point.isPoint(at)) {
+    at = at.path;
+  }
+
+  if (depth != null) {
+    at = at.slice(0, depth);
+  }
+
+  return at;
+};
+
+var pointRef = function pointRef(editor, point) {
+  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  var _options$affinity = options.affinity,
+      affinity = _options$affinity === void 0 ? 'forward' : _options$affinity;
+  var ref = {
+    current: point,
+    affinity: affinity,
+    unref: function unref() {
+      var current = ref.current;
+      var pointRefs = Editor.pointRefs(editor);
+      pointRefs["delete"](ref);
+      ref.current = null;
+      return current;
+    }
+  };
+  var refs = Editor.pointRefs(editor);
+  refs.add(ref);
+  return ref;
+};
+
+var pointRefs = function pointRefs(editor) {
+  var refs = POINT_REFS.get(editor);
+
+  if (!refs) {
+    refs = new Set();
+    POINT_REFS.set(editor, refs);
+  }
+
+  return refs;
+};
+
+var point = function point(editor, at) {
+  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  var _options$edge = options.edge,
+      edge = _options$edge === void 0 ? 'start' : _options$edge;
+
+  if (Path.isPath(at)) {
+    var path;
+
+    if (edge === 'end') {
+      var _Node$last = Node.last(editor, at),
+          _Node$last2 = _slicedToArray(_Node$last, 2),
+          lastPath = _Node$last2[1];
+
+      path = lastPath;
+    } else {
+      var _Node$first = Node.first(editor, at),
+          _Node$first2 = _slicedToArray(_Node$first, 2),
+          firstPath = _Node$first2[1];
+
+      path = firstPath;
+    }
+
+    var node = Node.get(editor, path);
+
+    if (!Text.isText(node)) {
+      throw new Error("Cannot get the ".concat(edge, " point in the node at path [").concat(at, "] because it has no ").concat(edge, " text node."));
+    }
+
+    return {
+      path: path,
+      offset: edge === 'end' ? node.text.length : 0
+    };
+  }
+
+  if (Range.isRange(at)) {
+    var _Range$edges = Range.edges(at),
+        _Range$edges2 = _slicedToArray(_Range$edges, 2),
+        start = _Range$edges2[0],
+        end = _Range$edges2[1];
+
+    return edge === 'start' ? start : end;
+  }
+
+  return at;
+};
+
+function _createForOfIteratorHelper$9(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray$9(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray$9(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$9(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$9(o, minLen); }
+
+function _arrayLikeToArray$9(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function* positions(editor) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var _options$at = options.at,
+      at = _options$at === void 0 ? editor.selection : _options$at,
+      _options$unit = options.unit,
+      unit = _options$unit === void 0 ? 'offset' : _options$unit,
+      _options$reverse = options.reverse,
+      reverse = _options$reverse === void 0 ? false : _options$reverse,
+      _options$voids = options.voids,
+      voids = _options$voids === void 0 ? false : _options$voids,
+      _options$ignoreNonSel = options.ignoreNonSelectable,
+      ignoreNonSelectable = _options$ignoreNonSel === void 0 ? false : _options$ignoreNonSel;
+
+  if (!at) {
+    return;
+  }
+  /**
+   * Algorithm notes:
+   *
+   * Each step `distance` is dynamic depending on the underlying text
+   * and the `unit` specified.  Each step, e.g., a line or word, may
+   * span multiple text nodes, so we iterate through the text both on
+   * two levels in step-sync:
+   *
+   * `leafText` stores the text on a text leaf level, and is advanced
+   * through using the counters `leafTextOffset` and `leafTextRemaining`.
+   *
+   * `blockText` stores the text on a block level, and is shortened
+   * by `distance` every time it is advanced.
+   *
+   * We only maintain a window of one blockText and one leafText because
+   * a block node always appears before all of its leaf nodes.
+   */
+
+
+  var range = Editor.range(editor, at);
+
+  var _Range$edges = Range.edges(range),
+      _Range$edges2 = _slicedToArray(_Range$edges, 2),
+      start = _Range$edges2[0],
+      end = _Range$edges2[1];
+
+  var first = reverse ? end : start;
+  var isNewBlock = false;
+  var blockText = '';
+  var distance = 0; // Distance for leafText to catch up to blockText.
+
+  var leafTextRemaining = 0;
+  var leafTextOffset = 0; // Iterate through all nodes in range, grabbing entire textual content
+  // of block nodes in blockText, and text nodes in leafText.
+  // Exploits the fact that nodes are sequenced in such a way that we first
+  // encounter the block node, then all of its text nodes, so when iterating
+  // through the blockText and leafText we just need to remember a window of
+  // one block node and leaf node, respectively.
+
+  var _iterator = _createForOfIteratorHelper$9(Editor.nodes(editor, {
+    at: at,
+    reverse: reverse,
+    voids: voids,
+    ignoreNonSelectable: ignoreNonSelectable
+  })),
+      _step;
+
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var _step$value = _slicedToArray(_step.value, 2),
+          node = _step$value[0],
+          path = _step$value[1];
+
+      /*
+       * ELEMENT NODE - Yield position(s) for voids, collect blockText for blocks
+       */
+      if (Element.isElement(node)) {
+        // Void nodes are a special case, so by default we will always
+        // yield their first point. If the `voids` option is set to true,
+        // then we will iterate over their content.
+        if (!voids && (editor.isVoid(node) || editor.isElementReadOnly(node))) {
+          yield Editor.start(editor, path);
+          continue;
+        } // Inline element nodes are ignored as they don't themselves
+        // contribute to `blockText` or `leafText` - their parent and
+        // children do.
+
+
+        if (editor.isInline(node)) continue; // Block element node - set `blockText` to its text content.
+
+        if (Editor.hasInlines(editor, node)) {
+          // We always exhaust block nodes before encountering a new one:
+          //   console.assert(blockText === '',
+          //     `blockText='${blockText}' - `+
+          //     `not exhausted before new block node`, path)
+          // Ensure range considered is capped to `range`, in the
+          // start/end edge cases where block extends beyond range.
+          // Equivalent to this, but presumably more performant:
+          //   blockRange = Editor.range(editor, ...Editor.edges(editor, path))
+          //   blockRange = Range.intersection(range, blockRange) // intersect
+          //   blockText = Editor.string(editor, blockRange, { voids })
+          var e = Path.isAncestor(path, end.path) ? end : Editor.end(editor, path);
+          var s = Path.isAncestor(path, start.path) ? start : Editor.start(editor, path);
+          blockText = Editor.string(editor, {
+            anchor: s,
+            focus: e
+          }, {
+            voids: voids
+          });
+          isNewBlock = true;
+        }
+      }
+      /*
+       * TEXT LEAF NODE - Iterate through text content, yielding
+       * positions every `distance` offset according to `unit`.
+       */
+
+
+      if (Text.isText(node)) {
+        var isFirst = Path.equals(path, first.path); // Proof that we always exhaust text nodes before encountering a new one:
+        //   console.assert(leafTextRemaining <= 0,
+        //     `leafTextRemaining=${leafTextRemaining} - `+
+        //     `not exhausted before new leaf text node`, path)
+        // Reset `leafText` counters for new text node.
+
+        if (isFirst) {
+          leafTextRemaining = reverse ? first.offset : node.text.length - first.offset;
+          leafTextOffset = first.offset; // Works for reverse too.
+        } else {
+          leafTextRemaining = node.text.length;
+          leafTextOffset = reverse ? leafTextRemaining : 0;
+        } // Yield position at the start of node (potentially).
+
+
+        if (isFirst || isNewBlock || unit === 'offset') {
+          yield {
+            path: path,
+            offset: leafTextOffset
+          };
+          isNewBlock = false;
+        } // Yield positions every (dynamically calculated) `distance` offset.
+
+
+        while (true) {
+          // If `leafText` has caught up with `blockText` (distance=0),
+          // and if blockText is exhausted, break to get another block node,
+          // otherwise advance blockText forward by the new `distance`.
+          if (distance === 0) {
+            if (blockText === '') break;
+            distance = calcDistance(blockText, unit, reverse); // Split the string at the previously found distance and use the
+            // remaining string for the next iteration.
+
+            blockText = splitByCharacterDistance(blockText, distance, reverse)[1];
+          } // Advance `leafText` by the current `distance`.
+
+
+          leafTextOffset = reverse ? leafTextOffset - distance : leafTextOffset + distance;
+          leafTextRemaining = leafTextRemaining - distance; // If `leafText` is exhausted, break to get a new leaf node
+          // and set distance to the overflow amount, so we'll (maybe)
+          // catch up to blockText in the next leaf text node.
+
+          if (leafTextRemaining < 0) {
+            distance = -leafTextRemaining;
+            break;
+          } // Successfully walked `distance` offsets through `leafText`
+          // to catch up with `blockText`, so we can reset `distance`
+          // and yield this position in this node.
+
+
+          distance = 0;
+          yield {
+            path: path,
+            offset: leafTextOffset
+          };
+        }
+      }
+    } // Proof that upon completion, we've exahusted both leaf and block text:
+    //   console.assert(leafTextRemaining <= 0, "leafText wasn't exhausted")
+    //   console.assert(blockText === '', "blockText wasn't exhausted")
+    // Helper:
+    // Return the distance in offsets for a step of size `unit` on given string.
+
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+
+  function calcDistance(text, unit, reverse) {
+    if (unit === 'character') {
+      return getCharacterDistance(text, reverse);
+    } else if (unit === 'word') {
+      return getWordDistance(text, reverse);
+    } else if (unit === 'line' || unit === 'block') {
+      return text.length;
+    }
+
+    return 1;
+  }
+}
+
+var previous = function previous(editor) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var _options$mode = options.mode,
+      mode = _options$mode === void 0 ? 'lowest' : _options$mode,
+      _options$voids = options.voids,
+      voids = _options$voids === void 0 ? false : _options$voids;
+  var match = options.match,
+      _options$at = options.at,
+      at = _options$at === void 0 ? editor.selection : _options$at;
+
+  if (!at) {
+    return;
+  }
+
+  var pointBeforeLocation = Editor.before(editor, at, {
+    voids: voids
+  });
+
+  if (!pointBeforeLocation) {
+    return;
+  }
+
+  var _Editor$first = Editor.first(editor, []),
+      _Editor$first2 = _slicedToArray(_Editor$first, 2),
+      to = _Editor$first2[1]; // The search location is from the start of the document to the path of
+  // the point before the location passed in
+
+
+  var span = [pointBeforeLocation.path, to];
+
+  if (Path.isPath(at) && at.length === 0) {
+    throw new Error("Cannot get the previous node from the root node!");
+  }
+
+  if (match == null) {
+    if (Path.isPath(at)) {
+      var _Editor$parent = Editor.parent(editor, at),
+          _Editor$parent2 = _slicedToArray(_Editor$parent, 1),
+          parent = _Editor$parent2[0];
+
+      match = function match(n) {
+        return parent.children.includes(n);
+      };
+    } else {
+      match = function match() {
+        return true;
+      };
+    }
+  }
+
+  var _Editor$nodes = Editor.nodes(editor, {
+    reverse: true,
+    at: span,
+    match: match,
+    mode: mode,
+    voids: voids
+  }),
+      _Editor$nodes2 = _slicedToArray(_Editor$nodes, 1),
+      previous = _Editor$nodes2[0];
+
+  return previous;
+};
+
+var rangeRef = function rangeRef(editor, range) {
+  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  var _options$affinity = options.affinity,
+      affinity = _options$affinity === void 0 ? 'forward' : _options$affinity;
+  var ref = {
+    current: range,
+    affinity: affinity,
+    unref: function unref() {
+      var current = ref.current;
+      var rangeRefs = Editor.rangeRefs(editor);
+      rangeRefs["delete"](ref);
+      ref.current = null;
+      return current;
+    }
+  };
+  var refs = Editor.rangeRefs(editor);
+  refs.add(ref);
+  return ref;
+};
+
+var rangeRefs = function rangeRefs(editor) {
+  var refs = RANGE_REFS.get(editor);
+
+  if (!refs) {
+    refs = new Set();
+    RANGE_REFS.set(editor, refs);
+  }
+
+  return refs;
+};
+
+var range = function range(editor, at, to) {
+  if (Range.isRange(at) && !to) {
+    return at;
+  }
+
+  var start = Editor.start(editor, at);
+  var end = Editor.end(editor, to || at);
+  return {
+    anchor: start,
+    focus: end
+  };
+};
+
+function ownKeys$2(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$2(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$2(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$2(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+var removeMark = function removeMark(editor, key) {
+  var selection = editor.selection;
+
+  if (selection) {
+    var match = function match(node, path) {
+      if (!Text.isText(node)) {
+        return false; // marks can only be applied to text
+      }
+
+      var _Editor$parent = Editor.parent(editor, path),
+          _Editor$parent2 = _slicedToArray(_Editor$parent, 2),
+          parentNode = _Editor$parent2[0];
+          _Editor$parent2[1];
+
+      return !editor.isVoid(parentNode) || editor.markableVoid(parentNode);
+    };
+
+    var expandedSelection = Range.isExpanded(selection);
+    var markAcceptingVoidSelected = false;
+
+    if (!expandedSelection) {
+      var _Editor$node = Editor.node(editor, selection),
+          _Editor$node2 = _slicedToArray(_Editor$node, 2),
+          selectedNode = _Editor$node2[0],
+          selectedPath = _Editor$node2[1];
+
+      if (selectedNode && match(selectedNode, selectedPath)) {
+        var _Editor$parent3 = Editor.parent(editor, selectedPath),
+            _Editor$parent4 = _slicedToArray(_Editor$parent3, 1),
+            parentNode = _Editor$parent4[0];
+
+        markAcceptingVoidSelected = parentNode && editor.markableVoid(parentNode);
+      }
+    }
+
+    if (expandedSelection || markAcceptingVoidSelected) {
+      Transforms.unsetNodes(editor, key, {
+        match: match,
+        split: true,
+        voids: true
+      });
+    } else {
+      var marks = _objectSpread$2({}, Editor.marks(editor) || {});
+
+      delete marks[key];
+      editor.marks = marks;
+
+      if (!FLUSHING.get(editor)) {
+        editor.onChange();
+      }
+    }
+  }
+};
+
+var setNormalizing = function setNormalizing(editor, isNormalizing) {
+  NORMALIZING.set(editor, isNormalizing);
+};
+
+var start = function start(editor, at) {
+  return Editor.point(editor, at, {
+    edge: 'start'
+  });
+};
+
+function _createForOfIteratorHelper$8(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray$8(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray$8(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$8(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$8(o, minLen); }
+
+function _arrayLikeToArray$8(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+var string = function string(editor, at) {
+  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  var _options$voids = options.voids,
+      voids = _options$voids === void 0 ? false : _options$voids;
+  var range = Editor.range(editor, at);
+
+  var _Range$edges = Range.edges(range),
+      _Range$edges2 = _slicedToArray(_Range$edges, 2),
+      start = _Range$edges2[0],
+      end = _Range$edges2[1];
+
+  var text = '';
+
+  var _iterator = _createForOfIteratorHelper$8(Editor.nodes(editor, {
+    at: range,
+    match: Text.isText,
+    voids: voids
+  })),
+      _step;
+
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var _step$value = _slicedToArray(_step.value, 2),
+          node = _step$value[0],
+          path = _step$value[1];
+
+      var t = node.text;
+
+      if (Path.equals(path, end.path)) {
+        t = t.slice(0, end.offset);
+      }
+
+      if (Path.equals(path, start.path)) {
+        t = t.slice(start.offset);
+      }
+
+      text += t;
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+
+  return text;
+};
+
+function _createForOfIteratorHelper$7(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray$7(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray$7(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$7(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$7(o, minLen); }
+
+function _arrayLikeToArray$7(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+var unhangRange = function unhangRange(editor, range) {
+  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  var _options$voids = options.voids,
+      voids = _options$voids === void 0 ? false : _options$voids;
+
+  var _Range$edges = Range.edges(range),
+      _Range$edges2 = _slicedToArray(_Range$edges, 2),
+      start = _Range$edges2[0],
+      end = _Range$edges2[1]; // PERF: exit early if we can guarantee that the range isn't hanging.
+
+
+  if (start.offset !== 0 || end.offset !== 0 || Range.isCollapsed(range) || Path.hasPrevious(end.path)) {
+    return range;
+  }
+
+  var endBlock = Editor.above(editor, {
+    at: end,
+    match: function match(n) {
+      return Element.isElement(n) && Editor.isBlock(editor, n);
+    },
+    voids: voids
+  });
+  var blockPath = endBlock ? endBlock[1] : [];
+  var first = Editor.start(editor, start);
+  var before = {
+    anchor: first,
+    focus: end
+  };
+  var skip = true;
+
+  var _iterator = _createForOfIteratorHelper$7(Editor.nodes(editor, {
+    at: before,
+    match: Text.isText,
+    reverse: true,
+    voids: voids
+  })),
+      _step;
+
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var _step$value = _slicedToArray(_step.value, 2),
+          node = _step$value[0],
+          path = _step$value[1];
+
+      if (skip) {
+        skip = false;
+        continue;
+      }
+
+      if (node.text !== '' || Path.isBefore(path, blockPath)) {
+        end = {
+          path: path,
+          offset: node.text.length
+        };
+        break;
+      }
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+
+  return {
+    anchor: start,
+    focus: end
+  };
+};
+
+var withoutNormalizing = function withoutNormalizing(editor, fn) {
+  var value = Editor.isNormalizing(editor);
+  Editor.setNormalizing(editor, false);
+
+  try {
+    fn();
+  } finally {
+    Editor.setNormalizing(editor, value);
+  }
+
+  Editor.normalize(editor);
+};
+
+function _createForOfIteratorHelper$6(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray$6(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray$6(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$6(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$6(o, minLen); }
+
+function _arrayLikeToArray$6(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+var deleteText = function deleteText(editor) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  Editor.withoutNormalizing(editor, function () {
+    var _Editor$void, _Editor$void2;
+
+    var _options$reverse = options.reverse,
+        reverse = _options$reverse === void 0 ? false : _options$reverse,
+        _options$unit = options.unit,
+        unit = _options$unit === void 0 ? 'character' : _options$unit,
+        _options$distance = options.distance,
+        distance = _options$distance === void 0 ? 1 : _options$distance,
+        _options$voids = options.voids,
+        voids = _options$voids === void 0 ? false : _options$voids;
+    var _options$at = options.at,
+        at = _options$at === void 0 ? editor.selection : _options$at,
+        _options$hanging = options.hanging,
+        hanging = _options$hanging === void 0 ? false : _options$hanging;
+
+    if (!at) {
+      return;
+    }
+
+    var isCollapsed = false;
+
+    if (Range.isRange(at) && Range.isCollapsed(at)) {
+      isCollapsed = true;
+      at = at.anchor;
+    }
+
+    if (Point.isPoint(at)) {
+      var furthestVoid = Editor["void"](editor, {
+        at: at,
+        mode: 'highest'
+      });
+
+      if (!voids && furthestVoid) {
+        var _furthestVoid = _slicedToArray(furthestVoid, 2),
+            voidPath = _furthestVoid[1];
+
+        at = voidPath;
+      } else {
+        var opts = {
+          unit: unit,
+          distance: distance
+        };
+        var target = reverse ? Editor.before(editor, at, opts) || Editor.start(editor, []) : Editor.after(editor, at, opts) || Editor.end(editor, []);
+        at = {
+          anchor: at,
+          focus: target
+        };
+        hanging = true;
+      }
+    }
+
+    if (Path.isPath(at)) {
+      Transforms.removeNodes(editor, {
+        at: at,
+        voids: voids
+      });
+      return;
+    }
+
+    if (Range.isCollapsed(at)) {
+      return;
+    }
+
+    if (!hanging) {
+      var _Range$edges = Range.edges(at),
+          _Range$edges2 = _slicedToArray(_Range$edges, 2),
+          _end = _Range$edges2[1];
+
+      var endOfDoc = Editor.end(editor, []);
+
+      if (!Point.equals(_end, endOfDoc)) {
+        at = Editor.unhangRange(editor, at, {
+          voids: voids
+        });
+      }
+    }
+
+    var _Range$edges3 = Range.edges(at),
+        _Range$edges4 = _slicedToArray(_Range$edges3, 2),
+        start = _Range$edges4[0],
+        end = _Range$edges4[1];
+
+    var startBlock = Editor.above(editor, {
+      match: function match(n) {
+        return Element.isElement(n) && Editor.isBlock(editor, n);
+      },
+      at: start,
+      voids: voids
+    });
+    var endBlock = Editor.above(editor, {
+      match: function match(n) {
+        return Element.isElement(n) && Editor.isBlock(editor, n);
+      },
+      at: end,
+      voids: voids
+    });
+    var isAcrossBlocks = startBlock && endBlock && !Path.equals(startBlock[1], endBlock[1]);
+    var isSingleText = Path.equals(start.path, end.path);
+    var startNonEditable = voids ? null : (_Editor$void = Editor["void"](editor, {
+      at: start,
+      mode: 'highest'
+    })) !== null && _Editor$void !== void 0 ? _Editor$void : Editor.elementReadOnly(editor, {
+      at: start,
+      mode: 'highest'
+    });
+    var endNonEditable = voids ? null : (_Editor$void2 = Editor["void"](editor, {
+      at: end,
+      mode: 'highest'
+    })) !== null && _Editor$void2 !== void 0 ? _Editor$void2 : Editor.elementReadOnly(editor, {
+      at: end,
+      mode: 'highest'
+    }); // If the start or end points are inside an inline void, nudge them out.
+
+    if (startNonEditable) {
+      var before = Editor.before(editor, start);
+
+      if (before && startBlock && Path.isAncestor(startBlock[1], before.path)) {
+        start = before;
+      }
+    }
+
+    if (endNonEditable) {
+      var after = Editor.after(editor, end);
+
+      if (after && endBlock && Path.isAncestor(endBlock[1], after.path)) {
+        end = after;
+      }
+    } // Get the highest nodes that are completely inside the range, as well as
+    // the start and end nodes.
+
+
+    var matches = [];
+    var lastPath;
+
+    var _iterator = _createForOfIteratorHelper$6(Editor.nodes(editor, {
+      at: at,
+      voids: voids
+    })),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var entry = _step.value;
+
+        var _entry = _slicedToArray(entry, 2),
+            _node2 = _entry[0],
+            _path2 = _entry[1];
+
+        if (lastPath && Path.compare(_path2, lastPath) === 0) {
+          continue;
+        }
+
+        if (!voids && Element.isElement(_node2) && (Editor.isVoid(editor, _node2) || Editor.isElementReadOnly(editor, _node2)) || !Path.isCommon(_path2, start.path) && !Path.isCommon(_path2, end.path)) {
+          matches.push(entry);
+          lastPath = _path2;
+        }
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    var pathRefs = Array.from(matches, function (_ref) {
+      var _ref2 = _slicedToArray(_ref, 2),
+          p = _ref2[1];
+
+      return Editor.pathRef(editor, p);
+    });
+    var startRef = Editor.pointRef(editor, start);
+    var endRef = Editor.pointRef(editor, end);
+    var removedText = '';
+
+    if (!isSingleText && !startNonEditable) {
+      var _point = startRef.current;
+
+      var _Editor$leaf = Editor.leaf(editor, _point),
+          _Editor$leaf2 = _slicedToArray(_Editor$leaf, 1),
+          node = _Editor$leaf2[0];
+
+      var path = _point.path;
+      var _start = start,
+          offset = _start.offset;
+      var text = node.text.slice(offset);
+
+      if (text.length > 0) {
+        editor.apply({
+          type: 'remove_text',
+          path: path,
+          offset: offset,
+          text: text
+        });
+        removedText = text;
+      }
+    }
+
+    pathRefs.reverse().map(function (r) {
+      return r.unref();
+    }).filter(function (r) {
+      return r !== null;
+    }).forEach(function (p) {
+      return Transforms.removeNodes(editor, {
+        at: p,
+        voids: voids
+      });
+    });
+
+    if (!endNonEditable) {
+      var _point2 = endRef.current;
+
+      var _Editor$leaf3 = Editor.leaf(editor, _point2),
+          _Editor$leaf4 = _slicedToArray(_Editor$leaf3, 1),
+          _node = _Editor$leaf4[0];
+
+      var _path = _point2.path;
+
+      var _offset = isSingleText ? start.offset : 0;
+
+      var _text = _node.text.slice(_offset, end.offset);
+
+      if (_text.length > 0) {
+        editor.apply({
+          type: 'remove_text',
+          path: _path,
+          offset: _offset,
+          text: _text
+        });
+        removedText = _text;
+      }
+    }
+
+    if (!isSingleText && isAcrossBlocks && endRef.current && startRef.current) {
+      Transforms.mergeNodes(editor, {
+        at: endRef.current,
+        hanging: true,
+        voids: voids
+      });
+    } // For Thai script, deleting N character(s) backward should delete
+    // N code point(s) instead of an entire grapheme cluster.
+    // Therefore, the remaining code points should be inserted back.
+
+
+    if (isCollapsed && reverse && unit === 'character' && removedText.length > 1 && removedText.match(/[\u0E00-\u0E7F]+/)) {
+      Transforms.insertText(editor, removedText.slice(0, removedText.length - distance));
+    }
+
+    var startUnref = startRef.unref();
+    var endUnref = endRef.unref();
+    var point = reverse ? startUnref || endUnref : endUnref || startUnref;
+
+    if (options.at == null && point) {
+      Transforms.select(editor, point);
+    }
+  });
+};
+
+function _createForOfIteratorHelper$5(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray$5(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray$5(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$5(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$5(o, minLen); }
+
+function _arrayLikeToArray$5(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+var insertFragment = function insertFragment(editor, fragment) {
+  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  Editor.withoutNormalizing(editor, function () {
+    var _options$hanging = options.hanging,
+        hanging = _options$hanging === void 0 ? false : _options$hanging,
+        _options$voids = options.voids,
+        voids = _options$voids === void 0 ? false : _options$voids;
+    var _options$at = options.at,
+        at = _options$at === void 0 ? getDefaultInsertLocation(editor) : _options$at;
+
+    if (!fragment.length) {
+      return;
+    }
+
+    if (Range.isRange(at)) {
+      if (!hanging) {
+        at = Editor.unhangRange(editor, at, {
+          voids: voids
+        });
+      }
+
+      if (Range.isCollapsed(at)) {
+        at = at.anchor;
+      } else {
+        var _Range$edges = Range.edges(at),
+            _Range$edges2 = _slicedToArray(_Range$edges, 2),
+            end = _Range$edges2[1];
+
+        if (!voids && Editor["void"](editor, {
+          at: end
+        })) {
+          return;
+        }
+
+        var pointRef = Editor.pointRef(editor, end);
+        Transforms["delete"](editor, {
+          at: at
+        });
+        at = pointRef.unref();
+      }
+    } else if (Path.isPath(at)) {
+      at = Editor.start(editor, at);
+    }
+
+    if (!voids && Editor["void"](editor, {
+      at: at
+    })) {
+      return;
+    } // If the insert point is at the edge of an inline node, move it outside
+    // instead since it will need to be split otherwise.
+
+
+    var inlineElementMatch = Editor.above(editor, {
+      at: at,
+      match: function match(n) {
+        return Element.isElement(n) && Editor.isInline(editor, n);
+      },
+      mode: 'highest',
+      voids: voids
+    });
+
+    if (inlineElementMatch) {
+      var _inlineElementMatch = _slicedToArray(inlineElementMatch, 2),
+          _inlinePath = _inlineElementMatch[1];
+
+      if (Editor.isEnd(editor, at, _inlinePath)) {
+        var after = Editor.after(editor, _inlinePath);
+        at = after;
+      } else if (Editor.isStart(editor, at, _inlinePath)) {
+        var before = Editor.before(editor, _inlinePath);
+        at = before;
+      }
+    }
+
+    var blockMatch = Editor.above(editor, {
+      match: function match(n) {
+        return Element.isElement(n) && Editor.isBlock(editor, n);
+      },
+      at: at,
+      voids: voids
+    });
+
+    var _blockMatch = _slicedToArray(blockMatch, 2),
+        blockPath = _blockMatch[1];
+
+    var isBlockStart = Editor.isStart(editor, at, blockPath);
+    var isBlockEnd = Editor.isEnd(editor, at, blockPath);
+    var isBlockEmpty = isBlockStart && isBlockEnd;
+    var mergeStart = !isBlockStart || isBlockStart && isBlockEnd;
+    var mergeEnd = !isBlockEnd;
+
+    var _Node$first = Node.first({
+      children: fragment
+    }, []),
+        _Node$first2 = _slicedToArray(_Node$first, 2),
+        firstPath = _Node$first2[1];
+
+    var _Node$last = Node.last({
+      children: fragment
+    }, []),
+        _Node$last2 = _slicedToArray(_Node$last, 2),
+        lastPath = _Node$last2[1];
+
+    var matches = [];
+
+    var matcher = function matcher(_ref) {
+      var _ref2 = _slicedToArray(_ref, 2),
+          n = _ref2[0],
+          p = _ref2[1];
+
+      var isRoot = p.length === 0;
+
+      if (isRoot) {
+        return false;
+      }
+
+      if (isBlockEmpty) {
+        return true;
+      }
+
+      if (mergeStart && Path.isAncestor(p, firstPath) && Element.isElement(n) && !editor.isVoid(n) && !editor.isInline(n)) {
+        return false;
+      }
+
+      if (mergeEnd && Path.isAncestor(p, lastPath) && Element.isElement(n) && !editor.isVoid(n) && !editor.isInline(n)) {
+        return false;
+      }
+
+      return true;
+    };
+
+    var _iterator = _createForOfIteratorHelper$5(Node.nodes({
+      children: fragment
+    }, {
+      pass: matcher
+    })),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var entry = _step.value;
+
+        if (matcher(entry)) {
+          matches.push(entry);
+        }
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    var starts = [];
+    var middles = [];
+    var ends = [];
+    var starting = true;
+    var hasBlocks = false;
+
+    for (var _i = 0, _matches = matches; _i < _matches.length; _i++) {
+      var _matches$_i = _slicedToArray(_matches[_i], 1),
+          node = _matches$_i[0];
+
+      if (Element.isElement(node) && !editor.isInline(node)) {
+        starting = false;
+        hasBlocks = true;
+        middles.push(node);
+      } else if (starting) {
+        starts.push(node);
+      } else {
+        ends.push(node);
+      }
+    }
+
+    var _Editor$nodes = Editor.nodes(editor, {
+      at: at,
+      match: function match(n) {
+        return Text.isText(n) || Editor.isInline(editor, n);
+      },
+      mode: 'highest',
+      voids: voids
+    }),
+        _Editor$nodes2 = _slicedToArray(_Editor$nodes, 1),
+        inlineMatch = _Editor$nodes2[0];
+
+    var _inlineMatch = _slicedToArray(inlineMatch, 2),
+        inlinePath = _inlineMatch[1];
+
+    var isInlineStart = Editor.isStart(editor, at, inlinePath);
+    var isInlineEnd = Editor.isEnd(editor, at, inlinePath);
+    var middleRef = Editor.pathRef(editor, isBlockEnd && !ends.length ? Path.next(blockPath) : blockPath);
+    var endRef = Editor.pathRef(editor, isInlineEnd ? Path.next(inlinePath) : inlinePath);
+    Transforms.splitNodes(editor, {
+      at: at,
+      match: function match(n) {
+        return hasBlocks ? Element.isElement(n) && Editor.isBlock(editor, n) : Text.isText(n) || Editor.isInline(editor, n);
+      },
+      mode: hasBlocks ? 'lowest' : 'highest',
+      always: hasBlocks && (!isBlockStart || starts.length > 0) && (!isBlockEnd || ends.length > 0),
+      voids: voids
+    });
+    var startRef = Editor.pathRef(editor, !isInlineStart || isInlineStart && isInlineEnd ? Path.next(inlinePath) : inlinePath);
+    Transforms.insertNodes(editor, starts, {
+      at: startRef.current,
+      match: function match(n) {
+        return Text.isText(n) || Editor.isInline(editor, n);
+      },
+      mode: 'highest',
+      voids: voids
+    });
+
+    if (isBlockEmpty && !starts.length && middles.length && !ends.length) {
+      Transforms["delete"](editor, {
+        at: blockPath,
+        voids: voids
+      });
+    }
+
+    Transforms.insertNodes(editor, middles, {
+      at: middleRef.current,
+      match: function match(n) {
+        return Element.isElement(n) && Editor.isBlock(editor, n);
+      },
+      mode: 'lowest',
+      voids: voids
+    });
+    Transforms.insertNodes(editor, ends, {
+      at: endRef.current,
+      match: function match(n) {
+        return Text.isText(n) || Editor.isInline(editor, n);
+      },
+      mode: 'highest',
+      voids: voids
+    });
+
+    if (!options.at) {
+      var path;
+
+      if (ends.length > 0 && endRef.current) {
+        path = Path.previous(endRef.current);
+      } else if (middles.length > 0 && middleRef.current) {
+        path = Path.previous(middleRef.current);
+      } else if (startRef.current) {
+        path = Path.previous(startRef.current);
+      }
+
+      if (path) {
+        var _end = Editor.end(editor, path);
+
+        Transforms.select(editor, _end);
+      }
+    }
+
+    startRef.unref();
+    middleRef.unref();
+    endRef.unref();
+  });
+};
+
+var collapse = function collapse(editor) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var _options$edge = options.edge,
+      edge = _options$edge === void 0 ? 'anchor' : _options$edge;
+  var selection = editor.selection;
+
+  if (!selection) {
+    return;
+  } else if (edge === 'anchor') {
+    Transforms.select(editor, selection.anchor);
+  } else if (edge === 'focus') {
+    Transforms.select(editor, selection.focus);
+  } else if (edge === 'start') {
+    var _Range$edges = Range.edges(selection),
+        _Range$edges2 = _slicedToArray(_Range$edges, 1),
+        start = _Range$edges2[0];
+
+    Transforms.select(editor, start);
+  } else if (edge === 'end') {
+    var _Range$edges3 = Range.edges(selection),
+        _Range$edges4 = _slicedToArray(_Range$edges3, 2),
+        end = _Range$edges4[1];
+
+    Transforms.select(editor, end);
+  }
+};
+
+var deselect = function deselect(editor) {
+  var selection = editor.selection;
+
+  if (selection) {
+    editor.apply({
+      type: 'set_selection',
+      properties: selection,
+      newProperties: null
+    });
+  }
+};
+
+var move = function move(editor) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var selection = editor.selection;
+  var _options$distance = options.distance,
+      distance = _options$distance === void 0 ? 1 : _options$distance,
+      _options$unit = options.unit,
+      unit = _options$unit === void 0 ? 'character' : _options$unit,
+      _options$reverse = options.reverse,
+      reverse = _options$reverse === void 0 ? false : _options$reverse;
+  var _options$edge = options.edge,
+      edge = _options$edge === void 0 ? null : _options$edge;
+
+  if (!selection) {
+    return;
+  }
+
+  if (edge === 'start') {
+    edge = Range.isBackward(selection) ? 'focus' : 'anchor';
+  }
+
+  if (edge === 'end') {
+    edge = Range.isBackward(selection) ? 'anchor' : 'focus';
+  }
+
+  var anchor = selection.anchor,
+      focus = selection.focus;
+  var opts = {
+    distance: distance,
+    unit: unit,
+    ignoreNonSelectable: true
+  };
+  var props = {};
+
+  if (edge == null || edge === 'anchor') {
+    var point = reverse ? Editor.before(editor, anchor, opts) : Editor.after(editor, anchor, opts);
+
+    if (point) {
+      props.anchor = point;
+    }
+  }
+
+  if (edge == null || edge === 'focus') {
+    var _point = reverse ? Editor.before(editor, focus, opts) : Editor.after(editor, focus, opts);
+
+    if (_point) {
+      props.focus = _point;
+    }
+  }
+
+  Transforms.setSelection(editor, props);
+};
+
+var select = function select(editor, target) {
+  var selection = editor.selection;
+  target = Editor.range(editor, target);
+
+  if (selection) {
+    Transforms.setSelection(editor, target);
+    return;
+  }
+
+  if (!Range.isRange(target)) {
+    throw new Error("When setting the selection and the current selection is `null` you must provide at least an `anchor` and `focus`, but you passed: ".concat(Scrubber.stringify(target)));
+  }
+
+  editor.apply({
+    type: 'set_selection',
+    properties: selection,
+    newProperties: target
+  });
+};
+
+function ownKeys$1(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$1(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$1(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$1(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+var setPoint = function setPoint(editor, props) {
+  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  var selection = editor.selection;
+  var _options$edge = options.edge,
+      edge = _options$edge === void 0 ? 'both' : _options$edge;
+
+  if (!selection) {
+    return;
+  }
+
+  if (edge === 'start') {
+    edge = Range.isBackward(selection) ? 'focus' : 'anchor';
+  }
+
+  if (edge === 'end') {
+    edge = Range.isBackward(selection) ? 'anchor' : 'focus';
+  }
+
+  var anchor = selection.anchor,
+      focus = selection.focus;
+  var point = edge === 'anchor' ? anchor : focus;
+  Transforms.setSelection(editor, _defineProperty({}, edge === 'anchor' ? 'anchor' : 'focus', _objectSpread$1(_objectSpread$1({}, point), props)));
+};
+
+var setSelection = function setSelection(editor, props) {
+  var selection = editor.selection;
+  var oldProps = {};
+  var newProps = {};
+
+  if (!selection) {
+    return;
+  }
+
+  for (var k in props) {
+    if (k === 'anchor' && props.anchor != null && !Point.equals(props.anchor, selection.anchor) || k === 'focus' && props.focus != null && !Point.equals(props.focus, selection.focus) || k !== 'anchor' && k !== 'focus' && props[k] !== selection[k]) {
+      oldProps[k] = selection[k];
+      newProps[k] = props[k];
+    }
+  }
+
+  if (Object.keys(oldProps).length > 0) {
+    editor.apply({
+      type: 'set_selection',
+      properties: oldProps,
+      newProperties: newProps
+    });
+  }
+};
+
+function _createForOfIteratorHelper$4(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray$4(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray$4(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$4(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$4(o, minLen); }
+
+function _arrayLikeToArray$4(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+var insertNodes = function insertNodes(editor, nodes) {
+  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  Editor.withoutNormalizing(editor, function () {
+    var _options$hanging = options.hanging,
+        hanging = _options$hanging === void 0 ? false : _options$hanging,
+        _options$voids = options.voids,
+        voids = _options$voids === void 0 ? false : _options$voids,
+        _options$mode = options.mode,
+        mode = _options$mode === void 0 ? 'lowest' : _options$mode;
+    var at = options.at,
+        match = options.match,
+        select = options.select;
+
+    if (Node.isNode(nodes)) {
+      nodes = [nodes];
+    }
+
+    if (nodes.length === 0) {
+      return;
+    }
+
+    var _nodes = nodes,
+        _nodes2 = _slicedToArray(_nodes, 1),
+        node = _nodes2[0];
+
+    if (!at) {
+      at = getDefaultInsertLocation(editor);
+      select = true;
+    }
+
+    if (select == null) {
+      select = false;
+    }
+
+    if (Range.isRange(at)) {
+      if (!hanging) {
+        at = Editor.unhangRange(editor, at, {
+          voids: voids
+        });
+      }
+
+      if (Range.isCollapsed(at)) {
+        at = at.anchor;
+      } else {
+        var _Range$edges = Range.edges(at),
+            _Range$edges2 = _slicedToArray(_Range$edges, 2),
+            end = _Range$edges2[1];
+
+        var pointRef = Editor.pointRef(editor, end);
+        Transforms["delete"](editor, {
+          at: at
+        });
+        at = pointRef.unref();
+      }
+    }
+
+    if (Point.isPoint(at)) {
+      if (match == null) {
+        if (Text.isText(node)) {
+          match = function match(n) {
+            return Text.isText(n);
+          };
+        } else if (editor.isInline(node)) {
+          match = function match(n) {
+            return Text.isText(n) || Editor.isInline(editor, n);
+          };
+        } else {
+          match = function match(n) {
+            return Element.isElement(n) && Editor.isBlock(editor, n);
+          };
+        }
+      }
+
+      var _Editor$nodes = Editor.nodes(editor, {
+        at: at.path,
+        match: match,
+        mode: mode,
+        voids: voids
+      }),
+          _Editor$nodes2 = _slicedToArray(_Editor$nodes, 1),
+          entry = _Editor$nodes2[0];
+
+      if (entry) {
+        var _entry = _slicedToArray(entry, 2),
+            matchPath = _entry[1];
+
+        var pathRef = Editor.pathRef(editor, matchPath);
+        var isAtEnd = Editor.isEnd(editor, at, matchPath);
+        Transforms.splitNodes(editor, {
+          at: at,
+          match: match,
+          mode: mode,
+          voids: voids
+        });
+        var path = pathRef.unref();
+        at = isAtEnd ? Path.next(path) : path;
+      } else {
+        return;
+      }
+    }
+
+    var parentPath = Path.parent(at);
+    var index = at[at.length - 1];
+
+    if (!voids && Editor["void"](editor, {
+      at: parentPath
+    })) {
+      return;
+    }
+
+    var _iterator = _createForOfIteratorHelper$4(nodes),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var _node = _step.value;
+
         var _path = parentPath.concat(index);
 
         index++;
@@ -44021,431 +50846,537 @@ var NodeTransforms = {
           path: _path,
           node: _node
         });
+        at = Path.next(at);
       }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
 
-      if (select) {
-        var point = Editor.end(editor, at);
+    at = Path.previous(at);
 
-        if (point) {
-          Transforms.select(editor, point);
-        }
+    if (select) {
+      var point = Editor.end(editor, at);
+
+      if (point) {
+        Transforms.select(editor, point);
       }
+    }
+  });
+};
+
+var liftNodes = function liftNodes(editor) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  Editor.withoutNormalizing(editor, function () {
+    var _options$at = options.at,
+        at = _options$at === void 0 ? editor.selection : _options$at,
+        _options$mode = options.mode,
+        mode = _options$mode === void 0 ? 'lowest' : _options$mode,
+        _options$voids = options.voids,
+        voids = _options$voids === void 0 ? false : _options$voids;
+    var match = options.match;
+
+    if (match == null) {
+      match = Path.isPath(at) ? matchPath(editor, at) : function (n) {
+        return Element.isElement(n) && Editor.isBlock(editor, n);
+      };
+    }
+
+    if (!at) {
+      return;
+    }
+
+    var matches = Editor.nodes(editor, {
+      at: at,
+      match: match,
+      mode: mode,
+      voids: voids
     });
-  },
+    var pathRefs = Array.from(matches, function (_ref) {
+      var _ref2 = _slicedToArray(_ref, 2),
+          p = _ref2[1];
 
-  /**
-   * Lift nodes at a specific location upwards in the document tree, splitting
-   * their parent in two if necessary.
-   */
-  liftNodes(editor) {
-    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    Editor.withoutNormalizing(editor, () => {
-      var {
-        at = editor.selection,
-        mode = 'lowest',
-        voids = false
-      } = options;
-      var {
-        match
-      } = options;
-
-      if (match == null) {
-        match = Path.isPath(at) ? matchPath(editor, at) : n => Editor.isBlock(editor, n);
-      }
-
-      if (!at) {
-        return;
-      }
-
-      var matches = Editor.nodes(editor, {
-        at,
-        match,
-        mode,
-        voids
-      });
-      var pathRefs = Array.from(matches, (_ref) => {
-        var [, p] = _ref;
-        return Editor.pathRef(editor, p);
-      });
-
-      for (var pathRef of pathRefs) {
-        var path = pathRef.unref();
-
-        if (path.length < 2) {
-          throw new Error("Cannot lift node at a path [".concat(path, "] because it has a depth of less than `2`."));
-        }
-
-        var [parent, parentPath] = Editor.node(editor, Path.parent(path));
-        var index = path[path.length - 1];
-        var {
-          length
-        } = parent.children;
-
-        if (length === 1) {
-          var toPath = Path.next(parentPath);
-          Transforms.moveNodes(editor, {
-            at: path,
-            to: toPath,
-            voids
-          });
-          Transforms.removeNodes(editor, {
-            at: parentPath,
-            voids
-          });
-        } else if (index === 0) {
-          Transforms.moveNodes(editor, {
-            at: path,
-            to: parentPath,
-            voids
-          });
-        } else if (index === length - 1) {
-          var _toPath = Path.next(parentPath);
-
-          Transforms.moveNodes(editor, {
-            at: path,
-            to: _toPath,
-            voids
-          });
-        } else {
-          var splitPath = Path.next(path);
-
-          var _toPath2 = Path.next(parentPath);
-
-          Transforms.splitNodes(editor, {
-            at: splitPath,
-            voids
-          });
-          Transforms.moveNodes(editor, {
-            at: path,
-            to: _toPath2,
-            voids
-          });
-        }
-      }
+      return Editor.pathRef(editor, p);
     });
-  },
 
-  /**
-   * Merge a node at a location with the previous node of the same depth,
-   * removing any empty containing nodes after the merge if necessary.
-   */
-  mergeNodes(editor) {
-    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    Editor.withoutNormalizing(editor, () => {
-      var {
-        match,
-        at = editor.selection
-      } = options;
-      var {
-        hanging = false,
-        voids = false,
-        mode = 'lowest'
-      } = options;
+    for (var _i = 0, _pathRefs = pathRefs; _i < _pathRefs.length; _i++) {
+      var pathRef = _pathRefs[_i];
+      var path = pathRef.unref();
 
-      if (!at) {
-        return;
+      if (path.length < 2) {
+        throw new Error("Cannot lift node at a path [".concat(path, "] because it has a depth of less than `2`."));
       }
 
-      if (match == null) {
-        if (Path.isPath(at)) {
-          var [parent] = Editor.parent(editor, at);
+      var parentNodeEntry = Editor.node(editor, Path.parent(path));
 
-          match = n => parent.children.includes(n);
-        } else {
-          match = n => Editor.isBlock(editor, n);
-        }
-      }
+      var _parentNodeEntry = _slicedToArray(parentNodeEntry, 2),
+          parent = _parentNodeEntry[0],
+          parentPath = _parentNodeEntry[1];
 
-      if (!hanging && Range.isRange(at)) {
-        at = Editor.unhangRange(editor, at);
-      }
+      var index = path[path.length - 1];
+      var length = parent.children.length;
 
-      if (Range.isRange(at)) {
-        if (Range.isCollapsed(at)) {
-          at = at.anchor;
-        } else {
-          var [, end] = Range.edges(at);
-          var pointRef = Editor.pointRef(editor, end);
-          Transforms.delete(editor, {
-            at
-          });
-          at = pointRef.unref();
-
-          if (options.at == null) {
-            Transforms.select(editor, at);
-          }
-        }
-      }
-
-      var [current] = Editor.nodes(editor, {
-        at,
-        match,
-        voids,
-        mode
-      });
-      var prev = Editor.previous(editor, {
-        at,
-        match,
-        voids,
-        mode
-      });
-
-      if (!current || !prev) {
-        return;
-      }
-
-      var [node, path] = current;
-      var [prevNode, prevPath] = prev;
-
-      if (path.length === 0 || prevPath.length === 0) {
-        return;
-      }
-
-      var newPath = Path.next(prevPath);
-      var commonPath = Path.common(path, prevPath);
-      var isPreviousSibling = Path.isSibling(path, prevPath);
-      var levels = Array.from(Editor.levels(editor, {
-        at: path
-      }), (_ref2) => {
-        var [n] = _ref2;
-        return n;
-      }).slice(commonPath.length).slice(0, -1); // Determine if the merge will leave an ancestor of the path empty as a
-      // result, in which case we'll want to remove it after merging.
-
-      var emptyAncestor = Editor.above(editor, {
-        at: path,
-        mode: 'highest',
-        match: n => levels.includes(n) && Element.isElement(n) && n.children.length === 1
-      });
-      var emptyRef = emptyAncestor && Editor.pathRef(editor, emptyAncestor[1]);
-      var properties;
-      var position; // Ensure that the nodes are equivalent, and figure out what the position
-      // and extra properties of the merge will be.
-
-      if (Text.isText(node) && Text.isText(prevNode)) {
-        var rest = _objectWithoutProperties(node, ["text"]);
-
-        position = prevNode.text.length;
-        properties = rest;
-      } else if (Element.isElement(node) && Element.isElement(prevNode)) {
-        var rest = _objectWithoutProperties(node, ["children"]);
-
-        position = prevNode.children.length;
-        properties = rest;
-      } else {
-        throw new Error("Cannot merge the node at path [".concat(path, "] with the previous sibling because it is not the same kind: ").concat(JSON.stringify(node), " ").concat(JSON.stringify(prevNode)));
-      } // If the node isn't already the next sibling of the previous node, move
-      // it so that it is before merging.
-
-
-      if (!isPreviousSibling) {
+      if (length === 1) {
+        var toPath = Path.next(parentPath);
         Transforms.moveNodes(editor, {
           at: path,
-          to: newPath,
-          voids
+          to: toPath,
+          voids: voids
         });
-      } // If there was going to be an empty ancestor of the node that was merged,
-      // we remove it from the tree.
-
-
-      if (emptyRef) {
         Transforms.removeNodes(editor, {
-          at: emptyRef.current,
-          voids
+          at: parentPath,
+          voids: voids
         });
-      } // If the target node that we're merging with is empty, remove it instead
-      // of merging the two. This is a common rich text editor behavior to
-      // prevent losing formatting when deleting entire nodes when you have a
-      // hanging selection.
+      } else if (index === 0) {
+        Transforms.moveNodes(editor, {
+          at: path,
+          to: parentPath,
+          voids: voids
+        });
+      } else if (index === length - 1) {
+        var _toPath = Path.next(parentPath);
 
-
-      if (Element.isElement(prevNode) && Editor.isEmpty(editor, prevNode) || Text.isText(prevNode) && prevNode.text === '') {
-        Transforms.removeNodes(editor, {
-          at: prevPath,
-          voids
+        Transforms.moveNodes(editor, {
+          at: path,
+          to: _toPath,
+          voids: voids
         });
       } else {
-        editor.apply({
-          type: 'merge_node',
-          path: newPath,
-          position,
-          target: null,
-          properties
-        });
-      }
+        var splitPath = Path.next(path);
 
-      if (emptyRef) {
-        emptyRef.unref();
-      }
-    });
-  },
+        var _toPath2 = Path.next(parentPath);
 
-  /**
-   * Move the nodes at a location to a new location.
-   */
-  moveNodes(editor, options) {
-    Editor.withoutNormalizing(editor, () => {
-      var {
-        to,
-        at = editor.selection,
-        mode = 'lowest',
-        voids = false
-      } = options;
-      var {
-        match
-      } = options;
-
-      if (!at) {
-        return;
-      }
-
-      if (match == null) {
-        match = Path.isPath(at) ? matchPath(editor, at) : n => Editor.isBlock(editor, n);
-      }
-
-      var toRef = Editor.pathRef(editor, to);
-      var targets = Editor.nodes(editor, {
-        at,
-        match,
-        mode,
-        voids
-      });
-      var pathRefs = Array.from(targets, (_ref3) => {
-        var [, p] = _ref3;
-        return Editor.pathRef(editor, p);
-      });
-
-      for (var pathRef of pathRefs) {
-        var path = pathRef.unref();
-        var newPath = toRef.current;
-
-        if (path.length !== 0) {
-          editor.apply({
-            type: 'move_node',
-            path,
-            newPath
-          });
-        }
-      }
-
-      toRef.unref();
-    });
-  },
-
-  /**
-   * Remove the nodes at a specific location in the document.
-   */
-  removeNodes(editor) {
-    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    Editor.withoutNormalizing(editor, () => {
-      var {
-        hanging = false,
-        voids = false,
-        mode = 'lowest'
-      } = options;
-      var {
-        at = editor.selection,
-        match
-      } = options;
-
-      if (!at) {
-        return;
-      }
-
-      if (match == null) {
-        match = Path.isPath(at) ? matchPath(editor, at) : n => Editor.isBlock(editor, n);
-      }
-
-      if (!hanging && Range.isRange(at)) {
-        at = Editor.unhangRange(editor, at);
-      }
-
-      var depths = Editor.nodes(editor, {
-        at,
-        match,
-        mode,
-        voids
-      });
-      var pathRefs = Array.from(depths, (_ref4) => {
-        var [, p] = _ref4;
-        return Editor.pathRef(editor, p);
-      });
-
-      for (var pathRef of pathRefs) {
-        var path = pathRef.unref();
-
-        if (path) {
-          var [node] = Editor.node(editor, path);
-          editor.apply({
-            type: 'remove_node',
-            path,
-            node
-          });
-        }
-      }
-    });
-  },
-
-  /**
-   * Set new properties on the nodes at a location.
-   */
-  setNodes(editor, props) {
-    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-    Editor.withoutNormalizing(editor, () => {
-      var {
-        match,
-        at = editor.selection
-      } = options;
-      var {
-        hanging = false,
-        mode = 'lowest',
-        split = false,
-        voids = false
-      } = options;
-
-      if (!at) {
-        return;
-      }
-
-      if (match == null) {
-        match = Path.isPath(at) ? matchPath(editor, at) : n => Editor.isBlock(editor, n);
-      }
-
-      if (!hanging && Range.isRange(at)) {
-        at = Editor.unhangRange(editor, at);
-      }
-
-      if (split && Range.isRange(at)) {
-        var rangeRef = Editor.rangeRef(editor, at, {
-          affinity: 'inward'
-        });
-        var [start, end] = Range.edges(at);
-        var splitMode = mode === 'lowest' ? 'lowest' : 'highest';
         Transforms.splitNodes(editor, {
-          at: end,
-          match,
-          mode: splitMode,
-          voids
+          at: splitPath,
+          voids: voids
         });
-        Transforms.splitNodes(editor, {
-          at: start,
-          match,
-          mode: splitMode,
-          voids
+        Transforms.moveNodes(editor, {
+          at: path,
+          to: _toPath2,
+          voids: voids
         });
-        at = rangeRef.unref();
+      }
+    }
+  });
+};
+
+var _excluded = ["text"],
+    _excluded2 = ["children"];
+
+var hasSingleChildNest = function hasSingleChildNest(editor, node) {
+  if (Element.isElement(node)) {
+    var element = node;
+
+    if (Editor.isVoid(editor, node)) {
+      return true;
+    } else if (element.children.length === 1) {
+      return hasSingleChildNest(editor, element.children[0]);
+    } else {
+      return false;
+    }
+  } else if (Editor.isEditor(node)) {
+    return false;
+  } else {
+    return true;
+  }
+};
+
+var mergeNodes = function mergeNodes(editor) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  Editor.withoutNormalizing(editor, function () {
+    var match = options.match,
+        _options$at = options.at,
+        at = _options$at === void 0 ? editor.selection : _options$at;
+    var _options$hanging = options.hanging,
+        hanging = _options$hanging === void 0 ? false : _options$hanging,
+        _options$voids = options.voids,
+        voids = _options$voids === void 0 ? false : _options$voids,
+        _options$mode = options.mode,
+        mode = _options$mode === void 0 ? 'lowest' : _options$mode;
+
+    if (!at) {
+      return;
+    }
+
+    if (match == null) {
+      if (Path.isPath(at)) {
+        var _Editor$parent = Editor.parent(editor, at),
+            _Editor$parent2 = _slicedToArray(_Editor$parent, 1),
+            parent = _Editor$parent2[0];
+
+        match = function match(n) {
+          return parent.children.includes(n);
+        };
+      } else {
+        match = function match(n) {
+          return Element.isElement(n) && Editor.isBlock(editor, n);
+        };
+      }
+    }
+
+    if (!hanging && Range.isRange(at)) {
+      at = Editor.unhangRange(editor, at, {
+        voids: voids
+      });
+    }
+
+    if (Range.isRange(at)) {
+      if (Range.isCollapsed(at)) {
+        at = at.anchor;
+      } else {
+        var _Range$edges = Range.edges(at),
+            _Range$edges2 = _slicedToArray(_Range$edges, 2),
+            end = _Range$edges2[1];
+
+        var pointRef = Editor.pointRef(editor, end);
+        Transforms["delete"](editor, {
+          at: at
+        });
+        at = pointRef.unref();
 
         if (options.at == null) {
           Transforms.select(editor, at);
         }
       }
+    }
 
-      for (var [node, path] of Editor.nodes(editor, {
-        at,
-        match,
-        mode,
-        voids
-      })) {
+    var _Editor$nodes = Editor.nodes(editor, {
+      at: at,
+      match: match,
+      voids: voids,
+      mode: mode
+    }),
+        _Editor$nodes2 = _slicedToArray(_Editor$nodes, 1),
+        current = _Editor$nodes2[0];
+
+    var prev = Editor.previous(editor, {
+      at: at,
+      match: match,
+      voids: voids,
+      mode: mode
+    });
+
+    if (!current || !prev) {
+      return;
+    }
+
+    var _current = _slicedToArray(current, 2),
+        node = _current[0],
+        path = _current[1];
+
+    var _prev = _slicedToArray(prev, 2),
+        prevNode = _prev[0],
+        prevPath = _prev[1];
+
+    if (path.length === 0 || prevPath.length === 0) {
+      return;
+    }
+
+    var newPath = Path.next(prevPath);
+    var commonPath = Path.common(path, prevPath);
+    var isPreviousSibling = Path.isSibling(path, prevPath);
+    var levels = Array.from(Editor.levels(editor, {
+      at: path
+    }), function (_ref) {
+      var _ref2 = _slicedToArray(_ref, 1),
+          n = _ref2[0];
+
+      return n;
+    }).slice(commonPath.length).slice(0, -1); // Determine if the merge will leave an ancestor of the path empty as a
+    // result, in which case we'll want to remove it after merging.
+
+    var emptyAncestor = Editor.above(editor, {
+      at: path,
+      mode: 'highest',
+      match: function match(n) {
+        return levels.includes(n) && hasSingleChildNest(editor, n);
+      }
+    });
+    var emptyRef = emptyAncestor && Editor.pathRef(editor, emptyAncestor[1]);
+    var properties;
+    var position; // Ensure that the nodes are equivalent, and figure out what the position
+    // and extra properties of the merge will be.
+
+    if (Text.isText(node) && Text.isText(prevNode)) {
+      node.text;
+          var rest = _objectWithoutProperties(node, _excluded);
+
+      position = prevNode.text.length;
+      properties = rest;
+    } else if (Element.isElement(node) && Element.isElement(prevNode)) {
+      node.children;
+          var _rest = _objectWithoutProperties(node, _excluded2);
+
+      position = prevNode.children.length;
+      properties = _rest;
+    } else {
+      throw new Error("Cannot merge the node at path [".concat(path, "] with the previous sibling because it is not the same kind: ").concat(Scrubber.stringify(node), " ").concat(Scrubber.stringify(prevNode)));
+    } // If the node isn't already the next sibling of the previous node, move
+    // it so that it is before merging.
+
+
+    if (!isPreviousSibling) {
+      Transforms.moveNodes(editor, {
+        at: path,
+        to: newPath,
+        voids: voids
+      });
+    } // If there was going to be an empty ancestor of the node that was merged,
+    // we remove it from the tree.
+
+
+    if (emptyRef) {
+      Transforms.removeNodes(editor, {
+        at: emptyRef.current,
+        voids: voids
+      });
+    } // If the target node that we're merging with is empty, remove it instead
+    // of merging the two. This is a common rich text editor behavior to
+    // prevent losing formatting when deleting entire nodes when you have a
+    // hanging selection.
+    // if prevNode is first child in parent,don't remove it.
+
+
+    if (Element.isElement(prevNode) && Editor.isEmpty(editor, prevNode) || Text.isText(prevNode) && prevNode.text === '' && prevPath[prevPath.length - 1] !== 0) {
+      Transforms.removeNodes(editor, {
+        at: prevPath,
+        voids: voids
+      });
+    } else {
+      editor.apply({
+        type: 'merge_node',
+        path: newPath,
+        position: position,
+        properties: properties
+      });
+    }
+
+    if (emptyRef) {
+      emptyRef.unref();
+    }
+  });
+};
+
+var moveNodes = function moveNodes(editor, options) {
+  Editor.withoutNormalizing(editor, function () {
+    var to = options.to,
+        _options$at = options.at,
+        at = _options$at === void 0 ? editor.selection : _options$at,
+        _options$mode = options.mode,
+        mode = _options$mode === void 0 ? 'lowest' : _options$mode,
+        _options$voids = options.voids,
+        voids = _options$voids === void 0 ? false : _options$voids;
+    var match = options.match;
+
+    if (!at) {
+      return;
+    }
+
+    if (match == null) {
+      match = Path.isPath(at) ? matchPath(editor, at) : function (n) {
+        return Element.isElement(n) && Editor.isBlock(editor, n);
+      };
+    }
+
+    var toRef = Editor.pathRef(editor, to);
+    var targets = Editor.nodes(editor, {
+      at: at,
+      match: match,
+      mode: mode,
+      voids: voids
+    });
+    var pathRefs = Array.from(targets, function (_ref) {
+      var _ref2 = _slicedToArray(_ref, 2),
+          p = _ref2[1];
+
+      return Editor.pathRef(editor, p);
+    });
+
+    for (var _i = 0, _pathRefs = pathRefs; _i < _pathRefs.length; _i++) {
+      var pathRef = _pathRefs[_i];
+      var path = pathRef.unref();
+      var newPath = toRef.current;
+
+      if (path.length !== 0) {
+        editor.apply({
+          type: 'move_node',
+          path: path,
+          newPath: newPath
+        });
+      }
+
+      if (toRef.current && Path.isSibling(newPath, path) && Path.isAfter(newPath, path)) {
+        // When performing a sibling move to a later index, the path at the destination is shifted
+        // to before the insertion point instead of after. To ensure our group of nodes are inserted
+        // in the correct order we increment toRef to account for that
+        toRef.current = Path.next(toRef.current);
+      }
+    }
+
+    toRef.unref();
+  });
+};
+
+var removeNodes = function removeNodes(editor) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  Editor.withoutNormalizing(editor, function () {
+    var _options$hanging = options.hanging,
+        hanging = _options$hanging === void 0 ? false : _options$hanging,
+        _options$voids = options.voids,
+        voids = _options$voids === void 0 ? false : _options$voids,
+        _options$mode = options.mode,
+        mode = _options$mode === void 0 ? 'lowest' : _options$mode;
+    var _options$at = options.at,
+        at = _options$at === void 0 ? editor.selection : _options$at,
+        match = options.match;
+
+    if (!at) {
+      return;
+    }
+
+    if (match == null) {
+      match = Path.isPath(at) ? matchPath(editor, at) : function (n) {
+        return Element.isElement(n) && Editor.isBlock(editor, n);
+      };
+    }
+
+    if (!hanging && Range.isRange(at)) {
+      at = Editor.unhangRange(editor, at, {
+        voids: voids
+      });
+    }
+
+    var depths = Editor.nodes(editor, {
+      at: at,
+      match: match,
+      mode: mode,
+      voids: voids
+    });
+    var pathRefs = Array.from(depths, function (_ref) {
+      var _ref2 = _slicedToArray(_ref, 2),
+          p = _ref2[1];
+
+      return Editor.pathRef(editor, p);
+    });
+
+    for (var _i = 0, _pathRefs = pathRefs; _i < _pathRefs.length; _i++) {
+      var pathRef = _pathRefs[_i];
+      var path = pathRef.unref();
+
+      if (path) {
+        var _Editor$node = Editor.node(editor, path),
+            _Editor$node2 = _slicedToArray(_Editor$node, 1),
+            node = _Editor$node2[0];
+
+        editor.apply({
+          type: 'remove_node',
+          path: path,
+          node: node
+        });
+      }
+    }
+  });
+};
+
+function _createForOfIteratorHelper$3(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray$3(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray$3(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$3(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$3(o, minLen); }
+
+function _arrayLikeToArray$3(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+var setNodes = function setNodes(editor, props) {
+  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  Editor.withoutNormalizing(editor, function () {
+    var match = options.match,
+        _options$at = options.at,
+        at = _options$at === void 0 ? editor.selection : _options$at,
+        compare = options.compare,
+        merge = options.merge;
+    var _options$hanging = options.hanging,
+        hanging = _options$hanging === void 0 ? false : _options$hanging,
+        _options$mode = options.mode,
+        mode = _options$mode === void 0 ? 'lowest' : _options$mode,
+        _options$split = options.split,
+        split = _options$split === void 0 ? false : _options$split,
+        _options$voids = options.voids,
+        voids = _options$voids === void 0 ? false : _options$voids;
+
+    if (!at) {
+      return;
+    }
+
+    if (match == null) {
+      match = Path.isPath(at) ? matchPath(editor, at) : function (n) {
+        return Element.isElement(n) && Editor.isBlock(editor, n);
+      };
+    }
+
+    if (!hanging && Range.isRange(at)) {
+      at = Editor.unhangRange(editor, at, {
+        voids: voids
+      });
+    }
+
+    if (split && Range.isRange(at)) {
+      if (Range.isCollapsed(at) && Editor.leaf(editor, at.anchor)[0].text.length > 0) {
+        // If the range is collapsed in a non-empty node and 'split' is true, there's nothing to
+        // set that won't get normalized away
+        return;
+      }
+
+      var rangeRef = Editor.rangeRef(editor, at, {
+        affinity: 'inward'
+      });
+
+      var _Range$edges = Range.edges(at),
+          _Range$edges2 = _slicedToArray(_Range$edges, 2),
+          start = _Range$edges2[0],
+          end = _Range$edges2[1];
+
+      var splitMode = mode === 'lowest' ? 'lowest' : 'highest';
+      var endAtEndOfNode = Editor.isEnd(editor, end, end.path);
+      Transforms.splitNodes(editor, {
+        at: end,
+        match: match,
+        mode: splitMode,
+        voids: voids,
+        always: !endAtEndOfNode
+      });
+      var startAtStartOfNode = Editor.isStart(editor, start, start.path);
+      Transforms.splitNodes(editor, {
+        at: start,
+        match: match,
+        mode: splitMode,
+        voids: voids,
+        always: !startAtStartOfNode
+      });
+      at = rangeRef.unref();
+
+      if (options.at == null) {
+        Transforms.select(editor, at);
+      }
+    }
+
+    if (!compare) {
+      compare = function compare(prop, nodeProp) {
+        return prop !== nodeProp;
+      };
+    }
+
+    var _iterator = _createForOfIteratorHelper$3(Editor.nodes(editor, {
+      at: at,
+      match: match,
+      mode: mode,
+      voids: voids
+    })),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var _step$value = _slicedToArray(_step.value, 2),
+            node = _step$value[0],
+            path = _step$value[1];
+
         var properties = {};
         var newProperties = {}; // You can't set properties on the editor node.
 
@@ -44453,94 +51384,145 @@ var NodeTransforms = {
           continue;
         }
 
+        var hasChanges = false;
+
         for (var k in props) {
           if (k === 'children' || k === 'text') {
             continue;
           }
 
-          if (props[k] !== node[k]) {
-            properties[k] = node[k];
-            newProperties[k] = props[k];
+          if (compare(props[k], node[k])) {
+            hasChanges = true; // Omit new properties from the old properties list
+
+            if (node.hasOwnProperty(k)) properties[k] = node[k]; // Omit properties that have been removed from the new properties list
+
+            if (merge) {
+              if (props[k] != null) newProperties[k] = merge(node[k], props[k]);
+            } else {
+              if (props[k] != null) newProperties[k] = props[k];
+            }
           }
         }
 
-        if (Object.keys(newProperties).length !== 0) {
+        if (hasChanges) {
           editor.apply({
             type: 'set_node',
-            path,
-            properties,
-            newProperties
+            path: path,
+            properties: properties,
+            newProperties: newProperties
           });
         }
       }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+  });
+};
+
+function _createForOfIteratorHelper$2(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray$2(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray$2(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$2(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$2(o, minLen); }
+
+function _arrayLikeToArray$2(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+/**
+ * Convert a range into a point by deleting it's content.
+ */
+
+var deleteRange = function deleteRange(editor, range) {
+  if (Range.isCollapsed(range)) {
+    return range.anchor;
+  } else {
+    var _Range$edges = Range.edges(range),
+        _Range$edges2 = _slicedToArray(_Range$edges, 2),
+        end = _Range$edges2[1];
+
+    var pointRef = Editor.pointRef(editor, end);
+    Transforms["delete"](editor, {
+      at: range
     });
-  },
+    return pointRef.unref();
+  }
+};
 
-  /**
-   * Split the nodes at a specific location.
-   */
-  splitNodes(editor) {
-    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    Editor.withoutNormalizing(editor, () => {
-      var {
-        mode = 'lowest',
-        voids = false
-      } = options;
-      var {
-        match,
-        at = editor.selection,
-        height = 0,
-        always = false
-      } = options;
+var splitNodes = function splitNodes(editor) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  Editor.withoutNormalizing(editor, function () {
+    var _options$mode = options.mode,
+        mode = _options$mode === void 0 ? 'lowest' : _options$mode,
+        _options$voids = options.voids,
+        voids = _options$voids === void 0 ? false : _options$voids;
+    var match = options.match,
+        _options$at = options.at,
+        at = _options$at === void 0 ? editor.selection : _options$at,
+        _options$height = options.height,
+        height = _options$height === void 0 ? 0 : _options$height,
+        _options$always = options.always,
+        always = _options$always === void 0 ? false : _options$always;
 
-      if (match == null) {
-        match = n => Editor.isBlock(editor, n);
-      }
+    if (match == null) {
+      match = function match(n) {
+        return Element.isElement(n) && Editor.isBlock(editor, n);
+      };
+    }
 
-      if (Range.isRange(at)) {
-        at = deleteRange(editor, at);
-      } // If the target is a path, the default height-skipping and position
-      // counters need to account for us potentially splitting at a non-leaf.
+    if (Range.isRange(at)) {
+      at = deleteRange(editor, at);
+    } // If the target is a path, the default height-skipping and position
+    // counters need to account for us potentially splitting at a non-leaf.
 
 
-      if (Path.isPath(at)) {
-        var path = at;
-        var point = Editor.point(editor, path);
-        var [parent] = Editor.parent(editor, path);
+    if (Path.isPath(at)) {
+      var path = at;
+      var point = Editor.point(editor, path);
 
-        match = n => n === parent;
+      var _Editor$parent = Editor.parent(editor, path),
+          _Editor$parent2 = _slicedToArray(_Editor$parent, 1),
+          parent = _Editor$parent2[0];
 
-        height = point.path.length - path.length + 1;
-        at = point;
-        always = true;
-      }
+      match = function match(n) {
+        return n === parent;
+      };
 
-      if (!at) {
-        return;
-      }
+      height = point.path.length - path.length + 1;
+      at = point;
+      always = true;
+    }
 
-      var beforeRef = Editor.pointRef(editor, at, {
-        affinity: 'backward'
-      });
-      var [highest] = Editor.nodes(editor, {
-        at,
-        match,
-        mode,
-        voids
-      });
+    if (!at) {
+      return;
+    }
+
+    var beforeRef = Editor.pointRef(editor, at, {
+      affinity: 'backward'
+    });
+    var afterRef;
+
+    try {
+      var _Editor$nodes = Editor.nodes(editor, {
+        at: at,
+        match: match,
+        mode: mode,
+        voids: voids
+      }),
+          _Editor$nodes2 = _slicedToArray(_Editor$nodes, 1),
+          highest = _Editor$nodes2[0];
 
       if (!highest) {
         return;
       }
 
-      var voidMatch = Editor.void(editor, {
-        at,
+      var voidMatch = Editor["void"](editor, {
+        at: at,
         mode: 'highest'
       });
       var nudge = 0;
 
       if (!voids && voidMatch) {
-        var [voidNode, voidPath] = voidMatch;
+        var _voidMatch = _slicedToArray(voidMatch, 2),
+            voidNode = _voidMatch[0],
+            voidPath = _voidMatch[1];
 
         if (Element.isElement(voidNode) && editor.isInline(voidNode)) {
           var after = Editor.after(editor, voidPath);
@@ -44552,7 +51534,7 @@ var NodeTransforms = {
             var afterPath = Path.next(voidPath);
             Transforms.insertNodes(editor, text, {
               at: afterPath,
-              voids
+              voids: voids
             });
             after = Editor.point(editor, afterPath);
           }
@@ -44566,118 +51548,162 @@ var NodeTransforms = {
         always = true;
       }
 
-      var afterRef = Editor.pointRef(editor, at);
+      afterRef = Editor.pointRef(editor, at);
       var depth = at.path.length - height;
-      var [, highestPath] = highest;
+
+      var _highest = _slicedToArray(highest, 2),
+          highestPath = _highest[1];
+
       var lowestPath = at.path.slice(0, depth);
       var position = height === 0 ? at.offset : at.path[depth] + nudge;
-      var target = null;
 
-      for (var [node, _path2] of Editor.levels(editor, {
+      var _iterator = _createForOfIteratorHelper$2(Editor.levels(editor, {
         at: lowestPath,
         reverse: true,
-        voids
-      })) {
-        var split = false;
+        voids: voids
+      })),
+          _step;
 
-        if (_path2.length < highestPath.length || _path2.length === 0 || !voids && Editor.isVoid(editor, node)) {
-          break;
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var _step$value = _slicedToArray(_step.value, 2),
+              node = _step$value[0],
+              _path = _step$value[1];
+
+          var split = false;
+
+          if (_path.length < highestPath.length || _path.length === 0 || !voids && Element.isElement(node) && Editor.isVoid(editor, node)) {
+            break;
+          }
+
+          var _point2 = beforeRef.current;
+          var isEnd = Editor.isEnd(editor, _point2, _path);
+
+          if (always || !beforeRef || !Editor.isEdge(editor, _point2, _path)) {
+            split = true;
+            var properties = Node.extractProps(node);
+            editor.apply({
+              type: 'split_node',
+              path: _path,
+              position: position,
+              properties: properties
+            });
+          }
+
+          position = _path[_path.length - 1] + (split || isEnd ? 1 : 0);
         }
-
-        var _point = beforeRef.current;
-        var isEnd = Editor.isEnd(editor, _point, _path2);
-
-        if (always || !beforeRef || !Editor.isEdge(editor, _point, _path2)) {
-          split = true;
-
-          var properties = _objectWithoutProperties(node, ["text", "children"]);
-
-          editor.apply({
-            type: 'split_node',
-            path: _path2,
-            position,
-            target,
-            properties
-          });
-        }
-
-        target = position;
-        position = _path2[_path2.length - 1] + (split || isEnd ? 1 : 0);
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
       }
 
       if (options.at == null) {
-        var _point2 = afterRef.current || Editor.end(editor, []);
+        var _point = afterRef.current || Editor.end(editor, []);
 
-        Transforms.select(editor, _point2);
+        Transforms.select(editor, _point);
       }
+    } finally {
+      var _afterRef;
 
       beforeRef.unref();
-      afterRef.unref();
-    });
-  },
-
-  /**
-   * Unset properties on the nodes at a location.
-   */
-  unsetNodes(editor, props) {
-    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-
-    if (!Array.isArray(props)) {
-      props = [props];
+      (_afterRef = afterRef) === null || _afterRef === void 0 ? void 0 : _afterRef.unref();
     }
+  });
+};
 
-    var obj = {};
+function _createForOfIteratorHelper$1(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray$1(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
-    for (var key of props) {
+function _unsupportedIterableToArray$1(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$1(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$1(o, minLen); }
+
+function _arrayLikeToArray$1(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+var unsetNodes = function unsetNodes(editor, props) {
+  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+  if (!Array.isArray(props)) {
+    props = [props];
+  }
+
+  var obj = {};
+
+  var _iterator = _createForOfIteratorHelper$1(props),
+      _step;
+
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var key = _step.value;
       obj[key] = null;
     }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
 
-    Transforms.setNodes(editor, obj, options);
-  },
+  Transforms.setNodes(editor, obj, options);
+};
 
-  /**
-   * Unwrap the nodes at a location from a parent node, splitting the parent if
-   * necessary to ensure that only the content in the range is unwrapped.
-   */
-  unwrapNodes(editor, options) {
-    Editor.withoutNormalizing(editor, () => {
-      var {
-        mode = 'lowest',
-        split = false,
-        voids = false
-      } = options;
-      var {
-        at = editor.selection,
-        match
-      } = options;
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
-      if (!at) {
-        return;
-      }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
-      if (match == null) {
-        match = Path.isPath(at) ? matchPath(editor, at) : n => Editor.isBlock(editor, n);
-      }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+var unwrapNodes = function unwrapNodes(editor) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  Editor.withoutNormalizing(editor, function () {
+    var _options$mode = options.mode,
+        mode = _options$mode === void 0 ? 'lowest' : _options$mode,
+        _options$split = options.split,
+        split = _options$split === void 0 ? false : _options$split,
+        _options$voids = options.voids,
+        voids = _options$voids === void 0 ? false : _options$voids;
+    var _options$at = options.at,
+        at = _options$at === void 0 ? editor.selection : _options$at,
+        match = options.match;
 
-      if (Path.isPath(at)) {
-        at = Editor.range(editor, at);
-      }
+    if (!at) {
+      return;
+    }
 
-      var rangeRef = Range.isRange(at) ? Editor.rangeRef(editor, at) : null;
-      var matches = Editor.nodes(editor, {
-        at,
-        match,
-        mode,
-        voids
-      });
-      var pathRefs = Array.from(matches, (_ref5) => {
-        var [, p] = _ref5;
-        return Editor.pathRef(editor, p);
-      });
+    if (match == null) {
+      match = Path.isPath(at) ? matchPath(editor, at) : function (n) {
+        return Element.isElement(n) && Editor.isBlock(editor, n);
+      };
+    }
 
-      var _loop = function _loop(pathRef) {
+    if (Path.isPath(at)) {
+      at = Editor.range(editor, at);
+    }
+
+    var rangeRef = Range.isRange(at) ? Editor.rangeRef(editor, at) : null;
+    var matches = Editor.nodes(editor, {
+      at: at,
+      match: match,
+      mode: mode,
+      voids: voids
+    });
+    var pathRefs = Array.from(matches, function (_ref) {
+      var _ref2 = _slicedToArray(_ref, 2),
+          p = _ref2[1];
+
+      return Editor.pathRef(editor, p);
+    } // unwrapNode will call liftNode which does not support splitting the node when nested.
+    // If we do not reverse the order and call it from top to the bottom, it will remove all blocks
+    // that wrap target node. So we reverse the order.
+    ).reverse();
+
+    var _iterator = _createForOfIteratorHelper(pathRefs),
+        _step;
+
+    try {
+      var _loop = function _loop() {
+        var pathRef = _step.value;
         var path = pathRef.unref();
-        var [node] = Editor.node(editor, path);
+
+        var _Editor$node = Editor.node(editor, path),
+            _Editor$node2 = _slicedToArray(_Editor$node, 1),
+            node = _Editor$node2[0];
+
         var range = Editor.range(editor, path);
 
         if (split && rangeRef) {
@@ -44686,811 +51712,732 @@ var NodeTransforms = {
 
         Transforms.liftNodes(editor, {
           at: range,
-          match: n => node.children.includes(n),
-          voids
+          match: function match(n) {
+            return Element.isAncestor(node) && node.children.includes(n);
+          },
+          voids: voids
         });
       };
 
-      for (var pathRef of pathRefs) {
-        _loop(pathRef);
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        _loop();
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    if (rangeRef) {
+      rangeRef.unref();
+    }
+  });
+};
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+var wrapNodes = function wrapNodes(editor, element) {
+  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  Editor.withoutNormalizing(editor, function () {
+    var _options$mode = options.mode,
+        mode = _options$mode === void 0 ? 'lowest' : _options$mode,
+        _options$split = options.split,
+        split = _options$split === void 0 ? false : _options$split,
+        _options$voids = options.voids,
+        voids = _options$voids === void 0 ? false : _options$voids;
+    var match = options.match,
+        _options$at = options.at,
+        at = _options$at === void 0 ? editor.selection : _options$at;
+
+    if (!at) {
+      return;
+    }
+
+    if (match == null) {
+      if (Path.isPath(at)) {
+        match = matchPath(editor, at);
+      } else if (editor.isInline(element)) {
+        match = function match(n) {
+          return Element.isElement(n) && Editor.isInline(editor, n) || Text.isText(n);
+        };
+      } else {
+        match = function match(n) {
+          return Element.isElement(n) && Editor.isBlock(editor, n);
+        };
+      }
+    }
+
+    if (split && Range.isRange(at)) {
+      var _Range$edges = Range.edges(at),
+          _Range$edges2 = _slicedToArray(_Range$edges, 2),
+          start = _Range$edges2[0],
+          end = _Range$edges2[1];
+
+      var rangeRef = Editor.rangeRef(editor, at, {
+        affinity: 'inward'
+      });
+      Transforms.splitNodes(editor, {
+        at: end,
+        match: match,
+        voids: voids
+      });
+      Transforms.splitNodes(editor, {
+        at: start,
+        match: match,
+        voids: voids
+      });
+      at = rangeRef.unref();
+
+      if (options.at == null) {
+        Transforms.select(editor, at);
+      }
+    }
+
+    var roots = Array.from(Editor.nodes(editor, {
+      at: at,
+      match: editor.isInline(element) ? function (n) {
+        return Element.isElement(n) && Editor.isBlock(editor, n);
+      } : function (n) {
+        return Editor.isEditor(n);
+      },
+      mode: 'lowest',
+      voids: voids
+    }));
+
+    for (var _i = 0, _roots = roots; _i < _roots.length; _i++) {
+      var _roots$_i = _slicedToArray(_roots[_i], 2),
+          rootPath = _roots$_i[1];
+
+      var a = Range.isRange(at) ? Range.intersection(at, Editor.range(editor, rootPath)) : at;
+
+      if (!a) {
+        continue;
       }
 
-      if (rangeRef) {
-        rangeRef.unref();
-      }
-    });
-  },
-
-  /**
-   * Wrap the nodes at a location in a new container node, splitting the edges
-   * of the range first to ensure that only the content in the range is wrapped.
-   */
-  wrapNodes(editor, element) {
-    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-    Editor.withoutNormalizing(editor, () => {
-      var {
-        mode = 'lowest',
-        split = false,
-        voids = false
-      } = options;
-      var {
-        match,
-        at = editor.selection
-      } = options;
-
-      if (!at) {
-        return;
-      }
-
-      if (match == null) {
-        if (Path.isPath(at)) {
-          match = matchPath(editor, at);
-        } else if (editor.isInline(element)) {
-          match = n => Editor.isInline(editor, n) || Text.isText(n);
-        } else {
-          match = n => Editor.isBlock(editor, n);
-        }
-      }
-
-      if (split && Range.isRange(at)) {
-        var [start, end] = Range.edges(at);
-        var rangeRef = Editor.rangeRef(editor, at, {
-          affinity: 'inward'
-        });
-        Transforms.splitNodes(editor, {
-          at: end,
-          match,
-          voids
-        });
-        Transforms.splitNodes(editor, {
-          at: start,
-          match,
-          voids
-        });
-        at = rangeRef.unref();
-
-        if (options.at == null) {
-          Transforms.select(editor, at);
-        }
-      }
-
-      var roots = Array.from(Editor.nodes(editor, {
-        at,
-        match: editor.isInline(element) ? n => Editor.isBlock(editor, n) : n => Editor.isEditor(n),
-        mode: 'highest',
-        voids
+      var matches = Array.from(Editor.nodes(editor, {
+        at: a,
+        match: match,
+        mode: mode,
+        voids: voids
       }));
 
-      for (var [, rootPath] of roots) {
-        var a = Range.isRange(at) ? Range.intersection(at, Editor.range(editor, rootPath)) : at;
+      if (matches.length > 0) {
+        var _ret = function () {
+          var _matches = _slicedToArray(matches, 1),
+              first = _matches[0];
 
-        if (!a) {
-          continue;
-        }
+          var last = matches[matches.length - 1];
 
-        var matches = Array.from(Editor.nodes(editor, {
-          at: a,
-          match,
-          mode,
-          voids
-        }));
+          var _first = _slicedToArray(first, 2),
+              firstPath = _first[1];
 
-        if (matches.length > 0) {
-          (function () {
-            var [first] = matches;
-            var last = matches[matches.length - 1];
-            var [, firstPath] = first;
-            var [, lastPath] = last;
-            var commonPath = Path.equals(firstPath, lastPath) ? Path.parent(firstPath) : Path.common(firstPath, lastPath);
-            var range = Editor.range(editor, firstPath, lastPath);
-            var [commonNode] = Editor.node(editor, commonPath);
-            var depth = commonPath.length + 1;
-            var wrapperPath = Path.next(lastPath.slice(0, depth));
+          var _last = _slicedToArray(last, 2),
+              lastPath = _last[1];
 
-            var wrapper = _objectSpread$7({}, element, {
-              children: []
-            });
+          if (firstPath.length === 0 && lastPath.length === 0) {
+            // if there's no matching parent - usually means the node is an editor - don't do anything
+            return "continue";
+          }
 
-            Transforms.insertNodes(editor, wrapper, {
-              at: wrapperPath,
-              voids
-            });
-            Transforms.moveNodes(editor, {
-              at: range,
-              match: n => commonNode.children.includes(n),
-              to: wrapperPath.concat(0),
-              voids
-            });
-          })();
-        }
+          var commonPath = Path.equals(firstPath, lastPath) ? Path.parent(firstPath) : Path.common(firstPath, lastPath);
+          var range = Editor.range(editor, firstPath, lastPath);
+          var commonNodeEntry = Editor.node(editor, commonPath);
+
+          var _commonNodeEntry = _slicedToArray(commonNodeEntry, 1),
+              commonNode = _commonNodeEntry[0];
+
+          var depth = commonPath.length + 1;
+          var wrapperPath = Path.next(lastPath.slice(0, depth));
+
+          var wrapper = _objectSpread(_objectSpread({}, element), {}, {
+            children: []
+          });
+
+          Transforms.insertNodes(editor, wrapper, {
+            at: wrapperPath,
+            voids: voids
+          });
+          Transforms.moveNodes(editor, {
+            at: range,
+            match: function match(n) {
+              return Element.isAncestor(commonNode) && commonNode.children.includes(n);
+            },
+            to: wrapperPath.concat(0),
+            voids: voids
+          });
+        }();
+
+        if (_ret === "continue") continue;
       }
-    });
-  }
-
+    }
+  });
 };
+
 /**
- * Convert a range into a point by deleting it's content.
+ * Create a new Slate `Editor` object.
  */
 
-var deleteRange = (editor, range) => {
-  if (Range.isCollapsed(range)) {
-    return range.anchor;
-  } else {
-    var [, end] = Range.edges(range);
-    var pointRef = Editor.pointRef(editor, end);
-    Transforms.delete(editor, {
-      at: range
-    });
-    return pointRef.unref();
-  }
+var createEditor = function createEditor() {
+  var editor = {
+    children: [],
+    operations: [],
+    selection: null,
+    marks: null,
+    isElementReadOnly: function isElementReadOnly() {
+      return false;
+    },
+    isInline: function isInline() {
+      return false;
+    },
+    isSelectable: function isSelectable() {
+      return true;
+    },
+    isVoid: function isVoid() {
+      return false;
+    },
+    markableVoid: function markableVoid() {
+      return false;
+    },
+    onChange: function onChange() {},
+    // Core
+    apply: function apply$1() {
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return apply.apply(void 0, [editor].concat(args));
+    },
+    // Editor
+    addMark: function addMark$1() {
+      for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        args[_key2] = arguments[_key2];
+      }
+
+      return addMark.apply(void 0, [editor].concat(args));
+    },
+    deleteBackward: function deleteBackward$1() {
+      for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+        args[_key3] = arguments[_key3];
+      }
+
+      return deleteBackward.apply(void 0, [editor].concat(args));
+    },
+    deleteForward: function deleteForward$1() {
+      for (var _len4 = arguments.length, args = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
+        args[_key4] = arguments[_key4];
+      }
+
+      return deleteForward.apply(void 0, [editor].concat(args));
+    },
+    deleteFragment: function deleteFragment$1() {
+      for (var _len5 = arguments.length, args = new Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
+        args[_key5] = arguments[_key5];
+      }
+
+      return deleteFragment.apply(void 0, [editor].concat(args));
+    },
+    getFragment: function getFragment$1() {
+      for (var _len6 = arguments.length, args = new Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {
+        args[_key6] = arguments[_key6];
+      }
+
+      return getFragment.apply(void 0, [editor].concat(args));
+    },
+    insertBreak: function insertBreak$1() {
+      for (var _len7 = arguments.length, args = new Array(_len7), _key7 = 0; _key7 < _len7; _key7++) {
+        args[_key7] = arguments[_key7];
+      }
+
+      return insertBreak.apply(void 0, [editor].concat(args));
+    },
+    insertSoftBreak: function insertSoftBreak$1() {
+      for (var _len8 = arguments.length, args = new Array(_len8), _key8 = 0; _key8 < _len8; _key8++) {
+        args[_key8] = arguments[_key8];
+      }
+
+      return insertSoftBreak.apply(void 0, [editor].concat(args));
+    },
+    insertFragment: function insertFragment$1() {
+      for (var _len9 = arguments.length, args = new Array(_len9), _key9 = 0; _key9 < _len9; _key9++) {
+        args[_key9] = arguments[_key9];
+      }
+
+      return insertFragment.apply(void 0, [editor].concat(args));
+    },
+    insertNode: function insertNode$1() {
+      for (var _len10 = arguments.length, args = new Array(_len10), _key10 = 0; _key10 < _len10; _key10++) {
+        args[_key10] = arguments[_key10];
+      }
+
+      return insertNode.apply(void 0, [editor].concat(args));
+    },
+    insertText: function insertText$1() {
+      for (var _len11 = arguments.length, args = new Array(_len11), _key11 = 0; _key11 < _len11; _key11++) {
+        args[_key11] = arguments[_key11];
+      }
+
+      return insertText.apply(void 0, [editor].concat(args));
+    },
+    normalizeNode: function normalizeNode$1() {
+      for (var _len12 = arguments.length, args = new Array(_len12), _key12 = 0; _key12 < _len12; _key12++) {
+        args[_key12] = arguments[_key12];
+      }
+
+      return normalizeNode.apply(void 0, [editor].concat(args));
+    },
+    removeMark: function removeMark$1() {
+      for (var _len13 = arguments.length, args = new Array(_len13), _key13 = 0; _key13 < _len13; _key13++) {
+        args[_key13] = arguments[_key13];
+      }
+
+      return removeMark.apply(void 0, [editor].concat(args));
+    },
+    getDirtyPaths: function getDirtyPaths$1() {
+      for (var _len14 = arguments.length, args = new Array(_len14), _key14 = 0; _key14 < _len14; _key14++) {
+        args[_key14] = arguments[_key14];
+      }
+
+      return getDirtyPaths.apply(void 0, [editor].concat(args));
+    },
+    shouldNormalize: function shouldNormalize$1() {
+      for (var _len15 = arguments.length, args = new Array(_len15), _key15 = 0; _key15 < _len15; _key15++) {
+        args[_key15] = arguments[_key15];
+      }
+
+      return shouldNormalize.apply(void 0, [editor].concat(args));
+    },
+    // Editor interface
+    above: function above$1() {
+      for (var _len16 = arguments.length, args = new Array(_len16), _key16 = 0; _key16 < _len16; _key16++) {
+        args[_key16] = arguments[_key16];
+      }
+
+      return above.apply(void 0, [editor].concat(args));
+    },
+    after: function after$1() {
+      for (var _len17 = arguments.length, args = new Array(_len17), _key17 = 0; _key17 < _len17; _key17++) {
+        args[_key17] = arguments[_key17];
+      }
+
+      return after.apply(void 0, [editor].concat(args));
+    },
+    before: function before$1() {
+      for (var _len18 = arguments.length, args = new Array(_len18), _key18 = 0; _key18 < _len18; _key18++) {
+        args[_key18] = arguments[_key18];
+      }
+
+      return before.apply(void 0, [editor].concat(args));
+    },
+    collapse: function collapse$1() {
+      for (var _len19 = arguments.length, args = new Array(_len19), _key19 = 0; _key19 < _len19; _key19++) {
+        args[_key19] = arguments[_key19];
+      }
+
+      return collapse.apply(void 0, [editor].concat(args));
+    },
+    "delete": function _delete() {
+      for (var _len20 = arguments.length, args = new Array(_len20), _key20 = 0; _key20 < _len20; _key20++) {
+        args[_key20] = arguments[_key20];
+      }
+
+      return deleteText.apply(void 0, [editor].concat(args));
+    },
+    deselect: function deselect$1() {
+      for (var _len21 = arguments.length, args = new Array(_len21), _key21 = 0; _key21 < _len21; _key21++) {
+        args[_key21] = arguments[_key21];
+      }
+
+      return deselect.apply(void 0, [editor].concat(args));
+    },
+    edges: function edges$1() {
+      for (var _len22 = arguments.length, args = new Array(_len22), _key22 = 0; _key22 < _len22; _key22++) {
+        args[_key22] = arguments[_key22];
+      }
+
+      return edges.apply(void 0, [editor].concat(args));
+    },
+    elementReadOnly: function elementReadOnly$1() {
+      for (var _len23 = arguments.length, args = new Array(_len23), _key23 = 0; _key23 < _len23; _key23++) {
+        args[_key23] = arguments[_key23];
+      }
+
+      return elementReadOnly.apply(void 0, [editor].concat(args));
+    },
+    end: function end$1() {
+      for (var _len24 = arguments.length, args = new Array(_len24), _key24 = 0; _key24 < _len24; _key24++) {
+        args[_key24] = arguments[_key24];
+      }
+
+      return end.apply(void 0, [editor].concat(args));
+    },
+    first: function first$1() {
+      for (var _len25 = arguments.length, args = new Array(_len25), _key25 = 0; _key25 < _len25; _key25++) {
+        args[_key25] = arguments[_key25];
+      }
+
+      return first.apply(void 0, [editor].concat(args));
+    },
+    fragment: function fragment$1() {
+      for (var _len26 = arguments.length, args = new Array(_len26), _key26 = 0; _key26 < _len26; _key26++) {
+        args[_key26] = arguments[_key26];
+      }
+
+      return fragment.apply(void 0, [editor].concat(args));
+    },
+    getMarks: function getMarks() {
+      for (var _len27 = arguments.length, args = new Array(_len27), _key27 = 0; _key27 < _len27; _key27++) {
+        args[_key27] = arguments[_key27];
+      }
+
+      return marks.apply(void 0, [editor].concat(args));
+    },
+    hasBlocks: function hasBlocks$1() {
+      for (var _len28 = arguments.length, args = new Array(_len28), _key28 = 0; _key28 < _len28; _key28++) {
+        args[_key28] = arguments[_key28];
+      }
+
+      return hasBlocks.apply(void 0, [editor].concat(args));
+    },
+    hasInlines: function hasInlines$1() {
+      for (var _len29 = arguments.length, args = new Array(_len29), _key29 = 0; _key29 < _len29; _key29++) {
+        args[_key29] = arguments[_key29];
+      }
+
+      return hasInlines.apply(void 0, [editor].concat(args));
+    },
+    hasPath: function hasPath$1() {
+      for (var _len30 = arguments.length, args = new Array(_len30), _key30 = 0; _key30 < _len30; _key30++) {
+        args[_key30] = arguments[_key30];
+      }
+
+      return hasPath.apply(void 0, [editor].concat(args));
+    },
+    hasTexts: function hasTexts$1() {
+      for (var _len31 = arguments.length, args = new Array(_len31), _key31 = 0; _key31 < _len31; _key31++) {
+        args[_key31] = arguments[_key31];
+      }
+
+      return hasTexts.apply(void 0, [editor].concat(args));
+    },
+    insertNodes: function insertNodes$1() {
+      for (var _len32 = arguments.length, args = new Array(_len32), _key32 = 0; _key32 < _len32; _key32++) {
+        args[_key32] = arguments[_key32];
+      }
+
+      return insertNodes.apply(void 0, [editor].concat(args));
+    },
+    isBlock: function isBlock$1() {
+      for (var _len33 = arguments.length, args = new Array(_len33), _key33 = 0; _key33 < _len33; _key33++) {
+        args[_key33] = arguments[_key33];
+      }
+
+      return isBlock.apply(void 0, [editor].concat(args));
+    },
+    isEdge: function isEdge$1() {
+      for (var _len34 = arguments.length, args = new Array(_len34), _key34 = 0; _key34 < _len34; _key34++) {
+        args[_key34] = arguments[_key34];
+      }
+
+      return isEdge.apply(void 0, [editor].concat(args));
+    },
+    isEmpty: function isEmpty$1() {
+      for (var _len35 = arguments.length, args = new Array(_len35), _key35 = 0; _key35 < _len35; _key35++) {
+        args[_key35] = arguments[_key35];
+      }
+
+      return isEmpty.apply(void 0, [editor].concat(args));
+    },
+    isEnd: function isEnd$1() {
+      for (var _len36 = arguments.length, args = new Array(_len36), _key36 = 0; _key36 < _len36; _key36++) {
+        args[_key36] = arguments[_key36];
+      }
+
+      return isEnd.apply(void 0, [editor].concat(args));
+    },
+    isNormalizing: function isNormalizing$1() {
+      for (var _len37 = arguments.length, args = new Array(_len37), _key37 = 0; _key37 < _len37; _key37++) {
+        args[_key37] = arguments[_key37];
+      }
+
+      return isNormalizing.apply(void 0, [editor].concat(args));
+    },
+    isStart: function isStart$1() {
+      for (var _len38 = arguments.length, args = new Array(_len38), _key38 = 0; _key38 < _len38; _key38++) {
+        args[_key38] = arguments[_key38];
+      }
+
+      return isStart.apply(void 0, [editor].concat(args));
+    },
+    last: function last$1() {
+      for (var _len39 = arguments.length, args = new Array(_len39), _key39 = 0; _key39 < _len39; _key39++) {
+        args[_key39] = arguments[_key39];
+      }
+
+      return last.apply(void 0, [editor].concat(args));
+    },
+    leaf: function leaf$1() {
+      for (var _len40 = arguments.length, args = new Array(_len40), _key40 = 0; _key40 < _len40; _key40++) {
+        args[_key40] = arguments[_key40];
+      }
+
+      return leaf.apply(void 0, [editor].concat(args));
+    },
+    levels: function levels$1() {
+      for (var _len41 = arguments.length, args = new Array(_len41), _key41 = 0; _key41 < _len41; _key41++) {
+        args[_key41] = arguments[_key41];
+      }
+
+      return levels.apply(void 0, [editor].concat(args));
+    },
+    liftNodes: function liftNodes$1() {
+      for (var _len42 = arguments.length, args = new Array(_len42), _key42 = 0; _key42 < _len42; _key42++) {
+        args[_key42] = arguments[_key42];
+      }
+
+      return liftNodes.apply(void 0, [editor].concat(args));
+    },
+    mergeNodes: function mergeNodes$1() {
+      for (var _len43 = arguments.length, args = new Array(_len43), _key43 = 0; _key43 < _len43; _key43++) {
+        args[_key43] = arguments[_key43];
+      }
+
+      return mergeNodes.apply(void 0, [editor].concat(args));
+    },
+    move: function move$1() {
+      for (var _len44 = arguments.length, args = new Array(_len44), _key44 = 0; _key44 < _len44; _key44++) {
+        args[_key44] = arguments[_key44];
+      }
+
+      return move.apply(void 0, [editor].concat(args));
+    },
+    moveNodes: function moveNodes$1() {
+      for (var _len45 = arguments.length, args = new Array(_len45), _key45 = 0; _key45 < _len45; _key45++) {
+        args[_key45] = arguments[_key45];
+      }
+
+      return moveNodes.apply(void 0, [editor].concat(args));
+    },
+    next: function next$1() {
+      for (var _len46 = arguments.length, args = new Array(_len46), _key46 = 0; _key46 < _len46; _key46++) {
+        args[_key46] = arguments[_key46];
+      }
+
+      return next.apply(void 0, [editor].concat(args));
+    },
+    node: function node$1() {
+      for (var _len47 = arguments.length, args = new Array(_len47), _key47 = 0; _key47 < _len47; _key47++) {
+        args[_key47] = arguments[_key47];
+      }
+
+      return node.apply(void 0, [editor].concat(args));
+    },
+    nodes: function nodes$1() {
+      for (var _len48 = arguments.length, args = new Array(_len48), _key48 = 0; _key48 < _len48; _key48++) {
+        args[_key48] = arguments[_key48];
+      }
+
+      return nodes.apply(void 0, [editor].concat(args));
+    },
+    normalize: function normalize$1() {
+      for (var _len49 = arguments.length, args = new Array(_len49), _key49 = 0; _key49 < _len49; _key49++) {
+        args[_key49] = arguments[_key49];
+      }
+
+      return normalize.apply(void 0, [editor].concat(args));
+    },
+    parent: function parent$1() {
+      for (var _len50 = arguments.length, args = new Array(_len50), _key50 = 0; _key50 < _len50; _key50++) {
+        args[_key50] = arguments[_key50];
+      }
+
+      return parent.apply(void 0, [editor].concat(args));
+    },
+    path: function path$1() {
+      for (var _len51 = arguments.length, args = new Array(_len51), _key51 = 0; _key51 < _len51; _key51++) {
+        args[_key51] = arguments[_key51];
+      }
+
+      return path.apply(void 0, [editor].concat(args));
+    },
+    pathRef: function pathRef$1() {
+      for (var _len52 = arguments.length, args = new Array(_len52), _key52 = 0; _key52 < _len52; _key52++) {
+        args[_key52] = arguments[_key52];
+      }
+
+      return pathRef.apply(void 0, [editor].concat(args));
+    },
+    pathRefs: function pathRefs$1() {
+      for (var _len53 = arguments.length, args = new Array(_len53), _key53 = 0; _key53 < _len53; _key53++) {
+        args[_key53] = arguments[_key53];
+      }
+
+      return pathRefs.apply(void 0, [editor].concat(args));
+    },
+    point: function point$1() {
+      for (var _len54 = arguments.length, args = new Array(_len54), _key54 = 0; _key54 < _len54; _key54++) {
+        args[_key54] = arguments[_key54];
+      }
+
+      return point.apply(void 0, [editor].concat(args));
+    },
+    pointRef: function pointRef$1() {
+      for (var _len55 = arguments.length, args = new Array(_len55), _key55 = 0; _key55 < _len55; _key55++) {
+        args[_key55] = arguments[_key55];
+      }
+
+      return pointRef.apply(void 0, [editor].concat(args));
+    },
+    pointRefs: function pointRefs$1() {
+      for (var _len56 = arguments.length, args = new Array(_len56), _key56 = 0; _key56 < _len56; _key56++) {
+        args[_key56] = arguments[_key56];
+      }
+
+      return pointRefs.apply(void 0, [editor].concat(args));
+    },
+    positions: function positions$1() {
+      for (var _len57 = arguments.length, args = new Array(_len57), _key57 = 0; _key57 < _len57; _key57++) {
+        args[_key57] = arguments[_key57];
+      }
+
+      return positions.apply(void 0, [editor].concat(args));
+    },
+    previous: function previous$1() {
+      for (var _len58 = arguments.length, args = new Array(_len58), _key58 = 0; _key58 < _len58; _key58++) {
+        args[_key58] = arguments[_key58];
+      }
+
+      return previous.apply(void 0, [editor].concat(args));
+    },
+    range: function range$1() {
+      for (var _len59 = arguments.length, args = new Array(_len59), _key59 = 0; _key59 < _len59; _key59++) {
+        args[_key59] = arguments[_key59];
+      }
+
+      return range.apply(void 0, [editor].concat(args));
+    },
+    rangeRef: function rangeRef$1() {
+      for (var _len60 = arguments.length, args = new Array(_len60), _key60 = 0; _key60 < _len60; _key60++) {
+        args[_key60] = arguments[_key60];
+      }
+
+      return rangeRef.apply(void 0, [editor].concat(args));
+    },
+    rangeRefs: function rangeRefs$1() {
+      for (var _len61 = arguments.length, args = new Array(_len61), _key61 = 0; _key61 < _len61; _key61++) {
+        args[_key61] = arguments[_key61];
+      }
+
+      return rangeRefs.apply(void 0, [editor].concat(args));
+    },
+    removeNodes: function removeNodes$1() {
+      for (var _len62 = arguments.length, args = new Array(_len62), _key62 = 0; _key62 < _len62; _key62++) {
+        args[_key62] = arguments[_key62];
+      }
+
+      return removeNodes.apply(void 0, [editor].concat(args));
+    },
+    select: function select$1() {
+      for (var _len63 = arguments.length, args = new Array(_len63), _key63 = 0; _key63 < _len63; _key63++) {
+        args[_key63] = arguments[_key63];
+      }
+
+      return select.apply(void 0, [editor].concat(args));
+    },
+    setNodes: function setNodes$1() {
+      for (var _len64 = arguments.length, args = new Array(_len64), _key64 = 0; _key64 < _len64; _key64++) {
+        args[_key64] = arguments[_key64];
+      }
+
+      return setNodes.apply(void 0, [editor].concat(args));
+    },
+    setNormalizing: function setNormalizing$1() {
+      for (var _len65 = arguments.length, args = new Array(_len65), _key65 = 0; _key65 < _len65; _key65++) {
+        args[_key65] = arguments[_key65];
+      }
+
+      return setNormalizing.apply(void 0, [editor].concat(args));
+    },
+    setPoint: function setPoint$1() {
+      for (var _len66 = arguments.length, args = new Array(_len66), _key66 = 0; _key66 < _len66; _key66++) {
+        args[_key66] = arguments[_key66];
+      }
+
+      return setPoint.apply(void 0, [editor].concat(args));
+    },
+    setSelection: function setSelection$1() {
+      for (var _len67 = arguments.length, args = new Array(_len67), _key67 = 0; _key67 < _len67; _key67++) {
+        args[_key67] = arguments[_key67];
+      }
+
+      return setSelection.apply(void 0, [editor].concat(args));
+    },
+    splitNodes: function splitNodes$1() {
+      for (var _len68 = arguments.length, args = new Array(_len68), _key68 = 0; _key68 < _len68; _key68++) {
+        args[_key68] = arguments[_key68];
+      }
+
+      return splitNodes.apply(void 0, [editor].concat(args));
+    },
+    start: function start$1() {
+      for (var _len69 = arguments.length, args = new Array(_len69), _key69 = 0; _key69 < _len69; _key69++) {
+        args[_key69] = arguments[_key69];
+      }
+
+      return start.apply(void 0, [editor].concat(args));
+    },
+    string: function string$1() {
+      for (var _len70 = arguments.length, args = new Array(_len70), _key70 = 0; _key70 < _len70; _key70++) {
+        args[_key70] = arguments[_key70];
+      }
+
+      return string.apply(void 0, [editor].concat(args));
+    },
+    unhangRange: function unhangRange$1() {
+      for (var _len71 = arguments.length, args = new Array(_len71), _key71 = 0; _key71 < _len71; _key71++) {
+        args[_key71] = arguments[_key71];
+      }
+
+      return unhangRange.apply(void 0, [editor].concat(args));
+    },
+    unsetNodes: function unsetNodes$1() {
+      for (var _len72 = arguments.length, args = new Array(_len72), _key72 = 0; _key72 < _len72; _key72++) {
+        args[_key72] = arguments[_key72];
+      }
+
+      return unsetNodes.apply(void 0, [editor].concat(args));
+    },
+    unwrapNodes: function unwrapNodes$1() {
+      for (var _len73 = arguments.length, args = new Array(_len73), _key73 = 0; _key73 < _len73; _key73++) {
+        args[_key73] = arguments[_key73];
+      }
+
+      return unwrapNodes.apply(void 0, [editor].concat(args));
+    },
+    "void": function _void() {
+      for (var _len74 = arguments.length, args = new Array(_len74), _key74 = 0; _key74 < _len74; _key74++) {
+        args[_key74] = arguments[_key74];
+      }
+
+      return getVoid.apply(void 0, [editor].concat(args));
+    },
+    withoutNormalizing: function withoutNormalizing$1() {
+      for (var _len75 = arguments.length, args = new Array(_len75), _key75 = 0; _key75 < _len75; _key75++) {
+        args[_key75] = arguments[_key75];
+      }
+
+      return withoutNormalizing.apply(void 0, [editor].concat(args));
+    },
+    wrapNodes: function wrapNodes$1() {
+      for (var _len76 = arguments.length, args = new Array(_len76), _key76 = 0; _key76 < _len76; _key76++) {
+        args[_key76] = arguments[_key76];
+      }
+
+      return wrapNodes.apply(void 0, [editor].concat(args));
+    }
+  };
+  return editor;
 };
-
-var matchPath = (editor, path) => {
-  var [node] = Editor.node(editor, path);
-  return n => n === node;
-};
-
-var SelectionTransforms = {
-  /**
-   * Collapse the selection.
-   */
-  collapse(editor) {
-    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    var {
-      edge = 'anchor'
-    } = options;
-    var {
-      selection
-    } = editor;
-
-    if (!selection) {
-      return;
-    } else if (edge === 'anchor') {
-      Transforms.select(editor, selection.anchor);
-    } else if (edge === 'focus') {
-      Transforms.select(editor, selection.focus);
-    } else if (edge === 'start') {
-      var [start] = Range.edges(selection);
-      Transforms.select(editor, start);
-    } else if (edge === 'end') {
-      var [, end] = Range.edges(selection);
-      Transforms.select(editor, end);
-    }
-  },
-
-  /**
-   * Unset the selection.
-   */
-  deselect(editor) {
-    var {
-      selection
-    } = editor;
-
-    if (selection) {
-      editor.apply({
-        type: 'set_selection',
-        properties: selection,
-        newProperties: null
-      });
-    }
-  },
-
-  /**
-   * Move the selection's point forward or backward.
-   */
-  move(editor) {
-    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    var {
-      selection
-    } = editor;
-    var {
-      distance = 1,
-      unit = 'character',
-      reverse = false
-    } = options;
-    var {
-      edge = null
-    } = options;
-
-    if (!selection) {
-      return;
-    }
-
-    if (edge === 'start') {
-      edge = Range.isBackward(selection) ? 'focus' : 'anchor';
-    }
-
-    if (edge === 'end') {
-      edge = Range.isBackward(selection) ? 'anchor' : 'focus';
-    }
-
-    var {
-      anchor,
-      focus
-    } = selection;
-    var opts = {
-      distance,
-      unit
-    };
-    var props = {};
-
-    if (edge == null || edge === 'anchor') {
-      var point = reverse ? Editor.before(editor, anchor, opts) : Editor.after(editor, anchor, opts);
-
-      if (point) {
-        props.anchor = point;
-      }
-    }
-
-    if (edge == null || edge === 'focus') {
-      var _point = reverse ? Editor.before(editor, focus, opts) : Editor.after(editor, focus, opts);
-
-      if (_point) {
-        props.focus = _point;
-      }
-    }
-
-    Transforms.setSelection(editor, props);
-  },
-
-  /**
-   * Set the selection to a new value.
-   */
-  select(editor, target) {
-    var {
-      selection
-    } = editor;
-    target = Editor.range(editor, target);
-
-    if (selection) {
-      Transforms.setSelection(editor, target);
-      return;
-    }
-
-    if (!Range.isRange(target)) {
-      throw new Error("When setting the selection and the current selection is `null` you must provide at least an `anchor` and `focus`, but you passed: ".concat(JSON.stringify(target)));
-    }
-
-    editor.apply({
-      type: 'set_selection',
-      properties: selection,
-      newProperties: target
-    });
-  },
-
-  /**
-   * Set new properties on one of the selection's points.
-   */
-  setPoint(editor, props, options) {
-    var {
-      selection
-    } = editor;
-    var {
-      edge = 'both'
-    } = options;
-
-    if (!selection) {
-      return;
-    }
-
-    if (edge === 'start') {
-      edge = Range.isBackward(selection) ? 'focus' : 'anchor';
-    }
-
-    if (edge === 'end') {
-      edge = Range.isBackward(selection) ? 'anchor' : 'focus';
-    }
-
-    var {
-      anchor,
-      focus
-    } = selection;
-    var point = edge === 'anchor' ? anchor : focus;
-    var newPoint = Object.assign(point, props);
-
-    if (edge === 'anchor') {
-      Transforms.setSelection(editor, {
-        anchor: newPoint
-      });
-    } else {
-      Transforms.setSelection(editor, {
-        focus: newPoint
-      });
-    }
-  },
-
-  /**
-   * Set new properties on the selection.
-   */
-  setSelection(editor, props) {
-    var {
-      selection
-    } = editor;
-    var oldProps = {};
-    var newProps = {};
-
-    if (!selection) {
-      return;
-    }
-
-    for (var k in props) {
-      if (k === 'anchor' && props.anchor != null && !Point.equals(props.anchor, selection.anchor) || k === 'focus' && props.focus != null && !Point.equals(props.focus, selection.focus) || k !== 'anchor' && k !== 'focus' && props[k] !== selection[k]) {
-        oldProps[k] = selection[k];
-        newProps[k] = props[k];
-      }
-    }
-
-    if (Object.keys(oldProps).length > 0) {
-      editor.apply({
-        type: 'set_selection',
-        properties: oldProps,
-        newProperties: newProps
-      });
-    }
-  }
-
-};
-
-var TextTransforms = {
-  /**
-   * Delete content in the editor.
-   */
-  delete(editor) {
-    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    Editor.withoutNormalizing(editor, () => {
-      var {
-        reverse = false,
-        unit = 'character',
-        distance = 1,
-        voids = false
-      } = options;
-      var {
-        at = editor.selection,
-        hanging = false
-      } = options;
-
-      if (!at) {
-        return;
-      }
-
-      if (Range.isRange(at) && Range.isCollapsed(at)) {
-        at = at.anchor;
-      }
-
-      if (Point.isPoint(at)) {
-        var furthestVoid = Editor.void(editor, {
-          at,
-          mode: 'highest'
-        });
-
-        if (!voids && furthestVoid) {
-          var [, voidPath] = furthestVoid;
-          at = voidPath;
-        } else {
-          var opts = {
-            unit,
-            distance
-          };
-          var target = reverse ? Editor.before(editor, at, opts) || Editor.start(editor, []) : Editor.after(editor, at, opts) || Editor.end(editor, []);
-          at = {
-            anchor: at,
-            focus: target
-          };
-          hanging = true;
-        }
-      }
-
-      if (Path.isPath(at)) {
-        Transforms.removeNodes(editor, {
-          at,
-          voids
-        });
-        return;
-      }
-
-      if (Range.isCollapsed(at)) {
-        return;
-      }
-
-      if (!hanging) {
-        at = Editor.unhangRange(editor, at, {
-          voids
-        });
-      }
-
-      var [start, end] = Range.edges(at);
-      var startBlock = Editor.above(editor, {
-        match: n => Editor.isBlock(editor, n),
-        at: start,
-        voids
-      });
-      var endBlock = Editor.above(editor, {
-        match: n => Editor.isBlock(editor, n),
-        at: end,
-        voids
-      });
-      var isAcrossBlocks = startBlock && endBlock && !Path.equals(startBlock[1], endBlock[1]);
-      var isSingleText = Path.equals(start.path, end.path);
-      var startVoid = voids ? null : Editor.void(editor, {
-        at: start,
-        mode: 'highest'
-      });
-      var endVoid = voids ? null : Editor.void(editor, {
-        at: end,
-        mode: 'highest'
-      }); // If the start or end points are inside an inline void, nudge them out.
-
-      if (startVoid) {
-        var before = Editor.before(editor, start);
-
-        if (before && startBlock && Path.isAncestor(startBlock[1], before.path)) {
-          start = before;
-        }
-      }
-
-      if (endVoid) {
-        var after = Editor.after(editor, end);
-
-        if (after && endBlock && Path.isAncestor(endBlock[1], after.path)) {
-          end = after;
-        }
-      } // Get the highest nodes that are completely inside the range, as well as
-      // the start and end nodes.
-
-
-      var matches = [];
-      var lastPath;
-
-      for (var entry of Editor.nodes(editor, {
-        at,
-        voids
-      })) {
-        var [node, path] = entry;
-
-        if (lastPath && Path.compare(path, lastPath) === 0) {
-          continue;
-        }
-
-        if (!voids && Editor.isVoid(editor, node) || !Path.isCommon(path, start.path) && !Path.isCommon(path, end.path)) {
-          matches.push(entry);
-          lastPath = path;
-        }
-      }
-
-      var pathRefs = Array.from(matches, (_ref) => {
-        var [, p] = _ref;
-        return Editor.pathRef(editor, p);
-      });
-      var startRef = Editor.pointRef(editor, start);
-      var endRef = Editor.pointRef(editor, end);
-
-      if (!isSingleText && !startVoid) {
-        var _point = startRef.current;
-        var [_node] = Editor.leaf(editor, _point);
-        var {
-          path: _path
-        } = _point;
-        var {
-          offset
-        } = start;
-
-        var text = _node.text.slice(offset);
-
-        editor.apply({
-          type: 'remove_text',
-          path: _path,
-          offset,
-          text
-        });
-      }
-
-      for (var pathRef of pathRefs) {
-        var _path2 = pathRef.unref();
-
-        Transforms.removeNodes(editor, {
-          at: _path2,
-          voids
-        });
-      }
-
-      if (!endVoid) {
-        var _point2 = endRef.current;
-        var [_node2] = Editor.leaf(editor, _point2);
-        var {
-          path: _path3
-        } = _point2;
-
-        var _offset = isSingleText ? start.offset : 0;
-
-        var _text = _node2.text.slice(_offset, end.offset);
-
-        editor.apply({
-          type: 'remove_text',
-          path: _path3,
-          offset: _offset,
-          text: _text
-        });
-      }
-
-      if (!isSingleText && isAcrossBlocks && endRef.current && startRef.current) {
-        Transforms.mergeNodes(editor, {
-          at: endRef.current,
-          hanging: true,
-          voids
-        });
-      }
-
-      var point = endRef.unref() || startRef.unref();
-
-      if (options.at == null && point) {
-        Transforms.select(editor, point);
-      }
-    });
-  },
-
-  /**
-   * Insert a fragment at a specific location in the editor.
-   */
-  insertFragment(editor, fragment) {
-    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-    Editor.withoutNormalizing(editor, () => {
-      var {
-        hanging = false,
-        voids = false
-      } = options;
-      var {
-        at = editor.selection
-      } = options;
-
-      if (!fragment.length) {
-        return;
-      }
-
-      if (!at) {
-        return;
-      } else if (Range.isRange(at)) {
-        if (!hanging) {
-          at = Editor.unhangRange(editor, at);
-        }
-
-        if (Range.isCollapsed(at)) {
-          at = at.anchor;
-        } else {
-          var [, end] = Range.edges(at);
-
-          if (!voids && Editor.void(editor, {
-            at: end
-          })) {
-            return;
-          }
-
-          var pointRef = Editor.pointRef(editor, end);
-          Transforms.delete(editor, {
-            at
-          });
-          at = pointRef.unref();
-        }
-      } else if (Path.isPath(at)) {
-        at = Editor.start(editor, at);
-      }
-
-      if (!voids && Editor.void(editor, {
-        at
-      })) {
-        return;
-      } // If the insert point is at the edge of an inline node, move it outside
-      // instead since it will need to be split otherwise.
-
-
-      var inlineElementMatch = Editor.above(editor, {
-        at,
-        match: n => Editor.isInline(editor, n),
-        mode: 'highest',
-        voids
-      });
-
-      if (inlineElementMatch) {
-        var [, _inlinePath] = inlineElementMatch;
-
-        if (Editor.isEnd(editor, at, _inlinePath)) {
-          var after = Editor.after(editor, _inlinePath);
-          at = after;
-        } else if (Editor.isStart(editor, at, _inlinePath)) {
-          var before = Editor.before(editor, _inlinePath);
-          at = before;
-        }
-      }
-
-      var blockMatch = Editor.above(editor, {
-        match: n => Editor.isBlock(editor, n),
-        at,
-        voids
-      });
-      var [, blockPath] = blockMatch;
-      var isBlockStart = Editor.isStart(editor, at, blockPath);
-      var isBlockEnd = Editor.isEnd(editor, at, blockPath);
-      var mergeStart = !isBlockStart || isBlockStart && isBlockEnd;
-      var mergeEnd = !isBlockEnd;
-      var [, firstPath] = Node.first({
-        children: fragment
-      }, []);
-      var [, lastPath] = Node.last({
-        children: fragment
-      }, []);
-      var matches = [];
-
-      var matcher = (_ref2) => {
-        var [n, p] = _ref2;
-
-        if (mergeStart && Path.isAncestor(p, firstPath) && Element.isElement(n) && !editor.isVoid(n) && !editor.isInline(n)) {
-          return false;
-        }
-
-        if (mergeEnd && Path.isAncestor(p, lastPath) && Element.isElement(n) && !editor.isVoid(n) && !editor.isInline(n)) {
-          return false;
-        }
-
-        return true;
-      };
-
-      for (var entry of Node.nodes({
-        children: fragment
-      }, {
-        pass: matcher
-      })) {
-        if (entry[1].length > 0 && matcher(entry)) {
-          matches.push(entry);
-        }
-      }
-
-      var starts = [];
-      var middles = [];
-      var ends = [];
-      var starting = true;
-      var hasBlocks = false;
-
-      for (var [node] of matches) {
-        if (Element.isElement(node) && !editor.isInline(node)) {
-          starting = false;
-          hasBlocks = true;
-          middles.push(node);
-        } else if (starting) {
-          starts.push(node);
-        } else {
-          ends.push(node);
-        }
-      }
-
-      var [inlineMatch] = Editor.nodes(editor, {
-        at,
-        match: n => Text.isText(n) || Editor.isInline(editor, n),
-        mode: 'highest',
-        voids
-      });
-      var [, inlinePath] = inlineMatch;
-      var isInlineStart = Editor.isStart(editor, at, inlinePath);
-      var isInlineEnd = Editor.isEnd(editor, at, inlinePath);
-      var middleRef = Editor.pathRef(editor, isBlockEnd ? Path.next(blockPath) : blockPath);
-      var endRef = Editor.pathRef(editor, isInlineEnd ? Path.next(inlinePath) : inlinePath);
-      Transforms.splitNodes(editor, {
-        at,
-        match: n => hasBlocks ? Editor.isBlock(editor, n) : Text.isText(n) || Editor.isInline(editor, n),
-        mode: hasBlocks ? 'lowest' : 'highest',
-        voids
-      });
-      var startRef = Editor.pathRef(editor, !isInlineStart || isInlineStart && isInlineEnd ? Path.next(inlinePath) : inlinePath);
-      Transforms.insertNodes(editor, starts, {
-        at: startRef.current,
-        match: n => Text.isText(n) || Editor.isInline(editor, n),
-        mode: 'highest',
-        voids
-      });
-      Transforms.insertNodes(editor, middles, {
-        at: middleRef.current,
-        match: n => Editor.isBlock(editor, n),
-        mode: 'lowest',
-        voids
-      });
-      Transforms.insertNodes(editor, ends, {
-        at: endRef.current,
-        match: n => Text.isText(n) || Editor.isInline(editor, n),
-        mode: 'highest',
-        voids
-      });
-
-      if (!options.at) {
-        var path;
-
-        if (ends.length > 0) {
-          path = Path.previous(endRef.current);
-        } else if (middles.length > 0) {
-          path = Path.previous(middleRef.current);
-        } else {
-          path = Path.previous(startRef.current);
-        }
-
-        var _end = Editor.end(editor, path);
-
-        Transforms.select(editor, _end);
-      }
-
-      startRef.unref();
-      middleRef.unref();
-      endRef.unref();
-    });
-  },
-
-  /**
-   * Insert a string of text in the Editor.
-   */
-  insertText(editor, text) {
-    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-    Editor.withoutNormalizing(editor, () => {
-      var {
-        voids = false
-      } = options;
-      var {
-        at = editor.selection
-      } = options;
-
-      if (!at) {
-        return;
-      }
-
-      if (Path.isPath(at)) {
-        at = Editor.range(editor, at);
-      }
-
-      if (Range.isRange(at)) {
-        if (Range.isCollapsed(at)) {
-          at = at.anchor;
-        } else {
-          var end = Range.end(at);
-
-          if (!voids && Editor.void(editor, {
-            at: end
-          })) {
-            return;
-          }
-
-          var pointRef = Editor.pointRef(editor, end);
-          Transforms.delete(editor, {
-            at,
-            voids
-          });
-          at = pointRef.unref();
-          Transforms.setSelection(editor, {
-            anchor: at,
-            focus: at
-          });
-        }
-      }
-
-      if (!voids && Editor.void(editor, {
-        at
-      })) {
-        return;
-      }
-
-      var {
-        path,
-        offset
-      } = at;
-      editor.apply({
-        type: 'insert_text',
-        path,
-        offset,
-        text
-      });
-    });
-  }
-
-};
-
-function ownKeys$8(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread$8(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$8(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$8(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-var Transforms = _objectSpread$8({}, GeneralTransforms, {}, NodeTransforms, {}, SelectionTransforms, {}, TextTransforms);
 
 exports.Editor = Editor;
 exports.Element = Element;
@@ -45503,10 +52450,88 @@ exports.Point = Point;
 exports.PointRef = PointRef;
 exports.Range = Range;
 exports.RangeRef = RangeRef;
+exports.Scrubber = Scrubber;
 exports.Span = Span;
 exports.Text = Text;
 exports.Transforms = Transforms;
+exports.above = above;
+exports.addMark = addMark;
+exports.after = after;
+exports.apply = apply;
+exports.before = before;
+exports.collapse = collapse;
 exports.createEditor = createEditor;
+exports.deleteBackward = deleteBackward;
+exports.deleteForward = deleteForward;
+exports.deleteFragment = deleteFragment;
+exports.deleteText = deleteText;
+exports.deselect = deselect;
+exports.edges = edges;
+exports.elementReadOnly = elementReadOnly;
+exports.end = end;
+exports.first = first;
+exports.fragment = fragment;
+exports.getDirtyPaths = getDirtyPaths;
+exports.getFragment = getFragment;
+exports.getVoid = getVoid;
+exports.hasBlocks = hasBlocks;
+exports.hasInlines = hasInlines;
+exports.hasPath = hasPath;
+exports.hasTexts = hasTexts;
+exports.insertBreak = insertBreak;
+exports.insertFragment = insertFragment;
+exports.insertNode = insertNode;
+exports.insertNodes = insertNodes;
+exports.insertSoftBreak = insertSoftBreak;
+exports.insertText = insertText;
+exports.isBlock = isBlock;
+exports.isEdge = isEdge;
+exports.isEditor = isEditor;
+exports.isEmpty = isEmpty;
+exports.isEnd = isEnd;
+exports.isNormalizing = isNormalizing;
+exports.isStart = isStart;
+exports.last = last;
+exports.leaf = leaf;
+exports.levels = levels;
+exports.liftNodes = liftNodes;
+exports.marks = marks;
+exports.mergeNodes = mergeNodes;
+exports.move = move;
+exports.moveNodes = moveNodes;
+exports.next = next;
+exports.node = node;
+exports.nodes = nodes;
+exports.normalize = normalize;
+exports.normalizeNode = normalizeNode;
+exports.parent = parent;
+exports.path = path;
+exports.pathRef = pathRef;
+exports.pathRefs = pathRefs;
+exports.point = point;
+exports.pointRef = pointRef;
+exports.pointRefs = pointRefs;
+exports.positions = positions;
+exports.previous = previous;
+exports.range = range;
+exports.rangeRef = rangeRef;
+exports.rangeRefs = rangeRefs;
+exports.removeMark = removeMark;
+exports.removeNodes = removeNodes;
+exports.select = select;
+exports.setNodes = setNodes;
+exports.setNormalizing = setNormalizing;
+exports.setPoint = setPoint;
+exports.setSelection = setSelection;
+exports.shouldNormalize = shouldNormalize;
+exports.splitNodes = splitNodes;
+exports.start = start;
+exports.string = string;
+exports.unhangRange = unhangRange;
+exports.unsetNodes = unsetNodes;
+exports.unwrapNodes = unwrapNodes;
+exports.withoutNormalizing = withoutNormalizing;
+exports.wrapNodes = wrapNodes;
 
 
-},{"esrever":37,"immer":38,"is-plain-object":40}]},{},[1]);
+},{"immer":39,"is-plain-object":41}]},{},[1]);
