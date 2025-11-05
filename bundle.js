@@ -446,7 +446,7 @@ var decreaseItemDepth = exports.decreaseItemDepth = function decreaseItemDepth(o
       }
 
       var hasParentItemBlocks = _slate.Editor.node(editor, parentItemPath)[0].children.some(function (node) {
-        return !_slate.Editor.isEditor(n) && _slate.Editor.isBlock(editor, n) && !Text.isText(n);
+        return !_slate.Editor.isEditor(node) && _slate.Editor.isBlock(editor, node) && !_slate.Text.isText(node);
       });
 
       if (!hasParentItemBlocks) {
@@ -893,46 +893,160 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
  * Returns the highest list of elements that cover the current selection
  * TODO: might be redundant with getTopmostItemsAtRange.js
  */
-var getHighestSelectedElements = function getHighestSelectedElements(editor) {
-  var selection = editor.selection;
+var getHighestSelectedElements = function getHighestSelectedElements(options) {
+  return function (editor) {
+    var selection = editor.selection;
 
-  if (!selection) {
-    return [];
-  }
+    if (!selection) {
+      return [];
+    }
 
-  if (_slate.Path.equals(selection.anchor.path, selection.focus.path)) {
-    var ancestor = _slate.Editor.above(editor, {
+    if (_slate.Path.equals(selection.anchor.path, selection.focus.path)) {
+      var ancestor = _slate.Editor.above(editor, {
+        match: function match(n) {
+          return !_slate.Editor.isEditor(n) && _slate.Editor.isBlock(editor, n) && !_slate.Text.isText(n);
+        }
+      });
+
+      return [ancestor];
+    }
+
+    // For sibling cases, use the original efficient approach
+    var ancestorPath = _slate.Path.common(selection.anchor.path, selection.focus.path);
+    var startIndex = _slate.Path.relative(selection.anchor.path, ancestorPath)[0];
+    var endIndex = _slate.Path.relative(selection.focus.path, ancestorPath)[0];
+
+    var siblings = [].concat(_toConsumableArray(_slate.Node.children(editor, ancestorPath))).slice(startIndex, endIndex + 1);
+
+    // Check if these are true siblings (have same parent) or if there are container blocks
+    var allHaveSameParent = siblings.every(function (_ref) {
+      var _ref2 = _slicedToArray(_ref, 2),
+          path = _ref2[1];
+
+      return _slate.Path.equals(_slate.Path.parent(path), ancestorPath);
+    });
+
+    // Check if any of the siblings are container blocks (like columns) that contain other selected blocks
+    // A container block is one where there are multiple BLOCK levels between the sibling and the selection
+    // (e.g., columns > column > paragraph, not just list > list_item > paragraph)
+    var hasContainerBlocks = siblings.some(function (_ref3) {
+      var _ref4 = _slicedToArray(_ref3, 2),
+          siblingNode = _ref4[0],
+          siblingPath = _ref4[1];
+
+      // Skip lists - they're not containers, they're just lists
+      if ((0, _utils.isList)(options)(siblingNode)) {
+        return false;
+      }
+
+      // Check if selection anchor or focus is a descendant of this sibling
+      var anchorPath = selection.anchor.path;
+      var focusPath = selection.focus.path;
+      var isAnchorDescendant = _slate.Path.isDescendant(anchorPath, siblingPath);
+      var isFocusDescendant = _slate.Path.isDescendant(focusPath, siblingPath);
+
+      if (!isAnchorDescendant && !isFocusDescendant) {
+        return false;
+      }
+
+      // Count how many BLOCK nodes are between the sibling and the selection
+      // We do this by walking up from the selection to the sibling and counting blocks
+      var countBlockLevels = function countBlockLevels(descendantPath) {
+        if (!_slate.Path.isDescendant(descendantPath, siblingPath)) return 0;
+
+        var currentPath = descendantPath;
+        var blockCount = 0;
+
+        // Walk up to the sibling, counting block nodes (not text nodes)
+        while (currentPath.length > siblingPath.length) {
+          var parentPath = _slate.Path.parent(currentPath);
+          if (parentPath.length === siblingPath.length) break;
+
+          var node = _slate.Node.get(editor, parentPath);
+          // Count if it's a block (not text, not editor)
+          if (node && _slate.Editor.isBlock(editor, node) && !_slate.Text.isText(node)) {
+            blockCount++;
+          }
+          currentPath = parentPath;
+        }
+
+        return blockCount;
+      };
+
+      // If there are 1+ block levels between sibling and selection, it's a container
+      // (e.g., column > paragraph = 1 block, so column is a container)
+      // We want to get paragraphs, not columns
+      var anchorBlockLevels = countBlockLevels(anchorPath);
+      var focusBlockLevels = countBlockLevels(focusPath);
+      return anchorBlockLevels >= 1 || focusBlockLevels >= 1;
+    });
+
+    if (allHaveSameParent && !hasContainerBlocks) {
+      // Original behavior for true siblings that aren't containers - return them directly
+      return siblings;
+    }
+
+    // For non-sibling cases (e.g., across columns), use the new approach
+    // Find all block elements that intersect with the selection
+    var allBlockNodes = [].concat(_toConsumableArray(_slate.Editor.nodes(editor, {
+      at: selection,
       match: function match(n) {
         return !_slate.Editor.isEditor(n) && _slate.Editor.isBlock(editor, n) && !_slate.Text.isText(n);
       }
+    })));
+
+    // Filter to keep only relevant blocks:
+    // - Lists are kept even if they contain other blocks (they'll be unwrapped)
+    // - List items are excluded (we only want to process their parent lists or their content)
+    // - Other blocks are kept only if they're leaf blocks (not containers like columns)
+    var selectedBlocks = allBlockNodes.filter(function (_ref5) {
+      var _ref6 = _slicedToArray(_ref5, 2),
+          node = _ref6[0],
+          path = _ref6[1];
+
+      // Exclude list items - we process their parent lists or their content instead
+      if ((0, _utils.isItem)(options)(node)) {
+        return false;
+      }
+
+      // Always keep lists if they're directly selected
+      if ((0, _utils.isList)(options)(node)) {
+        return true;
+      }
+
+      // For other blocks, check if this block contains any other selected block
+      // If it does, it's a container and we should exclude it
+      return !allBlockNodes.some(function (_ref7) {
+        var _ref8 = _slicedToArray(_ref7, 2),
+            otherPath = _ref8[1];
+
+        if (_slate.Path.equals(path, otherPath)) {
+          return false; // Skip self
+        }
+        // Check if otherPath is a descendant of path
+        return _slate.Path.isDescendant(otherPath, path);
+      });
     });
 
-    return [ancestor];
-  }
-
-  var ancestorPath = _slate.Path.common(selection.anchor.path, selection.focus.path);
-
-  var startIndex = _slate.Path.relative(selection.anchor.path, ancestorPath)[0];
-  var endIndex = _slate.Path.relative(selection.focus.path, ancestorPath)[0];
-
-  return [].concat(_toConsumableArray(_slate.Node.children(editor, ancestorPath))).slice(startIndex, endIndex + 1);
+    return selectedBlocks;
+  };
 };
 
 var convertPathsToRefs = function convertPathsToRefs(editor, nodeEntries) {
-  return nodeEntries.map(function (_ref) {
-    var _ref2 = _slicedToArray(_ref, 2),
-        node = _ref2[0],
-        path = _ref2[1];
+  return nodeEntries.map(function (_ref9) {
+    var _ref10 = _slicedToArray(_ref9, 2),
+        node = _ref10[0],
+        path = _ref10[1];
 
     return [node, _slate.Editor.pathRef(editor, path)];
   });
 };
 
 var cleanupRefs = function cleanupRefs(nodeRefEntries) {
-  return nodeRefEntries.map(function (_ref3) {
-    var _ref4 = _slicedToArray(_ref3, 2),
-        node = _ref4[0],
-        pathRef = _ref4[1];
+  return nodeRefEntries.map(function (_ref11) {
+    var _ref12 = _slicedToArray(_ref11, 2),
+        node = _ref12[0],
+        pathRef = _ref12[1];
 
     return [node, pathRef.unref()];
   });
@@ -947,37 +1061,215 @@ var wrapInList = exports.wrapInList = function wrapInList(options) {
     type = type || options.types[0];
 
     _slate.Editor.withoutNormalizing(editor, function () {
-      var selectedElements = convertPathsToRefs(editor, getHighestSelectedElements(editor));
+      var selectedElements = convertPathsToRefs(editor, getHighestSelectedElements(options)(editor));
 
-      var newList = _extends({
-        type: type
-      }, data && { data: data });
+      if (selectedElements.length === 0) {
+        return;
+      }
 
-      _slate.Transforms.wrapNodes(editor, newList, {
-        match: function match(n) {
-          return !_slate.Editor.isEditor(n) && _slate.Editor.isBlock(editor, n) && !_slate.Text.isText(n);
-        }
+      // Check if all selected elements are siblings (same parent)
+      var areAllSiblings = selectedElements.length <= 1 || selectedElements.every(function (_ref13) {
+        var _ref14 = _slicedToArray(_ref13, 2),
+            pathRef = _ref14[1];
+
+        var parentPath = _slate.Path.parent(pathRef.current);
+        var firstParentPath = _slate.Path.parent(selectedElements[0][1].current);
+        return _slate.Path.equals(parentPath, firstParentPath);
       });
 
-      // Wrap in list items
-      selectedElements.forEach(function (_ref5) {
-        var _ref6 = _slicedToArray(_ref5, 2),
-            node = _ref6[0],
-            pathRef = _ref6[1];
+      // Check if there's a block type in blockTypesToKeepSeparate between selected elements
+      var hasSeparatorBlock = false;
 
-        if ((0, _utils.isList)(options)(node)) {
-          // Merge its items with the created list
-          _slate.Transforms.unwrapNodes(editor, {
-            at: pathRef.current
-          });
-        } else {
+      if (options.blockTypesToKeepSeparate && options.blockTypesToKeepSeparate.length > 0 && selectedElements.length > 1) {
+        // Check if any ancestor block between selected elements matches blockTypesToKeepSeparate
+        var firstPath = selectedElements[0][1].current;
+        var lastPath = selectedElements[selectedElements.length - 1][1].current;
+        var commonAncestorPath = _slate.Path.common(firstPath, lastPath);
+
+        // Check paths from first element up to and including common ancestor
+        var currentPath = firstPath;
+        while (currentPath.length >= commonAncestorPath.length) {
+          var node = _slate.Node.get(editor, currentPath);
+          if (node && node.type && options.blockTypesToKeepSeparate.includes(node.type)) {
+            hasSeparatorBlock = true;
+            break;
+          }
+          if (_slate.Path.equals(currentPath, commonAncestorPath)) break;
+          currentPath = _slate.Path.parent(currentPath);
+        }
+
+        // Also check paths from last element up to and including common ancestor
+        if (!hasSeparatorBlock) {
+          currentPath = lastPath;
+          while (currentPath.length >= commonAncestorPath.length) {
+            var _node = _slate.Node.get(editor, currentPath);
+            if (_node && _node.type && options.blockTypesToKeepSeparate.includes(_node.type)) {
+              hasSeparatorBlock = true;
+              break;
+            }
+            if (_slate.Path.equals(currentPath, commonAncestorPath)) break;
+            currentPath = _slate.Path.parent(currentPath);
+          }
+        }
+
+        // Check common ancestor itself and its ancestors up to editor
+        if (!hasSeparatorBlock) {
+          currentPath = commonAncestorPath;
+          while (currentPath.length >= 0) {
+            var _node2 = _slate.Node.get(editor, currentPath);
+            if (_node2 && _node2.type && options.blockTypesToKeepSeparate.includes(_node2.type)) {
+              hasSeparatorBlock = true;
+              break;
+            }
+            if (currentPath.length === 0) break;
+            currentPath = _slate.Path.parent(currentPath);
+          }
+        }
+      }
+
+      // If there's a separator block type, always keep lists separate
+      var shouldMerge = areAllSiblings && !hasSeparatorBlock;
+
+      if (shouldMerge) {
+        // Original behavior: wrap all sibling blocks together
+        var newList = _extends({
+          type: type
+        }, data && { data: data });
+
+        // Wrap all selected blocks in the list first (including list items)
+        _slate.Transforms.wrapNodes(editor, newList, {
+          match: function match(n) {
+            return !_slate.Editor.isEditor(n) && _slate.Editor.isBlock(editor, n) && !_slate.Text.isText(n);
+          }
+        });
+
+        // Then handle each selected element
+        selectedElements.forEach(function (_ref15) {
+          var _ref16 = _slicedToArray(_ref15, 2),
+              node = _ref16[0],
+              pathRef = _ref16[1];
+
+          // pathRef.current should update automatically after wrapping
+          var currentPath = pathRef.current;
+          if (!currentPath) {
+            pathRef.unref();
+            return;
+          }
+
+          var currentNode = _slate.Node.get(editor, currentPath);
+
+          if ((0, _utils.isList)(options)(currentNode)) {
+            // Unwrap the inner list to merge its items with the outer list
+            _slate.Transforms.unwrapNodes(editor, {
+              at: currentPath
+            });
+          } else if (!(0, _utils.isItem)(options)(currentNode)) {
+            // Wrap non-list-item blocks in list items
+            _slate.Transforms.wrapNodes(editor, { type: options.typeItem }, {
+              at: currentPath
+            });
+          }
+          pathRef.unref();
+        });
+      } else {
+        // Blocks are in different branches (e.g., different columns)
+        // Or there's a block type that should keep lists separate
+        var shouldMergeLists = !hasSeparatorBlock;
+        var _newList = _extends({
+          type: type
+        }, data && { data: data });
+        var listPathRefs = [];
+
+        selectedElements.forEach(function (_ref17) {
+          var _ref18 = _slicedToArray(_ref17, 2),
+              node = _ref18[0],
+              pathRef = _ref18[1];
+
+          if ((0, _utils.isList)(options)(node)) {
+            // For lists in non-sibling positions, we need to handle them specially
+            // For now, just wrap the list itself (will create nested list)
+            // This is a simplified approach - in practice you might want separate lists
+            _slate.Transforms.wrapNodes(editor, _newList, {
+              at: pathRef.current
+            });
+
+            var wrappedListPath = _slate.Path.parent(pathRef.current);
+            listPathRefs.push(_slate.Editor.pathRef(editor, wrappedListPath));
+
+            // Then unwrap the inner list to merge items
+            _slate.Transforms.unwrapNodes(editor, {
+              at: pathRef.current
+            });
+
+            pathRef.unref();
+            return;
+          }
+
+          // Wrap the block in a list item first
           _slate.Transforms.wrapNodes(editor, { type: options.typeItem }, {
             at: pathRef.current
           });
-        }
 
-        pathRef.unref();
-      });
+          // Get the list item path after wrapping (it's now the parent of the original path)
+          var listItemPath = _slate.Path.parent(pathRef.current);
+          var listItemPathRef = _slate.Editor.pathRef(editor, listItemPath);
+
+          // Wrap the list item in a list
+          _slate.Transforms.wrapNodes(editor, _newList, {
+            at: listItemPath
+          });
+
+          // Get the list path after wrapping (it's now the parent of the list item)
+          var listPath = _slate.Path.parent(listItemPathRef.current);
+          listPathRefs.push(_slate.Editor.pathRef(editor, listPath));
+
+          listItemPathRef.unref();
+          pathRef.unref();
+        });
+
+        // Merge all lists into the first one (unless we should keep them separate)
+        if (shouldMergeLists && listPathRefs.length > 1 && listPathRefs[0].current) {
+          var firstListPathRef = listPathRefs[0];
+          var firstListPath = firstListPathRef.current;
+          var firstList = _slate.Node.get(editor, firstListPath);
+
+          if ((0, _utils.isList)(options)(firstList)) {
+            // Move all items from other lists into the first list
+            for (var i = listPathRefs.length - 1; i > 0; i--) {
+              var listPathRef = listPathRefs[i];
+              var listPath = listPathRef.current;
+
+              if (!listPath || _slate.Path.equals(listPath, firstListPath)) {
+                listPathRef.unref();
+                continue;
+              }
+
+              var list = _slate.Node.has(editor, listPath) ? _slate.Node.get(editor, listPath) : null;
+
+              if (list && (0, _utils.isList)(options)(list)) {
+                // Refresh firstList in case it changed
+                firstList = _slate.Node.get(editor, firstListPath);
+                var firstListLastChildIndex = firstList.children.length;
+
+                // Move all children from this list to the first list
+                _slate.Transforms.insertNodes(editor, list.children, {
+                  at: [].concat(_toConsumableArray(firstListPath), [firstListLastChildIndex])
+                });
+
+                _slate.Transforms.removeNodes(editor, {
+                  at: listPath
+                });
+              }
+
+              listPathRef.unref();
+            }
+          }
+
+          firstListPathRef.unref();
+        } else if (listPathRefs.length === 1) {
+          listPathRefs[0].unref();
+        }
+      }
 
       cleanupRefs(selectedElements);
     });
@@ -1270,7 +1562,8 @@ var EditListPlugin = exports.EditListPlugin = function EditListPlugin(customOpti
     typeDefault: 'paragraph',
     canMerge: function canMerge(a, b) {
       return a.type === b.type;
-    }
+    },
+    blockTypesToKeepSeparate: []
   }, customOptions);
 
   var EnhancedEditor = _extends({}, _slate.Editor, getEditorUtils(options));
@@ -1599,6 +1892,12 @@ function joinAdjacentLists(options, editor) {
         nodePath = _entry[1];
 
     if ((0, _utils.isList)(options)(node)) {
+      // Check if node still exists (might have been removed in previous normalization)
+      if (!_slate.Node.has(editor, nodePath)) {
+        normalizeNode(entry);
+        return;
+      }
+
       try {
         var previousSiblingNodePath = _slate.Path.previous(nodePath);
         var siblingNode = _slate.Node.get(editor, previousSiblingNodePath);
@@ -1620,9 +1919,17 @@ function joinAdjacentLists(options, editor) {
               at: nodePath
             });
           });
+          // Return early after removing node - normalization will continue
+          return;
         }
-      } catch (e) {
-        // skip for now
+      } catch (e) {}
+      // skip for now
+
+
+      // Check again if node still exists before checking next sibling
+      if (!_slate.Node.has(editor, nodePath)) {
+        normalizeNode(entry);
+        return;
       }
 
       var nextSiblingNodePath = void 0;
@@ -1632,11 +1939,9 @@ function joinAdjacentLists(options, editor) {
         var nextSiblingNode = _slate.Node.get(editor, nextSiblingNodePath);
 
         if ((0, _utils.isList)(options)(nextSiblingNode) && options.canMerge && options.canMerge(node, nextSiblingNode)) {
-          var _targetNodeLastChildIndex = nextSiblingNode.children.length - 1;
-
           _slate.Editor.withoutNormalizing(editor, function () {
             var targetNodePath = [].concat(_toConsumableArray(nextSiblingNodePath), [
-            // as the new first child of previous sibling list
+            // as the new first child of next sibling list
             0]);
 
             _slate.Transforms.insertNodes(editor, node.children, {
@@ -1648,6 +1953,8 @@ function joinAdjacentLists(options, editor) {
               at: nodePath
             });
           });
+          // Return early after removing node - normalization will continue
+          return;
         }
       } catch (e) {
         // skip for now
