@@ -9,8 +9,8 @@
   },
   "main": "./dist/index.js",
   "peerDependencies": {
-    "slate": "^0.57.1",
-    "slate-react": "^0.57.1"
+    "slate": "^0.94.1",
+    "slate-react": "^0.94.2"
   },
   "files": [
     "dist",
