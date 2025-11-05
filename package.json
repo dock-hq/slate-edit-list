@@ -9,8 +9,8 @@
   },
   "main": "./dist/index.js",
   "peerDependencies": {
-    "slate": "^0.94.1",
-    "slate-react": "^0.94.2"
+    "slate": "^0.81.1",
+    "slate-react": "^0.83.2"
   },
   "files": [
     "dist",
@@ -43,8 +43,8 @@
     "slate": "^0.94.1",
     "slate-hyperscript": "^0.77.0",
     "slate-plain-serializer": "^0.7.11",
-    "slate-history": "^0.93.0",
-    "slate-react": "^0.94.2",
+    "slate-history": "^0.66.0",
+    "slate-react": "^0.83.2",
     "stringify": "^5.1.0"
   },
   "scripts": {
