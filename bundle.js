@@ -189,7 +189,7 @@ var Example = function Example() {
 
 _reactDom2.default.render(_react2.default.createElement(Example, null), document.getElementById('example'));
 
-},{"../lib":14,"./value":2,"react":64,"react-dom":61,"slate":75,"slate-history":72,"slate-react":74}],2:[function(require,module,exports){
+},{"../lib":14,"./value":2,"react":63,"react-dom":60,"slate":74,"slate-history":71,"slate-react":73}],2:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -356,7 +356,7 @@ exports.default = h(
   )
 );
 
-},{"slate-hyperscript":73}],3:[function(require,module,exports){
+},{"slate-hyperscript":72}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -460,7 +460,7 @@ var decreaseItemDepth = exports.decreaseItemDepth = function decreaseItemDepth(o
   };
 };
 
-},{"..":14,"../utils":29,"slate":75}],4:[function(require,module,exports){
+},{"..":14,"../utils":29,"slate":74}],4:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -579,7 +579,7 @@ var increaseItemDepth = exports.increaseItemDepth = function increaseItemDepth(o
   };
 };
 
-},{"..":14,"../utils":29,"slate":75}],5:[function(require,module,exports){
+},{"..":14,"../utils":29,"slate":74}],5:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -686,7 +686,7 @@ var splitListItem = exports.splitListItem = function splitListItem(options) {
   };
 };
 
-},{"..":14,"../utils":29,"slate":75}],7:[function(require,module,exports){
+},{"..":14,"../utils":29,"slate":74}],7:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -821,7 +821,7 @@ var toggleList = exports.toggleList = function toggleList(options) {
   };
 };
 
-},{".":5,"../utils":29,"slate":75}],8:[function(require,module,exports){
+},{".":5,"../utils":29,"slate":74}],8:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -869,7 +869,7 @@ var unwrapList = exports.unwrapList = function unwrapList(options) {
   };
 };
 
-},{"..":14,"../utils":29,"slate":75}],9:[function(require,module,exports){
+},{"..":14,"../utils":29,"slate":74}],9:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1276,7 +1276,7 @@ var wrapInList = exports.wrapInList = function wrapInList(options) {
   };
 };
 
-},{"..":14,"../utils":29,"slate":75}],10:[function(require,module,exports){
+},{"..":14,"../utils":29,"slate":74}],10:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1358,7 +1358,7 @@ var onBackspace = exports.onBackspace = function onBackspace(options, event, edi
   (0, _commands.unwrapList)(options)(editor);
 };
 
-},{"..":14,"../commands":5,"../utils":29,"slate":75}],12:[function(require,module,exports){
+},{"..":14,"../commands":5,"../utils":29,"slate":74}],12:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1412,7 +1412,7 @@ var onEnter = exports.onEnter = function onEnter(options, event, editor) {
   }
 };
 
-},{"..":14,"../commands":5,"../utils":29,"slate":75}],13:[function(require,module,exports){
+},{"..":14,"../commands":5,"../utils":29,"slate":74}],13:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1449,7 +1449,7 @@ var onTab = exports.onTab = function onTab(options, event, editor) {
   }
 };
 
-},{"..":14,"../commands":5,"../utils":29,"slate":75}],14:[function(require,module,exports){
+},{"..":14,"../commands":5,"../utils":29,"slate":74}],14:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1577,7 +1577,7 @@ var EditListPlugin = exports.EditListPlugin = function EditListPlugin(customOpti
   }];
 };
 
-},{"./commands":5,"./handlers":10,"./normalizers":16,"./utils":29,"slate":75}],15:[function(require,module,exports){
+},{"./commands":5,"./handlers":10,"./normalizers":16,"./utils":29,"slate":74}],15:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1643,7 +1643,7 @@ function childOfListIsAlwaysItem(options, editor) {
   };
 }
 
-},{"..":14,"../utils":29,"slate":75}],16:[function(require,module,exports){
+},{"..":14,"../utils":29,"slate":74}],16:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1802,7 +1802,7 @@ function itemChildrenAreAlwaysElements(options, editor) {
   };
 }
 
-},{"../utils":29,"slate":75}],18:[function(require,module,exports){
+},{"../utils":29,"slate":74}],18:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1862,7 +1862,7 @@ function itemsWithoutParentListAreUnwrapped(options, editor) {
   };
 }
 
-},{"../utils":29,"slate":75}],19:[function(require,module,exports){
+},{"../utils":29,"slate":74}],19:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1965,7 +1965,7 @@ function joinAdjacentLists(options, editor) {
   };
 }
 
-},{"../utils":29,"slate":75}],20:[function(require,module,exports){
+},{"../utils":29,"slate":74}],20:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2038,7 +2038,7 @@ function unwrapListsOverDepthLimit(options, editor) {
   };
 }
 
-},{"../utils":29,"slate":75}],21:[function(require,module,exports){
+},{"../utils":29,"slate":74}],21:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2084,7 +2084,7 @@ var getCurrentItem = exports.getCurrentItem = function getCurrentItem(options) {
   };
 };
 
-},{".":29,"..":14,"slate":75}],22:[function(require,module,exports){
+},{".":29,"..":14,"slate":74}],22:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2118,7 +2118,7 @@ var getCurrentList = exports.getCurrentList = function getCurrentList(options) {
   };
 };
 
-},{".":29,"..":14,"slate":75}],23:[function(require,module,exports){
+},{".":29,"..":14,"slate":74}],23:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2154,7 +2154,7 @@ var getDeepestItemDepth = exports.getDeepestItemDepth = function getDeepestItemD
   };
 };
 
-},{".":29,"..":14,"slate":75}],24:[function(require,module,exports){
+},{".":29,"..":14,"slate":74}],24:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2191,7 +2191,7 @@ var getItemDepth = exports.getItemDepth = function getItemDepth(options) {
   };
 };
 
-},{".":29,"..":14,"slate":75}],25:[function(require,module,exports){
+},{".":29,"..":14,"slate":74}],25:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2231,7 +2231,7 @@ var getItemsAtRange = exports.getItemsAtRange = function getItemsAtRange(options
   };
 };
 
-},{".":29,"..":14,"slate":75}],26:[function(require,module,exports){
+},{".":29,"..":14,"slate":74}],26:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2259,7 +2259,7 @@ var getListForItem = exports.getListForItem = function getListForItem(options) {
   };
 };
 
-},{".":29,"..":14,"slate":75}],27:[function(require,module,exports){
+},{".":29,"..":14,"slate":74}],27:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2311,7 +2311,7 @@ var getPreviousItem = exports.getPreviousItem = function getPreviousItem(options
   };
 };
 
-},{".":29,"..":14,"slate":75}],28:[function(require,module,exports){
+},{".":29,"..":14,"slate":74}],28:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2411,7 +2411,7 @@ var getTopmostItemsAtRange = exports.getTopmostItemsAtRange = function getTopmos
   };
 };
 
-},{".":29,"..":14,"slate":75}],29:[function(require,module,exports){
+},{".":29,"..":14,"slate":74}],29:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2584,7 +2584,7 @@ var isItem = exports.isItem = function isItem(_ref) {
   };
 };
 
-},{"..":14,"slate":75}],31:[function(require,module,exports){
+},{"..":14,"slate":74}],31:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2606,7 +2606,7 @@ var isList = exports.isList = function isList(_ref) {
   };
 };
 
-},{"..":14,"slate":75}],32:[function(require,module,exports){
+},{"..":14,"slate":74}],32:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2628,7 +2628,7 @@ var isListOrItem = exports.isListOrItem = function isListOrItem(options) {
   };
 };
 
-},{"..":14,"./isItem":30,"./isList":31,"slate":75}],33:[function(require,module,exports){
+},{"..":14,"./isItem":30,"./isList":31,"slate":74}],33:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2651,521 +2651,7 @@ var isSelectionInList = exports.isSelectionInList = function isSelectionInList(o
   };
 };
 
-},{".":29,"..":14,"slate":75}],34:[function(require,module,exports){
-(function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-    typeof define === 'function' && define.amd ? define(['exports'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.ResizeObserver = {}));
-})(this, (function (exports) { 'use strict';
-
-    var resizeObservers = [];
-
-    var hasActiveObservations = function () {
-        return resizeObservers.some(function (ro) { return ro.activeTargets.length > 0; });
-    };
-
-    var hasSkippedObservations = function () {
-        return resizeObservers.some(function (ro) { return ro.skippedTargets.length > 0; });
-    };
-
-    var msg = 'ResizeObserver loop completed with undelivered notifications.';
-    var deliverResizeLoopError = function () {
-        var event;
-        if (typeof ErrorEvent === 'function') {
-            event = new ErrorEvent('error', {
-                message: msg
-            });
-        }
-        else {
-            event = document.createEvent('Event');
-            event.initEvent('error', false, false);
-            event.message = msg;
-        }
-        window.dispatchEvent(event);
-    };
-
-    var ResizeObserverBoxOptions;
-    (function (ResizeObserverBoxOptions) {
-        ResizeObserverBoxOptions["BORDER_BOX"] = "border-box";
-        ResizeObserverBoxOptions["CONTENT_BOX"] = "content-box";
-        ResizeObserverBoxOptions["DEVICE_PIXEL_CONTENT_BOX"] = "device-pixel-content-box";
-    })(ResizeObserverBoxOptions || (ResizeObserverBoxOptions = {}));
-
-    var freeze = function (obj) { return Object.freeze(obj); };
-
-    var ResizeObserverSize = (function () {
-        function ResizeObserverSize(inlineSize, blockSize) {
-            this.inlineSize = inlineSize;
-            this.blockSize = blockSize;
-            freeze(this);
-        }
-        return ResizeObserverSize;
-    }());
-
-    var DOMRectReadOnly = (function () {
-        function DOMRectReadOnly(x, y, width, height) {
-            this.x = x;
-            this.y = y;
-            this.width = width;
-            this.height = height;
-            this.top = this.y;
-            this.left = this.x;
-            this.bottom = this.top + this.height;
-            this.right = this.left + this.width;
-            return freeze(this);
-        }
-        DOMRectReadOnly.prototype.toJSON = function () {
-            var _a = this, x = _a.x, y = _a.y, top = _a.top, right = _a.right, bottom = _a.bottom, left = _a.left, width = _a.width, height = _a.height;
-            return { x: x, y: y, top: top, right: right, bottom: bottom, left: left, width: width, height: height };
-        };
-        DOMRectReadOnly.fromRect = function (rectangle) {
-            return new DOMRectReadOnly(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
-        };
-        return DOMRectReadOnly;
-    }());
-
-    var isSVG = function (target) { return target instanceof SVGElement && 'getBBox' in target; };
-    var isHidden = function (target) {
-        if (isSVG(target)) {
-            var _a = target.getBBox(), width = _a.width, height = _a.height;
-            return !width && !height;
-        }
-        var _b = target, offsetWidth = _b.offsetWidth, offsetHeight = _b.offsetHeight;
-        return !(offsetWidth || offsetHeight || target.getClientRects().length);
-    };
-    var isElement = function (obj) {
-        var _a;
-        if (obj instanceof Element) {
-            return true;
-        }
-        var scope = (_a = obj === null || obj === void 0 ? void 0 : obj.ownerDocument) === null || _a === void 0 ? void 0 : _a.defaultView;
-        return !!(scope && obj instanceof scope.Element);
-    };
-    var isReplacedElement = function (target) {
-        switch (target.tagName) {
-            case 'INPUT':
-                if (target.type !== 'image') {
-                    break;
-                }
-            case 'VIDEO':
-            case 'AUDIO':
-            case 'EMBED':
-            case 'OBJECT':
-            case 'CANVAS':
-            case 'IFRAME':
-            case 'IMG':
-                return true;
-        }
-        return false;
-    };
-
-    var global = typeof window !== 'undefined' ? window : {};
-
-    var cache = new WeakMap();
-    var scrollRegexp = /auto|scroll/;
-    var verticalRegexp = /^tb|vertical/;
-    var IE = (/msie|trident/i).test(global.navigator && global.navigator.userAgent);
-    var parseDimension = function (pixel) { return parseFloat(pixel || '0'); };
-    var size = function (inlineSize, blockSize, switchSizes) {
-        if (inlineSize === void 0) { inlineSize = 0; }
-        if (blockSize === void 0) { blockSize = 0; }
-        if (switchSizes === void 0) { switchSizes = false; }
-        return new ResizeObserverSize((switchSizes ? blockSize : inlineSize) || 0, (switchSizes ? inlineSize : blockSize) || 0);
-    };
-    var zeroBoxes = freeze({
-        devicePixelContentBoxSize: size(),
-        borderBoxSize: size(),
-        contentBoxSize: size(),
-        contentRect: new DOMRectReadOnly(0, 0, 0, 0)
-    });
-    var calculateBoxSizes = function (target, forceRecalculation) {
-        if (forceRecalculation === void 0) { forceRecalculation = false; }
-        if (cache.has(target) && !forceRecalculation) {
-            return cache.get(target);
-        }
-        if (isHidden(target)) {
-            cache.set(target, zeroBoxes);
-            return zeroBoxes;
-        }
-        var cs = getComputedStyle(target);
-        var svg = isSVG(target) && target.ownerSVGElement && target.getBBox();
-        var removePadding = !IE && cs.boxSizing === 'border-box';
-        var switchSizes = verticalRegexp.test(cs.writingMode || '');
-        var canScrollVertically = !svg && scrollRegexp.test(cs.overflowY || '');
-        var canScrollHorizontally = !svg && scrollRegexp.test(cs.overflowX || '');
-        var paddingTop = svg ? 0 : parseDimension(cs.paddingTop);
-        var paddingRight = svg ? 0 : parseDimension(cs.paddingRight);
-        var paddingBottom = svg ? 0 : parseDimension(cs.paddingBottom);
-        var paddingLeft = svg ? 0 : parseDimension(cs.paddingLeft);
-        var borderTop = svg ? 0 : parseDimension(cs.borderTopWidth);
-        var borderRight = svg ? 0 : parseDimension(cs.borderRightWidth);
-        var borderBottom = svg ? 0 : parseDimension(cs.borderBottomWidth);
-        var borderLeft = svg ? 0 : parseDimension(cs.borderLeftWidth);
-        var horizontalPadding = paddingLeft + paddingRight;
-        var verticalPadding = paddingTop + paddingBottom;
-        var horizontalBorderArea = borderLeft + borderRight;
-        var verticalBorderArea = borderTop + borderBottom;
-        var horizontalScrollbarThickness = !canScrollHorizontally ? 0 : target.offsetHeight - verticalBorderArea - target.clientHeight;
-        var verticalScrollbarThickness = !canScrollVertically ? 0 : target.offsetWidth - horizontalBorderArea - target.clientWidth;
-        var widthReduction = removePadding ? horizontalPadding + horizontalBorderArea : 0;
-        var heightReduction = removePadding ? verticalPadding + verticalBorderArea : 0;
-        var contentWidth = svg ? svg.width : parseDimension(cs.width) - widthReduction - verticalScrollbarThickness;
-        var contentHeight = svg ? svg.height : parseDimension(cs.height) - heightReduction - horizontalScrollbarThickness;
-        var borderBoxWidth = contentWidth + horizontalPadding + verticalScrollbarThickness + horizontalBorderArea;
-        var borderBoxHeight = contentHeight + verticalPadding + horizontalScrollbarThickness + verticalBorderArea;
-        var boxes = freeze({
-            devicePixelContentBoxSize: size(Math.round(contentWidth * devicePixelRatio), Math.round(contentHeight * devicePixelRatio), switchSizes),
-            borderBoxSize: size(borderBoxWidth, borderBoxHeight, switchSizes),
-            contentBoxSize: size(contentWidth, contentHeight, switchSizes),
-            contentRect: new DOMRectReadOnly(paddingLeft, paddingTop, contentWidth, contentHeight)
-        });
-        cache.set(target, boxes);
-        return boxes;
-    };
-    var calculateBoxSize = function (target, observedBox, forceRecalculation) {
-        var _a = calculateBoxSizes(target, forceRecalculation), borderBoxSize = _a.borderBoxSize, contentBoxSize = _a.contentBoxSize, devicePixelContentBoxSize = _a.devicePixelContentBoxSize;
-        switch (observedBox) {
-            case ResizeObserverBoxOptions.DEVICE_PIXEL_CONTENT_BOX:
-                return devicePixelContentBoxSize;
-            case ResizeObserverBoxOptions.BORDER_BOX:
-                return borderBoxSize;
-            default:
-                return contentBoxSize;
-        }
-    };
-
-    var ResizeObserverEntry = (function () {
-        function ResizeObserverEntry(target) {
-            var boxes = calculateBoxSizes(target);
-            this.target = target;
-            this.contentRect = boxes.contentRect;
-            this.borderBoxSize = freeze([boxes.borderBoxSize]);
-            this.contentBoxSize = freeze([boxes.contentBoxSize]);
-            this.devicePixelContentBoxSize = freeze([boxes.devicePixelContentBoxSize]);
-        }
-        return ResizeObserverEntry;
-    }());
-
-    var calculateDepthForNode = function (node) {
-        if (isHidden(node)) {
-            return Infinity;
-        }
-        var depth = 0;
-        var parent = node.parentNode;
-        while (parent) {
-            depth += 1;
-            parent = parent.parentNode;
-        }
-        return depth;
-    };
-
-    var broadcastActiveObservations = function () {
-        var shallowestDepth = Infinity;
-        var callbacks = [];
-        resizeObservers.forEach(function processObserver(ro) {
-            if (ro.activeTargets.length === 0) {
-                return;
-            }
-            var entries = [];
-            ro.activeTargets.forEach(function processTarget(ot) {
-                var entry = new ResizeObserverEntry(ot.target);
-                var targetDepth = calculateDepthForNode(ot.target);
-                entries.push(entry);
-                ot.lastReportedSize = calculateBoxSize(ot.target, ot.observedBox);
-                if (targetDepth < shallowestDepth) {
-                    shallowestDepth = targetDepth;
-                }
-            });
-            callbacks.push(function resizeObserverCallback() {
-                ro.callback.call(ro.observer, entries, ro.observer);
-            });
-            ro.activeTargets.splice(0, ro.activeTargets.length);
-        });
-        for (var _i = 0, callbacks_1 = callbacks; _i < callbacks_1.length; _i++) {
-            var callback = callbacks_1[_i];
-            callback();
-        }
-        return shallowestDepth;
-    };
-
-    var gatherActiveObservationsAtDepth = function (depth) {
-        resizeObservers.forEach(function processObserver(ro) {
-            ro.activeTargets.splice(0, ro.activeTargets.length);
-            ro.skippedTargets.splice(0, ro.skippedTargets.length);
-            ro.observationTargets.forEach(function processTarget(ot) {
-                if (ot.isActive()) {
-                    if (calculateDepthForNode(ot.target) > depth) {
-                        ro.activeTargets.push(ot);
-                    }
-                    else {
-                        ro.skippedTargets.push(ot);
-                    }
-                }
-            });
-        });
-    };
-
-    var process = function () {
-        var depth = 0;
-        gatherActiveObservationsAtDepth(depth);
-        while (hasActiveObservations()) {
-            depth = broadcastActiveObservations();
-            gatherActiveObservationsAtDepth(depth);
-        }
-        if (hasSkippedObservations()) {
-            deliverResizeLoopError();
-        }
-        return depth > 0;
-    };
-
-    var trigger;
-    var callbacks = [];
-    var notify = function () { return callbacks.splice(0).forEach(function (cb) { return cb(); }); };
-    var queueMicroTask = function (callback) {
-        if (!trigger) {
-            var toggle_1 = 0;
-            var el_1 = document.createTextNode('');
-            var config = { characterData: true };
-            new MutationObserver(function () { return notify(); }).observe(el_1, config);
-            trigger = function () { el_1.textContent = "".concat(toggle_1 ? toggle_1-- : toggle_1++); };
-        }
-        callbacks.push(callback);
-        trigger();
-    };
-
-    var queueResizeObserver = function (cb) {
-        queueMicroTask(function ResizeObserver() {
-            requestAnimationFrame(cb);
-        });
-    };
-
-    var watching = 0;
-    var isWatching = function () { return !!watching; };
-    var CATCH_PERIOD = 250;
-    var observerConfig = { attributes: true, characterData: true, childList: true, subtree: true };
-    var events = [
-        'resize',
-        'load',
-        'transitionend',
-        'animationend',
-        'animationstart',
-        'animationiteration',
-        'keyup',
-        'keydown',
-        'mouseup',
-        'mousedown',
-        'mouseover',
-        'mouseout',
-        'blur',
-        'focus'
-    ];
-    var time = function (timeout) {
-        if (timeout === void 0) { timeout = 0; }
-        return Date.now() + timeout;
-    };
-    var scheduled = false;
-    var Scheduler = (function () {
-        function Scheduler() {
-            var _this = this;
-            this.stopped = true;
-            this.listener = function () { return _this.schedule(); };
-        }
-        Scheduler.prototype.run = function (timeout) {
-            var _this = this;
-            if (timeout === void 0) { timeout = CATCH_PERIOD; }
-            if (scheduled) {
-                return;
-            }
-            scheduled = true;
-            var until = time(timeout);
-            queueResizeObserver(function () {
-                var elementsHaveResized = false;
-                try {
-                    elementsHaveResized = process();
-                }
-                finally {
-                    scheduled = false;
-                    timeout = until - time();
-                    if (!isWatching()) {
-                        return;
-                    }
-                    if (elementsHaveResized) {
-                        _this.run(1000);
-                    }
-                    else if (timeout > 0) {
-                        _this.run(timeout);
-                    }
-                    else {
-                        _this.start();
-                    }
-                }
-            });
-        };
-        Scheduler.prototype.schedule = function () {
-            this.stop();
-            this.run();
-        };
-        Scheduler.prototype.observe = function () {
-            var _this = this;
-            var cb = function () { return _this.observer && _this.observer.observe(document.body, observerConfig); };
-            document.body ? cb() : global.addEventListener('DOMContentLoaded', cb);
-        };
-        Scheduler.prototype.start = function () {
-            var _this = this;
-            if (this.stopped) {
-                this.stopped = false;
-                this.observer = new MutationObserver(this.listener);
-                this.observe();
-                events.forEach(function (name) { return global.addEventListener(name, _this.listener, true); });
-            }
-        };
-        Scheduler.prototype.stop = function () {
-            var _this = this;
-            if (!this.stopped) {
-                this.observer && this.observer.disconnect();
-                events.forEach(function (name) { return global.removeEventListener(name, _this.listener, true); });
-                this.stopped = true;
-            }
-        };
-        return Scheduler;
-    }());
-    var scheduler = new Scheduler();
-    var updateCount = function (n) {
-        !watching && n > 0 && scheduler.start();
-        watching += n;
-        !watching && scheduler.stop();
-    };
-
-    var skipNotifyOnElement = function (target) {
-        return !isSVG(target)
-            && !isReplacedElement(target)
-            && getComputedStyle(target).display === 'inline';
-    };
-    var ResizeObservation = (function () {
-        function ResizeObservation(target, observedBox) {
-            this.target = target;
-            this.observedBox = observedBox || ResizeObserverBoxOptions.CONTENT_BOX;
-            this.lastReportedSize = {
-                inlineSize: 0,
-                blockSize: 0
-            };
-        }
-        ResizeObservation.prototype.isActive = function () {
-            var size = calculateBoxSize(this.target, this.observedBox, true);
-            if (skipNotifyOnElement(this.target)) {
-                this.lastReportedSize = size;
-            }
-            if (this.lastReportedSize.inlineSize !== size.inlineSize
-                || this.lastReportedSize.blockSize !== size.blockSize) {
-                return true;
-            }
-            return false;
-        };
-        return ResizeObservation;
-    }());
-
-    var ResizeObserverDetail = (function () {
-        function ResizeObserverDetail(resizeObserver, callback) {
-            this.activeTargets = [];
-            this.skippedTargets = [];
-            this.observationTargets = [];
-            this.observer = resizeObserver;
-            this.callback = callback;
-        }
-        return ResizeObserverDetail;
-    }());
-
-    var observerMap = new WeakMap();
-    var getObservationIndex = function (observationTargets, target) {
-        for (var i = 0; i < observationTargets.length; i += 1) {
-            if (observationTargets[i].target === target) {
-                return i;
-            }
-        }
-        return -1;
-    };
-    var ResizeObserverController = (function () {
-        function ResizeObserverController() {
-        }
-        ResizeObserverController.connect = function (resizeObserver, callback) {
-            var detail = new ResizeObserverDetail(resizeObserver, callback);
-            observerMap.set(resizeObserver, detail);
-        };
-        ResizeObserverController.observe = function (resizeObserver, target, options) {
-            var detail = observerMap.get(resizeObserver);
-            var firstObservation = detail.observationTargets.length === 0;
-            if (getObservationIndex(detail.observationTargets, target) < 0) {
-                firstObservation && resizeObservers.push(detail);
-                detail.observationTargets.push(new ResizeObservation(target, options && options.box));
-                updateCount(1);
-                scheduler.schedule();
-            }
-        };
-        ResizeObserverController.unobserve = function (resizeObserver, target) {
-            var detail = observerMap.get(resizeObserver);
-            var index = getObservationIndex(detail.observationTargets, target);
-            var lastObservation = detail.observationTargets.length === 1;
-            if (index >= 0) {
-                lastObservation && resizeObservers.splice(resizeObservers.indexOf(detail), 1);
-                detail.observationTargets.splice(index, 1);
-                updateCount(-1);
-            }
-        };
-        ResizeObserverController.disconnect = function (resizeObserver) {
-            var _this = this;
-            var detail = observerMap.get(resizeObserver);
-            detail.observationTargets.slice().forEach(function (ot) { return _this.unobserve(resizeObserver, ot.target); });
-            detail.activeTargets.splice(0, detail.activeTargets.length);
-        };
-        return ResizeObserverController;
-    }());
-
-    var ResizeObserver = (function () {
-        function ResizeObserver(callback) {
-            if (arguments.length === 0) {
-                throw new TypeError("Failed to construct 'ResizeObserver': 1 argument required, but only 0 present.");
-            }
-            if (typeof callback !== 'function') {
-                throw new TypeError("Failed to construct 'ResizeObserver': The callback provided as parameter 1 is not a function.");
-            }
-            ResizeObserverController.connect(this, callback);
-        }
-        ResizeObserver.prototype.observe = function (target, options) {
-            if (arguments.length === 0) {
-                throw new TypeError("Failed to execute 'observe' on 'ResizeObserver': 1 argument required, but only 0 present.");
-            }
-            if (!isElement(target)) {
-                throw new TypeError("Failed to execute 'observe' on 'ResizeObserver': parameter 1 is not of type 'Element");
-            }
-            ResizeObserverController.observe(this, target, options);
-        };
-        ResizeObserver.prototype.unobserve = function (target) {
-            if (arguments.length === 0) {
-                throw new TypeError("Failed to execute 'unobserve' on 'ResizeObserver': 1 argument required, but only 0 present.");
-            }
-            if (!isElement(target)) {
-                throw new TypeError("Failed to execute 'unobserve' on 'ResizeObserver': parameter 1 is not of type 'Element");
-            }
-            ResizeObserverController.unobserve(this, target);
-        };
-        ResizeObserver.prototype.disconnect = function () {
-            ResizeObserverController.disconnect(this);
-        };
-        ResizeObserver.toString = function () {
-            return 'function ResizeObserver () { [polyfill code] }';
-        };
-        return ResizeObserver;
-    }());
-
-    exports.ResizeObserver = ResizeObserver;
-    exports.ResizeObserverEntry = ResizeObserverEntry;
-    exports.ResizeObserverSize = ResizeObserverSize;
-
-    Object.defineProperty(exports, '__esModule', { value: true });
-
-}));
-
-},{}],35:[function(require,module,exports){
+},{".":29,"..":14,"slate":74}],34:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -3367,7 +2853,7 @@ var _default = function _default(target, options) {
 
 exports["default"] = _default;
 module.exports = exports.default;
-},{}],36:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 'use strict'
 
 module.exports = direction
@@ -3395,7 +2881,7 @@ function direction(value) {
   return 'neutral'
 }
 
-},{}],37:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
@@ -5482,11 +4968,11 @@ exports.setAutoFreeze = setAutoFreeze;
 exports.setUseProxies = setUseProxies;
 
 
-},{}],38:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 function n(n){for(var r=arguments.length,t=Array(r>1?r-1:0),e=1;e<r;e++)t[e-1]=arguments[e];throw Error("[Immer] minified error nr: "+n+(t.length?" "+t.map((function(n){return"'"+n+"'"})).join(","):"")+". Find the full error at: https://bit.ly/3cXEKWf")}function r(n){return!!n&&!!n[H]}function t(n){var r;return!!n&&(function(n){if(!n||"object"!=typeof n)return!1;var r=Object.getPrototypeOf(n);if(null===r)return!0;var t=Object.hasOwnProperty.call(r,"constructor")&&r.constructor;return t===Object||"function"==typeof t&&Function.toString.call(t)===Q}(n)||Array.isArray(n)||!!n[G]||!!(null===(r=n.constructor)||void 0===r?void 0:r[G])||c(n)||v(n))}function e(n,r,t){void 0===t&&(t=!1),0===i(n)?(t?Object.keys:T)(n).forEach((function(e){t&&"symbol"==typeof e||r(e,n[e],n)})):n.forEach((function(t,e){return r(e,t,n)}))}function i(n){var r=n[H];return r?r.t>3?r.t-4:r.t:Array.isArray(n)?1:c(n)?2:v(n)?3:0}function u(n,r){return 2===i(n)?n.has(r):Object.prototype.hasOwnProperty.call(n,r)}function o(n,r){return 2===i(n)?n.get(r):n[r]}function f(n,r,t){var e=i(n);2===e?n.set(r,t):3===e?n.add(t):n[r]=t}function a(n,r){return n===r?0!==n||1/n==1/r:n!=n&&r!=r}function c(n){return W&&n instanceof Map}function v(n){return X&&n instanceof Set}function s(n){return n.i||n.u}function p(n){if(Array.isArray(n))return Array.prototype.slice.call(n);var r=U(n);delete r[H];for(var t=T(r),e=0;e<t.length;e++){var i=t[e],u=r[i];!1===u.writable&&(u.writable=!0,u.configurable=!0),(u.get||u.set)&&(r[i]={configurable:!0,writable:!0,enumerable:u.enumerable,value:n[i]})}return Object.create(Object.getPrototypeOf(n),r)}function l(n,u){return void 0===u&&(u=!1),h(n)||r(n)||!t(n)||(i(n)>1&&(n.set=n.add=n.clear=n.delete=d),Object.freeze(n),u&&e(n,(function(n,r){return l(r,!0)}),!0)),n}function d(){n(2)}function h(n){return null==n||"object"!=typeof n||Object.isFrozen(n)}function y(r){var t=V[r];return t||n(18,r),t}function _(n,r){V[n]||(V[n]=r)}function b(){return I}function m(n,r){r&&(y("Patches"),n.o=[],n.v=[],n.s=r)}function j(n){O(n),n.p.forEach(w),n.p=null}function O(n){n===I&&(I=n.l)}function x(n){return I={p:[],l:I,h:n,_:!0,m:0}}function w(n){var r=n[H];0===r.t||1===r.t?r.j():r.O=!0}function S(r,e){e.m=e.p.length;var i=e.p[0],u=void 0!==r&&r!==i;return e.h.S||y("ES5").P(e,r,u),u?(i[H].g&&(j(e),n(4)),t(r)&&(r=P(e,r),e.l||M(e,r)),e.o&&y("Patches").M(i[H].u,r,e.o,e.v)):r=P(e,i,[]),j(e),e.o&&e.s(e.o,e.v),r!==B?r:void 0}function P(n,r,t){if(h(r))return r;var i=r[H];if(!i)return e(r,(function(e,u){return g(n,i,r,e,u,t)}),!0),r;if(i.A!==n)return r;if(!i.g)return M(n,i.u,!0),i.u;if(!i.R){i.R=!0,i.A.m--;var u=4===i.t||5===i.t?i.i=p(i.k):i.i,o=u,f=!1;3===i.t&&(o=new Set(u),u.clear(),f=!0),e(o,(function(r,e){return g(n,i,u,r,e,t,f)})),M(n,u,!1),t&&n.o&&y("Patches").F(i,t,n.o,n.v)}return i.i}function g(n,e,i,o,a,c,v){if(r(a)){var s=P(n,a,c&&e&&3!==e.t&&!u(e.N,o)?c.concat(o):void 0);if(f(i,o,s),!r(s))return;n._=!1}else v&&i.add(a);if(t(a)&&!h(a)){if(!n.h.D&&n.m<1)return;P(n,a),e&&e.A.l||M(n,a)}}function M(n,r,t){void 0===t&&(t=!1),!n.l&&n.h.D&&n._&&l(r,t)}function A(n,r){var t=n[H];return(t?s(t):n)[r]}function z(n,r){if(r in n)for(var t=Object.getPrototypeOf(n);t;){var e=Object.getOwnPropertyDescriptor(t,r);if(e)return e;t=Object.getPrototypeOf(t)}}function E(n){n.g||(n.g=!0,n.l&&E(n.l))}function R(n){n.i||(n.i=p(n.u))}function k(n,r,t){var e=c(r)?y("MapSet").K(r,t):v(r)?y("MapSet").$(r,t):n.S?function(n,r){var t=Array.isArray(n),e={t:t?1:0,A:r?r.A:b(),g:!1,R:!1,N:{},l:r,u:n,k:null,i:null,j:null,C:!1},i=e,u=Y;t&&(i=[e],u=Z);var o=Proxy.revocable(i,u),f=o.revoke,a=o.proxy;return e.k=a,e.j=f,a}(r,t):y("ES5").I(r,t);return(t?t.A:b()).p.push(e),e}function F(u){return r(u)||n(22,u),function n(r){if(!t(r))return r;var u,a=r[H],c=i(r);if(a){if(!a.g&&(a.t<4||!y("ES5").J(a)))return a.u;a.R=!0,u=N(r,c),a.R=!1}else u=N(r,c);return e(u,(function(r,t){a&&o(a.u,r)===t||f(u,r,n(t))})),3===c?new Set(u):u}(u)}function N(n,r){switch(r){case 2:return new Map(n);case 3:return Array.from(n)}return p(n)}function D(){function n(n,r){var t=f[n];return t?t.enumerable=r:f[n]=t={configurable:!0,enumerable:r,get:function(){return Y.get(this[H],n)},set:function(r){Y.set(this[H],n,r)}},t}function t(n){for(var r=n.length-1;r>=0;r--){var t=n[r][H];if(!t.g)switch(t.t){case 5:o(t)&&E(t);break;case 4:i(t)&&E(t)}}}function i(n){for(var r=n.u,t=n.k,e=T(t),i=e.length-1;i>=0;i--){var o=e[i];if(o!==H){var f=r[o];if(void 0===f&&!u(r,o))return!0;var c=t[o],v=c&&c[H];if(v?v.u!==f:!a(c,f))return!0}}var s=!!r[H];return e.length!==T(r).length+(s?0:1)}function o(n){var r=n.k;if(r.length!==n.u.length)return!0;var t=Object.getOwnPropertyDescriptor(r,r.length-1);if(t&&!t.get)return!0;for(var e=0;e<r.length;e++)if(!r.hasOwnProperty(e))return!0;return!1}var f={};_("ES5",{I:function(r,t){var e=Array.isArray(r),i=function(r,t){if(r){for(var e=Array(t.length),i=0;i<t.length;i++)Object.defineProperty(e,""+i,n(i,!0));return e}var u=U(t);delete u[H];for(var o=T(u),f=0;f<o.length;f++){var a=o[f];u[a]=n(a,r||!!u[a].enumerable)}return Object.create(Object.getPrototypeOf(t),u)}(e,r),u={t:e?5:4,A:t?t.A:b(),g:!1,R:!1,N:{},l:t,u:r,k:i,i:null,O:!1,C:!1};return Object.defineProperty(i,H,{value:u,writable:!0}),i},P:function(n,i,f){f?r(i)&&i[H].A===n&&t(n.p):(n.o&&function n(r){if(r&&"object"==typeof r){var t=r[H];if(t){var i=t.u,f=t.k,a=t.N,c=t.t;if(4===c)e(f,(function(r){r!==H&&(void 0!==i[r]||u(i,r)?a[r]||n(f[r]):(a[r]=!0,E(t)))})),e(i,(function(n){void 0!==f[n]||u(f,n)||(a[n]=!1,E(t))}));else if(5===c){if(o(t)&&(E(t),a.length=!0),f.length<i.length)for(var v=f.length;v<i.length;v++)a[v]=!1;else for(var s=i.length;s<f.length;s++)a[s]=!0;for(var p=Math.min(f.length,i.length),l=0;l<p;l++)f.hasOwnProperty(l)||(a[l]=!0),void 0===a[l]&&n(f[l])}}}}(n.p[0]),t(n.p))},J:function(n){return 4===n.t?i(n):o(n)}})}function K(){function f(n){if(!t(n))return n;if(Array.isArray(n))return n.map(f);if(c(n))return new Map(Array.from(n.entries()).map((function(n){return[n[0],f(n[1])]})));if(v(n))return new Set(Array.from(n).map(f));var r=Object.create(Object.getPrototypeOf(n));for(var e in n)r[e]=f(n[e]);return u(n,G)&&(r[G]=n[G]),r}function a(n){return r(n)?f(n):n}var s="add";_("Patches",{W:function(r,t){return t.forEach((function(t){for(var e=t.path,u=t.op,a=r,c=0;c<e.length-1;c++){var v=i(a),p=e[c];"string"!=typeof p&&"number"!=typeof p&&(p=""+p),0!==v&&1!==v||"__proto__"!==p&&"constructor"!==p||n(24),"function"==typeof a&&"prototype"===p&&n(24),"object"!=typeof(a=o(a,p))&&n(15,e.join("/"))}var l=i(a),d=f(t.value),h=e[e.length-1];switch(u){case"replace":switch(l){case 2:return a.set(h,d);case 3:n(16);default:return a[h]=d}case s:switch(l){case 1:return"-"===h?a.push(d):a.splice(h,0,d);case 2:return a.set(h,d);case 3:return a.add(d);default:return a[h]=d}case"remove":switch(l){case 1:return a.splice(h,1);case 2:return a.delete(h);case 3:return a.delete(t.value);default:return delete a[h]}default:n(17,u)}})),r},F:function(n,r,t,i){switch(n.t){case 0:case 4:case 2:return function(n,r,t,i){var f=n.u,c=n.i;e(n.N,(function(n,e){var v=o(f,n),p=o(c,n),l=e?u(f,n)?"replace":s:"remove";if(v!==p||"replace"!==l){var d=r.concat(n);t.push("remove"===l?{op:l,path:d}:{op:l,path:d,value:p}),i.push(l===s?{op:"remove",path:d}:"remove"===l?{op:s,path:d,value:a(v)}:{op:"replace",path:d,value:a(v)})}}))}(n,r,t,i);case 5:case 1:return function(n,r,t,e){var i=n.u,u=n.N,o=n.i;if(o.length<i.length){var f=[o,i];i=f[0],o=f[1];var c=[e,t];t=c[0],e=c[1]}for(var v=0;v<i.length;v++)if(u[v]&&o[v]!==i[v]){var p=r.concat([v]);t.push({op:"replace",path:p,value:a(o[v])}),e.push({op:"replace",path:p,value:a(i[v])})}for(var l=i.length;l<o.length;l++){var d=r.concat([l]);t.push({op:s,path:d,value:a(o[l])})}i.length<o.length&&e.push({op:"replace",path:r.concat(["length"]),value:i.length})}(n,r,t,i);case 3:return function(n,r,t,e){var i=n.u,u=n.i,o=0;i.forEach((function(n){if(!u.has(n)){var i=r.concat([o]);t.push({op:"remove",path:i,value:n}),e.unshift({op:s,path:i,value:n})}o++})),o=0,u.forEach((function(n){if(!i.has(n)){var u=r.concat([o]);t.push({op:s,path:u,value:n}),e.unshift({op:"remove",path:u,value:n})}o++}))}(n,r,t,i)}},M:function(n,r,t,e){t.push({op:"replace",path:[],value:r===B?void 0:r}),e.push({op:"replace",path:[],value:n})}})}function $(){function r(n,r){function t(){this.constructor=n}f(n,r),n.prototype=(t.prototype=r.prototype,new t)}function i(n){n.i||(n.N=new Map,n.i=new Map(n.u))}function u(n){n.i||(n.i=new Set,n.u.forEach((function(r){if(t(r)){var e=k(n.A.h,r,n);n.p.set(r,e),n.i.add(e)}else n.i.add(r)})))}function o(r){r.O&&n(3,JSON.stringify(s(r)))}var f=function(n,r){return(f=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(n,r){n.__proto__=r}||function(n,r){for(var t in r)r.hasOwnProperty(t)&&(n[t]=r[t])})(n,r)},a=function(){function n(n,r){return this[H]={t:2,l:r,A:r?r.A:b(),g:!1,R:!1,i:void 0,N:void 0,u:n,k:this,C:!1,O:!1},this}r(n,Map);var u=n.prototype;return Object.defineProperty(u,"size",{get:function(){return s(this[H]).size}}),u.has=function(n){return s(this[H]).has(n)},u.set=function(n,r){var t=this[H];return o(t),s(t).has(n)&&s(t).get(n)===r||(i(t),E(t),t.N.set(n,!0),t.i.set(n,r),t.N.set(n,!0)),this},u.delete=function(n){if(!this.has(n))return!1;var r=this[H];return o(r),i(r),E(r),r.u.has(n)?r.N.set(n,!1):r.N.delete(n),r.i.delete(n),!0},u.clear=function(){var n=this[H];o(n),s(n).size&&(i(n),E(n),n.N=new Map,e(n.u,(function(r){n.N.set(r,!1)})),n.i.clear())},u.forEach=function(n,r){var t=this;s(this[H]).forEach((function(e,i){n.call(r,t.get(i),i,t)}))},u.get=function(n){var r=this[H];o(r);var e=s(r).get(n);if(r.R||!t(e))return e;if(e!==r.u.get(n))return e;var u=k(r.A.h,e,r);return i(r),r.i.set(n,u),u},u.keys=function(){return s(this[H]).keys()},u.values=function(){var n,r=this,t=this.keys();return(n={})[L]=function(){return r.values()},n.next=function(){var n=t.next();return n.done?n:{done:!1,value:r.get(n.value)}},n},u.entries=function(){var n,r=this,t=this.keys();return(n={})[L]=function(){return r.entries()},n.next=function(){var n=t.next();if(n.done)return n;var e=r.get(n.value);return{done:!1,value:[n.value,e]}},n},u[L]=function(){return this.entries()},n}(),c=function(){function n(n,r){return this[H]={t:3,l:r,A:r?r.A:b(),g:!1,R:!1,i:void 0,u:n,k:this,p:new Map,O:!1,C:!1},this}r(n,Set);var t=n.prototype;return Object.defineProperty(t,"size",{get:function(){return s(this[H]).size}}),t.has=function(n){var r=this[H];return o(r),r.i?!!r.i.has(n)||!(!r.p.has(n)||!r.i.has(r.p.get(n))):r.u.has(n)},t.add=function(n){var r=this[H];return o(r),this.has(n)||(u(r),E(r),r.i.add(n)),this},t.delete=function(n){if(!this.has(n))return!1;var r=this[H];return o(r),u(r),E(r),r.i.delete(n)||!!r.p.has(n)&&r.i.delete(r.p.get(n))},t.clear=function(){var n=this[H];o(n),s(n).size&&(u(n),E(n),n.i.clear())},t.values=function(){var n=this[H];return o(n),u(n),n.i.values()},t.entries=function(){var n=this[H];return o(n),u(n),n.i.entries()},t.keys=function(){return this.values()},t[L]=function(){return this.values()},t.forEach=function(n,r){for(var t=this.values(),e=t.next();!e.done;)n.call(r,e.value,e.value,this),e=t.next()},n}();_("MapSet",{K:function(n,r){return new a(n,r)},$:function(n,r){return new c(n,r)}})}var C;Object.defineProperty(exports,"__esModule",{value:!0});var I,J="undefined"!=typeof Symbol&&"symbol"==typeof Symbol("x"),W="undefined"!=typeof Map,X="undefined"!=typeof Set,q="undefined"!=typeof Proxy&&void 0!==Proxy.revocable&&"undefined"!=typeof Reflect,B=J?Symbol.for("immer-nothing"):((C={})["immer-nothing"]=!0,C),G=J?Symbol.for("immer-draftable"):"__$immer_draftable",H=J?Symbol.for("immer-state"):"__$immer_state",L="undefined"!=typeof Symbol&&Symbol.iterator||"@@iterator",Q=""+Object.prototype.constructor,T="undefined"!=typeof Reflect&&Reflect.ownKeys?Reflect.ownKeys:void 0!==Object.getOwnPropertySymbols?function(n){return Object.getOwnPropertyNames(n).concat(Object.getOwnPropertySymbols(n))}:Object.getOwnPropertyNames,U=Object.getOwnPropertyDescriptors||function(n){var r={};return T(n).forEach((function(t){r[t]=Object.getOwnPropertyDescriptor(n,t)})),r},V={},Y={get:function(n,r){if(r===H)return n;var e=s(n);if(!u(e,r))return function(n,r,t){var e,i=z(r,t);return i?"value"in i?i.value:null===(e=i.get)||void 0===e?void 0:e.call(n.k):void 0}(n,e,r);var i=e[r];return n.R||!t(i)?i:i===A(n.u,r)?(R(n),n.i[r]=k(n.A.h,i,n)):i},has:function(n,r){return r in s(n)},ownKeys:function(n){return Reflect.ownKeys(s(n))},set:function(n,r,t){var e=z(s(n),r);if(null==e?void 0:e.set)return e.set.call(n.k,t),!0;if(!n.g){var i=A(s(n),r),o=null==i?void 0:i[H];if(o&&o.u===t)return n.i[r]=t,n.N[r]=!1,!0;if(a(t,i)&&(void 0!==t||u(n.u,r)))return!0;R(n),E(n)}return n.i[r]===t&&(void 0!==t||r in n.i)||Number.isNaN(t)&&Number.isNaN(n.i[r])||(n.i[r]=t,n.N[r]=!0),!0},deleteProperty:function(n,r){return void 0!==A(n.u,r)||r in n.u?(n.N[r]=!1,R(n),E(n)):delete n.N[r],n.i&&delete n.i[r],!0},getOwnPropertyDescriptor:function(n,r){var t=s(n),e=Reflect.getOwnPropertyDescriptor(t,r);return e?{writable:!0,configurable:1!==n.t||"length"!==r,enumerable:e.enumerable,value:t[r]}:e},defineProperty:function(){n(11)},getPrototypeOf:function(n){return Object.getPrototypeOf(n.u)},setPrototypeOf:function(){n(12)}},Z={};e(Y,(function(n,r){Z[n]=function(){return arguments[0]=arguments[0][0],r.apply(this,arguments)}})),Z.deleteProperty=function(n,r){return Z.set.call(this,n,r,void 0)},Z.set=function(n,r,t){return Y.set.call(this,n[0],r,t,n[0])};var nn=function(){function e(r){var e=this;this.S=q,this.D=!0,this.produce=function(r,i,u){if("function"==typeof r&&"function"!=typeof i){var o=i;i=r;var f=e;return function(n){var r=this;void 0===n&&(n=o);for(var t=arguments.length,e=Array(t>1?t-1:0),u=1;u<t;u++)e[u-1]=arguments[u];return f.produce(n,(function(n){var t;return(t=i).call.apply(t,[r,n].concat(e))}))}}var a;if("function"!=typeof i&&n(6),void 0!==u&&"function"!=typeof u&&n(7),t(r)){var c=x(e),v=k(e,r,void 0),s=!0;try{a=i(v),s=!1}finally{s?j(c):O(c)}return"undefined"!=typeof Promise&&a instanceof Promise?a.then((function(n){return m(c,u),S(n,c)}),(function(n){throw j(c),n})):(m(c,u),S(a,c))}if(!r||"object"!=typeof r){if(void 0===(a=i(r))&&(a=r),a===B&&(a=void 0),e.D&&l(a,!0),u){var p=[],d=[];y("Patches").M(r,a,p,d),u(p,d)}return a}n(21,r)},this.produceWithPatches=function(n,r){if("function"==typeof n)return function(r){for(var t=arguments.length,i=Array(t>1?t-1:0),u=1;u<t;u++)i[u-1]=arguments[u];return e.produceWithPatches(r,(function(r){return n.apply(void 0,[r].concat(i))}))};var t,i,u=e.produce(n,r,(function(n,r){t=n,i=r}));return"undefined"!=typeof Promise&&u instanceof Promise?u.then((function(n){return[n,t,i]})):[u,t,i]},"boolean"==typeof(null==r?void 0:r.useProxies)&&this.setUseProxies(r.useProxies),"boolean"==typeof(null==r?void 0:r.autoFreeze)&&this.setAutoFreeze(r.autoFreeze)}var i=e.prototype;return i.createDraft=function(e){t(e)||n(8),r(e)&&(e=F(e));var i=x(this),u=k(this,e,void 0);return u[H].C=!0,O(i),u},i.finishDraft=function(n,r){var t=(n&&n[H]).A;return m(t,r),S(void 0,t)},i.setAutoFreeze=function(n){this.D=n},i.setUseProxies=function(r){r&&!q&&n(20),this.S=r},i.applyPatches=function(n,t){var e;for(e=t.length-1;e>=0;e--){var i=t[e];if(0===i.path.length&&"replace"===i.op){n=i.value;break}}e>-1&&(t=t.slice(e+1));var u=y("Patches").W;return r(n)?u(n,t):this.produce(n,(function(n){return u(n,t)}))},e}(),rn=new nn,tn=rn.produce,en=rn.produceWithPatches.bind(rn),un=rn.setAutoFreeze.bind(rn),on=rn.setUseProxies.bind(rn),fn=rn.applyPatches.bind(rn),an=rn.createDraft.bind(rn),cn=rn.finishDraft.bind(rn);exports.Immer=nn,exports.applyPatches=fn,exports.castDraft=function(n){return n},exports.castImmutable=function(n){return n},exports.createDraft=an,exports.current=F,exports.default=tn,exports.enableAllPlugins=function(){D(),$(),K()},exports.enableES5=D,exports.enableMapSet=$,exports.enablePatches=K,exports.finishDraft=cn,exports.freeze=l,exports.immerable=G,exports.isDraft=r,exports.isDraftable=t,exports.nothing=B,exports.original=function(t){return r(t)||n(23,t),t[H].u},exports.produce=tn,exports.produceWithPatches=en,exports.setAutoFreeze=un,exports.setUseProxies=on;
 
 
-},{}],39:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 (function (process){
 
 'use strict'
@@ -5498,7 +4984,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this,require('_process'))
-},{"./immer.cjs.development.js":37,"./immer.cjs.production.min.js":38,"_process":56}],40:[function(require,module,exports){
+},{"./immer.cjs.development.js":36,"./immer.cjs.production.min.js":37,"_process":55}],39:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5744,7 +5230,7 @@ exports.parseHotkey = parseHotkey;
 exports.compareHotkey = compareHotkey;
 exports.toKeyCode = toKeyCode;
 exports.toKeyName = toKeyName;
-},{}],41:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
@@ -5784,7 +5270,7 @@ function isPlainObject(o) {
 
 exports.isPlainObject = isPlainObject;
 
-},{}],42:[function(require,module,exports){
+},{}],41:[function(require,module,exports){
 var root = require('./_root');
 
 /** Built-in value references. */
@@ -5792,7 +5278,7 @@ var Symbol = root.Symbol;
 
 module.exports = Symbol;
 
-},{"./_root":47}],43:[function(require,module,exports){
+},{"./_root":46}],42:[function(require,module,exports){
 var Symbol = require('./_Symbol'),
     getRawTag = require('./_getRawTag'),
     objectToString = require('./_objectToString');
@@ -5822,7 +5308,7 @@ function baseGetTag(value) {
 
 module.exports = baseGetTag;
 
-},{"./_Symbol":42,"./_getRawTag":45,"./_objectToString":46}],44:[function(require,module,exports){
+},{"./_Symbol":41,"./_getRawTag":44,"./_objectToString":45}],43:[function(require,module,exports){
 (function (global){
 /** Detect free variable `global` from Node.js. */
 var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
@@ -5830,7 +5316,7 @@ var freeGlobal = typeof global == 'object' && global && global.Object === Object
 module.exports = freeGlobal;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],45:[function(require,module,exports){
+},{}],44:[function(require,module,exports){
 var Symbol = require('./_Symbol');
 
 /** Used for built-in method references. */
@@ -5878,7 +5364,7 @@ function getRawTag(value) {
 
 module.exports = getRawTag;
 
-},{"./_Symbol":42}],46:[function(require,module,exports){
+},{"./_Symbol":41}],45:[function(require,module,exports){
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
 
@@ -5902,7 +5388,7 @@ function objectToString(value) {
 
 module.exports = objectToString;
 
-},{}],47:[function(require,module,exports){
+},{}],46:[function(require,module,exports){
 var freeGlobal = require('./_freeGlobal');
 
 /** Detect free variable `self`. */
@@ -5913,7 +5399,7 @@ var root = freeGlobal || freeSelf || Function('return this')();
 
 module.exports = root;
 
-},{"./_freeGlobal":44}],48:[function(require,module,exports){
+},{"./_freeGlobal":43}],47:[function(require,module,exports){
 var isObject = require('./isObject'),
     now = require('./now'),
     toNumber = require('./toNumber');
@@ -6106,7 +5592,7 @@ function debounce(func, wait, options) {
 
 module.exports = debounce;
 
-},{"./isObject":49,"./now":52,"./toNumber":54}],49:[function(require,module,exports){
+},{"./isObject":48,"./now":51,"./toNumber":53}],48:[function(require,module,exports){
 /**
  * Checks if `value` is the
  * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
@@ -6139,7 +5625,7 @@ function isObject(value) {
 
 module.exports = isObject;
 
-},{}],50:[function(require,module,exports){
+},{}],49:[function(require,module,exports){
 /**
  * Checks if `value` is object-like. A value is object-like if it's not `null`
  * and has a `typeof` result of "object".
@@ -6170,7 +5656,7 @@ function isObjectLike(value) {
 
 module.exports = isObjectLike;
 
-},{}],51:[function(require,module,exports){
+},{}],50:[function(require,module,exports){
 var baseGetTag = require('./_baseGetTag'),
     isObjectLike = require('./isObjectLike');
 
@@ -6201,7 +5687,7 @@ function isSymbol(value) {
 
 module.exports = isSymbol;
 
-},{"./_baseGetTag":43,"./isObjectLike":50}],52:[function(require,module,exports){
+},{"./_baseGetTag":42,"./isObjectLike":49}],51:[function(require,module,exports){
 var root = require('./_root');
 
 /**
@@ -6226,7 +5712,7 @@ var now = function() {
 
 module.exports = now;
 
-},{"./_root":47}],53:[function(require,module,exports){
+},{"./_root":46}],52:[function(require,module,exports){
 var debounce = require('./debounce'),
     isObject = require('./isObject');
 
@@ -6297,7 +5783,7 @@ function throttle(func, wait, options) {
 
 module.exports = throttle;
 
-},{"./debounce":48,"./isObject":49}],54:[function(require,module,exports){
+},{"./debounce":47,"./isObject":48}],53:[function(require,module,exports){
 var isObject = require('./isObject'),
     isSymbol = require('./isSymbol');
 
@@ -6365,7 +5851,7 @@ function toNumber(value) {
 
 module.exports = toNumber;
 
-},{"./isObject":49,"./isSymbol":51}],55:[function(require,module,exports){
+},{"./isObject":48,"./isSymbol":50}],54:[function(require,module,exports){
 /*
 object-assign
 (c) Sindre Sorhus
@@ -6457,7 +5943,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 	return to;
 };
 
-},{}],56:[function(require,module,exports){
+},{}],55:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -6643,7 +6129,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],57:[function(require,module,exports){
+},{}],56:[function(require,module,exports){
 (function (process){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -6749,7 +6235,7 @@ checkPropTypes.resetWarningCache = function() {
 module.exports = checkPropTypes;
 
 }).call(this,require('_process'))
-},{"./lib/ReactPropTypesSecret":58,"_process":56}],58:[function(require,module,exports){
+},{"./lib/ReactPropTypesSecret":57,"_process":55}],57:[function(require,module,exports){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -6763,7 +6249,7 @@ var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
 
 module.exports = ReactPropTypesSecret;
 
-},{}],59:[function(require,module,exports){
+},{}],58:[function(require,module,exports){
 (function (process){
 /** @license React v16.12.0
  * react-dom.development.js
@@ -34562,7 +34048,7 @@ module.exports = reactDom;
 }
 
 }).call(this,require('_process'))
-},{"_process":56,"object-assign":55,"prop-types/checkPropTypes":57,"react":64,"scheduler":69,"scheduler/tracing":70}],60:[function(require,module,exports){
+},{"_process":55,"object-assign":54,"prop-types/checkPropTypes":56,"react":63,"scheduler":68,"scheduler/tracing":69}],59:[function(require,module,exports){
 /** @license React v16.12.0
  * react-dom.production.min.js
  *
@@ -34854,7 +34340,7 @@ xe,ye,Ca.injectEventPluginsByName,fa,Sc,function(a){ya(a,Rc)},cb,db,Pd,Ba,Sj,{cu
 (function(a){var b=a.findFiberByHostInstance;return ok(n({},a,{overrideHookState:null,overrideProps:null,setSuspenseHandler:null,scheduleUpdate:null,currentDispatcherRef:Ea.ReactCurrentDispatcher,findHostInstanceByFiber:function(a){a=ic(a);return null===a?null:a.stateNode},findFiberByHostInstance:function(a){return b?b(a):null},findHostInstancesForRefresh:null,scheduleRefresh:null,scheduleRoot:null,setRefreshHandler:null,getCurrentFiber:null}))})({findFiberByHostInstance:Fc,bundleType:0,version:"16.12.0",
 rendererPackageName:"react-dom"});var Dk={default:Ck},Ek=Dk&&Ck||Dk;module.exports=Ek.default||Ek;
 
-},{"object-assign":55,"react":64,"scheduler":69}],61:[function(require,module,exports){
+},{"object-assign":54,"react":63,"scheduler":68}],60:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -34896,7 +34382,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this,require('_process'))
-},{"./cjs/react-dom.development.js":59,"./cjs/react-dom.production.min.js":60,"_process":56}],62:[function(require,module,exports){
+},{"./cjs/react-dom.development.js":58,"./cjs/react-dom.production.min.js":59,"_process":55}],61:[function(require,module,exports){
 (function (process){
 /** @license React v16.12.0
  * react.development.js
@@ -37220,7 +36706,7 @@ module.exports = react;
 }
 
 }).call(this,require('_process'))
-},{"_process":56,"object-assign":55,"prop-types/checkPropTypes":57}],63:[function(require,module,exports){
+},{"_process":55,"object-assign":54,"prop-types/checkPropTypes":56}],62:[function(require,module,exports){
 /** @license React v16.12.0
  * react.production.min.js
  *
@@ -37247,7 +36733,7 @@ b,c){return W().useImperativeHandle(a,b,c)},useDebugValue:function(){},useLayout
 if(null!=b){void 0!==b.ref&&(g=b.ref,l=J.current);void 0!==b.key&&(d=""+b.key);if(a.type&&a.type.defaultProps)var f=a.type.defaultProps;for(k in b)K.call(b,k)&&!L.hasOwnProperty(k)&&(e[k]=void 0===b[k]&&void 0!==f?f[k]:b[k])}var k=arguments.length-2;if(1===k)e.children=c;else if(1<k){f=Array(k);for(var m=0;m<k;m++)f[m]=arguments[m+2];e.children=f}return{$$typeof:p,type:a.type,key:d,ref:g,props:e,_owner:l}},createFactory:function(a){var b=M.bind(null,a);b.type=a;return b},isValidElement:N,version:"16.12.0",
 __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED:{ReactCurrentDispatcher:I,ReactCurrentBatchConfig:{suspense:null},ReactCurrentOwner:J,IsSomeRendererActing:{current:!1},assign:h}},Y={default:X},Z=Y&&X||Y;module.exports=Z.default||Z;
 
-},{"object-assign":55}],64:[function(require,module,exports){
+},{"object-assign":54}],63:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -37258,7 +36744,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this,require('_process'))
-},{"./cjs/react.development.js":62,"./cjs/react.production.min.js":63,"_process":56}],65:[function(require,module,exports){
+},{"./cjs/react.development.js":61,"./cjs/react.production.min.js":62,"_process":55}],64:[function(require,module,exports){
 (function (process){
 /** @license React v0.18.0
  * scheduler-tracing.development.js
@@ -37685,7 +37171,7 @@ exports.unstable_unsubscribe = unstable_unsubscribe;
 }
 
 }).call(this,require('_process'))
-},{"_process":56}],66:[function(require,module,exports){
+},{"_process":55}],65:[function(require,module,exports){
 /** @license React v0.18.0
  * scheduler-tracing.production.min.js
  *
@@ -37697,7 +37183,7 @@ exports.unstable_unsubscribe = unstable_unsubscribe;
 
 'use strict';Object.defineProperty(exports,"__esModule",{value:!0});var b=0;exports.__interactionsRef=null;exports.__subscriberRef=null;exports.unstable_clear=function(a){return a()};exports.unstable_getCurrent=function(){return null};exports.unstable_getThreadID=function(){return++b};exports.unstable_trace=function(a,d,c){return c()};exports.unstable_wrap=function(a){return a};exports.unstable_subscribe=function(){};exports.unstable_unsubscribe=function(){};
 
-},{}],67:[function(require,module,exports){
+},{}],66:[function(require,module,exports){
 (function (process){
 /** @license React v0.18.0
  * scheduler.development.js
@@ -38605,7 +38091,7 @@ exports.unstable_Profiling = unstable_Profiling;
 }
 
 }).call(this,require('_process'))
-},{"_process":56}],68:[function(require,module,exports){
+},{"_process":55}],67:[function(require,module,exports){
 /** @license React v0.18.0
  * scheduler.production.min.js
  *
@@ -38629,7 +38115,7 @@ exports.unstable_scheduleCallback=function(a,b,c){var d=exports.unstable_now();i
 exports.unstable_wrapCallback=function(a){var b=R;return function(){var c=R;R=b;try{return a.apply(this,arguments)}finally{R=c}}};exports.unstable_getCurrentPriorityLevel=function(){return R};exports.unstable_shouldYield=function(){var a=exports.unstable_now();V(a);var b=L(N);return b!==Q&&null!==Q&&null!==b&&null!==b.callback&&b.startTime<=a&&b.expirationTime<Q.expirationTime||k()};exports.unstable_requestPaint=Z;exports.unstable_continueExecution=function(){T||S||(T=!0,f(X))};
 exports.unstable_pauseExecution=function(){};exports.unstable_getFirstCallbackNode=function(){return L(N)};exports.unstable_Profiling=null;
 
-},{}],69:[function(require,module,exports){
+},{}],68:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -38640,7 +38126,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this,require('_process'))
-},{"./cjs/scheduler.development.js":67,"./cjs/scheduler.production.min.js":68,"_process":56}],70:[function(require,module,exports){
+},{"./cjs/scheduler.development.js":66,"./cjs/scheduler.production.min.js":67,"_process":55}],69:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -38651,7 +38137,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this,require('_process'))
-},{"./cjs/scheduler-tracing.development.js":65,"./cjs/scheduler-tracing.production.min.js":66,"_process":56}],71:[function(require,module,exports){
+},{"./cjs/scheduler-tracing.development.js":64,"./cjs/scheduler-tracing.production.min.js":65,"_process":55}],70:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -38725,7 +38211,7 @@ function scrollIntoView(target, options) {
 var _default = scrollIntoView;
 exports["default"] = _default;
 module.exports = exports.default;
-},{"compute-scroll-into-view":35}],72:[function(require,module,exports){
+},{"compute-scroll-into-view":34}],71:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
@@ -38738,7 +38224,7 @@ var History = {
    * Check if a value is a `History` object.
    */
   isHistory: function isHistory(value) {
-    return isPlainObject.isPlainObject(value) && Array.isArray(value.redos) && Array.isArray(value.undos) && (value.redos.length === 0 || slate.Operation.isOperationList(value.redos[0].operations)) && (value.undos.length === 0 || slate.Operation.isOperationList(value.undos[0].operations));
+    return isPlainObject.isPlainObject(value) && Array.isArray(value.redos) && Array.isArray(value.undos) && (value.redos.length === 0 || slate.Operation.isOperationList(value.redos[0])) && (value.undos.length === 0 || slate.Operation.isOperationList(value.undos[0]));
   }
 };
 
@@ -38748,8 +38234,7 @@ var History = {
 
 var HISTORY = new WeakMap();
 var SAVING = new WeakMap();
-var MERGING = new WeakMap(); // eslint-disable-next-line no-redeclare
-
+var MERGING = new WeakMap();
 var HistoryEditor = {
   /**
    * Check if a value is a `HistoryEditor` object.
@@ -38838,14 +38323,9 @@ var withHistory = function withHistory(editor) {
 
     if (redos.length > 0) {
       var batch = redos[redos.length - 1];
-
-      if (batch.selectionBefore) {
-        slate.Transforms.setSelection(e, batch.selectionBefore);
-      }
-
       HistoryEditor.withoutSaving(e, function () {
         slate.Editor.withoutNormalizing(e, function () {
-          var _iterator = _createForOfIteratorHelper(batch.operations),
+          var _iterator = _createForOfIteratorHelper(batch),
               _step;
 
           try {
@@ -38861,7 +38341,7 @@ var withHistory = function withHistory(editor) {
         });
       });
       history.redos.pop();
-      e.writeHistory('undos', batch);
+      history.undos.push(batch);
     }
   };
 
@@ -38873,7 +38353,7 @@ var withHistory = function withHistory(editor) {
       var batch = undos[undos.length - 1];
       HistoryEditor.withoutSaving(e, function () {
         slate.Editor.withoutNormalizing(e, function () {
-          var inverseOps = batch.operations.map(slate.Operation.inverse).reverse();
+          var inverseOps = batch.map(slate.Operation.inverse).reverse();
 
           var _iterator2 = _createForOfIteratorHelper(inverseOps),
               _step2;
@@ -38888,13 +38368,9 @@ var withHistory = function withHistory(editor) {
           } finally {
             _iterator2.f();
           }
-
-          if (batch.selectionBefore) {
-            slate.Transforms.setSelection(e, batch.selectionBefore);
-          }
         });
       });
-      e.writeHistory('redos', batch);
+      history.redos.push(batch);
       history.undos.pop();
     }
   };
@@ -38904,7 +38380,8 @@ var withHistory = function withHistory(editor) {
         history = e.history;
     var undos = history.undos;
     var lastBatch = undos[undos.length - 1];
-    var lastOp = lastBatch && lastBatch.operations[lastBatch.operations.length - 1];
+    var lastOp = lastBatch && lastBatch[lastBatch.length - 1];
+    var overwrite = shouldOverwrite(op, lastOp);
     var save = HistoryEditor.isSaving(e);
     var merge = HistoryEditor.isMerging(e);
 
@@ -38919,32 +38396,31 @@ var withHistory = function withHistory(editor) {
         } else if (operations.length !== 0) {
           merge = true;
         } else {
-          merge = shouldMerge(op, lastOp);
+          merge = shouldMerge(op, lastOp) || overwrite;
         }
       }
 
       if (lastBatch && merge) {
-        lastBatch.operations.push(op);
+        if (overwrite) {
+          lastBatch.pop();
+        }
+
+        lastBatch.push(op);
       } else {
-        var batch = {
-          operations: [op],
-          selectionBefore: e.selection
-        };
-        e.writeHistory('undos', batch);
+        var batch = [op];
+        undos.push(batch);
       }
 
       while (undos.length > 100) {
         undos.shift();
       }
 
-      history.redos = [];
+      if (shouldClear(op)) {
+        history.redos = [];
+      }
     }
 
     apply(op);
-  };
-
-  e.writeHistory = function (stack, batch) {
-    e.history[stack].push(batch);
   };
 
   return e;
@@ -38954,6 +38430,10 @@ var withHistory = function withHistory(editor) {
  */
 
 var shouldMerge = function shouldMerge(op, prev) {
+  if (op.type === 'set_selection') {
+    return true;
+  }
+
   if (prev && op.type === 'insert_text' && prev.type === 'insert_text' && op.offset === prev.offset + prev.text.length && slate.Path.equals(op.path, prev.path)) {
     return true;
   }
@@ -38970,6 +38450,30 @@ var shouldMerge = function shouldMerge(op, prev) {
 
 
 var shouldSave = function shouldSave(op, prev) {
+  if (op.type === 'set_selection' && (op.properties == null || op.newProperties == null)) {
+    return false;
+  }
+
+  return true;
+};
+/**
+ * Check whether an operation should overwrite the previous one.
+ */
+
+
+var shouldOverwrite = function shouldOverwrite(op, prev) {
+  if (prev && op.type === 'set_selection' && prev.type === 'set_selection') {
+    return true;
+  }
+
+  return false;
+};
+/**
+ * Check whether an operation should clear the redos stack.
+ */
+
+
+var shouldClear = function shouldClear(op) {
   if (op.type === 'set_selection') {
     return false;
   }
@@ -38985,7 +38489,7 @@ exports.SAVING = SAVING;
 exports.withHistory = withHistory;
 
 
-},{"is-plain-object":41,"slate":75}],73:[function(require,module,exports){
+},{"is-plain-object":40,"slate":74}],72:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
@@ -39735,7 +39239,7 @@ exports.createText = createText;
 exports.jsx = jsx;
 
 
-},{"is-plain-object":41,"slate":75}],74:[function(require,module,exports){
+},{"is-plain-object":40,"slate":74}],73:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
@@ -39746,7 +39250,6 @@ var throttle = require('lodash/throttle');
 var React = require('react');
 var scrollIntoView = require('scroll-into-view-if-needed');
 var slate = require('slate');
-var resizeObserver = require('@juggle/resize-observer');
 var isHotkey = require('is-hotkey');
 var ReactDOM = require('react-dom');
 
@@ -39940,52 +39443,77 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 var _objectWithoutProperties = unwrapExports(objectWithoutProperties);
 
-/**
- * A React context for sharing the editor object.
- */
+var arrayWithoutHoles = createCommonjsModule(function (module) {
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return arrayLikeToArray(arr);
+}
 
-var EditorContext = /*#__PURE__*/React.createContext(null);
-/**
- * Get the current editor object from the React context.
- */
+module.exports = _arrayWithoutHoles;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
 
-var useSlateStatic = function useSlateStatic() {
-  var editor = React.useContext(EditorContext);
+unwrapExports(arrayWithoutHoles);
 
-  if (!editor) {
-    throw new Error("The `useSlateStatic` hook must be used inside the <Slate> component's context.");
+var iterableToArray = createCommonjsModule(function (module) {
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
+}
+
+module.exports = _iterableToArray;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+unwrapExports(iterableToArray);
+
+var nonIterableSpread = createCommonjsModule(function (module) {
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+module.exports = _nonIterableSpread;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+unwrapExports(nonIterableSpread);
+
+var toConsumableArray = createCommonjsModule(function (module) {
+function _toConsumableArray(arr) {
+  return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
+}
+
+module.exports = _toConsumableArray;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+var _toConsumableArray = unwrapExports(toConsumableArray);
+
+var classCallCheck = createCommonjsModule(function (module) {
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
   }
+}
 
-  return editor;
+module.exports = _classCallCheck;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+var _classCallCheck = unwrapExports(classCallCheck);
+
+/**
+ * An auto-incrementing identifier for keys.
+ */
+var n = 0;
+/**
+ * A class that keeps track of a key string. We use a full class here because we
+ * want to be able to use them as keys in `WeakMap` objects.
+ */
+
+var Key = function Key() {
+  _classCallCheck(this, Key);
+
+  this.id = "".concat(n++);
 };
-
-var IS_REACT_VERSION_17_OR_ABOVE = parseInt(React__default['default'].version.split('.')[0], 10) >= 17;
-var IS_IOS = typeof navigator !== 'undefined' && typeof window !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-var IS_APPLE = typeof navigator !== 'undefined' && /Mac OS X/.test(navigator.userAgent);
-var IS_ANDROID = typeof navigator !== 'undefined' && /Android/.test(navigator.userAgent);
-var IS_FIREFOX = typeof navigator !== 'undefined' && /^(?!.*Seamonkey)(?=.*Firefox).*/i.test(navigator.userAgent);
-var IS_SAFARI = typeof navigator !== 'undefined' && /Version\/[\d\.]+.*Safari/.test(navigator.userAgent); // "modern" Edge was released at 79.x
-
-var IS_EDGE_LEGACY = typeof navigator !== 'undefined' && /Edge?\/(?:[0-6][0-9]|[0-7][0-8])(?:\.)/i.test(navigator.userAgent);
-var IS_CHROME = typeof navigator !== 'undefined' && /Chrome/i.test(navigator.userAgent); // Native `beforeInput` events don't work well with react on Chrome 75
-// and older, Chrome 76+ can use `beforeInput` though.
-
-var IS_CHROME_LEGACY = typeof navigator !== 'undefined' && /Chrome?\/(?:[0-7][0-5]|[0-6][0-9])(?:\.)/i.test(navigator.userAgent);
-var IS_ANDROID_CHROME_LEGACY = IS_ANDROID && typeof navigator !== 'undefined' && /Chrome?\/(?:[0-5]?\d)(?:\.)/i.test(navigator.userAgent); // Firefox did not support `beforeInput` until `v87`.
-
-var IS_FIREFOX_LEGACY = typeof navigator !== 'undefined' && /^(?!.*Seamonkey)(?=.*Firefox\/(?:[0-7][0-9]|[0-8][0-6])(?:\.)).*/i.test(navigator.userAgent); // UC mobile browser
-
-var IS_UC_MOBILE = typeof navigator !== 'undefined' && /.*UCBrowser/.test(navigator.userAgent); // Wechat browser
-
-var IS_WECHATBROWSER = typeof navigator !== 'undefined' && /.*Wechat/.test(navigator.userAgent); // Check if DOM is available as React does internally.
-// https://github.com/facebook/react/blob/master/packages/shared/ExecutionEnvironment.js
-
-var CAN_USE_DOM = !!(typeof window !== 'undefined' && typeof window.document !== 'undefined' && typeof window.document.createElement !== 'undefined'); // COMPAT: Firefox/Edge Legacy don't support the `beforeinput` event
-// Chrome Legacy doesn't support `beforeinput` correctly
-
-var HAS_BEFORE_INPUT_SUPPORT = (!IS_CHROME_LEGACY || !IS_ANDROID_CHROME_LEGACY) && !IS_EDGE_LEGACY && // globalThis is undefined in older browsers
-typeof globalThis !== 'undefined' && globalThis.InputEvent && // @ts-ignore The `getTargetRanges` property isn't recognized.
-typeof globalThis.InputEvent.prototype.getTargetRanges === 'function';
 
 /**
  * Two weak maps that allow us rebuild a path given a node. They are populated
@@ -40039,50 +39567,6 @@ var EDITOR_TO_FORCE_RENDER = new WeakMap();
 
 var PLACEHOLDER_SYMBOL = Symbol('placeholder');
 var MARK_PLACEHOLDER_SYMBOL = Symbol('mark-placeholder');
-
-var arrayWithoutHoles = createCommonjsModule(function (module) {
-function _arrayWithoutHoles(arr) {
-  if (Array.isArray(arr)) return arrayLikeToArray(arr);
-}
-
-module.exports = _arrayWithoutHoles;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
-});
-
-unwrapExports(arrayWithoutHoles);
-
-var iterableToArray = createCommonjsModule(function (module) {
-function _iterableToArray(iter) {
-  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
-}
-
-module.exports = _iterableToArray;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
-});
-
-unwrapExports(iterableToArray);
-
-var nonIterableSpread = createCommonjsModule(function (module) {
-function _nonIterableSpread() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-
-module.exports = _nonIterableSpread;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
-});
-
-unwrapExports(nonIterableSpread);
-
-var toConsumableArray = createCommonjsModule(function (module) {
-function _toConsumableArray(arr) {
-  return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
-}
-
-module.exports = _toConsumableArray;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
-});
-
-var _toConsumableArray = unwrapExports(toConsumableArray);
 
 function _createForOfIteratorHelper$3(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray$3(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
@@ -40182,18 +39666,8 @@ var normalizeDOMPoint = function normalizeDOMPoint(domPoint) {
  * Determines wether the active element is nested within a shadowRoot
  */
 
-var hasShadowRoot = function hasShadowRoot(node) {
-  var parent = node && node.parentNode;
-
-  while (parent) {
-    if (parent.toString() === '[object ShadowRoot]') {
-      return true;
-    }
-
-    parent = parent.parentNode;
-  }
-
-  return false;
+var hasShadowRoot = function hasShadowRoot() {
+  return !!(window.document.activeElement && window.document.activeElement.shadowRoot);
 };
 /**
  * Get the nearest editable child and index at `index` in a `parent`, preferring
@@ -40356,139 +39830,59 @@ var isTrackedMutation = function isTrackedMutation(editor, mutation, batch) {
   return isTrackedMutation(editor, parentMutation, batch);
 };
 
-var classCallCheck = createCommonjsModule(function (module) {
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
+var IS_REACT_VERSION_17_OR_ABOVE = parseInt(React__default['default'].version.split('.')[0], 10) >= 17;
+var IS_IOS = typeof navigator !== 'undefined' && typeof window !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+var IS_APPLE = typeof navigator !== 'undefined' && /Mac OS X/.test(navigator.userAgent);
+var IS_ANDROID = typeof navigator !== 'undefined' && /Android/.test(navigator.userAgent);
+var IS_FIREFOX = typeof navigator !== 'undefined' && /^(?!.*Seamonkey)(?=.*Firefox).*/i.test(navigator.userAgent);
+var IS_SAFARI = typeof navigator !== 'undefined' && /Version\/[\d\.]+.*Safari/.test(navigator.userAgent); // "modern" Edge was released at 79.x
 
-module.exports = _classCallCheck;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
-});
+var IS_EDGE_LEGACY = typeof navigator !== 'undefined' && /Edge?\/(?:[0-6][0-9]|[0-7][0-8])(?:\.)/i.test(navigator.userAgent);
+var IS_CHROME = typeof navigator !== 'undefined' && /Chrome/i.test(navigator.userAgent); // Native `beforeInput` events don't work well with react on Chrome 75
+// and older, Chrome 76+ can use `beforeInput` though.
 
-var _classCallCheck = unwrapExports(classCallCheck);
+var IS_CHROME_LEGACY = typeof navigator !== 'undefined' && /Chrome?\/(?:[0-7][0-5]|[0-6][0-9])(?:\.)/i.test(navigator.userAgent); // Firefox did not support `beforeInput` until `v87`.
 
-/**
- * An auto-incrementing identifier for keys.
- */
-var n = 0;
-/**
- * A class that keeps track of a key string. We use a full class here because we
- * want to be able to use them as keys in `WeakMap` objects.
- */
+var IS_FIREFOX_LEGACY = typeof navigator !== 'undefined' && /^(?!.*Seamonkey)(?=.*Firefox\/(?:[0-7][0-9]|[0-8][0-6])(?:\.)).*/i.test(navigator.userAgent); // qq browser
 
-var Key = function Key() {
-  _classCallCheck(this, Key);
+var IS_QQBROWSER = typeof navigator !== 'undefined' && /.*QQBrowser/.test(navigator.userAgent); // UC mobile browser
 
-  this.id = "".concat(n++);
-};
+var IS_UC_MOBILE = typeof navigator !== 'undefined' && /.*UCBrowser/.test(navigator.userAgent); // Wechat browser
+
+var IS_WECHATBROWSER = typeof navigator !== 'undefined' && /.*Wechat/.test(navigator.userAgent); // Check if DOM is available as React does internally.
+// https://github.com/facebook/react/blob/master/packages/shared/ExecutionEnvironment.js
+
+var CAN_USE_DOM = !!(typeof window !== 'undefined' && typeof window.document !== 'undefined' && typeof window.document.createElement !== 'undefined'); // COMPAT: Firefox/Edge Legacy don't support the `beforeinput` event
+// Chrome Legacy doesn't support `beforeinput` correctly
+
+var HAS_BEFORE_INPUT_SUPPORT = !IS_CHROME_LEGACY && !IS_EDGE_LEGACY && // globalThis is undefined in older browsers
+typeof globalThis !== 'undefined' && globalThis.InputEvent && // @ts-ignore The `getTargetRanges` property isn't recognized.
+typeof globalThis.InputEvent.prototype.getTargetRanges === 'function';
 
 var ReactEditor = {
-  androidPendingDiffs: function androidPendingDiffs(editor) {
-    return EDITOR_TO_PENDING_DIFFS.get(editor);
+  /**
+   * Check if the user is currently composing inside the editor.
+   */
+  isComposing: function isComposing(editor) {
+    return !!IS_COMPOSING.get(editor);
   },
-  androidScheduleFlush: function androidScheduleFlush(editor) {
-    var _EDITOR_TO_SCHEDULE_F;
 
-    (_EDITOR_TO_SCHEDULE_F = EDITOR_TO_SCHEDULE_FLUSH.get(editor)) === null || _EDITOR_TO_SCHEDULE_F === void 0 ? void 0 : _EDITOR_TO_SCHEDULE_F();
+  /**
+   * Return the host window of the current editor.
+   */
+  getWindow: function getWindow(editor) {
+    var window = EDITOR_TO_WINDOW.get(editor);
+
+    if (!window) {
+      throw new Error('Unable to find a host window element for this editor');
+    }
+
+    return window;
   },
-  blur: function blur(editor) {
-    var el = ReactEditor.toDOMNode(editor, editor);
-    var root = ReactEditor.findDocumentOrShadowRoot(editor);
-    IS_FOCUSED.set(editor, false);
 
-    if (root.activeElement === el) {
-      el.blur();
-    }
-  },
-  deselect: function deselect(editor) {
-    var selection = editor.selection;
-    var root = ReactEditor.findDocumentOrShadowRoot(editor);
-    var domSelection = root.getSelection();
-
-    if (domSelection && domSelection.rangeCount > 0) {
-      domSelection.removeAllRanges();
-    }
-
-    if (selection) {
-      slate.Transforms.deselect(editor);
-    }
-  },
-  findDocumentOrShadowRoot: function findDocumentOrShadowRoot(editor) {
-    var el = ReactEditor.toDOMNode(editor, editor);
-    var root = el.getRootNode();
-
-    if ((root instanceof Document || root instanceof ShadowRoot) && root.getSelection != null) {
-      return root;
-    }
-
-    return el.ownerDocument;
-  },
-  findEventRange: function findEventRange(editor, event) {
-    if ('nativeEvent' in event) {
-      event = event.nativeEvent;
-    }
-
-    var _event = event,
-        x = _event.clientX,
-        y = _event.clientY,
-        target = _event.target;
-
-    if (x == null || y == null) {
-      throw new Error("Cannot resolve a Slate range from a DOM event: ".concat(event));
-    }
-
-    var node = ReactEditor.toSlateNode(editor, event.target);
-    var path = ReactEditor.findPath(editor, node); // If the drop target is inside a void node, move it into either the
-    // next or previous node, depending on which side the `x` and `y`
-    // coordinates are closest to.
-
-    if (slate.Element.isElement(node) && slate.Editor.isVoid(editor, node)) {
-      var rect = target.getBoundingClientRect();
-      var isPrev = editor.isInline(node) ? x - rect.left < rect.left + rect.width - x : y - rect.top < rect.top + rect.height - y;
-      var edge = slate.Editor.point(editor, path, {
-        edge: isPrev ? 'start' : 'end'
-      });
-      var point = isPrev ? slate.Editor.before(editor, edge) : slate.Editor.after(editor, edge);
-
-      if (point) {
-        var _range = slate.Editor.range(editor, point);
-
-        return _range;
-      }
-    } // Else resolve a range from the caret position where the drop occured.
-
-
-    var domRange;
-
-    var _ReactEditor$getWindo = ReactEditor.getWindow(editor),
-        document = _ReactEditor$getWindo.document; // COMPAT: In Firefox, `caretRangeFromPoint` doesn't exist. (2016/07/25)
-
-
-    if (document.caretRangeFromPoint) {
-      domRange = document.caretRangeFromPoint(x, y);
-    } else {
-      var position = document.caretPositionFromPoint(x, y);
-
-      if (position) {
-        domRange = document.createRange();
-        domRange.setStart(position.offsetNode, position.offset);
-        domRange.setEnd(position.offsetNode, position.offset);
-      }
-    }
-
-    if (!domRange) {
-      throw new Error("Cannot resolve a Slate range from a DOM event: ".concat(event));
-    } // Resolve a Slate range from the DOM range.
-
-
-    var range = ReactEditor.toSlateRange(editor, domRange, {
-      exactMatch: false,
-      suppressThrow: false
-    });
-    return range;
-  },
+  /**
+   * Find a key for a Slate node.
+   */
   findKey: function findKey(editor, node) {
     var key = NODE_TO_KEY.get(node);
 
@@ -40499,6 +39893,10 @@ var ReactEditor = {
 
     return key;
   },
+
+  /**
+   * Find the path of Slate node.
+   */
   findPath: function findPath(editor, node) {
     var path = [];
     var child = node;
@@ -40526,6 +39924,51 @@ var ReactEditor = {
 
     throw new Error("Unable to find the path for Slate node: ".concat(slate.Scrubber.stringify(node)));
   },
+
+  /**
+   * Find the DOM node that implements DocumentOrShadowRoot for the editor.
+   */
+  findDocumentOrShadowRoot: function findDocumentOrShadowRoot(editor) {
+    var el = ReactEditor.toDOMNode(editor, editor);
+    var root = el.getRootNode();
+
+    if ((root instanceof Document || root instanceof ShadowRoot) && root.getSelection != null) {
+      return root;
+    }
+
+    return el.ownerDocument;
+  },
+
+  /**
+   * Check if the editor is focused.
+   */
+  isFocused: function isFocused(editor) {
+    return !!IS_FOCUSED.get(editor);
+  },
+
+  /**
+   * Check if the editor is in read-only mode.
+   */
+  isReadOnly: function isReadOnly(editor) {
+    return !!IS_READ_ONLY.get(editor);
+  },
+
+  /**
+   * Blur the editor.
+   */
+  blur: function blur(editor) {
+    var el = ReactEditor.toDOMNode(editor, editor);
+    var root = ReactEditor.findDocumentOrShadowRoot(editor);
+    IS_FOCUSED.set(editor, false);
+
+    if (root.activeElement === el) {
+      el.blur();
+    }
+  },
+
+  /**
+   * Focus the editor.
+   */
   focus: function focus(editor) {
     var el = ReactEditor.toDOMNode(editor, editor);
     var root = ReactEditor.findDocumentOrShadowRoot(editor);
@@ -40537,15 +39980,27 @@ var ReactEditor = {
       });
     }
   },
-  getWindow: function getWindow(editor) {
-    var window = EDITOR_TO_WINDOW.get(editor);
 
-    if (!window) {
-      throw new Error('Unable to find a host window element for this editor');
+  /**
+   * Deselect the editor.
+   */
+  deselect: function deselect(editor) {
+    var selection = editor.selection;
+    var root = ReactEditor.findDocumentOrShadowRoot(editor);
+    var domSelection = root.getSelection();
+
+    if (domSelection && domSelection.rangeCount > 0) {
+      domSelection.removeAllRanges();
     }
 
-    return window;
+    if (selection) {
+      slate.Transforms.deselect(editor);
+    }
   },
+
+  /**
+   * Check if a DOM node is within the editor.
+   */
   hasDOMNode: function hasDOMNode(editor, target) {
     var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
     var _options$editable = options.editable,
@@ -40572,48 +40027,38 @@ var ReactEditor = {
     // this is the core logic that lets you know you got the right editor.selection instead of null when editor is contenteditable="false"(readOnly)
     targetEl.closest('[contenteditable="false"]') === editorEl || !!targetEl.getAttribute('data-slate-zero-width'));
   },
-  hasEditableTarget: function hasEditableTarget(editor, target) {
-    return isDOMNode(target) && ReactEditor.hasDOMNode(editor, target, {
-      editable: true
-    });
-  },
-  hasRange: function hasRange(editor, range) {
-    var anchor = range.anchor,
-        focus = range.focus;
-    return slate.Editor.hasPath(editor, anchor.path) && slate.Editor.hasPath(editor, focus.path);
-  },
-  hasSelectableTarget: function hasSelectableTarget(editor, target) {
-    return ReactEditor.hasEditableTarget(editor, target) || ReactEditor.isTargetInsideNonReadonlyVoid(editor, target);
-  },
-  hasTarget: function hasTarget(editor, target) {
-    return isDOMNode(target) && ReactEditor.hasDOMNode(editor, target);
-  },
+
+  /**
+   * Insert data from a `DataTransfer` into the editor.
+   */
   insertData: function insertData(editor, data) {
     editor.insertData(data);
   },
+
+  /**
+   * Insert fragment data from a `DataTransfer` into the editor.
+   */
   insertFragmentData: function insertFragmentData(editor, data) {
     return editor.insertFragmentData(data);
   },
+
+  /**
+   * Insert text data from a `DataTransfer` into the editor.
+   */
   insertTextData: function insertTextData(editor, data) {
     return editor.insertTextData(data);
   },
-  isComposing: function isComposing(editor) {
-    return !!IS_COMPOSING.get(editor);
-  },
-  isFocused: function isFocused(editor) {
-    return !!IS_FOCUSED.get(editor);
-  },
-  isReadOnly: function isReadOnly(editor) {
-    return !!IS_READ_ONLY.get(editor);
-  },
-  isTargetInsideNonReadonlyVoid: function isTargetInsideNonReadonlyVoid(editor, target) {
-    if (IS_READ_ONLY.get(editor)) return false;
-    var slateNode = ReactEditor.hasTarget(editor, target) && ReactEditor.toSlateNode(editor, target);
-    return slate.Element.isElement(slateNode) && slate.Editor.isVoid(editor, slateNode);
-  },
+
+  /**
+   * Sets data from the currently selected fragment on a `DataTransfer`.
+   */
   setFragmentData: function setFragmentData(editor, data, originEvent) {
-    return editor.setFragmentData(data, originEvent);
+    editor.setFragmentData(data, originEvent);
   },
+
+  /**
+   * Find the native DOM element from a Slate node.
+   */
   toDOMNode: function toDOMNode(editor, node) {
     var KEY_TO_ELEMENT = EDITOR_TO_KEY_TO_ELEMENT.get(editor);
     var domNode = slate.Editor.isEditor(node) ? EDITOR_TO_ELEMENT.get(editor) : KEY_TO_ELEMENT === null || KEY_TO_ELEMENT === void 0 ? void 0 : KEY_TO_ELEMENT.get(ReactEditor.findKey(editor, node));
@@ -40624,6 +40069,10 @@ var ReactEditor = {
 
     return domNode;
   },
+
+  /**
+   * Find a native DOM selection point from a Slate point.
+   */
   toDOMPoint: function toDOMPoint(editor, point) {
     var _Editor$node = slate.Editor.node(editor, point.path),
         _Editor$node2 = _slicedToArray(_Editor$node, 1),
@@ -40693,6 +40142,15 @@ var ReactEditor = {
 
     return domPoint;
   },
+
+  /**
+   * Find a native DOM range from a Slate `range`.
+   *
+   * Notice: the returned range will always be ordinal regardless of the direction of Slate `range` due to DOM API limit.
+   *
+   * there is no way to create a reverse DOM Range using Range.setStart/setEnd
+   * according to https://dom.spec.whatwg.org/#concept-range-bp-set.
+   */
   toDOMRange: function toDOMRange(editor, range) {
     var anchor = range.anchor,
         focus = range.focus;
@@ -40723,6 +40181,10 @@ var ReactEditor = {
     domRange.setEnd(endNode, isEndAtZeroWidth ? 1 : endOffset);
     return domRange;
   },
+
+  /**
+   * Find a Slate node from a native DOM `element`.
+   */
   toSlateNode: function toSlateNode(editor, domNode) {
     var domEl = isDOMElement(domNode) ? domNode : domNode.parentElement;
 
@@ -40738,6 +40200,78 @@ var ReactEditor = {
 
     return node;
   },
+
+  /**
+   * Get the target range from a DOM `event`.
+   */
+  findEventRange: function findEventRange(editor, event) {
+    if ('nativeEvent' in event) {
+      event = event.nativeEvent;
+    }
+
+    var _event = event,
+        x = _event.clientX,
+        y = _event.clientY,
+        target = _event.target;
+
+    if (x == null || y == null) {
+      throw new Error("Cannot resolve a Slate range from a DOM event: ".concat(event));
+    }
+
+    var node = ReactEditor.toSlateNode(editor, event.target);
+    var path = ReactEditor.findPath(editor, node); // If the drop target is inside a void node, move it into either the
+    // next or previous node, depending on which side the `x` and `y`
+    // coordinates are closest to.
+
+    if (slate.Editor.isVoid(editor, node)) {
+      var rect = target.getBoundingClientRect();
+      var isPrev = editor.isInline(node) ? x - rect.left < rect.left + rect.width - x : y - rect.top < rect.top + rect.height - y;
+      var edge = slate.Editor.point(editor, path, {
+        edge: isPrev ? 'start' : 'end'
+      });
+      var point = isPrev ? slate.Editor.before(editor, edge) : slate.Editor.after(editor, edge);
+
+      if (point) {
+        var _range = slate.Editor.range(editor, point);
+
+        return _range;
+      }
+    } // Else resolve a range from the caret position where the drop occured.
+
+
+    var domRange;
+
+    var _ReactEditor$getWindo = ReactEditor.getWindow(editor),
+        document = _ReactEditor$getWindo.document; // COMPAT: In Firefox, `caretRangeFromPoint` doesn't exist. (2016/07/25)
+
+
+    if (document.caretRangeFromPoint) {
+      domRange = document.caretRangeFromPoint(x, y);
+    } else {
+      var position = document.caretPositionFromPoint(x, y);
+
+      if (position) {
+        domRange = document.createRange();
+        domRange.setStart(position.offsetNode, position.offset);
+        domRange.setEnd(position.offsetNode, position.offset);
+      }
+    }
+
+    if (!domRange) {
+      throw new Error("Cannot resolve a Slate range from a DOM event: ".concat(event));
+    } // Resolve a Slate range from the DOM range.
+
+
+    var range = ReactEditor.toSlateRange(editor, domRange, {
+      exactMatch: false,
+      suppressThrow: false
+    });
+    return range;
+  },
+
+  /**
+   * Find a Slate point from a DOM selection's `domNode` and `domOffset`.
+   */
   toSlatePoint: function toSlatePoint(editor, domPoint, options) {
     var exactMatch = options.exactMatch,
         suppressThrow = options.suppressThrow;
@@ -40872,6 +40406,10 @@ var ReactEditor = {
       offset: offset
     };
   },
+
+  /**
+   * Find a Slate range from a DOM range or selection.
+   */
   toSlateRange: function toSlateRange(editor, domRange, options) {
     var exactMatch = options.exactMatch,
         suppressThrow = options.suppressThrow;
@@ -40892,7 +40430,7 @@ var ReactEditor = {
         // (2020/08/08)
         // https://bugs.chromium.org/p/chromium/issues/detail?id=447523
 
-        if (IS_CHROME && hasShadowRoot(anchorNode)) {
+        if (IS_CHROME && hasShadowRoot()) {
           isCollapsed = domRange.anchorNode === domRange.focusNode && domRange.anchorOffset === domRange.focusOffset;
         } else {
           isCollapsed = domRange.isCollapsed;
@@ -40908,16 +40446,6 @@ var ReactEditor = {
 
     if (anchorNode == null || focusNode == null || anchorOffset == null || focusOffset == null) {
       throw new Error("Cannot resolve a Slate range from DOM range: ".concat(domRange));
-    } // COMPAT: Triple-clicking a word in chrome will sometimes place the focus
-    // inside a `contenteditable="false"` DOM node following the word, which
-    // will cause `toSlatePoint` to throw an error. (2023/03/07)
-
-
-    if ('getAttribute' in focusNode && focusNode.getAttribute('contenteditable') === 'false') {
-      var _anchorNode$textConte;
-
-      focusNode = anchorNode;
-      focusOffset = ((_anchorNode$textConte = anchorNode.textContent) === null || _anchorNode$textConte === void 0 ? void 0 : _anchorNode$textConte.length) || 0;
     }
 
     var anchor = ReactEditor.toSlatePoint(editor, [anchorNode, anchorOffset], {
@@ -40936,46 +40464,6 @@ var ReactEditor = {
 
     if (!focus) {
       return null;
-    }
-    /**
-     * suppose we have this document:
-     *
-     * { type: 'paragraph',
-     *   children: [
-     *     { text: 'foo ' },
-     *     { text: 'bar' },
-     *     { text: ' baz' }
-     *   ]
-     * }
-     *
-     * a double click on "bar" on chrome will create this range:
-     *
-     * anchor -> [0,1] offset 0
-     * focus  -> [0,1] offset 3
-     *
-     * while on firefox will create this range:
-     *
-     * anchor -> [0,0] offset 4
-     * focus  -> [0,2] offset 0
-     *
-     * let's try to fix it...
-     */
-
-
-    if (IS_FIREFOX && !isCollapsed && anchorNode !== focusNode) {
-      var isEnd = slate.Editor.isEnd(editor, anchor, anchor.path);
-      var isStart = slate.Editor.isStart(editor, focus, focus.path);
-
-      if (isEnd) {
-        var after = slate.Editor.after(editor, anchor); // Editor.after() might return undefined
-
-        anchor = after || anchor;
-      }
-
-      if (isStart) {
-        var before = slate.Editor.before(editor, focus);
-        focus = before || focus;
-      }
     }
 
     var range = {
@@ -40996,7 +40484,999 @@ var ReactEditor = {
     }
 
     return range;
+  },
+  hasRange: function hasRange(editor, range) {
+    var anchor = range.anchor,
+        focus = range.focus;
+    return slate.Editor.hasPath(editor, anchor.path) && slate.Editor.hasPath(editor, focus.path);
+  },
+
+  /**
+   * Experimental and android specific: Flush all pending diffs and cancel composition at the next possible time.
+   */
+  androidScheduleFlush: function androidScheduleFlush(editor) {
+    var _EDITOR_TO_SCHEDULE_F;
+
+    (_EDITOR_TO_SCHEDULE_F = EDITOR_TO_SCHEDULE_FLUSH.get(editor)) === null || _EDITOR_TO_SCHEDULE_F === void 0 ? void 0 : _EDITOR_TO_SCHEDULE_F();
+  },
+
+  /**
+   * Experimental and android specific: Get pending diffs
+   */
+  androidPendingDiffs: function androidPendingDiffs(editor) {
+    return EDITOR_TO_PENDING_DIFFS.get(editor);
   }
+};
+
+/**
+ * Prevent warning on SSR by falling back to useEffect when DOM isn't available
+ */
+
+var useIsomorphicLayoutEffect = CAN_USE_DOM ? React.useLayoutEffect : React.useEffect;
+
+var _excluded$3 = ["anchor", "focus"],
+    _excluded2$1 = ["anchor", "focus"];
+var shallowCompare = function shallowCompare(obj1, obj2) {
+  return Object.keys(obj1).length === Object.keys(obj2).length && Object.keys(obj1).every(function (key) {
+    return obj2.hasOwnProperty(key) && obj1[key] === obj2[key];
+  });
+};
+/**
+ * Check if a list of decorator ranges are equal to another.
+ *
+ * PERF: this requires the two lists to also have the ranges inside them in the
+ * same order, but this is an okay constraint for us since decorations are
+ * kept in order, and the odd case where they aren't is okay to re-render for.
+ */
+
+var isDecoratorRangeListEqual = function isDecoratorRangeListEqual(list, another) {
+  if (list.length !== another.length) {
+    return false;
+  }
+
+  for (var i = 0; i < list.length; i++) {
+    var range = list[i];
+    var other = another[i];
+
+    range.anchor;
+        range.focus;
+        var rangeOwnProps = _objectWithoutProperties(range, _excluded$3);
+
+    other.anchor;
+        other.focus;
+        var otherOwnProps = _objectWithoutProperties(other, _excluded2$1);
+
+    if (!slate.Range.equals(range, other) || range[PLACEHOLDER_SYMBOL] !== other[PLACEHOLDER_SYMBOL] || !shallowCompare(rangeOwnProps, otherOwnProps)) {
+      return false;
+    }
+  }
+
+  return true;
+};
+
+/**
+ * Leaf content strings.
+ */
+
+var String = function String(props) {
+  var isLast = props.isLast,
+      leaf = props.leaf,
+      parent = props.parent,
+      text = props.text;
+  var editor = useSlateStatic();
+  var path = ReactEditor.findPath(editor, text);
+  var parentPath = slate.Path.parent(path);
+  var isMarkPlaceholder = leaf[MARK_PLACEHOLDER_SYMBOL] === true; // COMPAT: Render text inside void nodes with a zero-width space.
+  // So the node can contain selection but the text is not visible.
+
+  if (editor.isVoid(parent)) {
+    return /*#__PURE__*/React__default['default'].createElement(ZeroWidthString, {
+      length: slate.Node.string(parent).length
+    });
+  } // COMPAT: If this is the last text node in an empty block, render a zero-
+  // width space that will convert into a line break when copying and pasting
+  // to support expected plain text.
+
+
+  if (leaf.text === '' && parent.children[parent.children.length - 1] === text && !editor.isInline(parent) && slate.Editor.string(editor, parentPath) === '') {
+    return /*#__PURE__*/React__default['default'].createElement(ZeroWidthString, {
+      isLineBreak: true,
+      isMarkPlaceholder: isMarkPlaceholder
+    });
+  } // COMPAT: If the text is empty, it's because it's on the edge of an inline
+  // node, so we render a zero-width space so that the selection can be
+  // inserted next to it still.
+
+
+  if (leaf.text === '') {
+    return /*#__PURE__*/React__default['default'].createElement(ZeroWidthString, {
+      isMarkPlaceholder: isMarkPlaceholder
+    });
+  } // COMPAT: Browsers will collapse trailing new lines at the end of blocks,
+  // so we need to add an extra trailing new lines to prevent that.
+
+
+  if (isLast && leaf.text.slice(-1) === '\n') {
+    return /*#__PURE__*/React__default['default'].createElement(TextString, {
+      isTrailing: true,
+      text: leaf.text
+    });
+  }
+
+  return /*#__PURE__*/React__default['default'].createElement(TextString, {
+    text: leaf.text
+  });
+};
+/**
+ * Leaf strings with text in them.
+ */
+
+
+var TextString = function TextString(props) {
+  var text = props.text,
+      _props$isTrailing = props.isTrailing,
+      isTrailing = _props$isTrailing === void 0 ? false : _props$isTrailing;
+  var ref = React.useRef(null);
+
+  var getTextContent = function getTextContent() {
+    return "".concat(text !== null && text !== void 0 ? text : '').concat(isTrailing ? '\n' : '');
+  }; // This is the actual text rendering boundary where we interface with the DOM
+  // The text is not rendered as part of the virtual DOM, as since we handle basic character insertions natively,
+  // updating the DOM is not a one way dataflow anymore. What we need here is not reconciliation and diffing
+  // with previous version of the virtual DOM, but rather diffing with the actual DOM element, and replace the DOM <span> content
+  // exactly if and only if its current content does not match our current virtual DOM.
+  // Otherwise the DOM TextNode would always be replaced by React as the user types, which interferes with native text features,
+  // eg makes native spellcheck opt out from checking the text node.
+  // useLayoutEffect: updating our span before browser paint
+
+
+  useIsomorphicLayoutEffect(function () {
+    // null coalescing text to make sure we're not outputing "null" as a string in the extreme case it is nullish at runtime
+    var textWithTrailing = getTextContent();
+
+    if (ref.current && ref.current.textContent !== textWithTrailing) {
+      ref.current.textContent = textWithTrailing;
+    } // intentionally not specifying dependencies, so that this effect runs on every render
+    // as this effectively replaces "specifying the text in the virtual DOM under the <span> below" on each render
+
+  }); // Render text content immediately if it's the first-time render
+  // Ensure that text content is rendered on server-side rendering
+
+  if (!ref.current) {
+    return /*#__PURE__*/React__default['default'].createElement("span", {
+      "data-slate-string": true,
+      ref: ref
+    }, getTextContent());
+  } // the span is intentionally same on every render in virtual DOM, actual rendering happens in the layout effect above
+
+
+  return /*#__PURE__*/React__default['default'].createElement("span", {
+    "data-slate-string": true,
+    ref: ref
+  });
+};
+/**
+ * Leaf strings without text, render as zero-width strings.
+ */
+
+
+var ZeroWidthString = function ZeroWidthString(props) {
+  var _props$length = props.length,
+      length = _props$length === void 0 ? 0 : _props$length,
+      _props$isLineBreak = props.isLineBreak,
+      isLineBreak = _props$isLineBreak === void 0 ? false : _props$isLineBreak,
+      _props$isMarkPlacehol = props.isMarkPlaceholder,
+      isMarkPlaceholder = _props$isMarkPlacehol === void 0 ? false : _props$isMarkPlacehol;
+  var attributes = {
+    'data-slate-zero-width': isLineBreak ? 'n' : 'z',
+    'data-slate-length': length
+  };
+
+  if (isMarkPlaceholder) {
+    attributes['data-slate-mark-placeholder'] = true;
+  }
+
+  return /*#__PURE__*/React__default['default'].createElement("span", Object.assign({}, attributes), !IS_ANDROID || !isLineBreak ? "\uFEFF" : null, isLineBreak ? /*#__PURE__*/React__default['default'].createElement("br", null) : null);
+};
+
+/**
+ * A React context for sharing the editor object.
+ */
+
+var EditorContext = /*#__PURE__*/React.createContext(null);
+/**
+ * Get the current editor object from the React context.
+ */
+
+var useSlateStatic = function useSlateStatic() {
+  var editor = React.useContext(EditorContext);
+
+  if (!editor) {
+    throw new Error("The `useSlateStatic` hook must be used inside the <Slate> component's context.");
+  }
+
+  return editor;
+};
+
+/**
+ * Individual leaves in a text node with unique formatting.
+ */
+
+var Leaf = function Leaf(props) {
+  var leaf = props.leaf,
+      isLast = props.isLast,
+      text = props.text,
+      parent = props.parent,
+      renderPlaceholder = props.renderPlaceholder,
+      _props$renderLeaf = props.renderLeaf,
+      renderLeaf = _props$renderLeaf === void 0 ? function (props) {
+    return /*#__PURE__*/React__default['default'].createElement(DefaultLeaf, Object.assign({}, props));
+  } : _props$renderLeaf;
+  var placeholderRef = React.useRef(null);
+  var editor = useSlateStatic();
+  React.useEffect(function () {
+    var placeholderEl = placeholderRef === null || placeholderRef === void 0 ? void 0 : placeholderRef.current;
+    var editorEl = ReactEditor.toDOMNode(editor, editor);
+
+    if (!placeholderEl || !editorEl) {
+      return;
+    }
+
+    editorEl.style.minHeight = "".concat(placeholderEl.clientHeight, "px");
+    EDITOR_TO_PLACEHOLDER_ELEMENT.set(editor, placeholderEl);
+    return function () {
+      editorEl.style.minHeight = 'auto';
+      EDITOR_TO_PLACEHOLDER_ELEMENT["delete"](editor);
+    };
+  }, [placeholderRef, leaf]);
+  var children = /*#__PURE__*/React__default['default'].createElement(String, {
+    isLast: isLast,
+    leaf: leaf,
+    parent: parent,
+    text: text
+  });
+
+  if (leaf[PLACEHOLDER_SYMBOL]) {
+    var placeholderProps = {
+      children: leaf.placeholder,
+      attributes: {
+        'data-slate-placeholder': true,
+        style: {
+          position: 'absolute',
+          pointerEvents: 'none',
+          width: '100%',
+          maxWidth: '100%',
+          display: 'block',
+          opacity: '0.333',
+          userSelect: 'none',
+          textDecoration: 'none'
+        },
+        contentEditable: false,
+        ref: placeholderRef
+      }
+    };
+    children = /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, renderPlaceholder(placeholderProps), children);
+  } // COMPAT: Having the `data-` attributes on these leaf elements ensures that
+  // in certain misbehaving browsers they aren't weirdly cloned/destroyed by
+  // contenteditable behaviors. (2019/05/08)
+
+
+  var attributes = {
+    'data-slate-leaf': true
+  };
+  return renderLeaf({
+    attributes: attributes,
+    children: children,
+    leaf: leaf,
+    text: text
+  });
+};
+
+var MemoizedLeaf = /*#__PURE__*/React__default['default'].memo(Leaf, function (prev, next) {
+  return next.parent === prev.parent && next.isLast === prev.isLast && next.renderLeaf === prev.renderLeaf && next.renderPlaceholder === prev.renderPlaceholder && next.text === prev.text && slate.Text.equals(next.leaf, prev.leaf) && next.leaf[PLACEHOLDER_SYMBOL] === prev.leaf[PLACEHOLDER_SYMBOL];
+});
+var DefaultLeaf = function DefaultLeaf(props) {
+  var attributes = props.attributes,
+      children = props.children;
+  return /*#__PURE__*/React__default['default'].createElement("span", Object.assign({}, attributes), children);
+};
+
+/**
+ * Text.
+ */
+
+var Text = function Text(props) {
+  var decorations = props.decorations,
+      isLast = props.isLast,
+      parent = props.parent,
+      renderPlaceholder = props.renderPlaceholder,
+      renderLeaf = props.renderLeaf,
+      text = props.text;
+  var editor = useSlateStatic();
+  var ref = React.useRef(null);
+  var leaves = slate.Text.decorations(text, decorations);
+  var key = ReactEditor.findKey(editor, text);
+  var children = [];
+
+  for (var i = 0; i < leaves.length; i++) {
+    var leaf = leaves[i];
+    children.push( /*#__PURE__*/React__default['default'].createElement(MemoizedLeaf, {
+      isLast: isLast && i === leaves.length - 1,
+      key: "".concat(key.id, "-").concat(i),
+      renderPlaceholder: renderPlaceholder,
+      leaf: leaf,
+      text: text,
+      parent: parent,
+      renderLeaf: renderLeaf
+    }));
+  } // Update element-related weak maps with the DOM element ref.
+
+
+  useIsomorphicLayoutEffect(function () {
+    var KEY_TO_ELEMENT = EDITOR_TO_KEY_TO_ELEMENT.get(editor);
+
+    if (ref.current) {
+      KEY_TO_ELEMENT === null || KEY_TO_ELEMENT === void 0 ? void 0 : KEY_TO_ELEMENT.set(key, ref.current);
+      NODE_TO_ELEMENT.set(text, ref.current);
+      ELEMENT_TO_NODE.set(ref.current, text);
+    } else {
+      KEY_TO_ELEMENT === null || KEY_TO_ELEMENT === void 0 ? void 0 : KEY_TO_ELEMENT["delete"](key);
+      NODE_TO_ELEMENT["delete"](text);
+    }
+  });
+  return /*#__PURE__*/React__default['default'].createElement("span", {
+    "data-slate-node": "text",
+    ref: ref
+  }, children);
+};
+
+var MemoizedText = /*#__PURE__*/React__default['default'].memo(Text, function (prev, next) {
+  return next.parent === prev.parent && next.isLast === prev.isLast && next.renderLeaf === prev.renderLeaf && next.text === prev.text && isDecoratorRangeListEqual(next.decorations, prev.decorations);
+});
+
+/**
+ * Element.
+ */
+
+var Element = function Element(props) {
+  var decorations = props.decorations,
+      element = props.element,
+      _props$renderElement = props.renderElement,
+      renderElement = _props$renderElement === void 0 ? function (p) {
+    return /*#__PURE__*/React__default['default'].createElement(DefaultElement, Object.assign({}, p));
+  } : _props$renderElement,
+      renderPlaceholder = props.renderPlaceholder,
+      renderLeaf = props.renderLeaf,
+      selection = props.selection;
+  var editor = useSlateStatic();
+  var readOnly = useReadOnly();
+  var isInline = editor.isInline(element);
+  var key = ReactEditor.findKey(editor, element);
+  var ref = React.useCallback(function (ref) {
+    // Update element-related weak maps with the DOM element ref.
+    var KEY_TO_ELEMENT = EDITOR_TO_KEY_TO_ELEMENT.get(editor);
+
+    if (ref) {
+      KEY_TO_ELEMENT === null || KEY_TO_ELEMENT === void 0 ? void 0 : KEY_TO_ELEMENT.set(key, ref);
+      NODE_TO_ELEMENT.set(element, ref);
+      ELEMENT_TO_NODE.set(ref, element);
+    } else {
+      KEY_TO_ELEMENT === null || KEY_TO_ELEMENT === void 0 ? void 0 : KEY_TO_ELEMENT["delete"](key);
+      NODE_TO_ELEMENT["delete"](element);
+    }
+  }, [editor, key, element]);
+  var children = useChildren({
+    decorations: decorations,
+    node: element,
+    renderElement: renderElement,
+    renderPlaceholder: renderPlaceholder,
+    renderLeaf: renderLeaf,
+    selection: selection
+  }); // Attributes that the developer must mix into the element in their
+  // custom node renderer component.
+
+  var attributes = {
+    'data-slate-node': 'element',
+    ref: ref
+  };
+
+  if (isInline) {
+    attributes['data-slate-inline'] = true;
+  } // If it's a block node with inline children, add the proper `dir` attribute
+  // for text direction.
+
+
+  if (!isInline && slate.Editor.hasInlines(editor, element)) {
+    var text = slate.Node.string(element);
+    var dir = getDirection__default['default'](text);
+
+    if (dir === 'rtl') {
+      attributes.dir = dir;
+    }
+  } // If it's a void node, wrap the children in extra void-specific elements.
+
+
+  if (slate.Editor.isVoid(editor, element)) {
+    attributes['data-slate-void'] = true;
+
+    if (!readOnly && isInline) {
+      attributes.contentEditable = false;
+    }
+
+    var Tag = isInline ? 'span' : 'div';
+
+    var _Node$texts = slate.Node.texts(element),
+        _Node$texts2 = _slicedToArray(_Node$texts, 1),
+        _Node$texts2$ = _slicedToArray(_Node$texts2[0], 1),
+        _text = _Node$texts2$[0];
+
+    children = /*#__PURE__*/React__default['default'].createElement(Tag, {
+      "data-slate-spacer": true,
+      style: {
+        height: '0',
+        color: 'transparent',
+        outline: 'none',
+        position: 'absolute'
+      }
+    }, /*#__PURE__*/React__default['default'].createElement(MemoizedText, {
+      renderPlaceholder: renderPlaceholder,
+      decorations: [],
+      isLast: false,
+      parent: element,
+      text: _text
+    }));
+    NODE_TO_INDEX.set(_text, 0);
+    NODE_TO_PARENT.set(_text, element);
+  }
+
+  return renderElement({
+    attributes: attributes,
+    children: children,
+    element: element
+  });
+};
+
+var MemoizedElement = /*#__PURE__*/React__default['default'].memo(Element, function (prev, next) {
+  return prev.element === next.element && prev.renderElement === next.renderElement && prev.renderLeaf === next.renderLeaf && isDecoratorRangeListEqual(prev.decorations, next.decorations) && (prev.selection === next.selection || !!prev.selection && !!next.selection && slate.Range.equals(prev.selection, next.selection));
+});
+/**
+ * The default element renderer.
+ */
+
+var DefaultElement = function DefaultElement(props) {
+  var attributes = props.attributes,
+      children = props.children,
+      element = props.element;
+  var editor = useSlateStatic();
+  var Tag = editor.isInline(element) ? 'span' : 'div';
+  return /*#__PURE__*/React__default['default'].createElement(Tag, Object.assign({}, attributes, {
+    style: {
+      position: 'relative'
+    }
+  }), children);
+};
+
+/**
+ * A React context for sharing the `decorate` prop of the editable.
+ */
+
+var DecorateContext = /*#__PURE__*/React.createContext(function () {
+  return [];
+});
+/**
+ * Get the current `decorate` prop of the editable.
+ */
+
+var useDecorate = function useDecorate() {
+  return React.useContext(DecorateContext);
+};
+
+/**
+ * A React context for sharing the `selected` state of an element.
+ */
+
+var SelectedContext = /*#__PURE__*/React.createContext(false);
+/**
+ * Get the current `selected` state of an element.
+ */
+
+var useSelected = function useSelected() {
+  return React.useContext(SelectedContext);
+};
+
+function _createForOfIteratorHelper$2(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray$2(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray$2(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$2(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$2(o, minLen); }
+
+function _arrayLikeToArray$2(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+/**
+ * Children.
+ */
+
+var useChildren = function useChildren(props) {
+  var decorations = props.decorations,
+      node = props.node,
+      renderElement = props.renderElement,
+      renderPlaceholder = props.renderPlaceholder,
+      renderLeaf = props.renderLeaf,
+      selection = props.selection;
+  var decorate = useDecorate();
+  var editor = useSlateStatic();
+  var path = ReactEditor.findPath(editor, node);
+  var children = [];
+  var isLeafBlock = slate.Element.isElement(node) && !editor.isInline(node) && slate.Editor.hasInlines(editor, node);
+
+  for (var i = 0; i < node.children.length; i++) {
+    var p = path.concat(i);
+    var n = node.children[i];
+    var key = ReactEditor.findKey(editor, n);
+    var range = slate.Editor.range(editor, p);
+    var sel = selection && slate.Range.intersection(range, selection);
+    var ds = decorate([n, p]);
+
+    var _iterator = _createForOfIteratorHelper$2(decorations),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var dec = _step.value;
+        var d = slate.Range.intersection(dec, range);
+
+        if (d) {
+          ds.push(d);
+        }
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    if (slate.Element.isElement(n)) {
+      children.push( /*#__PURE__*/React__default['default'].createElement(SelectedContext.Provider, {
+        key: "provider-".concat(key.id),
+        value: !!sel
+      }, /*#__PURE__*/React__default['default'].createElement(MemoizedElement, {
+        decorations: ds,
+        element: n,
+        key: key.id,
+        renderElement: renderElement,
+        renderPlaceholder: renderPlaceholder,
+        renderLeaf: renderLeaf,
+        selection: sel
+      })));
+    } else {
+      children.push( /*#__PURE__*/React__default['default'].createElement(MemoizedText, {
+        decorations: ds,
+        key: key.id,
+        isLast: isLeafBlock && i === node.children.length - 1,
+        parent: node,
+        renderPlaceholder: renderPlaceholder,
+        renderLeaf: renderLeaf,
+        text: n
+      }));
+    }
+
+    NODE_TO_INDEX.set(n, i);
+    NODE_TO_PARENT.set(n, node);
+  }
+
+  return children;
+};
+
+/**
+ * A React context for sharing the `readOnly` state of the editor.
+ */
+
+var ReadOnlyContext = /*#__PURE__*/React.createContext(false);
+/**
+ * Get the current `readOnly` state of the editor.
+ */
+
+var useReadOnly = function useReadOnly() {
+  return React.useContext(ReadOnlyContext);
+};
+
+var SlateContext = /*#__PURE__*/React.createContext(null);
+/**
+ * Get the current editor object from the React context.
+ */
+
+var useSlate = function useSlate() {
+  var context = React.useContext(SlateContext);
+
+  if (!context) {
+    throw new Error("The `useSlate` hook must be used inside the <Slate> component's context.");
+  }
+
+  var editor = context.editor;
+  return editor;
+};
+var useSlateWithV = function useSlateWithV() {
+  var context = React.useContext(SlateContext);
+
+  if (!context) {
+    throw new Error("The `useSlate` hook must be used inside the <Slate> component's context.");
+  }
+
+  return context;
+};
+
+var TRIPLE_CLICK = 3;
+
+/**
+ * Hotkey mappings for each platform.
+ */
+
+var HOTKEYS = {
+  bold: 'mod+b',
+  compose: ['down', 'left', 'right', 'up', 'backspace', 'enter'],
+  moveBackward: 'left',
+  moveForward: 'right',
+  moveWordBackward: 'ctrl+left',
+  moveWordForward: 'ctrl+right',
+  deleteBackward: 'shift?+backspace',
+  deleteForward: 'shift?+delete',
+  extendBackward: 'shift+left',
+  extendForward: 'shift+right',
+  italic: 'mod+i',
+  insertSoftBreak: 'shift+enter',
+  splitBlock: 'enter',
+  undo: 'mod+z'
+};
+var APPLE_HOTKEYS = {
+  moveLineBackward: 'opt+up',
+  moveLineForward: 'opt+down',
+  moveWordBackward: 'opt+left',
+  moveWordForward: 'opt+right',
+  deleteBackward: ['ctrl+backspace', 'ctrl+h'],
+  deleteForward: ['ctrl+delete', 'ctrl+d'],
+  deleteLineBackward: 'cmd+shift?+backspace',
+  deleteLineForward: ['cmd+shift?+delete', 'ctrl+k'],
+  deleteWordBackward: 'opt+shift?+backspace',
+  deleteWordForward: 'opt+shift?+delete',
+  extendLineBackward: 'opt+shift+up',
+  extendLineForward: 'opt+shift+down',
+  redo: 'cmd+shift+z',
+  transposeCharacter: 'ctrl+t'
+};
+var WINDOWS_HOTKEYS = {
+  deleteWordBackward: 'ctrl+shift?+backspace',
+  deleteWordForward: 'ctrl+shift?+delete',
+  redo: ['ctrl+y', 'ctrl+shift+z']
+};
+/**
+ * Create a platform-aware hotkey checker.
+ */
+
+var create = function create(key) {
+  var generic = HOTKEYS[key];
+  var apple = APPLE_HOTKEYS[key];
+  var windows = WINDOWS_HOTKEYS[key];
+  var isGeneric = generic && isHotkey.isKeyHotkey(generic);
+  var isApple = apple && isHotkey.isKeyHotkey(apple);
+  var isWindows = windows && isHotkey.isKeyHotkey(windows);
+  return function (event) {
+    if (isGeneric && isGeneric(event)) return true;
+    if (IS_APPLE && isApple && isApple(event)) return true;
+    if (!IS_APPLE && isWindows && isWindows(event)) return true;
+    return false;
+  };
+};
+/**
+ * Hotkeys.
+ */
+
+
+var Hotkeys = {
+  isBold: create('bold'),
+  isCompose: create('compose'),
+  isMoveBackward: create('moveBackward'),
+  isMoveForward: create('moveForward'),
+  isDeleteBackward: create('deleteBackward'),
+  isDeleteForward: create('deleteForward'),
+  isDeleteLineBackward: create('deleteLineBackward'),
+  isDeleteLineForward: create('deleteLineForward'),
+  isDeleteWordBackward: create('deleteWordBackward'),
+  isDeleteWordForward: create('deleteWordForward'),
+  isExtendBackward: create('extendBackward'),
+  isExtendForward: create('extendForward'),
+  isExtendLineBackward: create('extendLineBackward'),
+  isExtendLineForward: create('extendLineForward'),
+  isItalic: create('italic'),
+  isMoveLineBackward: create('moveLineBackward'),
+  isMoveLineForward: create('moveLineForward'),
+  isMoveWordBackward: create('moveWordBackward'),
+  isMoveWordForward: create('moveWordForward'),
+  isRedo: create('redo'),
+  isSoftBreak: create('insertSoftBreak'),
+  isSplitBlock: create('splitBlock'),
+  isTransposeCharacter: create('transposeCharacter'),
+  isUndo: create('undo')
+};
+
+var createClass = createCommonjsModule(function (module) {
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+
+module.exports = _createClass;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+var _createClass = unwrapExports(createClass);
+
+var setPrototypeOf = createCommonjsModule(function (module) {
+function _setPrototypeOf(o, p) {
+  module.exports = _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+
+  module.exports["default"] = module.exports, module.exports.__esModule = true;
+  return _setPrototypeOf(o, p);
+}
+
+module.exports = _setPrototypeOf;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+unwrapExports(setPrototypeOf);
+
+var inherits = createCommonjsModule(function (module) {
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) setPrototypeOf(subClass, superClass);
+}
+
+module.exports = _inherits;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+var _inherits = unwrapExports(inherits);
+
+var _typeof_1 = createCommonjsModule(function (module) {
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    module.exports = _typeof = function _typeof(obj) {
+      return typeof obj;
+    };
+
+    module.exports["default"] = module.exports, module.exports.__esModule = true;
+  } else {
+    module.exports = _typeof = function _typeof(obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+
+    module.exports["default"] = module.exports, module.exports.__esModule = true;
+  }
+
+  return _typeof(obj);
+}
+
+module.exports = _typeof;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+unwrapExports(_typeof_1);
+
+var assertThisInitialized = createCommonjsModule(function (module) {
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+module.exports = _assertThisInitialized;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+unwrapExports(assertThisInitialized);
+
+var possibleConstructorReturn = createCommonjsModule(function (module) {
+var _typeof = _typeof_1["default"];
+
+
+
+function _possibleConstructorReturn(self, call) {
+  if (call && (_typeof(call) === "object" || typeof call === "function")) {
+    return call;
+  } else if (call !== void 0) {
+    throw new TypeError("Derived constructors may only return object or undefined");
+  }
+
+  return assertThisInitialized(self);
+}
+
+module.exports = _possibleConstructorReturn;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+var _possibleConstructorReturn = unwrapExports(possibleConstructorReturn);
+
+var getPrototypeOf = createCommonjsModule(function (module) {
+function _getPrototypeOf(o) {
+  module.exports = _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  module.exports["default"] = module.exports, module.exports.__esModule = true;
+  return _getPrototypeOf(o);
+}
+
+module.exports = _getPrototypeOf;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+var _getPrototypeOf = unwrapExports(getPrototypeOf);
+
+var createRestoreDomManager = function createRestoreDomManager(editor, receivedUserInput) {
+  var bufferedMutations = [];
+
+  var clear = function clear() {
+    bufferedMutations = [];
+  };
+
+  var registerMutations = function registerMutations(mutations) {
+    var _bufferedMutations;
+
+    if (!receivedUserInput.current) {
+      return;
+    }
+
+    var trackedMutations = mutations.filter(function (mutation) {
+      return isTrackedMutation(editor, mutation, mutations);
+    });
+
+    (_bufferedMutations = bufferedMutations).push.apply(_bufferedMutations, _toConsumableArray(trackedMutations));
+  };
+
+  function restoreDOM() {
+    bufferedMutations.reverse().forEach(function (mutation) {
+      if (mutation.type === 'characterData') {
+        mutation.target.textContent = mutation.oldValue;
+        return;
+      }
+
+      mutation.removedNodes.forEach(function (node) {
+        mutation.target.insertBefore(node, mutation.nextSibling);
+      });
+      mutation.addedNodes.forEach(function (node) {
+        mutation.target.removeChild(node);
+      });
+    }); // Clear buffered mutations to ensure we don't undo them twice
+
+    clear();
+  }
+
+  return {
+    registerMutations: registerMutations,
+    restoreDOM: restoreDOM,
+    clear: clear
+  };
+};
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+var MUTATION_OBSERVER_CONFIG$1 = {
+  subtree: true,
+  childList: true,
+  characterData: true,
+  characterDataOldValue: true
+}; // We have to use a class component here since we rely on `getSnapshotBeforeUpdate` which has no FC equivalent
+// to run code synchronously immediately before react commits the component update to the DOM.
+
+var RestoreDOMComponent = /*#__PURE__*/function (_Component) {
+  _inherits(RestoreDOMComponent, _Component);
+
+  var _super = _createSuper(RestoreDOMComponent);
+
+  function RestoreDOMComponent() {
+    var _this;
+
+    _classCallCheck(this, RestoreDOMComponent);
+
+    _this = _super.apply(this, arguments);
+    _this.context = null;
+    _this.manager = null;
+    _this.mutationObserver = null;
+    return _this;
+  }
+
+  _createClass(RestoreDOMComponent, [{
+    key: "observe",
+    value: function observe() {
+      var _this$mutationObserve;
+
+      var node = this.props.node;
+
+      if (!node.current) {
+        throw new Error('Failed to attach MutationObserver, `node` is undefined');
+      }
+
+      (_this$mutationObserve = this.mutationObserver) === null || _this$mutationObserve === void 0 ? void 0 : _this$mutationObserve.observe(node.current, MUTATION_OBSERVER_CONFIG$1);
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var receivedUserInput = this.props.receivedUserInput;
+      var editor = this.context;
+      this.manager = createRestoreDomManager(editor, receivedUserInput);
+      this.mutationObserver = new MutationObserver(this.manager.registerMutations);
+      this.observe();
+    }
+  }, {
+    key: "getSnapshotBeforeUpdate",
+    value: function getSnapshotBeforeUpdate() {
+      var _this$mutationObserve2, _this$mutationObserve3, _this$manager2;
+
+      var pendingMutations = (_this$mutationObserve2 = this.mutationObserver) === null || _this$mutationObserve2 === void 0 ? void 0 : _this$mutationObserve2.takeRecords();
+
+      if (pendingMutations !== null && pendingMutations !== void 0 && pendingMutations.length) {
+        var _this$manager;
+
+        (_this$manager = this.manager) === null || _this$manager === void 0 ? void 0 : _this$manager.registerMutations(pendingMutations);
+      }
+
+      (_this$mutationObserve3 = this.mutationObserver) === null || _this$mutationObserve3 === void 0 ? void 0 : _this$mutationObserve3.disconnect();
+      (_this$manager2 = this.manager) === null || _this$manager2 === void 0 ? void 0 : _this$manager2.restoreDOM();
+      return null;
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      var _this$manager3;
+
+      (_this$manager3 = this.manager) === null || _this$manager3 === void 0 ? void 0 : _this$manager3.clear();
+      this.observe();
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      var _this$mutationObserve4;
+
+      (_this$mutationObserve4 = this.mutationObserver) === null || _this$mutationObserve4 === void 0 ? void 0 : _this$mutationObserve4.disconnect();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return this.props.children;
+    }
+  }]);
+
+  return RestoreDOMComponent;
+}(React.Component);
+
+RestoreDOMComponent.contextType = EditorContext;
+var RestoreDOM = IS_ANDROID ? RestoreDOMComponent : function (_ref) {
+  var children = _ref.children;
+  return /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, children);
 };
 
 /**
@@ -41031,6 +41511,7 @@ function verifyDiffState(editor, textDiff) {
   var nextNode = slate.Node.get(editor, nextPath);
   return slate.Text.isText(nextNode) && nextNode.text.startsWith(diff.text);
 }
+
 function applyStringDiff(text) {
   for (var _len = arguments.length, diffs = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
     diffs[_key - 1] = arguments[_key];
@@ -41148,7 +41629,7 @@ function normalizePoint(editor, point) {
 
   var parentBlock = slate.Editor.above(editor, {
     match: function match(n) {
-      return slate.Element.isElement(n) && slate.Editor.isBlock(editor, n);
+      return slate.Editor.isBlock(editor, n);
     },
     at: path
   });
@@ -41434,12 +41915,7 @@ var RESOLVE_DELAY = 25; // Time with no user interaction before the current user
 
 var FLUSH_DELAY = 200; // Replace with `const debug = console.log` to debug
 
-var debug = function debug() {}; // Type guard to check if a value is a DataTransfer
-
-
-var isDataTransfer = function isDataTransfer(value) {
-  return (value === null || value === void 0 ? void 0 : value.constructor.name) === 'DataTransfer';
-};
+var debug = function debug() {};
 
 function createAndroidInputManager(_ref) {
   var editor = _ref.editor,
@@ -41492,6 +41968,8 @@ function createAndroidInputManager(_ref) {
   };
 
   var flush = function flush() {
+    var _EDITOR_TO_PENDING_DI;
+
     if (flushTimeoutId) {
       clearTimeout(flushTimeoutId);
       flushTimeoutId = null;
@@ -41523,11 +42001,11 @@ function createAndroidInputManager(_ref) {
     });
     EDITOR_TO_USER_MARKS.set(editor, editor.marks);
     debug('flush', EDITOR_TO_PENDING_ACTION.get(editor), EDITOR_TO_PENDING_DIFFS.get(editor));
-    var scheduleSelectionChange = hasPendingDiffs();
+    var scheduleSelectionChange = !!((_EDITOR_TO_PENDING_DI = EDITOR_TO_PENDING_DIFFS.get(editor)) !== null && _EDITOR_TO_PENDING_DI !== void 0 && _EDITOR_TO_PENDING_DI.length);
     var diff;
 
-    while (diff = (_EDITOR_TO_PENDING_DI = EDITOR_TO_PENDING_DIFFS.get(editor)) === null || _EDITOR_TO_PENDING_DI === void 0 ? void 0 : _EDITOR_TO_PENDING_DI[0]) {
-      var _EDITOR_TO_PENDING_DI, _EDITOR_TO_PENDING_DI2;
+    while (diff = (_EDITOR_TO_PENDING_DI2 = EDITOR_TO_PENDING_DIFFS.get(editor)) === null || _EDITOR_TO_PENDING_DI2 === void 0 ? void 0 : _EDITOR_TO_PENDING_DI2[0]) {
+      var _EDITOR_TO_PENDING_DI2, _EDITOR_TO_PENDING_DI3;
 
       var pendingMarks = EDITOR_TO_PENDING_INSERTION_MARKS.get(editor);
 
@@ -41554,7 +42032,7 @@ function createAndroidInputManager(_ref) {
       // pending ranges.
 
 
-      EDITOR_TO_PENDING_DIFFS.set(editor, (_EDITOR_TO_PENDING_DI2 = EDITOR_TO_PENDING_DIFFS.get(editor)) === null || _EDITOR_TO_PENDING_DI2 === void 0 ? void 0 : _EDITOR_TO_PENDING_DI2.filter(function (_ref2) {
+      EDITOR_TO_PENDING_DIFFS.set(editor, (_EDITOR_TO_PENDING_DI3 = EDITOR_TO_PENDING_DIFFS.get(editor)) === null || _EDITOR_TO_PENDING_DI3 === void 0 ? void 0 : _EDITOR_TO_PENDING_DI3.filter(function (_ref2) {
         var id = _ref2.id;
         return id !== diff.id;
       }));
@@ -41640,8 +42118,8 @@ function createAndroidInputManager(_ref) {
   };
 
   var storeDiff = function storeDiff(path, diff) {
-    var _EDITOR_TO_PENDING_DI3;
-    var pendingDiffs = (_EDITOR_TO_PENDING_DI3 = EDITOR_TO_PENDING_DIFFS.get(editor)) !== null && _EDITOR_TO_PENDING_DI3 !== void 0 ? _EDITOR_TO_PENDING_DI3 : [];
+    var _EDITOR_TO_PENDING_DI4;
+    var pendingDiffs = (_EDITOR_TO_PENDING_DI4 = EDITOR_TO_PENDING_DIFFS.get(editor)) !== null && _EDITOR_TO_PENDING_DI4 !== void 0 ? _EDITOR_TO_PENDING_DI4 : [];
     EDITOR_TO_PENDING_DIFFS.set(editor, pendingDiffs);
     var target = slate.Node.leaf(editor, path);
     var idx = pendingDiffs.findIndex(function (change) {
@@ -41743,93 +42221,53 @@ function createAndroidInputManager(_ref) {
 
     if (!targetRange) {
       return;
-    } // By default, the input manager tries to store text diffs so that we can
-    // defer flushing them at a later point in time. We don't want to flush
-    // for every input event as this can be expensive. However, there are some
-    // scenarios where we cannot safely store the text diff and must instead
-    // schedule an action to let Slate normalize the editor state.
+    }
 
+    if (slate.Range.isExpanded(targetRange) && type.startsWith('delete')) {
+      var _Range$edges = slate.Range.edges(targetRange),
+          _Range$edges2 = _slicedToArray(_Range$edges, 2),
+          start = _Range$edges2[0],
+          end = _Range$edges2[1];
 
-    var canStoreDiff = true;
+      var leaf = slate.Node.leaf(editor, start.path);
 
-    if (type.startsWith('delete')) {
-      if (slate.Range.isExpanded(targetRange)) {
-        var _Range$edges = slate.Range.edges(targetRange),
-            _Range$edges2 = _slicedToArray(_Range$edges, 2),
-            _start = _Range$edges2[0],
-            _end = _Range$edges2[1];
+      if (leaf.text.length === start.offset && end.offset === 0) {
+        var next = slate.Editor.next(editor, {
+          at: start.path,
+          match: slate.Text.isText
+        });
 
-        var _leaf = slate.Node.leaf(editor, _start.path);
-
-        if (_leaf.text.length === _start.offset && _end.offset === 0) {
-          var next = slate.Editor.next(editor, {
-            at: _start.path,
-            match: slate.Text.isText
-          });
-
-          if (next && slate.Path.equals(next[1], _end.path)) {
-            targetRange = {
-              anchor: _end,
-              focus: _end
-            };
-          }
+        if (next && slate.Path.equals(next[1], end.path)) {
+          targetRange = {
+            anchor: end,
+            focus: end
+          };
         }
+      }
+    }
+
+    if (slate.Range.isExpanded(targetRange) && type.startsWith('delete')) {
+      if (slate.Path.equals(targetRange.anchor.path, targetRange.focus.path)) {
+        var _Range$edges3 = slate.Range.edges(targetRange),
+            _Range$edges4 = _slicedToArray(_Range$edges3, 2),
+            _start = _Range$edges4[0],
+            _end = _Range$edges4[1];
+
+        return storeDiff(targetRange.anchor.path, {
+          text: '',
+          end: _end.offset,
+          start: _start.offset
+        });
       }
 
       var direction = type.endsWith('Backward') ? 'backward' : 'forward';
-
-      var _Range$edges3 = slate.Range.edges(targetRange),
-          _Range$edges4 = _slicedToArray(_Range$edges3, 2),
-          start = _Range$edges4[0],
-          end = _Range$edges4[1];
-
-      var _Editor$leaf = slate.Editor.leaf(editor, start.path),
-          _Editor$leaf2 = _slicedToArray(_Editor$leaf, 2),
-          leaf = _Editor$leaf2[0],
-          path = _Editor$leaf2[1];
-
-      var diff = {
-        text: '',
-        start: start.offset,
-        end: end.offset
-      };
-      var pendingDiffs = EDITOR_TO_PENDING_DIFFS.get(editor);
-      var relevantPendingDiffs = pendingDiffs === null || pendingDiffs === void 0 ? void 0 : pendingDiffs.find(function (change) {
-        return slate.Path.equals(change.path, path);
-      });
-      var diffs = relevantPendingDiffs ? [relevantPendingDiffs.diff, diff] : [diff];
-      var text = applyStringDiff.apply(void 0, [leaf.text].concat(diffs));
-
-      if (text.length === 0) {
-        // Text leaf will be removed, so we need to schedule an
-        // action to remove it so that Slate can normalize instead
-        // of storing as a diff
-        canStoreDiff = false;
-      }
-
-      if (slate.Range.isExpanded(targetRange)) {
-        if (canStoreDiff && slate.Path.equals(targetRange.anchor.path, targetRange.focus.path)) {
-          var point = {
-            path: targetRange.anchor.path,
-            offset: start.offset
-          };
-          var range = slate.Editor.range(editor, point, point);
-          handleUserSelect(range);
-          return storeDiff(targetRange.anchor.path, {
-            text: '',
-            end: end.offset,
-            start: start.offset
-          });
-        }
-
-        return scheduleAction(function () {
-          return slate.Editor.deleteFragment(editor, {
-            direction: direction
-          });
-        }, {
-          at: targetRange
+      return scheduleAction(function () {
+        return slate.Editor.deleteFragment(editor, {
+          direction: direction
         });
-      }
+      }, {
+        at: targetRange
+      });
     }
 
     switch (type) {
@@ -41850,7 +42288,7 @@ function createAndroidInputManager(_ref) {
           var _targetRange3 = targetRange,
               anchor = _targetRange3.anchor;
 
-          if (canStoreDiff && slate.Range.isCollapsed(targetRange)) {
+          if (slate.Range.isCollapsed(targetRange)) {
             var targetNode = slate.Node.leaf(editor, anchor.path);
 
             if (anchor.offset < targetNode.text.length) {
@@ -41880,7 +42318,7 @@ function createAndroidInputManager(_ref) {
 
           var nativeCollapsed = isDOMSelection(nativeTargetRange) ? nativeTargetRange.isCollapsed : !!((_nativeTargetRange = nativeTargetRange) !== null && _nativeTargetRange !== void 0 && _nativeTargetRange.collapsed);
 
-          if (canStoreDiff && nativeCollapsed && slate.Range.isCollapsed(targetRange) && _anchor.offset > 0) {
+          if (nativeCollapsed && slate.Range.isCollapsed(targetRange) && _anchor.offset > 0) {
             return storeDiff(_anchor.path, {
               text: '',
               start: _anchor.offset - 1,
@@ -42002,7 +42440,7 @@ function createAndroidInputManager(_ref) {
       case 'insertReplacementText':
       case 'insertText':
         {
-          if (isDataTransfer(data)) {
+          if ((data === null || data === void 0 ? void 0 : data.constructor.name) === 'DataTransfer') {
             return scheduleAction(function () {
               return ReactEditor.insertData(editor, data);
             }, {
@@ -42010,39 +42448,19 @@ function createAndroidInputManager(_ref) {
             });
           }
 
-          var _text = data !== null && data !== void 0 ? data : ''; // COMPAT: If we are writing inside a placeholder, the ime inserts the text inside
+          if (typeof data === 'string' && data.includes('\n')) {
+            return scheduleAction(function () {
+              return slate.Editor.insertSoftBreak(editor);
+            }, {
+              at: slate.Range.end(targetRange)
+            });
+          }
+
+          var text = data !== null && data !== void 0 ? data : ''; // COMPAT: If we are writing inside a placeholder, the ime inserts the text inside
           // the placeholder itself and thus includes the zero-width space inside edit events.
 
-
           if (EDITOR_TO_PENDING_INSERTION_MARKS.get(editor)) {
-            _text = _text.replace("\uFEFF", '');
-          } // Pastes from the Android clipboard will generate `insertText` events.
-          // If the copied text contains any newlines, Android will append an
-          // extra newline to the end of the copied text.
-
-
-          if (type === 'insertText' && /.*\n.*\n$/.test(_text)) {
-            _text = _text.slice(0, -1);
-          } // If the text includes a newline, split it at newlines and paste each component
-          // string, with soft breaks in between each.
-
-
-          if (_text.includes('\n')) {
-            return scheduleAction(function () {
-              var parts = _text.split('\n');
-
-              parts.forEach(function (line, i) {
-                if (line) {
-                  slate.Editor.insertText(editor, line);
-                }
-
-                if (i !== parts.length - 1) {
-                  slate.Editor.insertSoftBreak(editor);
-                }
-              });
-            }, {
-              at: targetRange
-            });
+            text = text.replace("\uFEFF", '');
           }
 
           if (slate.Path.equals(targetRange.anchor.path, targetRange.focus.path)) {
@@ -42051,10 +42469,10 @@ function createAndroidInputManager(_ref) {
                 _start2 = _Range$edges6[0],
                 _end2 = _Range$edges6[1];
 
-            var _diff = {
+            var diff = {
               start: _start2.offset,
               end: _end2.offset,
-              text: _text
+              text: text
             }; // COMPAT: Swiftkey has a weird bug where the target range of the 2nd word
             // inserted after a mark placeholder is inserted with an anchor offset off by 1.
             // So writing 'some text' will result in 'some ttext'. Luckily all 'normal' insert
@@ -42062,13 +42480,12 @@ function createAndroidInputManager(_ref) {
             // isn't, so we can adjust the target range start offset if we are confident this is the
             // swiftkey insert causing the issue.
 
-            if (_text && insertPositionHint && type === 'insertCompositionText') {
+            if (text && insertPositionHint && type === 'insertCompositionText') {
               var hintPosition = insertPositionHint.start + insertPositionHint.text.search(/\S|$/);
+              var diffPosition = diff.start + diff.text.search(/\S|$/);
 
-              var diffPosition = _diff.start + _diff.text.search(/\S|$/);
-
-              if (diffPosition === hintPosition + 1 && _diff.end === insertPositionHint.start + insertPositionHint.text.length) {
-                _diff.start -= 1;
+              if (diffPosition === hintPosition + 1 && diff.end === insertPositionHint.start + insertPositionHint.text.length) {
+                diff.start -= 1;
                 insertPositionHint = null;
                 scheduleFlush();
               } else {
@@ -42076,10 +42493,10 @@ function createAndroidInputManager(_ref) {
               }
             } else if (type === 'insertText') {
               if (insertPositionHint === null) {
-                insertPositionHint = _diff;
+                insertPositionHint = diff;
               } else if (insertPositionHint && slate.Range.isCollapsed(targetRange) && insertPositionHint.end + insertPositionHint.text.length === _start2.offset) {
                 insertPositionHint = _objectSpread$3(_objectSpread$3({}, insertPositionHint), {}, {
-                  text: insertPositionHint.text + _text
+                  text: insertPositionHint.text + text
                 });
               } else {
                 insertPositionHint = false;
@@ -42088,14 +42505,12 @@ function createAndroidInputManager(_ref) {
               insertPositionHint = false;
             }
 
-            if (canStoreDiff) {
-              storeDiff(_start2.path, _diff);
-              return;
-            }
+            storeDiff(_start2.path, diff);
+            return;
           }
 
           return scheduleAction(function () {
-            return slate.Editor.insertText(editor, _text);
+            return slate.Editor.insertText(editor, text);
           }, {
             at: targetRange
           });
@@ -42108,9 +42523,9 @@ function createAndroidInputManager(_ref) {
   };
 
   var hasPendingDiffs = function hasPendingDiffs() {
-    var _EDITOR_TO_PENDING_DI4;
+    var _EDITOR_TO_PENDING_DI5;
 
-    return !!((_EDITOR_TO_PENDING_DI4 = EDITOR_TO_PENDING_DIFFS.get(editor)) !== null && _EDITOR_TO_PENDING_DI4 !== void 0 && _EDITOR_TO_PENDING_DI4.length);
+    return !!((_EDITOR_TO_PENDING_DI5 = EDITOR_TO_PENDING_DIFFS.get(editor)) !== null && _EDITOR_TO_PENDING_DI5 !== void 0 && _EDITOR_TO_PENDING_DI5.length);
   };
 
   var hasPendingChanges = function hasPendingChanges() {
@@ -42142,7 +42557,7 @@ function createAndroidInputManager(_ref) {
       insertPositionHint = false;
     }
 
-    if (pathChanged || hasPendingDiffs()) {
+    if (pathChanged || !hasPendingDiffs()) {
       flushTimeoutId = setTimeout(flush, FLUSH_DELAY);
     }
   };
@@ -42215,12 +42630,6 @@ function useIsMounted() {
   return isMountedRef.current;
 }
 
-/**
- * Prevent warning on SSR by falling back to useEffect when DOM isn't available
- */
-
-var useIsomorphicLayoutEffect = CAN_USE_DOM ? React.useLayoutEffect : React.useEffect;
-
 function useMutationObserver(node, callback, options) {
   var _useState = React.useState(function () {
     return new MutationObserver(callback);
@@ -42242,24 +42651,22 @@ function useMutationObserver(node, callback, options) {
     return function () {
       return mutationObserver.disconnect();
     };
-  }, [mutationObserver, node, options]);
+  }, []);
 }
 
-var _excluded$3 = ["node"];
+var _excluded$2 = ["node"];
 
 function ownKeys$2(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread$2(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$2(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$2(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-var MUTATION_OBSERVER_CONFIG$1 = {
+var MUTATION_OBSERVER_CONFIG = {
   subtree: true,
   childList: true,
   characterData: true
 };
-var useAndroidInputManager = !IS_ANDROID ? function () {
-  return null;
-} : function (_ref) {
+function useAndroidInputManager(_ref) {
   var node = _ref.node,
-      options = _objectWithoutProperties(_ref, _excluded$3);
+      options = _objectWithoutProperties(_ref, _excluded$2);
 
   if (!IS_ANDROID) {
     return null;
@@ -42276,7 +42683,7 @@ var useAndroidInputManager = !IS_ANDROID ? function () {
       _useState2 = _slicedToArray(_useState, 1),
       inputManager = _useState2[0];
 
-  useMutationObserver(node, inputManager.handleDomMutations, MUTATION_OBSERVER_CONFIG$1);
+  useMutationObserver(node, inputManager.handleDomMutations, MUTATION_OBSERVER_CONFIG);
   EDITOR_TO_SCHEDULE_FLUSH.set(editor, inputManager.scheduleFlush);
 
   if (isMounted) {
@@ -42284,669 +42691,7 @@ var useAndroidInputManager = !IS_ANDROID ? function () {
   }
 
   return inputManager;
-};
-
-var _excluded$2 = ["anchor", "focus"],
-    _excluded2$1 = ["anchor", "focus"];
-var shallowCompare = function shallowCompare(obj1, obj2) {
-  return Object.keys(obj1).length === Object.keys(obj2).length && Object.keys(obj1).every(function (key) {
-    return obj2.hasOwnProperty(key) && obj1[key] === obj2[key];
-  });
-};
-
-var isDecorationFlagsEqual = function isDecorationFlagsEqual(range, other) {
-  range.anchor;
-      range.focus;
-      var rangeOwnProps = _objectWithoutProperties(range, _excluded$2);
-
-  other.anchor;
-      other.focus;
-      var otherOwnProps = _objectWithoutProperties(other, _excluded2$1);
-
-  return range[PLACEHOLDER_SYMBOL] === other[PLACEHOLDER_SYMBOL] && shallowCompare(rangeOwnProps, otherOwnProps);
-};
-/**
- * Check if a list of decorator ranges are equal to another.
- *
- * PERF: this requires the two lists to also have the ranges inside them in the
- * same order, but this is an okay constraint for us since decorations are
- * kept in order, and the odd case where they aren't is okay to re-render for.
- */
-
-
-var isElementDecorationsEqual = function isElementDecorationsEqual(list, another) {
-  if (list.length !== another.length) {
-    return false;
-  }
-
-  for (var i = 0; i < list.length; i++) {
-    var range = list[i];
-    var other = another[i];
-
-    if (!slate.Range.equals(range, other) || !isDecorationFlagsEqual(range, other)) {
-      return false;
-    }
-  }
-
-  return true;
-};
-/**
- * Check if a list of decorator ranges are equal to another.
- *
- * PERF: this requires the two lists to also have the ranges inside them in the
- * same order, but this is an okay constraint for us since decorations are
- * kept in order, and the odd case where they aren't is okay to re-render for.
- */
-
-var isTextDecorationsEqual = function isTextDecorationsEqual(list, another) {
-  if (list.length !== another.length) {
-    return false;
-  }
-
-  for (var i = 0; i < list.length; i++) {
-    var range = list[i];
-    var other = another[i]; // compare only offsets because paths doesn't matter for text
-
-    if (range.anchor.offset !== other.anchor.offset || range.focus.offset !== other.focus.offset || !isDecorationFlagsEqual(range, other)) {
-      return false;
-    }
-  }
-
-  return true;
-};
-
-/**
- * Leaf content strings.
- */
-
-var String = function String(props) {
-  var isLast = props.isLast,
-      leaf = props.leaf,
-      parent = props.parent,
-      text = props.text;
-  var editor = useSlateStatic();
-  var path = ReactEditor.findPath(editor, text);
-  var parentPath = slate.Path.parent(path);
-  var isMarkPlaceholder = leaf[MARK_PLACEHOLDER_SYMBOL] === true; // COMPAT: Render text inside void nodes with a zero-width space.
-  // So the node can contain selection but the text is not visible.
-
-  if (editor.isVoid(parent)) {
-    return /*#__PURE__*/React__default['default'].createElement(ZeroWidthString, {
-      length: slate.Node.string(parent).length
-    });
-  } // COMPAT: If this is the last text node in an empty block, render a zero-
-  // width space that will convert into a line break when copying and pasting
-  // to support expected plain text.
-
-
-  if (leaf.text === '' && parent.children[parent.children.length - 1] === text && !editor.isInline(parent) && slate.Editor.string(editor, parentPath) === '') {
-    return /*#__PURE__*/React__default['default'].createElement(ZeroWidthString, {
-      isLineBreak: true,
-      isMarkPlaceholder: isMarkPlaceholder
-    });
-  } // COMPAT: If the text is empty, it's because it's on the edge of an inline
-  // node, so we render a zero-width space so that the selection can be
-  // inserted next to it still.
-
-
-  if (leaf.text === '') {
-    return /*#__PURE__*/React__default['default'].createElement(ZeroWidthString, {
-      isMarkPlaceholder: isMarkPlaceholder
-    });
-  } // COMPAT: Browsers will collapse trailing new lines at the end of blocks,
-  // so we need to add an extra trailing new lines to prevent that.
-
-
-  if (isLast && leaf.text.slice(-1) === '\n') {
-    return /*#__PURE__*/React__default['default'].createElement(TextString, {
-      isTrailing: true,
-      text: leaf.text
-    });
-  }
-
-  return /*#__PURE__*/React__default['default'].createElement(TextString, {
-    text: leaf.text
-  });
-};
-/**
- * Leaf strings with text in them.
- */
-
-
-var TextString = function TextString(props) {
-  var text = props.text,
-      _props$isTrailing = props.isTrailing,
-      isTrailing = _props$isTrailing === void 0 ? false : _props$isTrailing;
-  var ref = React.useRef(null);
-
-  var getTextContent = function getTextContent() {
-    return "".concat(text !== null && text !== void 0 ? text : '').concat(isTrailing ? '\n' : '');
-  };
-
-  var _useState = React.useState(getTextContent),
-      _useState2 = _slicedToArray(_useState, 1),
-      initialText = _useState2[0]; // This is the actual text rendering boundary where we interface with the DOM
-  // The text is not rendered as part of the virtual DOM, as since we handle basic character insertions natively,
-  // updating the DOM is not a one way dataflow anymore. What we need here is not reconciliation and diffing
-  // with previous version of the virtual DOM, but rather diffing with the actual DOM element, and replace the DOM <span> content
-  // exactly if and only if its current content does not match our current virtual DOM.
-  // Otherwise the DOM TextNode would always be replaced by React as the user types, which interferes with native text features,
-  // eg makes native spellcheck opt out from checking the text node.
-  // useLayoutEffect: updating our span before browser paint
-
-
-  useIsomorphicLayoutEffect(function () {
-    // null coalescing text to make sure we're not outputing "null" as a string in the extreme case it is nullish at runtime
-    var textWithTrailing = getTextContent();
-
-    if (ref.current && ref.current.textContent !== textWithTrailing) {
-      ref.current.textContent = textWithTrailing;
-    } // intentionally not specifying dependencies, so that this effect runs on every render
-    // as this effectively replaces "specifying the text in the virtual DOM under the <span> below" on each render
-
-  }); // We intentionally render a memoized <span> that only receives the initial text content when the component is mounted.
-  // We defer to the layout effect above to update the `textContent` of the span element when needed.
-
-  return /*#__PURE__*/React__default['default'].createElement(MemoizedText$1, {
-    ref: ref
-  }, initialText);
-};
-
-var MemoizedText$1 = /*#__PURE__*/React.memo( /*#__PURE__*/React.forwardRef(function (props, ref) {
-  return /*#__PURE__*/React__default['default'].createElement("span", {
-    "data-slate-string": true,
-    ref: ref
-  }, props.children);
-}));
-/**
- * Leaf strings without text, render as zero-width strings.
- */
-
-var ZeroWidthString = function ZeroWidthString(props) {
-  var _props$length = props.length,
-      length = _props$length === void 0 ? 0 : _props$length,
-      _props$isLineBreak = props.isLineBreak,
-      isLineBreak = _props$isLineBreak === void 0 ? false : _props$isLineBreak,
-      _props$isMarkPlacehol = props.isMarkPlaceholder,
-      isMarkPlaceholder = _props$isMarkPlacehol === void 0 ? false : _props$isMarkPlacehol;
-  var attributes = {
-    'data-slate-zero-width': isLineBreak ? 'n' : 'z',
-    'data-slate-length': length
-  };
-
-  if (isMarkPlaceholder) {
-    attributes['data-slate-mark-placeholder'] = true;
-  }
-
-  return /*#__PURE__*/React__default['default'].createElement("span", Object.assign({}, attributes), !IS_ANDROID || !isLineBreak ? "\uFEFF" : null, isLineBreak ? /*#__PURE__*/React__default['default'].createElement("br", null) : null);
-};
-
-function disconnectPlaceholderResizeObserver(placeholderResizeObserver, releaseObserver) {
-  if (placeholderResizeObserver.current) {
-    placeholderResizeObserver.current.disconnect();
-
-    if (releaseObserver) {
-      placeholderResizeObserver.current = null;
-    }
-  }
 }
-
-function clearTimeoutRef(timeoutRef) {
-  if (timeoutRef.current) {
-    clearTimeout(timeoutRef.current);
-    timeoutRef.current = null;
-  }
-}
-/**
- * Individual leaves in a text node with unique formatting.
- */
-
-
-var Leaf = function Leaf(props) {
-  var leaf = props.leaf,
-      isLast = props.isLast,
-      text = props.text,
-      parent = props.parent,
-      renderPlaceholder = props.renderPlaceholder,
-      _props$renderLeaf = props.renderLeaf,
-      renderLeaf = _props$renderLeaf === void 0 ? function (props) {
-    return /*#__PURE__*/React__default['default'].createElement(DefaultLeaf, Object.assign({}, props));
-  } : _props$renderLeaf;
-  var editor = useSlateStatic();
-  var placeholderResizeObserver = React.useRef(null);
-  var placeholderRef = React.useRef(null);
-
-  var _useState = React.useState(false),
-      _useState2 = _slicedToArray(_useState, 2),
-      showPlaceholder = _useState2[0],
-      setShowPlaceholder = _useState2[1];
-
-  var showPlaceholderTimeoutRef = React.useRef(null);
-  var callbackPlaceholderRef = React.useCallback(function (placeholderEl) {
-    disconnectPlaceholderResizeObserver(placeholderResizeObserver, placeholderEl == null);
-
-    if (placeholderEl == null) {
-      var _leaf$onPlaceholderRe;
-
-      EDITOR_TO_PLACEHOLDER_ELEMENT["delete"](editor);
-      (_leaf$onPlaceholderRe = leaf.onPlaceholderResize) === null || _leaf$onPlaceholderRe === void 0 ? void 0 : _leaf$onPlaceholderRe.call(leaf, null);
-    } else {
-      EDITOR_TO_PLACEHOLDER_ELEMENT.set(editor, placeholderEl);
-
-      if (!placeholderResizeObserver.current) {
-        // Create a new observer and observe the placeholder element.
-        var ResizeObserver = window.ResizeObserver || resizeObserver.ResizeObserver;
-        placeholderResizeObserver.current = new ResizeObserver(function () {
-          var _leaf$onPlaceholderRe2;
-
-          (_leaf$onPlaceholderRe2 = leaf.onPlaceholderResize) === null || _leaf$onPlaceholderRe2 === void 0 ? void 0 : _leaf$onPlaceholderRe2.call(leaf, placeholderEl);
-        });
-      }
-
-      placeholderResizeObserver.current.observe(placeholderEl);
-      placeholderRef.current = placeholderEl;
-    }
-  }, [placeholderRef, leaf, editor]);
-  var children = /*#__PURE__*/React__default['default'].createElement(String, {
-    isLast: isLast,
-    leaf: leaf,
-    parent: parent,
-    text: text
-  });
-  var leafIsPlaceholder = leaf[PLACEHOLDER_SYMBOL];
-  React.useEffect(function () {
-    if (leafIsPlaceholder) {
-      if (!showPlaceholderTimeoutRef.current) {
-        // Delay the placeholder so it will not render in a selection
-        showPlaceholderTimeoutRef.current = setTimeout(function () {
-          setShowPlaceholder(true);
-          showPlaceholderTimeoutRef.current = null;
-        }, 300);
-      }
-    } else {
-      clearTimeoutRef(showPlaceholderTimeoutRef);
-      setShowPlaceholder(false);
-    }
-
-    return function () {
-      return clearTimeoutRef(showPlaceholderTimeoutRef);
-    };
-  }, [leafIsPlaceholder, setShowPlaceholder]);
-
-  if (leafIsPlaceholder && showPlaceholder) {
-    var placeholderProps = {
-      children: leaf.placeholder,
-      attributes: {
-        'data-slate-placeholder': true,
-        style: {
-          position: 'absolute',
-          top: 0,
-          pointerEvents: 'none',
-          width: '100%',
-          maxWidth: '100%',
-          display: 'block',
-          opacity: '0.333',
-          userSelect: 'none',
-          textDecoration: 'none',
-          // Fixes https://github.com/udecode/plate/issues/2315
-          WebkitUserModify: IS_SAFARI ? 'inherit' : undefined
-        },
-        contentEditable: false,
-        ref: callbackPlaceholderRef
-      }
-    };
-    children = /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, renderPlaceholder(placeholderProps), children);
-  } // COMPAT: Having the `data-` attributes on these leaf elements ensures that
-  // in certain misbehaving browsers they aren't weirdly cloned/destroyed by
-  // contenteditable behaviors. (2019/05/08)
-
-
-  var attributes = {
-    'data-slate-leaf': true
-  };
-  return renderLeaf({
-    attributes: attributes,
-    children: children,
-    leaf: leaf,
-    text: text
-  });
-};
-
-var MemoizedLeaf = /*#__PURE__*/React__default['default'].memo(Leaf, function (prev, next) {
-  return next.parent === prev.parent && next.isLast === prev.isLast && next.renderLeaf === prev.renderLeaf && next.renderPlaceholder === prev.renderPlaceholder && next.text === prev.text && slate.Text.equals(next.leaf, prev.leaf) && next.leaf[PLACEHOLDER_SYMBOL] === prev.leaf[PLACEHOLDER_SYMBOL];
-});
-var DefaultLeaf = function DefaultLeaf(props) {
-  var attributes = props.attributes,
-      children = props.children;
-  return /*#__PURE__*/React__default['default'].createElement("span", Object.assign({}, attributes), children);
-};
-
-/**
- * Text.
- */
-
-var Text = function Text(props) {
-  var decorations = props.decorations,
-      isLast = props.isLast,
-      parent = props.parent,
-      renderPlaceholder = props.renderPlaceholder,
-      renderLeaf = props.renderLeaf,
-      text = props.text;
-  var editor = useSlateStatic();
-  var ref = React.useRef(null);
-  var leaves = slate.Text.decorations(text, decorations);
-  var key = ReactEditor.findKey(editor, text);
-  var children = [];
-
-  for (var i = 0; i < leaves.length; i++) {
-    var leaf = leaves[i];
-    children.push( /*#__PURE__*/React__default['default'].createElement(MemoizedLeaf, {
-      isLast: isLast && i === leaves.length - 1,
-      key: "".concat(key.id, "-").concat(i),
-      renderPlaceholder: renderPlaceholder,
-      leaf: leaf,
-      text: text,
-      parent: parent,
-      renderLeaf: renderLeaf
-    }));
-  } // Update element-related weak maps with the DOM element ref.
-
-
-  var callbackRef = React.useCallback(function (span) {
-    var KEY_TO_ELEMENT = EDITOR_TO_KEY_TO_ELEMENT.get(editor);
-
-    if (span) {
-      KEY_TO_ELEMENT === null || KEY_TO_ELEMENT === void 0 ? void 0 : KEY_TO_ELEMENT.set(key, span);
-      NODE_TO_ELEMENT.set(text, span);
-      ELEMENT_TO_NODE.set(span, text);
-    } else {
-      KEY_TO_ELEMENT === null || KEY_TO_ELEMENT === void 0 ? void 0 : KEY_TO_ELEMENT["delete"](key);
-      NODE_TO_ELEMENT["delete"](text);
-
-      if (ref.current) {
-        ELEMENT_TO_NODE["delete"](ref.current);
-      }
-    }
-
-    ref.current = span;
-  }, [ref, editor, key, text]);
-  return /*#__PURE__*/React__default['default'].createElement("span", {
-    "data-slate-node": "text",
-    ref: callbackRef
-  }, children);
-};
-
-var MemoizedText = /*#__PURE__*/React__default['default'].memo(Text, function (prev, next) {
-  return next.parent === prev.parent && next.isLast === prev.isLast && next.renderLeaf === prev.renderLeaf && next.renderPlaceholder === prev.renderPlaceholder && next.text === prev.text && isTextDecorationsEqual(next.decorations, prev.decorations);
-});
-
-/**
- * Element.
- */
-
-var Element = function Element(props) {
-  var decorations = props.decorations,
-      element = props.element,
-      _props$renderElement = props.renderElement,
-      renderElement = _props$renderElement === void 0 ? function (p) {
-    return /*#__PURE__*/React__default['default'].createElement(DefaultElement, Object.assign({}, p));
-  } : _props$renderElement,
-      renderPlaceholder = props.renderPlaceholder,
-      renderLeaf = props.renderLeaf,
-      selection = props.selection;
-  var editor = useSlateStatic();
-  var readOnly = useReadOnly();
-  var isInline = editor.isInline(element);
-  var key = ReactEditor.findKey(editor, element);
-  var ref = React.useCallback(function (ref) {
-    // Update element-related weak maps with the DOM element ref.
-    var KEY_TO_ELEMENT = EDITOR_TO_KEY_TO_ELEMENT.get(editor);
-
-    if (ref) {
-      KEY_TO_ELEMENT === null || KEY_TO_ELEMENT === void 0 ? void 0 : KEY_TO_ELEMENT.set(key, ref);
-      NODE_TO_ELEMENT.set(element, ref);
-      ELEMENT_TO_NODE.set(ref, element);
-    } else {
-      KEY_TO_ELEMENT === null || KEY_TO_ELEMENT === void 0 ? void 0 : KEY_TO_ELEMENT["delete"](key);
-      NODE_TO_ELEMENT["delete"](element);
-    }
-  }, [editor, key, element]);
-  var children = useChildren({
-    decorations: decorations,
-    node: element,
-    renderElement: renderElement,
-    renderPlaceholder: renderPlaceholder,
-    renderLeaf: renderLeaf,
-    selection: selection
-  }); // Attributes that the developer must mix into the element in their
-  // custom node renderer component.
-
-  var attributes = {
-    'data-slate-node': 'element',
-    ref: ref
-  };
-
-  if (isInline) {
-    attributes['data-slate-inline'] = true;
-  } // If it's a block node with inline children, add the proper `dir` attribute
-  // for text direction.
-
-
-  if (!isInline && slate.Editor.hasInlines(editor, element)) {
-    var text = slate.Node.string(element);
-    var dir = getDirection__default['default'](text);
-
-    if (dir === 'rtl') {
-      attributes.dir = dir;
-    }
-  } // If it's a void node, wrap the children in extra void-specific elements.
-
-
-  if (slate.Editor.isVoid(editor, element)) {
-    attributes['data-slate-void'] = true;
-
-    if (!readOnly && isInline) {
-      attributes.contentEditable = false;
-    }
-
-    var Tag = isInline ? 'span' : 'div';
-
-    var _Node$texts = slate.Node.texts(element),
-        _Node$texts2 = _slicedToArray(_Node$texts, 1),
-        _Node$texts2$ = _slicedToArray(_Node$texts2[0], 1),
-        _text = _Node$texts2$[0];
-
-    children = /*#__PURE__*/React__default['default'].createElement(Tag, {
-      "data-slate-spacer": true,
-      style: {
-        height: '0',
-        color: 'transparent',
-        outline: 'none',
-        position: 'absolute'
-      }
-    }, /*#__PURE__*/React__default['default'].createElement(MemoizedText, {
-      renderPlaceholder: renderPlaceholder,
-      decorations: [],
-      isLast: false,
-      parent: element,
-      text: _text
-    }));
-    NODE_TO_INDEX.set(_text, 0);
-    NODE_TO_PARENT.set(_text, element);
-  }
-
-  return renderElement({
-    attributes: attributes,
-    children: children,
-    element: element
-  });
-};
-
-var MemoizedElement = /*#__PURE__*/React__default['default'].memo(Element, function (prev, next) {
-  return prev.element === next.element && prev.renderElement === next.renderElement && prev.renderLeaf === next.renderLeaf && prev.renderPlaceholder === next.renderPlaceholder && isElementDecorationsEqual(prev.decorations, next.decorations) && (prev.selection === next.selection || !!prev.selection && !!next.selection && slate.Range.equals(prev.selection, next.selection));
-});
-/**
- * The default element renderer.
- */
-
-var DefaultElement = function DefaultElement(props) {
-  var attributes = props.attributes,
-      children = props.children,
-      element = props.element;
-  var editor = useSlateStatic();
-  var Tag = editor.isInline(element) ? 'span' : 'div';
-  return /*#__PURE__*/React__default['default'].createElement(Tag, Object.assign({}, attributes, {
-    style: {
-      position: 'relative'
-    }
-  }), children);
-};
-
-/**
- * A React context for sharing the `decorate` prop of the editable.
- */
-
-var DecorateContext = /*#__PURE__*/React.createContext(function () {
-  return [];
-});
-/**
- * Get the current `decorate` prop of the editable.
- */
-
-var useDecorate = function useDecorate() {
-  return React.useContext(DecorateContext);
-};
-
-/**
- * A React context for sharing the `selected` state of an element.
- */
-
-var SelectedContext = /*#__PURE__*/React.createContext(false);
-/**
- * Get the current `selected` state of an element.
- */
-
-var useSelected = function useSelected() {
-  return React.useContext(SelectedContext);
-};
-
-function _createForOfIteratorHelper$2(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray$2(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray$2(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$2(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$2(o, minLen); }
-
-function _arrayLikeToArray$2(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-/**
- * Children.
- */
-
-var useChildren = function useChildren(props) {
-  var decorations = props.decorations,
-      node = props.node,
-      renderElement = props.renderElement,
-      renderPlaceholder = props.renderPlaceholder,
-      renderLeaf = props.renderLeaf,
-      selection = props.selection;
-  var decorate = useDecorate();
-  var editor = useSlateStatic();
-  var path = ReactEditor.findPath(editor, node);
-  var children = [];
-  var isLeafBlock = slate.Element.isElement(node) && !editor.isInline(node) && slate.Editor.hasInlines(editor, node);
-
-  for (var i = 0; i < node.children.length; i++) {
-    var p = path.concat(i);
-    var n = node.children[i];
-    var key = ReactEditor.findKey(editor, n);
-    var range = slate.Editor.range(editor, p);
-    var sel = selection && slate.Range.intersection(range, selection);
-    var ds = decorate([n, p]);
-
-    var _iterator = _createForOfIteratorHelper$2(decorations),
-        _step;
-
-    try {
-      for (_iterator.s(); !(_step = _iterator.n()).done;) {
-        var dec = _step.value;
-        var d = slate.Range.intersection(dec, range);
-
-        if (d) {
-          ds.push(d);
-        }
-      }
-    } catch (err) {
-      _iterator.e(err);
-    } finally {
-      _iterator.f();
-    }
-
-    if (slate.Element.isElement(n)) {
-      children.push( /*#__PURE__*/React__default['default'].createElement(SelectedContext.Provider, {
-        key: "provider-".concat(key.id),
-        value: !!sel
-      }, /*#__PURE__*/React__default['default'].createElement(MemoizedElement, {
-        decorations: ds,
-        element: n,
-        key: key.id,
-        renderElement: renderElement,
-        renderPlaceholder: renderPlaceholder,
-        renderLeaf: renderLeaf,
-        selection: sel
-      })));
-    } else {
-      children.push( /*#__PURE__*/React__default['default'].createElement(MemoizedText, {
-        decorations: ds,
-        key: key.id,
-        isLast: isLeafBlock && i === node.children.length - 1,
-        parent: node,
-        renderPlaceholder: renderPlaceholder,
-        renderLeaf: renderLeaf,
-        text: n
-      }));
-    }
-
-    NODE_TO_INDEX.set(n, i);
-    NODE_TO_PARENT.set(n, node);
-  }
-
-  return children;
-};
-
-/**
- * A React context for sharing the `readOnly` state of the editor.
- */
-
-var ReadOnlyContext = /*#__PURE__*/React.createContext(false);
-/**
- * Get the current `readOnly` state of the editor.
- */
-
-var useReadOnly = function useReadOnly() {
-  return React.useContext(ReadOnlyContext);
-};
-
-var SlateContext = /*#__PURE__*/React.createContext(null);
-/**
- * Get the current editor object from the React context.
- */
-
-var useSlate = function useSlate() {
-  var context = React.useContext(SlateContext);
-
-  if (!context) {
-    throw new Error("The `useSlate` hook must be used inside the <Slate> component's context.");
-  }
-
-  var editor = context.editor;
-  return editor;
-};
-var useSlateWithV = function useSlateWithV() {
-  var context = React.useContext(SlateContext);
-
-  if (!context) {
-    throw new Error("The `useSlate` hook must be used inside the <Slate> component's context.");
-  }
-
-  return context;
-};
 
 function useTrackUserInput() {
   var editor = useSlateStatic();
@@ -42963,7 +42708,7 @@ function useTrackUserInput() {
     animationFrameIdRef.current = window.requestAnimationFrame(function () {
       receivedUserInput.current = false;
     });
-  }, [editor]);
+  }, []);
   React.useEffect(function () {
     return function () {
       return cancelAnimationFrame(animationFrameIdRef.current);
@@ -42975,387 +42720,7 @@ function useTrackUserInput() {
   };
 }
 
-var TRIPLE_CLICK = 3;
-
-/**
- * Hotkey mappings for each platform.
- */
-
-var HOTKEYS = {
-  bold: 'mod+b',
-  compose: ['down', 'left', 'right', 'up', 'backspace', 'enter'],
-  moveBackward: 'left',
-  moveForward: 'right',
-  moveWordBackward: 'ctrl+left',
-  moveWordForward: 'ctrl+right',
-  deleteBackward: 'shift?+backspace',
-  deleteForward: 'shift?+delete',
-  extendBackward: 'shift+left',
-  extendForward: 'shift+right',
-  italic: 'mod+i',
-  insertSoftBreak: 'shift+enter',
-  splitBlock: 'enter',
-  undo: 'mod+z'
-};
-var APPLE_HOTKEYS = {
-  moveLineBackward: 'opt+up',
-  moveLineForward: 'opt+down',
-  moveWordBackward: 'opt+left',
-  moveWordForward: 'opt+right',
-  deleteBackward: ['ctrl+backspace', 'ctrl+h'],
-  deleteForward: ['ctrl+delete', 'ctrl+d'],
-  deleteLineBackward: 'cmd+shift?+backspace',
-  deleteLineForward: ['cmd+shift?+delete', 'ctrl+k'],
-  deleteWordBackward: 'opt+shift?+backspace',
-  deleteWordForward: 'opt+shift?+delete',
-  extendLineBackward: 'opt+shift+up',
-  extendLineForward: 'opt+shift+down',
-  redo: 'cmd+shift+z',
-  transposeCharacter: 'ctrl+t'
-};
-var WINDOWS_HOTKEYS = {
-  deleteWordBackward: 'ctrl+shift?+backspace',
-  deleteWordForward: 'ctrl+shift?+delete',
-  redo: ['ctrl+y', 'ctrl+shift+z']
-};
-/**
- * Create a platform-aware hotkey checker.
- */
-
-var create = function create(key) {
-  var generic = HOTKEYS[key];
-  var apple = APPLE_HOTKEYS[key];
-  var windows = WINDOWS_HOTKEYS[key];
-  var isGeneric = generic && isHotkey.isKeyHotkey(generic);
-  var isApple = apple && isHotkey.isKeyHotkey(apple);
-  var isWindows = windows && isHotkey.isKeyHotkey(windows);
-  return function (event) {
-    if (isGeneric && isGeneric(event)) return true;
-    if (IS_APPLE && isApple && isApple(event)) return true;
-    if (!IS_APPLE && isWindows && isWindows(event)) return true;
-    return false;
-  };
-};
-/**
- * Hotkeys.
- */
-
-
-var Hotkeys = {
-  isBold: create('bold'),
-  isCompose: create('compose'),
-  isMoveBackward: create('moveBackward'),
-  isMoveForward: create('moveForward'),
-  isDeleteBackward: create('deleteBackward'),
-  isDeleteForward: create('deleteForward'),
-  isDeleteLineBackward: create('deleteLineBackward'),
-  isDeleteLineForward: create('deleteLineForward'),
-  isDeleteWordBackward: create('deleteWordBackward'),
-  isDeleteWordForward: create('deleteWordForward'),
-  isExtendBackward: create('extendBackward'),
-  isExtendForward: create('extendForward'),
-  isExtendLineBackward: create('extendLineBackward'),
-  isExtendLineForward: create('extendLineForward'),
-  isItalic: create('italic'),
-  isMoveLineBackward: create('moveLineBackward'),
-  isMoveLineForward: create('moveLineForward'),
-  isMoveWordBackward: create('moveWordBackward'),
-  isMoveWordForward: create('moveWordForward'),
-  isRedo: create('redo'),
-  isSoftBreak: create('insertSoftBreak'),
-  isSplitBlock: create('splitBlock'),
-  isTransposeCharacter: create('transposeCharacter'),
-  isUndo: create('undo')
-};
-
-var createClass = createCommonjsModule(function (module) {
-function _defineProperties(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, descriptor.key, descriptor);
-  }
-}
-
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  return Constructor;
-}
-
-module.exports = _createClass;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
-});
-
-var _createClass = unwrapExports(createClass);
-
-var setPrototypeOf = createCommonjsModule(function (module) {
-function _setPrototypeOf(o, p) {
-  module.exports = _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
-    o.__proto__ = p;
-    return o;
-  };
-
-  module.exports["default"] = module.exports, module.exports.__esModule = true;
-  return _setPrototypeOf(o, p);
-}
-
-module.exports = _setPrototypeOf;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
-});
-
-unwrapExports(setPrototypeOf);
-
-var inherits = createCommonjsModule(function (module) {
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function");
-  }
-
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) setPrototypeOf(subClass, superClass);
-}
-
-module.exports = _inherits;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
-});
-
-var _inherits = unwrapExports(inherits);
-
-var _typeof_1 = createCommonjsModule(function (module) {
-function _typeof(obj) {
-  "@babel/helpers - typeof";
-
-  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-    module.exports = _typeof = function _typeof(obj) {
-      return typeof obj;
-    };
-
-    module.exports["default"] = module.exports, module.exports.__esModule = true;
-  } else {
-    module.exports = _typeof = function _typeof(obj) {
-      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-    };
-
-    module.exports["default"] = module.exports, module.exports.__esModule = true;
-  }
-
-  return _typeof(obj);
-}
-
-module.exports = _typeof;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
-});
-
-unwrapExports(_typeof_1);
-
-var assertThisInitialized = createCommonjsModule(function (module) {
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return self;
-}
-
-module.exports = _assertThisInitialized;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
-});
-
-unwrapExports(assertThisInitialized);
-
-var possibleConstructorReturn = createCommonjsModule(function (module) {
-var _typeof = _typeof_1["default"];
-
-
-
-function _possibleConstructorReturn(self, call) {
-  if (call && (_typeof(call) === "object" || typeof call === "function")) {
-    return call;
-  } else if (call !== void 0) {
-    throw new TypeError("Derived constructors may only return object or undefined");
-  }
-
-  return assertThisInitialized(self);
-}
-
-module.exports = _possibleConstructorReturn;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
-});
-
-var _possibleConstructorReturn = unwrapExports(possibleConstructorReturn);
-
-var getPrototypeOf = createCommonjsModule(function (module) {
-function _getPrototypeOf(o) {
-  module.exports = _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
-    return o.__proto__ || Object.getPrototypeOf(o);
-  };
-  module.exports["default"] = module.exports, module.exports.__esModule = true;
-  return _getPrototypeOf(o);
-}
-
-module.exports = _getPrototypeOf;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
-});
-
-var _getPrototypeOf = unwrapExports(getPrototypeOf);
-
-var createRestoreDomManager = function createRestoreDomManager(editor, receivedUserInput) {
-  var bufferedMutations = [];
-
-  var clear = function clear() {
-    bufferedMutations = [];
-  };
-
-  var registerMutations = function registerMutations(mutations) {
-    var _bufferedMutations;
-
-    if (!receivedUserInput.current) {
-      return;
-    }
-
-    var trackedMutations = mutations.filter(function (mutation) {
-      return isTrackedMutation(editor, mutation, mutations);
-    });
-
-    (_bufferedMutations = bufferedMutations).push.apply(_bufferedMutations, _toConsumableArray(trackedMutations));
-  };
-
-  function restoreDOM() {
-    if (bufferedMutations.length > 0) {
-      bufferedMutations.reverse().forEach(function (mutation) {
-        if (mutation.type === 'characterData') {
-          // We don't want to restore the DOM for characterData mutations
-          // because this interrupts the composition.
-          return;
-        }
-
-        mutation.removedNodes.forEach(function (node) {
-          mutation.target.insertBefore(node, mutation.nextSibling);
-        });
-        mutation.addedNodes.forEach(function (node) {
-          mutation.target.removeChild(node);
-        });
-      }); // Clear buffered mutations to ensure we don't undo them twice
-
-      clear();
-    }
-  }
-
-  return {
-    registerMutations: registerMutations,
-    restoreDOM: restoreDOM,
-    clear: clear
-  };
-};
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-var MUTATION_OBSERVER_CONFIG = {
-  subtree: true,
-  childList: true,
-  characterData: true,
-  characterDataOldValue: true
-}; // We have to use a class component here since we rely on `getSnapshotBeforeUpdate` which has no FC equivalent
-// to run code synchronously immediately before react commits the component update to the DOM.
-
-var RestoreDOMComponent = /*#__PURE__*/function (_Component) {
-  _inherits(RestoreDOMComponent, _Component);
-
-  var _super = _createSuper(RestoreDOMComponent);
-
-  function RestoreDOMComponent() {
-    var _this;
-
-    _classCallCheck(this, RestoreDOMComponent);
-
-    _this = _super.apply(this, arguments);
-    _this.context = null;
-    _this.manager = null;
-    _this.mutationObserver = null;
-    return _this;
-  }
-
-  _createClass(RestoreDOMComponent, [{
-    key: "observe",
-    value: function observe() {
-      var _this$mutationObserve;
-
-      var node = this.props.node;
-
-      if (!node.current) {
-        throw new Error('Failed to attach MutationObserver, `node` is undefined');
-      }
-
-      (_this$mutationObserve = this.mutationObserver) === null || _this$mutationObserve === void 0 ? void 0 : _this$mutationObserve.observe(node.current, MUTATION_OBSERVER_CONFIG);
-    }
-  }, {
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var receivedUserInput = this.props.receivedUserInput;
-      var editor = this.context;
-      this.manager = createRestoreDomManager(editor, receivedUserInput);
-      this.mutationObserver = new MutationObserver(this.manager.registerMutations);
-      this.observe();
-    }
-  }, {
-    key: "getSnapshotBeforeUpdate",
-    value: function getSnapshotBeforeUpdate() {
-      var _this$mutationObserve2, _this$mutationObserve3, _this$manager2;
-
-      var pendingMutations = (_this$mutationObserve2 = this.mutationObserver) === null || _this$mutationObserve2 === void 0 ? void 0 : _this$mutationObserve2.takeRecords();
-
-      if (pendingMutations !== null && pendingMutations !== void 0 && pendingMutations.length) {
-        var _this$manager;
-
-        (_this$manager = this.manager) === null || _this$manager === void 0 ? void 0 : _this$manager.registerMutations(pendingMutations);
-      }
-
-      (_this$mutationObserve3 = this.mutationObserver) === null || _this$mutationObserve3 === void 0 ? void 0 : _this$mutationObserve3.disconnect();
-      (_this$manager2 = this.manager) === null || _this$manager2 === void 0 ? void 0 : _this$manager2.restoreDOM();
-      return null;
-    }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate() {
-      var _this$manager3;
-
-      (_this$manager3 = this.manager) === null || _this$manager3 === void 0 ? void 0 : _this$manager3.clear();
-      this.observe();
-    }
-  }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      var _this$mutationObserve4;
-
-      (_this$mutationObserve4 = this.mutationObserver) === null || _this$mutationObserve4 === void 0 ? void 0 : _this$mutationObserve4.disconnect();
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return this.props.children;
-    }
-  }]);
-
-  return RestoreDOMComponent;
-}(React.Component);
-
-RestoreDOMComponent.contextType = EditorContext;
-var RestoreDOM = IS_ANDROID ? RestoreDOMComponent : function (_ref) {
-  var children = _ref.children;
-  return /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, children);
-};
-
-var _excluded$1 = ["autoFocus", "decorate", "onDOMBeforeInput", "placeholder", "readOnly", "renderElement", "renderLeaf", "renderPlaceholder", "scrollSelectionIntoView", "style", "as", "disableDefaultStyles"],
+var _excluded$1 = ["autoFocus", "decorate", "onDOMBeforeInput", "placeholder", "readOnly", "renderElement", "renderLeaf", "renderPlaceholder", "scrollSelectionIntoView", "style", "as"],
     _excluded2 = ["text"];
 
 function _createForOfIteratorHelper$1(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray$1(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
@@ -43377,10 +42742,6 @@ var Children = function Children(props) {
 
 
 var Editable = function Editable(props) {
-  var defaultRenderPlaceholder = React.useCallback(function (props) {
-    return /*#__PURE__*/React__default['default'].createElement(DefaultPlaceholder, Object.assign({}, props));
-  }, []);
-
   var autoFocus = props.autoFocus,
       _props$decorate = props.decorate,
       decorate = _props$decorate === void 0 ? defaultDecorate : _props$decorate,
@@ -43391,15 +42752,15 @@ var Editable = function Editable(props) {
       renderElement = props.renderElement,
       renderLeaf = props.renderLeaf,
       _props$renderPlacehol = props.renderPlaceholder,
-      renderPlaceholder = _props$renderPlacehol === void 0 ? defaultRenderPlaceholder : _props$renderPlacehol,
+      renderPlaceholder = _props$renderPlacehol === void 0 ? function (props) {
+    return /*#__PURE__*/React__default['default'].createElement(DefaultPlaceholder, Object.assign({}, props));
+  } : _props$renderPlacehol,
       _props$scrollSelectio = props.scrollSelectionIntoView,
       scrollSelectionIntoView = _props$scrollSelectio === void 0 ? defaultScrollSelectionIntoView : _props$scrollSelectio,
       _props$style = props.style,
-      userStyle = _props$style === void 0 ? {} : _props$style,
+      style = _props$style === void 0 ? {} : _props$style,
       _props$as = props.as,
       Component = _props$as === void 0 ? 'div' : _props$as,
-      _props$disableDefault = props.disableDefaultStyles,
-      disableDefaultStyles = _props$disableDefault === void 0 ? false : _props$disableDefault,
       attributes = _objectWithoutProperties(props, _excluded$1);
 
   var editor = useSlate(); // Rerender editor when composition status changed
@@ -43411,11 +42772,6 @@ var Editable = function Editable(props) {
 
   var ref = React.useRef(null);
   var deferredOperations = React.useRef([]);
-
-  var _useState3 = React.useState(),
-      _useState4 = _slicedToArray(_useState3, 2),
-      placeholderHeight = _useState4[0],
-      setPlaceholderHeight = _useState4[1];
 
   var _useTrackUserInput = useTrackUserInput(),
       onUserInput = _useTrackUserInput.onUserInput,
@@ -43445,79 +42801,65 @@ var Editable = function Editable(props) {
     if (ref.current && autoFocus) {
       ref.current.focus();
     }
-  }, [autoFocus]);
-  /**
-   * The AndroidInputManager object has a cyclical dependency on onDOMSelectionChange
-   *
-   * It is defined as a reference to simplify hook dependencies and clarify that
-   * it needs to be initialized.
-   */
-
-  var androidInputManagerRef = React.useRef(); // Listen on the native `selectionchange` event to be able to update any time
+  }, [autoFocus]); // Listen on the native `selectionchange` event to be able to update any time
   // the selection changes. This is required because React's `onSelect` is leaky
   // and non-standard so it doesn't fire until after a selection has been
   // released. This causes issues in situations where another change happens
   // while a selection is being dragged.
 
-  var onDOMSelectionChange = React.useMemo(function () {
-    return throttle__default['default'](function () {
-      var androidInputManager = androidInputManagerRef.current;
+  var onDOMSelectionChange = React.useCallback(throttle__default['default'](function () {
+    if ((IS_ANDROID || !ReactEditor.isComposing(editor)) && (!state.isUpdatingSelection || androidInputManager !== null && androidInputManager !== void 0 && androidInputManager.isFlushing()) && !state.isDraggingInternally) {
+      var root = ReactEditor.findDocumentOrShadowRoot(editor);
+      var activeElement = root.activeElement;
+      var el = ReactEditor.toDOMNode(editor, editor);
+      var domSelection = root.getSelection();
 
-      if ((IS_ANDROID || !ReactEditor.isComposing(editor)) && (!state.isUpdatingSelection || androidInputManager !== null && androidInputManager !== void 0 && androidInputManager.isFlushing()) && !state.isDraggingInternally) {
-        var root = ReactEditor.findDocumentOrShadowRoot(editor);
-        var activeElement = root.activeElement;
-        var el = ReactEditor.toDOMNode(editor, editor);
-        var domSelection = root.getSelection();
-
-        if (activeElement === el) {
-          state.latestElement = activeElement;
-          IS_FOCUSED.set(editor, true);
-        } else {
-          IS_FOCUSED["delete"](editor);
-        }
-
-        if (!domSelection) {
-          return slate.Transforms.deselect(editor);
-        }
-
-        var anchorNode = domSelection.anchorNode,
-            focusNode = domSelection.focusNode;
-        var anchorNodeSelectable = ReactEditor.hasEditableTarget(editor, anchorNode) || ReactEditor.isTargetInsideNonReadonlyVoid(editor, anchorNode);
-        var focusNodeSelectable = ReactEditor.hasEditableTarget(editor, focusNode) || ReactEditor.isTargetInsideNonReadonlyVoid(editor, focusNode);
-
-        if (anchorNodeSelectable && focusNodeSelectable) {
-          var range = ReactEditor.toSlateRange(editor, domSelection, {
-            exactMatch: false,
-            suppressThrow: true
-          });
-
-          if (range) {
-            if (!ReactEditor.isComposing(editor) && !(androidInputManager !== null && androidInputManager !== void 0 && androidInputManager.hasPendingChanges()) && !(androidInputManager !== null && androidInputManager !== void 0 && androidInputManager.isFlushing())) {
-              slate.Transforms.select(editor, range);
-            } else {
-              androidInputManager === null || androidInputManager === void 0 ? void 0 : androidInputManager.handleUserSelect(range);
-            }
-          }
-        } // Deselect the editor if the dom selection is not selectable in readonly mode
-
-
-        if (readOnly && (!anchorNodeSelectable || !focusNodeSelectable)) {
-          slate.Transforms.deselect(editor);
-        }
+      if (activeElement === el) {
+        state.latestElement = activeElement;
+        IS_FOCUSED.set(editor, true);
+      } else {
+        IS_FOCUSED["delete"](editor);
       }
-    }, 100);
-  }, [editor, readOnly, state]);
+
+      if (!domSelection) {
+        return slate.Transforms.deselect(editor);
+      }
+
+      var anchorNode = domSelection.anchorNode,
+          focusNode = domSelection.focusNode;
+      var anchorNodeSelectable = hasEditableTarget(editor, anchorNode) || isTargetInsideNonReadonlyVoid(editor, anchorNode);
+      var focusNodeSelectable = hasEditableTarget(editor, focusNode) || isTargetInsideNonReadonlyVoid(editor, focusNode);
+
+      if (anchorNodeSelectable && focusNodeSelectable) {
+        var range = ReactEditor.toSlateRange(editor, domSelection, {
+          exactMatch: false,
+          suppressThrow: true
+        });
+
+        if (range) {
+          if (!ReactEditor.isComposing(editor) && !(androidInputManager !== null && androidInputManager !== void 0 && androidInputManager.hasPendingChanges()) && !(androidInputManager !== null && androidInputManager !== void 0 && androidInputManager.isFlushing())) {
+            slate.Transforms.select(editor, range);
+          } else {
+            androidInputManager === null || androidInputManager === void 0 ? void 0 : androidInputManager.handleUserSelect(range);
+          }
+        }
+      } // Deselect the editor if the dom selection is not selectable in readonly mode
+
+
+      if (readOnly && (!anchorNodeSelectable || !focusNodeSelectable)) {
+        slate.Transforms.deselect(editor);
+      }
+    }
+  }, 100), [readOnly]);
   var scheduleOnDOMSelectionChange = React.useMemo(function () {
     return debounce__default['default'](onDOMSelectionChange, 0);
   }, [onDOMSelectionChange]);
-  androidInputManagerRef.current = useAndroidInputManager({
+  var androidInputManager = useAndroidInputManager({
     node: ref,
     onDOMSelectionChange: onDOMSelectionChange,
     scheduleOnDOMSelectionChange: scheduleOnDOMSelectionChange
   });
   useIsomorphicLayoutEffect(function () {
-    var _androidInputManagerR, _androidInputManagerR2;
-
     // Update element-related weak maps with the DOM element ref.
     var window;
 
@@ -43535,7 +42877,7 @@ var Editable = function Editable(props) {
     var root = ReactEditor.findDocumentOrShadowRoot(editor);
     var domSelection = root.getSelection();
 
-    if (!domSelection || !ReactEditor.isFocused(editor) || (_androidInputManagerR = androidInputManagerRef.current) !== null && _androidInputManagerR !== void 0 && _androidInputManagerR.hasPendingAction()) {
+    if (!domSelection || !ReactEditor.isFocused(editor) || androidInputManager !== null && androidInputManager !== void 0 && androidInputManager.hasPendingAction()) {
       return;
     }
 
@@ -43611,7 +42953,7 @@ var Editable = function Editable(props) {
     };
 
     var newDomRange = setDomSelection();
-    var ensureSelection = ((_androidInputManagerR2 = androidInputManagerRef.current) === null || _androidInputManagerR2 === void 0 ? void 0 : _androidInputManagerR2.isFlushing()) === 'action';
+    var ensureSelection = (androidInputManager === null || androidInputManager === void 0 ? void 0 : androidInputManager.isFlushing()) === 'action';
 
     if (!IS_ANDROID || !ensureSelection) {
       setTimeout(function () {
@@ -43668,12 +43010,12 @@ var Editable = function Editable(props) {
   var onDOMBeforeInput = React.useCallback(function (event) {
     onUserInput();
 
-    if (!readOnly && ReactEditor.hasEditableTarget(editor, event.target) && !isDOMEventHandled(event, propsOnDOMBeforeInput)) {
+    if (!readOnly && hasEditableTarget(editor, event.target) && !isDOMEventHandled(event, propsOnDOMBeforeInput)) {
       var _EDITOR_TO_USER_SELEC;
 
       // COMPAT: BeforeInput events aren't cancelable on android, so we have to handle them differently using the android input manager.
-      if (androidInputManagerRef.current) {
-        return androidInputManagerRef.current.handleDOMBeforeInput(event);
+      if (androidInputManager) {
+        return androidInputManager.handleDOMBeforeInput(event);
       } // Some IMEs/Chrome extensions like e.g. Grammarly set the selection immediately before
       // triggering a `beforeinput` expecting the change to be applied to the immediately before
       // set selection.
@@ -43738,7 +43080,7 @@ var Editable = function Editable(props) {
           var block = slate.Editor.above(editor, {
             at: anchor.path,
             match: function match(n) {
-              return slate.Element.isElement(n) && slate.Editor.isBlock(editor, n);
+              return slate.Editor.isBlock(editor, n);
             }
           });
 
@@ -43933,31 +43275,24 @@ var Editable = function Editable(props) {
         slate.Transforms.select(editor, toRestore);
       }
     }
-  }, [editor, onDOMSelectionChange, onUserInput, propsOnDOMBeforeInput, readOnly, scheduleOnDOMSelectionChange]);
-  var callbackRef = React.useCallback(function (node) {
-    if (node == null) {
-      onDOMSelectionChange.cancel();
-      scheduleOnDOMSelectionChange.cancel();
-      EDITOR_TO_ELEMENT["delete"](editor);
-      NODE_TO_ELEMENT["delete"](editor);
+  }, [readOnly, propsOnDOMBeforeInput]); // Attach a native DOM event handler for `beforeinput` events, because React's
+  // built-in `onBeforeInput` is actually a leaky polyfill that doesn't expose
+  // real `beforeinput` events sadly... (2019/11/04)
+  // https://github.com/facebook/react/issues/11211
 
+  useIsomorphicLayoutEffect(function () {
+    if (ref.current && HAS_BEFORE_INPUT_SUPPORT) {
+      // @ts-ignore The `beforeinput` event isn't recognized.
+      ref.current.addEventListener('beforeinput', onDOMBeforeInput);
+    }
+
+    return function () {
       if (ref.current && HAS_BEFORE_INPUT_SUPPORT) {
         // @ts-ignore The `beforeinput` event isn't recognized.
         ref.current.removeEventListener('beforeinput', onDOMBeforeInput);
       }
-    } else {
-      // Attach a native DOM event handler for `beforeinput` events, because React's
-      // built-in `onBeforeInput` is actually a leaky polyfill that doesn't expose
-      // real `beforeinput` events sadly... (2019/11/04)
-      // https://github.com/facebook/react/issues/11211
-      if (HAS_BEFORE_INPUT_SUPPORT) {
-        // @ts-ignore The `beforeinput` event isn't recognized.
-        node.addEventListener('beforeinput', onDOMBeforeInput);
-      }
-    }
-
-    ref.current = node;
-  }, [onDOMSelectionChange, scheduleOnDOMSelectionChange, editor, onDOMBeforeInput]); // Attach a native DOM event handler for `selectionchange`, because React's
+    };
+  }, [onDOMBeforeInput]); // Attach a native DOM event handler for `selectionchange`, because React's
   // built-in `onSelect` handler doesn't fire for all selection changes. It's a
   // leaky polyfill that only fires on keypresses or clicks. Instead, we want to
   // fire for any change to the selection inside the editor. (2019/11/04)
@@ -43971,22 +43306,12 @@ var Editable = function Editable(props) {
     };
   }, [scheduleOnDOMSelectionChange]);
   var decorations = decorate([editor, []]);
-  var showPlaceholder = placeholder && editor.children.length === 1 && Array.from(slate.Node.texts(editor)).length === 1 && slate.Node.string(editor) === '' && !isComposing;
-  var placeHolderResizeHandler = React.useCallback(function (placeholderEl) {
-    if (placeholderEl && showPlaceholder) {
-      var _placeholderEl$getBou;
 
-      setPlaceholderHeight((_placeholderEl$getBou = placeholderEl.getBoundingClientRect()) === null || _placeholderEl$getBou === void 0 ? void 0 : _placeholderEl$getBou.height);
-    } else {
-      setPlaceholderHeight(undefined);
-    }
-  }, [showPlaceholder]);
-
-  if (showPlaceholder) {
+  if (placeholder && editor.children.length === 1 && Array.from(slate.Node.texts(editor)).length === 1 && slate.Node.string(editor) === '' && !isComposing) {
     var _decorations$push;
 
     var start = slate.Editor.start(editor, []);
-    decorations.push((_decorations$push = {}, _defineProperty(_decorations$push, PLACEHOLDER_SYMBOL, true), _defineProperty(_decorations$push, "placeholder", placeholder), _defineProperty(_decorations$push, "onPlaceholderResize", placeHolderResizeHandler), _defineProperty(_decorations$push, "anchor", start), _defineProperty(_decorations$push, "focus", start), _decorations$push));
+    decorations.push((_decorations$push = {}, _defineProperty(_decorations$push, PLACEHOLDER_SYMBOL, true), _defineProperty(_decorations$push, "placeholder", placeholder), _defineProperty(_decorations$push, "anchor", start), _defineProperty(_decorations$push, "focus", start), _decorations$push));
   }
 
   var marks = editor.marks;
@@ -44067,8 +43392,8 @@ var Editable = function Editable(props) {
     // this magic zIndex="-1" will fix it
     zindex: -1,
     suppressContentEditableWarning: true,
-    ref: callbackRef,
-    style: _objectSpread$1(_objectSpread$1({}, disableDefaultStyles ? {} : _objectSpread$1({
+    ref: ref,
+    style: _objectSpread$1({
       // Allow positioning relative to the editable element.
       position: 'relative',
       // Prevent the default outline styles.
@@ -44077,14 +43402,12 @@ var Editable = function Editable(props) {
       whiteSpace: 'pre-wrap',
       // Allow words to break if they are too long.
       wordWrap: 'break-word'
-    }, placeholderHeight ? {
-      minHeight: placeholderHeight
-    } : {})), userStyle),
+    }, style),
     onBeforeInput: React.useCallback(function (event) {
       // COMPAT: Certain browsers don't support the `beforeinput` event, so we
       // fall back to React's leaky polyfill instead just for it. It
       // only works for the `insertText` input type.
-      if (!HAS_BEFORE_INPUT_SUPPORT && !readOnly && !isEventHandled(event, attributes.onBeforeInput) && ReactEditor.hasSelectableTarget(editor, event.target)) {
+      if (!HAS_BEFORE_INPUT_SUPPORT && !readOnly && !isEventHandled(event, attributes.onBeforeInput) && hasEditableTarget(editor, event.target)) {
         event.preventDefault();
 
         if (!ReactEditor.isComposing(editor)) {
@@ -44092,14 +43415,10 @@ var Editable = function Editable(props) {
           slate.Editor.insertText(editor, _text2);
         }
       }
-    }, [attributes.onBeforeInput, editor, readOnly]),
+    }, [readOnly]),
     onInput: React.useCallback(function (event) {
-      if (isEventHandled(event, attributes.onInput)) {
-        return;
-      }
-
-      if (androidInputManagerRef.current) {
-        androidInputManagerRef.current.handleInput();
+      if (androidInputManager) {
+        androidInputManager.handleInput();
         return;
       } // Flush native operations, as native events will have propogated
       // and we can correctly compare DOM text values in components
@@ -44122,9 +43441,9 @@ var Editable = function Editable(props) {
       }
 
       deferredOperations.current = [];
-    }, [attributes.onInput]),
+    }, []),
     onBlur: React.useCallback(function (event) {
-      if (readOnly || state.isUpdatingSelection || !ReactEditor.hasSelectableTarget(editor, event.target) || isEventHandled(event, attributes.onBlur)) {
+      if (readOnly || state.isUpdatingSelection || !hasEditableTarget(editor, event.target) || isEventHandled(event, attributes.onBlur)) {
         return;
       } // COMPAT: If the current `activeElement` is still the previous
       // one, this is due to the window being blurred when the tab
@@ -44173,9 +43492,9 @@ var Editable = function Editable(props) {
       }
 
       IS_FOCUSED["delete"](editor);
-    }, [readOnly, state.isUpdatingSelection, state.latestElement, editor, attributes.onBlur]),
+    }, [readOnly, attributes.onBlur]),
     onClick: React.useCallback(function (event) {
-      if (ReactEditor.hasTarget(editor, event.target) && !isEventHandled(event, attributes.onClick) && isDOMNode(event.target)) {
+      if (hasTarget(editor, event.target) && !isEventHandled(event, attributes.onClick) && isDOMNode(event.target)) {
         var node = ReactEditor.toSlateNode(editor, event.target);
         var path = ReactEditor.findPath(editor, node); // At this time, the Slate document may be arbitrarily different,
         // because onClick handlers can change the document before we get here.
@@ -44189,12 +43508,12 @@ var Editable = function Editable(props) {
         if (event.detail === TRIPLE_CLICK && path.length >= 1) {
           var blockPath = path;
 
-          if (!(slate.Element.isElement(node) && slate.Editor.isBlock(editor, node))) {
+          if (!slate.Editor.isBlock(editor, node)) {
             var _block$;
 
             var block = slate.Editor.above(editor, {
               match: function match(n) {
-                return slate.Element.isElement(n) && slate.Editor.isBlock(editor, n);
+                return slate.Editor.isBlock(editor, n);
               },
               at: path
             });
@@ -44226,17 +43545,15 @@ var Editable = function Editable(props) {
           slate.Transforms.select(editor, _range);
         }
       }
-    }, [editor, attributes.onClick, readOnly]),
+    }, [readOnly, attributes.onClick]),
     onCompositionEnd: React.useCallback(function (event) {
-      if (ReactEditor.hasSelectableTarget(editor, event.target)) {
-        var _androidInputManagerR3;
-
+      if (hasEditableTarget(editor, event.target)) {
         if (ReactEditor.isComposing(editor)) {
           setIsComposing(false);
           IS_COMPOSING.set(editor, false);
         }
 
-        (_androidInputManagerR3 = androidInputManagerRef.current) === null || _androidInputManagerR3 === void 0 ? void 0 : _androidInputManagerR3.handleCompositionEnd(event);
+        androidInputManager === null || androidInputManager === void 0 ? void 0 : androidInputManager.handleCompositionEnd(event);
 
         if (isEventHandled(event, attributes.onCompositionEnd) || IS_ANDROID) {
           return;
@@ -44246,7 +43563,7 @@ var Editable = function Editable(props) {
         // ends since it will already have been committed to the DOM.
 
 
-        if (!IS_SAFARI && !IS_FIREFOX_LEGACY && !IS_IOS && !IS_WECHATBROWSER && !IS_UC_MOBILE && event.data) {
+        if (!IS_SAFARI && !IS_FIREFOX_LEGACY && !IS_IOS && !IS_QQBROWSER && !IS_WECHATBROWSER && !IS_UC_MOBILE && event.data) {
           var placeholderMarks = EDITOR_TO_PENDING_INSERTION_MARKS.get(editor);
           EDITOR_TO_PENDING_INSERTION_MARKS["delete"](editor); // Ensure we insert text with the marks the user was actually seeing
 
@@ -44264,20 +43581,18 @@ var Editable = function Editable(props) {
           }
         }
       }
-    }, [attributes.onCompositionEnd, editor]),
+    }, [attributes.onCompositionEnd]),
     onCompositionUpdate: React.useCallback(function (event) {
-      if (ReactEditor.hasSelectableTarget(editor, event.target) && !isEventHandled(event, attributes.onCompositionUpdate)) {
+      if (hasEditableTarget(editor, event.target) && !isEventHandled(event, attributes.onCompositionUpdate)) {
         if (!ReactEditor.isComposing(editor)) {
           setIsComposing(true);
           IS_COMPOSING.set(editor, true);
         }
       }
-    }, [attributes.onCompositionUpdate, editor]),
+    }, [attributes.onCompositionUpdate]),
     onCompositionStart: React.useCallback(function (event) {
-      if (ReactEditor.hasSelectableTarget(editor, event.target)) {
-        var _androidInputManagerR4;
-
-        (_androidInputManagerR4 = androidInputManagerRef.current) === null || _androidInputManagerR4 === void 0 ? void 0 : _androidInputManagerR4.handleCompositionStart(event);
+      if (hasEditableTarget(editor, event.target)) {
+        androidInputManager === null || androidInputManager === void 0 ? void 0 : androidInputManager.handleCompositionStart(event);
 
         if (isEventHandled(event, attributes.onCompositionStart) || IS_ANDROID) {
           return;
@@ -44294,7 +43609,7 @@ var Editable = function Editable(props) {
 
           var inline = slate.Editor.above(editor, {
             match: function match(n) {
-              return slate.Element.isElement(n) && slate.Editor.isInline(editor, n);
+              return slate.Editor.isInline(editor, n);
             },
             mode: 'highest'
           });
@@ -44313,15 +43628,15 @@ var Editable = function Editable(props) {
           }
         }
       }
-    }, [attributes.onCompositionStart, editor]),
+    }, [attributes.onCompositionStart]),
     onCopy: React.useCallback(function (event) {
-      if (ReactEditor.hasSelectableTarget(editor, event.target) && !isEventHandled(event, attributes.onCopy) && !isDOMEventTargetInput(event)) {
+      if (hasEditableTarget(editor, event.target) && !isEventHandled(event, attributes.onCopy)) {
         event.preventDefault();
         ReactEditor.setFragmentData(editor, event.clipboardData, 'copy');
       }
-    }, [attributes.onCopy, editor]),
+    }, [attributes.onCopy]),
     onCut: React.useCallback(function (event) {
-      if (!readOnly && ReactEditor.hasSelectableTarget(editor, event.target) && !isEventHandled(event, attributes.onCut) && !isDOMEventTargetInput(event)) {
+      if (!readOnly && hasEditableTarget(editor, event.target) && !isEventHandled(event, attributes.onCut)) {
         event.preventDefault();
         ReactEditor.setFragmentData(editor, event.clipboardData, 'cut');
         var selection = editor.selection;
@@ -44338,24 +43653,24 @@ var Editable = function Editable(props) {
           }
         }
       }
-    }, [readOnly, editor, attributes.onCut]),
+    }, [readOnly, attributes.onCut]),
     onDragOver: React.useCallback(function (event) {
-      if (ReactEditor.hasTarget(editor, event.target) && !isEventHandled(event, attributes.onDragOver)) {
+      if (hasTarget(editor, event.target) && !isEventHandled(event, attributes.onDragOver)) {
         // Only when the target is void, call `preventDefault` to signal
         // that drops are allowed. Editable content is droppable by
         // default, and calling `preventDefault` hides the cursor.
         var node = ReactEditor.toSlateNode(editor, event.target);
 
-        if (slate.Element.isElement(node) && slate.Editor.isVoid(editor, node)) {
+        if (slate.Editor.isVoid(editor, node)) {
           event.preventDefault();
         }
       }
-    }, [attributes.onDragOver, editor]),
+    }, [attributes.onDragOver]),
     onDragStart: React.useCallback(function (event) {
-      if (!readOnly && ReactEditor.hasTarget(editor, event.target) && !isEventHandled(event, attributes.onDragStart)) {
+      if (!readOnly && hasTarget(editor, event.target) && !isEventHandled(event, attributes.onDragStart)) {
         var node = ReactEditor.toSlateNode(editor, event.target);
         var path = ReactEditor.findPath(editor, node);
-        var voidMatch = slate.Element.isElement(node) && slate.Editor.isVoid(editor, node) || slate.Editor["void"](editor, {
+        var voidMatch = slate.Editor.isVoid(editor, node) || slate.Editor["void"](editor, {
           at: path,
           voids: true
         }); // If starting a drag on a void node, make sure it is selected
@@ -44369,9 +43684,9 @@ var Editable = function Editable(props) {
         state.isDraggingInternally = true;
         ReactEditor.setFragmentData(editor, event.dataTransfer, 'drag');
       }
-    }, [readOnly, editor, attributes.onDragStart, state]),
+    }, [readOnly, attributes.onDragStart]),
     onDrop: React.useCallback(function (event) {
-      if (!readOnly && ReactEditor.hasTarget(editor, event.target) && !isEventHandled(event, attributes.onDrop)) {
+      if (!readOnly && hasTarget(editor, event.target) && !isEventHandled(event, attributes.onDrop)) {
         event.preventDefault(); // Keep a reference to the dragged range before updating selection
 
         var draggedRange = editor.selection; // Find the range where the drop happened
@@ -44400,9 +43715,9 @@ var Editable = function Editable(props) {
       }
 
       state.isDraggingInternally = false;
-    }, [readOnly, editor, attributes.onDrop, state]),
+    }, [readOnly, attributes.onDrop]),
     onDragEnd: React.useCallback(function (event) {
-      if (!readOnly && state.isDraggingInternally && attributes.onDragEnd && ReactEditor.hasTarget(editor, event.target)) {
+      if (!readOnly && state.isDraggingInternally && attributes.onDragEnd && hasTarget(editor, event.target)) {
         attributes.onDragEnd(event);
       } // When dropping on a different droppable element than the current editor,
       // `onDrop` is not called. So we need to clean up in `onDragEnd` instead.
@@ -44410,9 +43725,9 @@ var Editable = function Editable(props) {
 
 
       state.isDraggingInternally = false;
-    }, [readOnly, state, attributes, editor]),
+    }, [readOnly, attributes.onDragEnd]),
     onFocus: React.useCallback(function (event) {
-      if (!readOnly && !state.isUpdatingSelection && ReactEditor.hasEditableTarget(editor, event.target) && !isEventHandled(event, attributes.onFocus)) {
+      if (!readOnly && !state.isUpdatingSelection && hasEditableTarget(editor, event.target) && !isEventHandled(event, attributes.onFocus)) {
         var el = ReactEditor.toDOMNode(editor, editor);
         var root = ReactEditor.findDocumentOrShadowRoot(editor);
         state.latestElement = root.activeElement; // COMPAT: If the editor has nested editable elements, the focus
@@ -44426,12 +43741,10 @@ var Editable = function Editable(props) {
 
         IS_FOCUSED.set(editor, true);
       }
-    }, [readOnly, state, editor, attributes.onFocus]),
+    }, [readOnly, attributes.onFocus]),
     onKeyDown: React.useCallback(function (event) {
-      if (!readOnly && ReactEditor.hasEditableTarget(editor, event.target)) {
-        var _androidInputManagerR5;
-
-        (_androidInputManagerR5 = androidInputManagerRef.current) === null || _androidInputManagerR5 === void 0 ? void 0 : _androidInputManagerR5.handleKeyDown(event);
+      if (!readOnly && hasEditableTarget(editor, event.target)) {
+        androidInputManager === null || androidInputManager === void 0 ? void 0 : androidInputManager.handleKeyDown(event);
         var nativeEvent = event.nativeEvent; // COMPAT: The composition end event isn't fired reliably in all browsers,
         // so we sometimes might end up stuck in a composition state even though we
         // aren't composing any more.
@@ -44715,22 +44028,19 @@ var Editable = function Editable(props) {
           }
         }
       }
-    }, [readOnly, editor, attributes.onKeyDown]),
+    }, [readOnly, attributes.onKeyDown]),
     onPaste: React.useCallback(function (event) {
-      if (!readOnly && ReactEditor.hasEditableTarget(editor, event.target) && !isEventHandled(event, attributes.onPaste)) {
+      if (!readOnly && hasEditableTarget(editor, event.target) && !isEventHandled(event, attributes.onPaste)) {
         // COMPAT: Certain browsers don't support the `beforeinput` event, so we
         // fall back to React's `onPaste` here instead.
         // COMPAT: Firefox, Chrome and Safari don't emit `beforeinput` events
         // when "paste without formatting" is used, so fallback. (2020/02/20)
-        // COMPAT: Safari InputEvents generated by pasting won't include
-        // application/x-slate-fragment items, so use the
-        // ClipboardEvent here. (2023/03/15)
-        if (!HAS_BEFORE_INPUT_SUPPORT || isPlainTextOnlyPaste(event.nativeEvent) || IS_SAFARI) {
+        if (!HAS_BEFORE_INPUT_SUPPORT || isPlainTextOnlyPaste(event.nativeEvent)) {
           event.preventDefault();
           ReactEditor.insertData(editor, event.clipboardData);
         }
       }
-    }, [readOnly, editor, attributes.onPaste])
+    }, [readOnly, attributes.onPaste])
   }), /*#__PURE__*/React__default['default'].createElement(Children, {
     decorations: decorations,
     node: editor,
@@ -44768,7 +44078,7 @@ var defaultDecorate = function defaultDecorate() {
 var defaultScrollSelectionIntoView = function defaultScrollSelectionIntoView(editor, domRange) {
   // This was affecting the selection of multiple blocks and dragging behavior,
   // so enabled only if the selection has been collapsed.
-  if (domRange.getBoundingClientRect && (!editor.selection || editor.selection && slate.Range.isCollapsed(editor.selection))) {
+  if (!editor.selection || editor.selection && slate.Range.isCollapsed(editor.selection)) {
     var leafEl = domRange.startContainer.parentElement;
     leafEl.getBoundingClientRect = domRange.getBoundingClientRect.bind(domRange);
     scrollIntoView__default['default'](leafEl, {
@@ -44779,9 +44089,34 @@ var defaultScrollSelectionIntoView = function defaultScrollSelectionIntoView(edi
   }
 };
 /**
- * Check if an event is overrided by a handler.
+ * Check if the target is in the editor.
  */
 
+
+var hasTarget = function hasTarget(editor, target) {
+  return isDOMNode(target) && ReactEditor.hasDOMNode(editor, target);
+};
+/**
+ * Check if the target is editable and in the editor.
+ */
+
+var hasEditableTarget = function hasEditableTarget(editor, target) {
+  return isDOMNode(target) && ReactEditor.hasDOMNode(editor, target, {
+    editable: true
+  });
+};
+/**
+ * Check if the target is inside void and in an non-readonly editor.
+ */
+
+var isTargetInsideNonReadonlyVoid = function isTargetInsideNonReadonlyVoid(editor, target) {
+  if (IS_READ_ONLY.get(editor)) return false;
+  var slateNode = hasTarget(editor, target) && ReactEditor.toSlateNode(editor, target);
+  return slate.Editor.isVoid(editor, slateNode);
+};
+/**
+ * Check if an event is overrided by a handler.
+ */
 
 var isEventHandled = function isEventHandled(event, handler) {
   if (!handler) {
@@ -44797,13 +44132,6 @@ var isEventHandled = function isEventHandled(event, handler) {
   }
 
   return event.isDefaultPrevented() || event.isPropagationStopped();
-};
-/**
- * Check if the event's target is an input element
- */
-
-var isDOMEventTargetInput = function isDOMEventTargetInput(event) {
-  return isDOMNode(event.target) && (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement);
 };
 /**
  * Check if a DOM event is overrided by a handler.
@@ -44939,7 +44267,7 @@ function useSlateSelector(selector) {
  * Create selector context with editor updating on every editor change
  */
 
-function useSelectorContext(editor) {
+function getSelectorContext(editor) {
   var eventListeners = React.useRef([]).current;
   var slateRef = React.useRef({
     editor: editor
@@ -44949,7 +44277,7 @@ function useSelectorContext(editor) {
     eventListeners.forEach(function (listener) {
       return listener(editor);
     });
-  }, [eventListeners, slateRef]);
+  }, []);
   var selectorContext = React.useMemo(function () {
     return {
       getSlate: function getSlate() {
@@ -44986,11 +44314,11 @@ var Slate = function Slate(props) {
 
   var _React$useState = React__default['default'].useState(function () {
     if (!slate.Node.isNodeList(value)) {
-      throw new Error("[Slate] value is invalid! Expected a list of elements but got: ".concat(slate.Scrubber.stringify(value)));
+      throw new Error("[Slate] value is invalid! Expected a list of elements" + "but got: ".concat(slate.Scrubber.stringify(value)));
     }
 
     if (!slate.Editor.isEditor(editor)) {
-      throw new Error("[Slate] editor is invalid! You passed: ".concat(slate.Scrubber.stringify(editor)));
+      throw new Error("[Slate] editor is invalid! you passed:" + "".concat(slate.Scrubber.stringify(editor)));
     }
 
     editor.children = value;
@@ -45004,9 +44332,9 @@ var Slate = function Slate(props) {
       context = _React$useState2[0],
       setContext = _React$useState2[1];
 
-  var _useSelectorContext = useSelectorContext(editor),
-      selectorContext = _useSelectorContext.selectorContext,
-      handleSelectorChange = _useSelectorContext.onChange;
+  var _getSelectorContext = getSelectorContext(editor),
+      selectorContext = _getSelectorContext.selectorContext,
+      handleSelectorChange = _getSelectorContext.onChange;
 
   var onContextChange = React.useCallback(function () {
     if (onChange) {
@@ -45020,14 +44348,14 @@ var Slate = function Slate(props) {
       };
     });
     handleSelectorChange(editor);
-  }, [editor, handleSelectorChange, onChange]);
+  }, [onChange]);
+  EDITOR_TO_ON_CHANGE.set(editor, onContextChange);
   React.useEffect(function () {
-    EDITOR_TO_ON_CHANGE.set(editor, onContextChange);
     return function () {
       EDITOR_TO_ON_CHANGE.set(editor, function () {});
       unmountRef.current = true;
     };
-  }, [editor, onContextChange]);
+  }, []);
 
   var _useState = React.useState(ReactEditor.isFocused(editor)),
       _useState2 = _slicedToArray(_useState, 2),
@@ -45036,7 +44364,7 @@ var Slate = function Slate(props) {
 
   React.useEffect(function () {
     setIsFocused(ReactEditor.isFocused(editor));
-  }, [editor]);
+  });
   useIsomorphicLayoutEffect(function () {
     var fn = function fn() {
       return setIsFocused(ReactEditor.isFocused(editor));
@@ -45177,7 +44505,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
  */
 
 var withReact = function withReact(editor) {
-  var clipboardFormatKey = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'x-slate-fragment';
   var e = editor;
   var apply = e.apply,
       onChange = e.onChange,
@@ -45224,7 +44551,7 @@ var withReact = function withReact(editor) {
     if (e.selection && slate.Range.isCollapsed(e.selection)) {
       var parentBlockEntry = slate.Editor.above(e, {
         match: function match(n) {
-          return slate.Element.isElement(n) && slate.Editor.isBlock(e, n);
+          return slate.Editor.isBlock(e, n);
         },
         at: e.selection
       });
@@ -45408,7 +44735,7 @@ var withReact = function withReact(editor) {
     var string = JSON.stringify(fragment);
     var encoded = window.btoa(encodeURIComponent(string));
     attach.setAttribute('data-slate-fragment', encoded);
-    data.setData("application/".concat(clipboardFormatKey), encoded); // Add the content to a <div> so that we can get its inner HTML.
+    data.setData('application/x-slate-fragment', encoded); // Add the content to a <div> so that we can get its inner HTML.
 
     var div = contents.ownerDocument.createElement('div');
     div.appendChild(contents);
@@ -45430,7 +44757,7 @@ var withReact = function withReact(editor) {
     /**
      * Checking copied fragment from application/x-slate-fragment or data-slate-fragment
      */
-    var fragment = data.getData("application/".concat(clipboardFormatKey)) || getSlateFragmentAttribute(data);
+    var fragment = data.getData('application/x-slate-fragment') || getSlateFragmentAttribute(data);
 
     if (fragment) {
       var decoded = decodeURIComponent(window.atob(fragment));
@@ -45477,7 +44804,7 @@ var withReact = function withReact(editor) {
     return false;
   };
 
-  e.onChange = function (options) {
+  e.onChange = function () {
     // COMPAT: React doesn't batch `setState` hook calls, which means that the
     // children and selection can get out of sync for one render pass. So we
     // have to use this unstable API to ensure it batches them. (2019/12/03)
@@ -45489,7 +44816,7 @@ var withReact = function withReact(editor) {
         onContextChange();
       }
 
-      onChange(options);
+      onChange();
     });
   };
 
@@ -45540,7 +44867,7 @@ exports.useSlateWithV = useSlateWithV;
 exports.withReact = withReact;
 
 
-},{"@juggle/resize-observer":34,"direction":36,"is-hotkey":40,"lodash/debounce":48,"lodash/throttle":53,"react":64,"react-dom":61,"scroll-into-view-if-needed":71,"slate":75}],75:[function(require,module,exports){
+},{"direction":35,"is-hotkey":39,"lodash/debounce":47,"lodash/throttle":52,"react":63,"react-dom":60,"scroll-into-view-if-needed":70,"slate":74}],74:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
@@ -52841,4 +52168,4 @@ exports.withoutNormalizing = withoutNormalizing;
 exports.wrapNodes = wrapNodes;
 
 
-},{"immer":39,"is-plain-object":41}]},{},[1]);
+},{"immer":38,"is-plain-object":40}]},{},[1]);
