@@ -694,6 +694,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.toggleList = undefined;
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 var _slate = require('slate');
@@ -701,6 +703,8 @@ var _slate = require('slate');
 var _ = require('.');
 
 var _utils = require('../utils');
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 var allItemsOnSameLevel = function allItemsOnSameLevel(nodeEntries) {
   if (nodeEntries.length === 0) {
@@ -755,6 +759,139 @@ var unwrapAllItemsInSelection = function unwrapAllItemsInSelection(options) {
 };
 
 /**
+ * Get the highest selected elements (blocks) that cover the selection.
+ * Similar to getHighestSelectedElements in wrapInList but tailored for toggleList.
+ */
+var getHighestSelectedBlocks = function getHighestSelectedBlocks(options) {
+  return function (editor) {
+    var selection = editor.selection;
+
+    if (!selection) {
+      return [];
+    }
+
+    // For single cursor, get the block at cursor
+    if (_slate.Path.equals(selection.anchor.path, selection.focus.path)) {
+      var ancestor = _slate.Editor.above(editor, {
+        match: function match(n) {
+          return !_slate.Editor.isEditor(n) && _slate.Editor.isBlock(editor, n) && !_slate.Text.isText(n);
+        }
+      });
+      return ancestor ? [ancestor] : [];
+    }
+
+    // For range selections, find all block elements that intersect with the selection
+    var allBlockNodes = [].concat(_toConsumableArray(_slate.Editor.nodes(editor, {
+      at: selection,
+      match: function match(n) {
+        return !_slate.Editor.isEditor(n) && _slate.Editor.isBlock(editor, n) && !_slate.Text.isText(n);
+      }
+    })));
+
+    // Filter to keep only relevant blocks:
+    // - Lists are kept even if they contain other blocks (they'll be unwrapped)
+    // - List items are excluded (we only want to process their parent lists or their content)
+    // - Other blocks are kept only if they're leaf blocks (not containers like columns)
+    var selectedBlocks = allBlockNodes.filter(function (_ref5) {
+      var _ref6 = _slicedToArray(_ref5, 2),
+          node = _ref6[0],
+          path = _ref6[1];
+
+      // Exclude list items - we process their parent lists or their content instead
+      if ((0, _utils.isItem)(options)(node)) {
+        return false;
+      }
+
+      // Always keep lists if they're directly selected
+      if ((0, _utils.isList)(options)(node)) {
+        return true;
+      }
+
+      // For other blocks, check if this block contains any other selected block
+      // If it does, it's a container and we should exclude it
+      return !allBlockNodes.some(function (_ref7) {
+        var _ref8 = _slicedToArray(_ref7, 2),
+            otherPath = _ref8[1];
+
+        if (_slate.Path.equals(path, otherPath)) {
+          return false; // Skip self
+        }
+        // Check if otherPath is a descendant of path
+        return _slate.Path.isDescendant(otherPath, path);
+      });
+    });
+
+    return selectedBlocks;
+  };
+};
+
+/**
+ * Check if selection spans multiple columns (using blockTypesToKeepSeparate).
+ */
+var spansMultipleColumns = function spansMultipleColumns(options) {
+  return function (editor, selectedBlocks) {
+    if (!options.blockTypesToKeepSeparate || options.blockTypesToKeepSeparate.length === 0 || selectedBlocks.length <= 1) {
+      return false;
+    }
+
+    // Check if there's a block type in blockTypesToKeepSeparate between selected blocks
+    var firstPath = selectedBlocks[0][1];
+    var lastPath = selectedBlocks[selectedBlocks.length - 1][1];
+    var commonAncestorPath = _slate.Path.common(firstPath, lastPath);
+
+    // Check paths from first element up to and including common ancestor
+    var currentPath = firstPath;
+    while (currentPath.length >= commonAncestorPath.length) {
+      var node = _slate.Node.get(editor, currentPath);
+      if (node && node.type && options.blockTypesToKeepSeparate.includes(node.type)) {
+        return true;
+      }
+      if (_slate.Path.equals(currentPath, commonAncestorPath)) break;
+      currentPath = _slate.Path.parent(currentPath);
+    }
+
+    // Also check paths from last element up to and including common ancestor
+    currentPath = lastPath;
+    while (currentPath.length >= commonAncestorPath.length) {
+      var _node = _slate.Node.get(editor, currentPath);
+      if (_node && _node.type && options.blockTypesToKeepSeparate.includes(_node.type)) {
+        return true;
+      }
+      if (_slate.Path.equals(currentPath, commonAncestorPath)) break;
+      currentPath = _slate.Path.parent(currentPath);
+    }
+
+    // Check common ancestor itself and its ancestors up to editor
+    currentPath = commonAncestorPath;
+    while (currentPath.length >= 0) {
+      var _node2 = _slate.Node.get(editor, currentPath);
+      if (_node2 && _node2.type && options.blockTypesToKeepSeparate.includes(_node2.type)) {
+        return true;
+      }
+      if (currentPath.length === 0) break;
+      currentPath = _slate.Path.parent(currentPath);
+    }
+
+    return false;
+  };
+};
+
+/**
+ * Check if a block is inside a list.
+ */
+var isBlockInList = function isBlockInList(options) {
+  return function (editor, blockPath) {
+    var list = _slate.Editor.above(editor, {
+      at: blockPath,
+      match: function match(node) {
+        return (0, _utils.isList)(options)(node);
+      }
+    });
+    return list !== undefined;
+  };
+};
+
+/**
  * Toggle list on the selected range.
  */
 var toggleList = exports.toggleList = function toggleList(options) {
@@ -764,6 +901,10 @@ var toggleList = exports.toggleList = function toggleList(options) {
     }
 
     var range = editor.selection;
+
+    if (!range) {
+      return;
+    }
 
     var _Editor$parent = _slate.Editor.parent(editor, _slate.Range.start(range)),
         _Editor$parent2 = _slicedToArray(_Editor$parent, 2),
@@ -777,6 +918,174 @@ var toggleList = exports.toggleList = function toggleList(options) {
 
     var singleElementInSelection = startElement === endElement;
 
+    // Get highest selected blocks to check for multi-column selection
+    var selectedBlocks = getHighestSelectedBlocks(options)(editor);
+
+    // Check if selection spans multiple columns
+    var isMultiColumn = spansMultipleColumns(options)(editor, selectedBlocks);
+
+    if (isMultiColumn && selectedBlocks.length > 0) {
+      // Handle multi-column selection
+      _slate.Editor.withoutNormalizing(editor, function () {
+        // Check which blocks are in lists (either they are lists themselves or inside list items)
+        var blocksInLists = selectedBlocks.filter(function (_ref9) {
+          var _ref10 = _slicedToArray(_ref9, 2),
+              block = _ref10[0],
+              blockPath = _ref10[1];
+
+          // Block is itself a list
+          if ((0, _utils.isList)(options)(block)) {
+            return true;
+          }
+          // Block is inside a list (has a list ancestor)
+          return isBlockInList(options)(editor, blockPath);
+        });
+        var blocksNotInLists = selectedBlocks.filter(function (_ref11) {
+          var _ref12 = _slicedToArray(_ref11, 2),
+              block = _ref12[0],
+              blockPath = _ref12[1];
+
+          // Block is itself a list
+          if ((0, _utils.isList)(options)(block)) {
+            return false;
+          }
+          // Block is not inside a list
+          return !isBlockInList(options)(editor, blockPath);
+        });
+
+        var allHaveLists = blocksNotInLists.length === 0;
+        var noneHaveLists = blocksInLists.length === 0;
+        var mixed = !allHaveLists && !noneHaveLists;
+
+        if (allHaveLists) {
+          // All columns have lists: unwrap them all
+          // For multi-column scenarios, manually unwrap each list to ensure correct behavior
+          var listPathRefs = blocksInLists.filter(function (_ref13) {
+            var _ref14 = _slicedToArray(_ref13, 1),
+                block = _ref14[0];
+
+            return (0, _utils.isList)(options)(block);
+          }).map(function (_ref15) {
+            var _ref16 = _slicedToArray(_ref15, 2),
+                blockPath = _ref16[1];
+
+            return _slate.Editor.pathRef(editor, blockPath);
+          });
+
+          listPathRefs.forEach(function (listPathRef) {
+            var listPath = listPathRef.current;
+            if (!listPath) {
+              listPathRef.unref();
+              return;
+            }
+
+            // Get all items in this list
+            var listItems = [].concat(_toConsumableArray(_slate.Editor.nodes(editor, {
+              at: listPath,
+              match: (0, _utils.isItem)(options)
+            })));
+
+            // Unwrap each item
+            var itemPathRefs = listItems.map(function (_ref17) {
+              var _ref18 = _slicedToArray(_ref17, 2),
+                  itemPath = _ref18[1];
+
+              return _slate.Editor.pathRef(editor, itemPath);
+            });
+
+            itemPathRefs.forEach(function (itemPathRef) {
+              var itemPath = itemPathRef.current;
+              if (!itemPath) {
+                itemPathRef.unref();
+                return;
+              }
+
+              // Lift the list item out of the list first (moves it to column level)
+              _slate.Transforms.liftNodes(editor, {
+                at: itemPath
+              });
+
+              // Get the updated path after lifting
+              var liftedPath = itemPathRef.current;
+              if (liftedPath) {
+                // Now unwrap the list item, which should preserve its children (paragraphs)
+                _slate.Transforms.unwrapNodes(editor, {
+                  at: liftedPath
+                });
+              }
+              itemPathRef.unref();
+            });
+
+            // Remove the now-empty list if it still exists
+            if (_slate.Node.has(editor, listPath)) {
+              var list = _slate.Node.get(editor, listPath);
+              if ((0, _utils.isList)(options)(list) && list.children.length === 0) {
+                _slate.Transforms.removeNodes(editor, {
+                  at: listPath
+                });
+              }
+            }
+
+            listPathRef.unref();
+          });
+        } else {
+          // None have lists OR mixed: wrap all blocks (add lists to all)
+          if (mixed) {
+            // For mixed case, only wrap blocks that don't have lists
+            // Blocks that already have lists should be left as is
+            var type = newListOptions[0] || options.types[0];
+            var data = newListOptions[1];
+
+            // Use path refs to handle path changes during wrapping
+            var blockPathRefs = blocksNotInLists.map(function (_ref19) {
+              var _ref20 = _slicedToArray(_ref19, 2),
+                  blockPath = _ref20[1];
+
+              return _slate.Editor.pathRef(editor, blockPath);
+            });
+
+            blockPathRefs.forEach(function (blockPathRef) {
+              var blockPath = blockPathRef.current;
+              if (!blockPath) {
+                blockPathRef.unref();
+                return;
+              }
+
+              // Wrap the block in a list item first
+              _slate.Transforms.wrapNodes(editor, { type: options.typeItem }, {
+                at: blockPath
+              });
+
+              // Get the updated block path (it's now a child of the list item)
+              // The list item is at the parent of the updated block path
+              var updatedBlockPath = blockPathRef.current;
+              if (!updatedBlockPath) {
+                blockPathRef.unref();
+                return;
+              }
+              var listItemPath = _slate.Path.parent(updatedBlockPath);
+              var listItemPathRef = _slate.Editor.pathRef(editor, listItemPath);
+
+              // Wrap the list item in a list
+              _slate.Transforms.wrapNodes(editor, _extends({
+                type: type
+              }, data && { data: data }), {
+                at: listItemPath
+              });
+
+              listItemPathRef.unref();
+              blockPathRef.unref();
+            });
+          } else {
+            // None have lists: use wrapInList directly
+            (0, _.wrapInList)(options).apply(undefined, [editor].concat(newListOptions));
+          }
+        }
+      });
+      return;
+    }
+
+    // Original single-column logic
     if (singleElementInSelection) {
       if ((0, _utils.getTopmostItemsAtRange)(options)(editor).length > 0) {
         (0, _.unwrapList)(options)(editor);
@@ -793,9 +1102,9 @@ var toggleList = exports.toggleList = function toggleList(options) {
     // filter is necessary since getting all items at range
     // includes the leftmost item in deeply nested lists
     // which doesn't actually feel or seem (UX) like it's part of the selection
-    var listItemsInSelection = (0, _utils.getItemsAtRange)(options)(editor).filter(function (_ref5) {
-      var _ref6 = _slicedToArray(_ref5, 2),
-          listItemPath = _ref6[1];
+    var listItemsInSelection = (0, _utils.getItemsAtRange)(options)(editor).filter(function (_ref21) {
+      var _ref22 = _slicedToArray(_ref21, 2),
+          listItemPath = _ref22[1];
 
       return isListItemAfterTheFirstItem(listItemPath, firstImmediateListItemInSelection);
     });
