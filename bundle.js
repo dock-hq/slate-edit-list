@@ -1210,7 +1210,11 @@ var getHighestSelectedElements = function getHighestSelectedElements(options) {
       return [];
     }
 
-    if (_slate.Path.equals(selection.anchor.path, selection.focus.path)) {
+    // Use Range.start() and Range.end() to handle backwards selections correctly
+    var startPath = _slate.Range.start(selection).path;
+    var endPath = _slate.Range.end(selection).path;
+
+    if (_slate.Path.equals(startPath, endPath)) {
       var ancestor = _slate.Editor.above(editor, {
         match: function match(n) {
           return !_slate.Editor.isEditor(n) && _slate.Editor.isBlock(editor, n) && !_slate.Text.isText(n);
@@ -1221,9 +1225,9 @@ var getHighestSelectedElements = function getHighestSelectedElements(options) {
     }
 
     // For sibling cases, use the original efficient approach
-    var ancestorPath = _slate.Path.common(selection.anchor.path, selection.focus.path);
-    var startIndex = _slate.Path.relative(selection.anchor.path, ancestorPath)[0];
-    var endIndex = _slate.Path.relative(selection.focus.path, ancestorPath)[0];
+    var ancestorPath = _slate.Path.common(startPath, endPath);
+    var startIndex = _slate.Path.relative(startPath, ancestorPath)[0];
+    var endIndex = _slate.Path.relative(endPath, ancestorPath)[0];
 
     var siblings = [].concat(_toConsumableArray(_slate.Node.children(editor, ancestorPath))).slice(startIndex, endIndex + 1);
 
@@ -1248,13 +1252,13 @@ var getHighestSelectedElements = function getHighestSelectedElements(options) {
         return false;
       }
 
-      // Check if selection anchor or focus is a descendant of this sibling
-      var anchorPath = selection.anchor.path;
-      var focusPath = selection.focus.path;
-      var isAnchorDescendant = _slate.Path.isDescendant(anchorPath, siblingPath);
-      var isFocusDescendant = _slate.Path.isDescendant(focusPath, siblingPath);
+      // Check if selection start or end is a descendant of this sibling
+      var startPath = _slate.Range.start(selection).path;
+      var endPath = _slate.Range.end(selection).path;
+      var isStartDescendant = _slate.Path.isDescendant(startPath, siblingPath);
+      var isEndDescendant = _slate.Path.isDescendant(endPath, siblingPath);
 
-      if (!isAnchorDescendant && !isFocusDescendant) {
+      if (!isStartDescendant && !isEndDescendant) {
         return false;
       }
 
@@ -1285,9 +1289,9 @@ var getHighestSelectedElements = function getHighestSelectedElements(options) {
       // If there are 1+ block levels between sibling and selection, it's a container
       // (e.g., column > paragraph = 1 block, so column is a container)
       // We want to get paragraphs, not columns
-      var anchorBlockLevels = countBlockLevels(anchorPath);
-      var focusBlockLevels = countBlockLevels(focusPath);
-      return anchorBlockLevels >= 1 || focusBlockLevels >= 1;
+      var startBlockLevels = countBlockLevels(startPath);
+      var endBlockLevels = countBlockLevels(endPath);
+      return startBlockLevels >= 1 || endBlockLevels >= 1;
     });
 
     if (allHaveSameParent && !hasContainerBlocks) {
